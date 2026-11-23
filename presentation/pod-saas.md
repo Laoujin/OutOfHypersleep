@@ -71,13 +71,6 @@ Build vs buy flipped for small tools. Not for your ERP.
 
 ---
 layout: hs
-routeAlias: saas-woke
----
-
-<Hs id="saas-woke" />
-
----
-layout: hs
 routeAlias: saas-log
 ---
 

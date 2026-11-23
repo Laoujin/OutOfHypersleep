@@ -126,13 +126,6 @@ The loop that fed every model: bug, public question, answer, index, training.
 
 ---
 layout: hs
-routeAlias: stackoverflow-woke
----
-
-<Hs id="stackoverflow-woke" />
-
----
-layout: hs
 routeAlias: stackoverflow-log
 ---
 

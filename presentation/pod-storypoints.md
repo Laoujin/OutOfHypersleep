@@ -71,13 +71,6 @@ The alien eats story points. Some will cheer.
 
 ---
 layout: hs
-routeAlias: storypoints-woke
----
-
-<Hs id="storypoints-woke" />
-
----
-layout: hs
 routeAlias: storypoints-log
 ---
 

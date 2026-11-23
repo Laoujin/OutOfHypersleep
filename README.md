@@ -73,7 +73,7 @@ pod:
   wip: true            # badge on the ship map until the deck is done
 ```
 
-Every pod deck uses the same frame: **thaw** (ID card) → **froze** (`frozenBecause`, or `was` for dead pods) → the pod's own slides → **woke** (`wokenBecause`, or `diesBecause`) → **log** (`takeaway`, score). The frame slides are generated in `hs/slides.js`; the `.md` lists them as `<Hs id="<pod>-thaw" />` etc. A pod can replace a frame slide with its own slides via `podFrame` in `hs/slides.js` (Stack Overflow replaces *froze* with empire / gamification / reflex). Background plate for thaw and log: `public/plates/pod-<id>.webp` (prompts in `docs/theme/index.html`).
+Every pod deck uses the same frame: **thaw** (ID card) → **froze** (`frozenBecause`, or `was` for dead pods) → the pod's own slides → **woke** (`wokenBecause`; skipped for dead pods) → **log** (`takeaway`, score). The frame slides are generated in `hs/slides.js`; the `.md` lists them as `<Hs id="<pod>-thaw" />` etc. A pod can replace a frame slide with its own slides via `podFrame` in `hs/slides.js` (Stack Overflow replaces *froze* with empire / gamification / reflex). Background plate for thaw and log: `public/plates/pod-<id>.webp` (prompts in `docs/theme/index.html`).
 
 Game-wide rules (alien events at the twist and intermezzo, the penalty per pod left asleep) are in the `game:` block of `presentation/slides.md`. Add a pod by adding a `pod-<id>.md` with a `pod:` header and its slides.
 

@@ -592,7 +592,7 @@ decode(encode("123"))   <span class="green">✓</span></pre></div>
       else add(frame(p, k, FRAME[k]));
     }
     for (const d of podSlides[p.id] || []) add(custom(p.id, d));
-    for (const k of HS.FRAME_AFTER) add(frame(p, k, FRAME[k]));
+    for (const k of HS.FRAME_AFTER) if (!(p.dead && k === 'woke')) add(frame(p, k, FRAME[k]));
   }
 
   // ───────────────────────── INTERMEZZO ─────────────────────────
