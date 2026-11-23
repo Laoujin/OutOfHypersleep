@@ -111,29 +111,6 @@ svg [data-s] { transform: none; }
 .title-pods .podsvg { width: 84px; }
 .title-pods .podsvg:nth-child(odd) { transform: translateY(-40px); }
 
-/* launch */
-.launch-stage { position: relative; height: 100%; }
-.voyage { position: absolute; left: 0; top: 160px; width: 1460px; height: 520px; overflow: visible; }
-.voyage .earth { fill: #1f5fa8; filter: drop-shadow(0 0 30px rgba(79, 179, 255, .5)); }
-.voyage .earth-land { fill: #2f8a6b; }
-.voyage .route { fill: none; stroke: var(--line); stroke-width: 3; stroke-dasharray: 4 12; }
-.voyage .star { fill: #fff3c4; filter: drop-shadow(0 0 16px #ffd76a); }
-.voyage .star.b { fill: #ffd3a0; }
-.voyage .lbl { fill: var(--ink); font: 600 22px var(--sans); }
-.voyage .lbl.dim { fill: var(--muted); font-size: 18px; }
-.voyage .ship { offset-path: path("M190 300 C 500 160, 900 440, 1290 260"); offset-distance: 0%; }
-.s1 .voyage .ship { animation: fly 6s ease-in-out forwards; }
-.voyage .hull { fill: #dfe9f8; }
-.voyage .win { fill: var(--cryo); }
-.voyage .flame { fill: var(--amber); animation: flicker .3s infinite; }
-@keyframes fly { to { offset-distance: 62%; } }
-.launch-lines { position: absolute; left: 0; top: 0; }
-.launch-lines .big { font-size: 84px; font-family: var(--head); font-weight: 700; letter-spacing: 0; text-transform: uppercase; }
-.launch-lines .mid { font-size: 38px; color: var(--ink); margin-top: 10px; }
-.launch-lines .accent { color: var(--amber); }
-.launch-lines .cold { color: var(--cryo); }
-.launch .mini-pods .podsvg { overflow: visible; }
-
 /* manifest */
 .manifest-body { display: flex; gap: 60px; flex: 1; align-items: center; }
 .polaroid { background: #e9edf3; padding: 18px 18px 56px; border-radius: 6px; transform: rotate(-2.5deg); box-shadow: 0 30px 60px rgba(0, 0, 0, .5); position: relative; }
@@ -440,7 +417,6 @@ pre.code { margin: 0; font: 21px/1.6 var(--mono); color: var(--ink); white-space
 .alarm-bar .marquee.rev { animation-direction: reverse; }
 .alarm-bar .marquee span { padding-right: 1.2em; }
 @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-.launch-exciting { position: absolute; left: 0; right: 0; bottom: 20px; text-align: center; font-size: 88px; font-family: var(--head); font-weight: 700; letter-spacing: 0; text-transform: uppercase; color: var(--amber); text-shadow: 0 0 40px rgba(255, 181, 71, .35); }
 
 /* map pods v2: anonymous, votes prominent */
 .map .map-grid { width: 1500px; }
@@ -599,3 +575,18 @@ pre.code { margin: 0; font: 21px/1.6 var(--mono); color: var(--ink); white-space
 .status { --plate-img: url('/plates/bridge.webp');
   --plate-shade: linear-gradient(180deg, rgba(5,7,10,.85) 0%, rgba(5,7,10,.55) 40%, rgba(5,7,10,.6) 100%); }
 .rv-verdict small { font: 800 40px var(--mono); letter-spacing: .02em; margin-top: 10px; color: inherit; }
+
+.launch { --plate-img: url('/plates/launch.webp');
+  --plate-shade: linear-gradient(180deg, rgba(0,0,0,.55) 0%, transparent 30%, transparent 50%, rgba(0,0,0,.8) 100%); padding: 0; }
+.launch .lt { position: absolute; left: 0; right: 0; top: 56px; display: flex; align-items: stretch; }
+.launch .lt-live { background: var(--amber); color: #111; font: 700 26px var(--head); text-transform: uppercase; letter-spacing: .08em; padding: 14px 28px; display: flex; align-items: center; gap: 12px; }
+.launch .lt-live i { width: 14px; height: 14px; border-radius: 50%; background: #111; animation: flicker 2s infinite; }
+.launch .lt-hl { flex: 1; background: rgba(10, 12, 15, .88); border-bottom: 2px solid var(--amber); padding: 12px 30px; display: flex; flex-direction: column; justify-content: center; }
+.launch .lt-hl b { font: 700 34px var(--head); text-transform: uppercase; color: #fff; }
+.launch .lt-hl span { font: 400 20px var(--sans); color: var(--muted); }
+.launch-q { position: absolute; left: 90px; bottom: 130px; }
+.launch-q h1 { font-size: 120px; line-height: 1; color: #fff; }
+.launch-q .sub { margin-top: 18px; font: 400 32px var(--sans); color: var(--frost); }
+.launch .ticker { position: absolute; left: 0; right: 0; bottom: 30px; height: 44px; background: #000; color: var(--amber); font: 600 20px var(--mono); letter-spacing: .14em; display: flex; align-items: center; overflow: hidden; white-space: nowrap; }
+.launch .ticker .marquee { display: inline-flex; animation: marquee 40s linear infinite; }
+.launch .ticker .marquee span { padding-right: .8em; }

@@ -28,21 +28,16 @@ import QRCode from 'qrcode';
   });
 
   add({
-    id: 'launch', seq: 'intro', steps: 3, cls: 'launch',
-    html: () => `<div class="launch-stage">
-        <svg viewBox="0 0 1460 520" class="voyage">
-          <circle class="earth" cx="110" cy="300" r="70"/>
-          <path class="earth-land" d="M70 270 q20 -20 40 -6 t30 20 q-10 30 -40 26 t-30 -40Z"/>
-          <path class="route" d="M190 300 C 500 160, 900 440, 1290 260"/>
-          <g class="target"><circle cx="1310" cy="250" r="18" class="star a"/><circle cx="1350" cy="280" r="11" class="star b"/>
-            <text x="1330" y="210" text-anchor="middle" class="lbl">Alpha Centauri</text><text x="1330" y="330" text-anchor="middle" class="lbl dim">4.37 light years</text></g>
-          <g class="ship" data-s="1"><path d="M-46 -12 L30 -12 L58 0 L30 12 L-46 12 L-36 0Z" class="hull"/><rect x="-20" y="-6" width="34" height="12" rx="6" class="win"/><path d="M-46 -8 L-72 0 L-46 8Z" class="flame"/></g>
-        </svg>
-        <div class="launch-lines">
-          <div class="big" data-s="0">"We've done it."</div>
-          <div class="mid" data-s="1">We built a starship, and we're going to colonize Alpha Centauri.</div>
-        </div>
-        <div class="launch-exciting" data-s="2">Exciting times to be alive!</div></div>`,
+    id: 'launch', seq: 'intro', steps: 3, cls: 'launch plate',
+    html: () => `<div class="lt">
+        <div class="lt-live"><i></i>Live</div>
+        <div class="lt-hl"><b>First colony ship leaves Earth orbit</b><span>Destination Alpha Centauri · 4.37 light years · crew in hypersleep</span></div>
+      </div>
+      <div class="launch-q">
+        <h1>"We've done it."</h1>
+        <div class="sub" data-s="1">We built a starship, and we're going to colonize Alpha Centauri.</div>
+      </div>
+      <div class="ticker" data-s="2"><div class="marquee">${Array(6).fill(`<span>EXCITING TIMES TO BE ALIVE · MARKETS RALLY ON LAUNCH NEWS · NEXT CONTACT IN 4 YEARS ·</span>`).join('')}</div></div>`,
   });
 
   add({
