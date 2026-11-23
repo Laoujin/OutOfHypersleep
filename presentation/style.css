@@ -589,7 +589,7 @@ pre.code { margin: 0; font: 21px/1.6 var(--mono); color: var(--ink); white-space
 .launch-q .sub { margin-top: 18px; font: 400 32px var(--sans); color: var(--frost); }
 
 .but { --plate-img: url('/plates/red-corridor.webp'); --plate-shade: linear-gradient(180deg, rgba(0,0,0,.45), rgba(0,0,0,.35) 50%, rgba(0,0,0,.55)); }
-.but .alarm-bar { padding: 0; height: 44px; display: flex; align-items: center; color: #111; font: 700 18px var(--mono); letter-spacing: .2em; background: repeating-linear-gradient(-45deg, var(--alien) 0 24px, #c2203d 24px 48px); animation: none; }
+.but .alarm-bar { padding: 0; height: 44px; display: flex; align-items: center; color: #fff; text-shadow: 0 1px 2px rgba(0,0,0,.6); font: 700 18px var(--mono); letter-spacing: .2em; background: repeating-linear-gradient(-45deg, var(--alien) 0 24px, #c2203d 24px 48px); animation: none; }
 .but .hud-corner { top: 70px; }
 .but-eye { position: absolute; left: 50%; top: 250px; width: 260px; translate: -50% -50%; filter: drop-shadow(0 0 40px rgba(255, 59, 92, .6)); }
 .but-eye .alien { width: 260px; height: 260px; }
