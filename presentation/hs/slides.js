@@ -74,10 +74,11 @@ import QRCode from 'qrcode';
   const podCard = (p, st) => {
     const woken = st.woken.includes(p.id);
     const state = woken ? (p.dead ? 'dead' : 'awake') : 'closed';
-    const cls = ['pod', `t-${p.deck}`, `is-${state}`, HS.leader() === p.id ? 'lead' : ''].join(' ');
+    const cls = ['pod', `t-${p.deck}`, `is-${state}`, HS.leader() === p.id ? 'lead' : '', p.wip ? 'wip' : ''].join(' ');
     const votes = HS.votesOf(p.id);
     const label = { closed: 'HYPERSLEEP', awake: 'REVIVED', dead: 'NO SIGNS' }[state];
     return `<div class="${cls}" data-pod="${p.id}">
+      ${p.wip ? '<div class="wip-tag">WIP</div>' : ''}
       <div class="pod-art">${A.cryo(state, label)}</div>
       ${woken ? '' : `<div class="votes"><span class="vn">${votes}</span><small>votes</small><div class="vb"><button data-act="down" data-id="${p.id}">−</button><button data-act="up" data-id="${p.id}">+</button></div></div>`}
       <div class="pod-info"><span class="yr">❄ ${p.frozen}</span>${A.rel(p.power)}${A.flip(p.score.alive, Math.abs(p.score.dead), woken ? (p.dead ? 'show-neg' : 'show-pos') : '')}</div>
