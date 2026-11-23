@@ -576,3 +576,8 @@ pre.code { margin: 0; font: 21px/1.6 var(--mono); color: var(--ink); white-space
 .vote-side .kicker { font-size: 22px; margin-bottom: 18px; }
 .vote-badge { display: inline-block; font: 800 72px var(--mono); letter-spacing: -.01em; color: #04140d; background: var(--phos, #7dffb0); padding: 18px 40px; border-radius: 999px; box-shadow: 0 0 40px rgba(125, 255, 176, .45); }
 .to-cryo { margin-top: 26px; font: 600 26px var(--mono); color: var(--cryo); letter-spacing: .04em; }
+
+.title-slide::before { content: ""; position: absolute; inset: 0; z-index: 0; background: url('/plates/cryo-bay.jpg') center / cover no-repeat; transform: scaleX(-1); }
+.title-slide::after { content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  background: linear-gradient(90deg, rgba(5,7,10,.92) 0%, rgba(5,7,10,.78) 38%, rgba(5,7,10,.15) 70%, rgba(5,7,10,.35) 100%), radial-gradient(ellipse at center, transparent 55%, rgba(0,0,0,.6) 100%); }
+.title-slide .title-pods { display: none; }
