@@ -78,8 +78,8 @@ clicks: 1
 <Hs id="ask" />
 
 <!--
-The ask. The audience is now in charge of the crew.
-[click] QR code: phones out, vote at https://pods.sangu.be (one vote per pod, tap again to undo). Then → to the ship map.
+The ask, recruitment-poster style: "We need YOU". The audience is now in charge of the crew.
+[click] QR code: phones out, vote which crew member to wake at https://pods.sangu.be (one vote per pod, tap again to undo). Then → to the ship map.
 -->
 
 ---

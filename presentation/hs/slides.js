@@ -66,11 +66,15 @@ import QRCode from 'qrcode';
 
   add({
     id: 'ask', seq: 'intro', steps: 2,
-    cls: 'ask',
-    html: () => `<div class="ask-top"><div class="big">We need <em>you</em> to wake crew members to battle it.</div></div>
+    cls: 'ask plate',
+    html: () => `<div class="ask-top">
+        <div class="alarm"><i></i>intruder alert · all hands</div>
+        <div class="poster">We need<br><em>YOU</em></div>
+        <div class="poster-sub">to wake the crew that can fight the alien.</div>
+      </div>
       <div class="vote-cta" data-s="1">
         ${qrSvg(HS.VOTE_URL)}
-        <div class="vote-side"><div class="kicker">vote for the next pod</div><div class="vote-badge">${HS.VOTE_URL}</div></div>
+        <div class="vote-side"><div class="kicker">vote which crew member to wake</div><div class="vote-badge">${HS.VOTE_URL}</div></div>
       </div>`,
   });
 
