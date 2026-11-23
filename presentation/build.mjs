@@ -6,8 +6,8 @@ const decks = readdirSync('.').filter(f => f.endsWith('.md') && f !== 'slides.md
 
 const run = cmd => { console.log(`> ${cmd}`); execSync(cmd, { stdio: 'inherit' }) }
 
-run(`npx slidev build slides.md --base ${base} --out dist`)
+run(`bunx slidev build slides.md --base ${base} --out dist`)
 for (const f of decks) {
   const name = f.replace(/\.md$/, '')
-  run(`npx slidev build ${f} --base ${base}${name}/ --out dist/${name}`)
+  run(`bunx slidev build ${f} --base ${base}${name}/ --out dist/${name}`)
 }

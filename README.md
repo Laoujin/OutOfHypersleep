@@ -11,10 +11,10 @@ Obscure dev tooling that sat frozen for years until AI agents woke it up. A 45-m
 
 ```bash
 cd presentation
-npm install
-npm run preview  # build all decks and serve them at http://localhost:4173/OutOfHypersleep/
-npm run build    # all decks into presentation/dist
-npx slidev pod-mutation.md   # work on a single deck (links to other decks only work in preview/build)
+bun install
+bun run preview  # build all decks and serve them at http://localhost:4173/OutOfHypersleep/
+bun run build    # all decks into presentation/dist
+bunx slidev pod-mutation.md   # work on a single deck (links to other decks only work in preview/build)
 ```
 
 Every push to `main` builds the Slidev deck and publishes it to GitHub Pages (`.github/workflows/pages.yml`).

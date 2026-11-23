@@ -4,8 +4,8 @@
   "type": "module",
   "scripts": {
     "dev": "slidev --open",
-    "build": "node build.mjs",
-    "preview": "npm run build && vite preview --outDir dist --base /OutOfHypersleep/ --port 4173 --open /OutOfHypersleep/",
+    "build": "bun build.mjs",
+    "preview": "bun run build && bunx vite preview --outDir dist --base /OutOfHypersleep/ --port 4173 --open /OutOfHypersleep/",
     "export": "slidev export --with-clicks=false"
   },
   "dependencies": {
