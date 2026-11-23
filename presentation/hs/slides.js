@@ -331,9 +331,9 @@ import soCsv from '../data/stackoverflow-questions.csv?raw';
           <div class="trailer-tag" data-s="1">↑ a <b>commit trailer</b> · <code>git interpret-trailers</code>, 2014</div>
         </div>
         <div class="term-block" data-s="2"><div class="mono">$ git log --format='%(trailers:key=Co-Authored-By,valueonly)' | sort | uniq -c</div>
-          <div class="mono green">&nbsp;&nbsp;1284 Claude &lt;noreply@anthropic.com&gt;</div><div class="mono dim">&nbsp;&nbsp;&nbsp;&nbsp;(the rest is you)</div></div>
+          <div class="mono green">&nbsp;&nbsp;&nbsp;&nbsp;45 Claude &lt;noreply@anthropic.com&gt;</div><div class="mono dim">&nbsp;&nbsp;&nbsp;&nbsp;# this talk's repo: 48 commits. 3 are mine.</div></div>
         <div class="stamp" data-s="3">ALIEN MARK<br><span>crew −10</span></div>`,
-      caps: ['Recognise the last line?', 'It has a name: a <b>commit trailer</b>. Key: value, at the end of the message.', 'Trailers are queryable. Who wrote main?', 'The twist: every one is <b>the alien\'s mark</b>. This crew member costs points.'],
+      caps: ['Recognise the last line?', 'It has a name: a <b>commit trailer</b>. Key: value, at the end of the message.', 'Trailers are queryable. Who wrote <b>this talk</b>?', 'The twist: every one is <b>the alien\'s mark</b>. This crew member costs points.'],
     }],
     bisect: [{
       slug: 'why', title: '64 commits, nobody watching',
@@ -561,7 +561,7 @@ decode(encode("123"))   <span class="green">✓</span></pre></div>
     log: p => `${bg(p)}<div class="log">
       <div class="log-h">Crew log · ${p.name}</div>
       <div class="log-line">&gt; ${todo(p.takeaway)}</div>
-      <div class="log-score ${p.dead ? 'red' : ''}">${p.dead ? `alien +${Math.abs(p.score.dead)}` : `crew +${p.score.alive}`}</div>
+      <div class="log-score ${p.dead || p.score.alive < 0 ? 'red' : ''}">${p.dead ? `alien +${Math.abs(p.score.dead)}` : `crew ${p.score.alive < 0 ? '−' : '+'}${Math.abs(p.score.alive)}`}</div>
     </div>`,
   };
   HS.FRAME_BEFORE = ['thaw', 'froze'];

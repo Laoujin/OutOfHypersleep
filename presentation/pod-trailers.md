@@ -19,20 +19,20 @@ fonts:
   mono: IBM Plex Mono
   weights: '400,500,600,700'
 pod:
-  wip: true
   id: trailers
   name: Commit trailers
   deck: integration
   order: 2
   frozen: 2014
   born: 2014
-  power: 3
+  power: 5
   fate: alive
   score:
     alive: -10
     dead: -40
   frozenBecause: Nobody knew they existed (except kernel devs and <code>Signed-off-by</code>).
-  wokenBecause: "Every AI commit carries <code>Co-Authored-By</code>: the alien's mark."
+  wokenBecause: "Every agent commit carries <code>Co-Authored-By</code>. Suddenly <code>git log</code> knows who really wrote main."
+  takeaway: The alien signs its work.
 layout: hs
 routeAlias: trailers-thaw
 ---
@@ -62,11 +62,12 @@ clicks: 3
 Background: `git interpret-trailers`: Git 2.2, 2014 (to verify).
 The twist: this crew member costs the crew points. Every Co-Authored-By trailer is the alien's mark on your history.
 Surprise: the audience has been looking at one for two years without knowing the name.
+The count is real: this talk's own repo, 48 commits, 45 co-authored by Claude (Nov 2026). Re-run before the talk.
 
 Ask the room: who recognises the last line? Everyone has seen it, almost nobody knows it is called a trailer.
 [click] git interpret-trailers, since 2014. Signed-off-by is the famous one.
-[click] They are structured: git log can filter and count them.
-[click] Scoring twist: commit trailers give the crew NEGATIVE points. The alien's mark on every commit. The number on screen is illustrative.
+[click] They are structured: git log can filter and count them. This is the repo of this talk.
+[click] Scoring twist: commit trailers give the crew NEGATIVE points. The alien's mark on every commit.
 -->
 
 ---
