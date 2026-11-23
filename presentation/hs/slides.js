@@ -562,7 +562,6 @@ decode(encode("123"))   <span class="green">✓</span></pre></div>
       <div class="log-h">Crew log · ${p.name}</div>
       <div class="log-line">&gt; ${todo(p.takeaway)}</div>
       <div class="log-score ${p.dead ? 'red' : ''}">${p.dead ? `alien +${Math.abs(p.score.dead)}` : `crew +${p.score.alive}`}</div>
-      <div class="log-next">→ back to the cryo chamber</div>
     </div>`,
   };
   HS.FRAME_BEFORE = ['thaw', 'froze'];
