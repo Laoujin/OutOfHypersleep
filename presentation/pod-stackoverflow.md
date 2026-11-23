@@ -31,7 +31,7 @@ pod:
   score:
     alive: 50
     dead: -40
-  takeaway: Not every crew member survives the thaw.
+  takeaway: Closed as duplicate.
   diesBecause: Questions are answered inside the agent now. Volume collapsed after 2023.
 layout: hs
 routeAlias: stackoverflow-thaw
