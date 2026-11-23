@@ -42,20 +42,6 @@ Then straight into the twist.
 
 ---
 layout: hs
-routeAlias: wall
-clicks: 1
----
-
-<Hs id="wall" />
-
-<!--
-The ship's crew: each tool a crew member, frozen with a date.
-[click] They were frozen for a reason: too expensive, too niche, too much ceremony. Agents removed that reason.
-Do NOT reveal the average age yet: that is the scoreboard surprise.
--->
-
----
-layout: hs
 routeAlias: twist
 clicks: 2
 ---
@@ -65,6 +51,7 @@ clicks: 2
 <!--
 The twist: an evil alien AI has infiltrated the ship.
 [click] It scores with the problems of LLMs: hallucinations, bias, environmental cost. It is already ahead.
+This slide starts a fresh game: score, votes and woken pods reset to 0.
 The scoreboard stays with us all talk.
 -->
 

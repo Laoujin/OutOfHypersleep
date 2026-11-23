@@ -37,14 +37,8 @@
   });
 
   add({
-    id: 'wall', seq: 'intro', steps: 2, cls: 'wall',
-    html: () => `${head('the crew', 'Every pod has a freeze date')}
-      <div class="wall-grid">${HS.pods.filter(p => p.type !== 'dead').map(p => `<div class="wpod t-${p.type}">${A.pod('frozen')}<b>${p.name}</b><span class="yr">❄ ${p.year}</span></div>`).join('')}</div>
-      <div class="wall-foot" data-s="1">Frozen because it was <b>too expensive</b>, <b>too niche</b> or <b>too much ceremony</b>.</div>`,
-  });
-
-  add({
     id: 'twist', seq: 'intro', steps: 3, cls: 'twist',
+    enter: c => { Object.assign(c.state, { woken: [], votes: {}, events: {}, shown: { crew: 0, alien: 0 } }); },
     html: () => `${HS.marquee('⚠ INTRUDER DETECTED · DECK 3 ·')}
       <div class="twist-body">
         <div class="twist-eye" data-s="1">${A.alien()}</div>
@@ -64,7 +58,7 @@
   add({
     id: 'ask', seq: 'intro', steps: 2,
     html: () => `<div class="statement"><div class="big">We need <em>you</em> to wake crew members to battle it.</div>
-      <div class="small" data-s="1">In plain words: <b>tame the LLM output</b>.</div></div>`,
+      <div class="small" data-s="1">We need to <b>tame the LLM output</b>.</div></div>`,
   });
 
   add({
