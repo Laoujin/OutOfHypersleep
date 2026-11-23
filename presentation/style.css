@@ -429,3 +429,10 @@ pre.code { margin: 0; font: 21px/1.6 var(--mono); color: var(--ink); white-space
 .about p { margin: 8px 0; color: #cfdaea; }
 .about a { color: var(--frost); }
 .strike .twist-text .big { font-size: 76px; max-width: 760px; }
+
+.alarm-bar { z-index: 3; }
+.alarm-bar.bottom { top: auto; bottom: 0; }
+.alarm-bar .marquee { display: inline-flex; white-space: nowrap; animation: marquee 18s linear infinite; }
+.alarm-bar .marquee.rev { animation-direction: reverse; }
+.alarm-bar .marquee span { padding-right: 1.2em; }
+@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }

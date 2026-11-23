@@ -93,8 +93,8 @@ HS.pods = [
 ];
 
 HS.awake = [
-  { id: 'tdd', name: 'TDD', year: 2002, points: 10 },
-  { id: 'unit', name: 'Unit testing', year: 1994, points: 10 },
+  { id: 'tdd', name: 'TDD', year: 2002, points: 0 },
+  { id: 'unit', name: 'Unit testing', year: 1994, points: 0 },
 ];
 
 HS.dying = [

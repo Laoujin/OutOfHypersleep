@@ -12,22 +12,29 @@ Obscure dev tooling that sat frozen for years until AI agents woke it up. A 45-m
 ```bash
 cd presentation
 npm install
-npm run dev      # http://localhost:3030, presenter view at /presenter
-npm run build    # static site in presentation/dist
+npm run preview  # build all decks and serve them at http://localhost:4173/OutOfHypersleep/
+npm run build    # all decks into presentation/dist
+npx slidev pod-mutation.md   # work on a single deck (links to other decks only work in preview/build)
 ```
 
 Every push to `main` builds the Slidev deck and publishes it to GitHub Pages (`.github/workflows/pages.yml`).
 
 ## How the audience picks pods
 
-It is **one Slidev deck**. The ship map is a slide (a hub); every pod's slides live in the same deck, each with a `routeAlias`.
+The talk is split into **separate Slidev decks** that link into each other:
 
-- Votes are shown per pod on the map (+ / − buttons for now: show of hands). The leader glows.
-- Click a pod, or press → on the map to open the vote leader: the deck jumps to that pod's slides.
-- At the end of a pod, → returns to the ship map (the scoreboard counts up). Skipped pods are simply never visited.
-- After the 3rd pod, → goes to the intermezzo first. The final pod (Schrödinger's developer) is at the bow of the map.
+| Deck | File | URL |
+|---|---|---|
+| Intro: starship, alien AI invasion, rules, **ship map** | `slides.md` | `/OutOfHypersleep/` |
+| One deck per pod | `pod-<id>.md` | `/OutOfHypersleep/pod-<id>/` |
+| Intermezzo: the alien strikes back | `intermezzo.md` | `/OutOfHypersleep/intermezzo/` |
+| Finale: Schrödinger's developer, scoreboard, closing | `finale.md` | `/OutOfHypersleep/finale/` |
 
-This works by overriding Slidev's navigation shortcuts (`presentation/setup/shortcuts.ts`): → / ← / PageDown / PageUp / clicker follow the hub instead of the linear slide order. Presenter view and notes are plain Slidev. Game state (woken pods, votes, score) lives in `localStorage`, so it survives a refresh and syncs to the presenter window.
+- The ship map is the last slide of the intro deck. Votes are shown per pod (+ / − buttons for now; a separate voting app will feed them). The leader glows.
+- Click a pod, or press → on the map to open the vote leader: the browser opens that pod's deck.
+- At the end of a pod deck, → returns to the ship map. After the 3rd pod, → goes to the intermezzo deck first. The final pod (Schrödinger's developer) is at the bow of the map.
+
+The hub navigation lives in `presentation/hs/hub.js` and `presentation/setup/shortcuts.ts` (→ / ← / PageDown / PageUp / clicker follow the hub). Game state (woken pods, votes, score) is in `localStorage`, shared by all decks because they're on the same origin, so the score carries across decks and survives a refresh.
 
 For QR voting later: call `HS.setVotes({ podId: n, ... })` from a poll integration.
 
@@ -42,14 +49,14 @@ For QR voting later: call `HS.setVotes({ podId: n, ... })` from a poll integrati
 | A | about slide |
 | R | replay the current slide's animation |
 | F | fullscreen |
-| P | crew manifest slide: snap the photo |
 | X | reset the game (do this before the talk) |
 
 ## Structure
 
 | Path | What |
 |---|---|
-| `presentation/slides.md` | the deck: one `<Hs id>` per slide, with `routeAlias`, `clicks` and speaker notes |
+| `presentation/slides.md`, `pod-*.md`, `intermezzo.md`, `finale.md` | the decks: one `<Hs id>` per slide, with `routeAlias`, `clicks` and speaker notes |
+| `presentation/build.mjs` | builds every deck into `dist/` |
 | `presentation/hs/data.js` | pods, scoring rules, alien events, score function |
 | `presentation/hs/slides.js` | slide content and per-step SVG/CSS animations |
 | `presentation/hs/art.js` | artwork: cryo pod, alien eye, ECG, scoreboard |
@@ -70,15 +77,15 @@ Everything below is a default; change it in `presentation/hs/data.js` (`HS.pods`
 | Dead pods | 3: Stack Overflow ⭐, small SaaS tools, story points. |
 | Dying pods | 3 flickering, not selectable: pair programming (human with human), sprints & ceremonies, docs for humans. They die on stage at the intermezzo: nobody can save them. |
 | Context column | Left out (goes to the Memento talk). |
-| Crew score | `relevance today × 10` (30–50 per pod). Commit trailers: **−10** (the alien's mark). TDD + unit testing already awake: +20 head start. |
+| Crew score | `relevance today × 10` (30–50 per pod). Commit trailers: **−10** (the alien's mark). TDD + unit testing are already awake (on duty, no points): the crew starts at 0. |
 | Alien score | Fixed events: the twist (hallucinations, bias, environmental cost: +60) and the intermezzo (prompt injection, sycophancy, slop: +60). +40 per dead pod opened. At the end, +10 per live pod left asleep. |
-| Rigged? | No. Balanced so a 5–6 pod run with one dead pod ends close (e.g. five pods + one dead pod: crew ≈ 230 vs alien ≈ 220). Many dead pods or few pods opened → the alien wins. The speaker notes have a closing line for both outcomes. |
+| Rigged? | No. Balanced so a 5–6 pod run with one dead pod ends close (e.g. five pods + one dead pod: crew ≈ 210 vs alien ≈ 220, a knife edge now that the crew starts at 0). Many dead pods or few pods opened → the alien wins. The speaker notes have a closing line for both outcomes. |
 | Message map vs random order | Free vote. The map shows "N awake" per deck, and the intermezzo status report lists coverage per deck so the speaker can steer ("nobody wants to verify anything?"). |
-| Already awake | Shown in the medbay as open pods with +10 each; not selectable. |
+| Already awake | Shown in the medbay as open pods (on duty); not selectable, no points. |
 | Do voters know a pod is dead? | Subtle hint only: cargo-deck pods show `? ? ?` instead of relevance bars and no deck colour. |
 | Voting | Local click-to-choose: **+ / −** on each pod (show of hands). `HS.setVotes({ podId: n, ... })` is the hook for a future QR/poll integration. |
 | Intermezzo | The alien strikes back (its turn on the scoreboard) + a status report. Auto after the 3rd pod, or press I. |
-| Crew manifest photo | Laptop camera (Start camera → Snap / P) or load a phone photo. Placeholder crowd if neither. |
+| Crew manifest photo | Slide removed from the intro. The final pod shows a placeholder crowd for now. |
 | Surprising moment | Kept the source's main pick: the average age of the woken tooling, revealed on the scoreboard. |
 | Title / abstract | Drafted in `notes/talks/out-of-hypersleep.md`. |
 

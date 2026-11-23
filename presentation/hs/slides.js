@@ -1,5 +1,6 @@
 (() => {
   const A = HS.art;
+  HS.marquee = t => `<div class="alarm-bar"><div class="marquee">${Array(8).fill(`<span>${t}</span>`).join('')}</div></div><div class="alarm-bar bottom"><div class="marquee rev">${Array(8).fill(`<span>${t}</span>`).join('')}</div></div>`;
   const deckOf = p => (p.type === 'dead' ? 'Cargo deck' : `Deck ${HS.TYPES[p.type].n} · ${HS.TYPES[p.type].label}`);
   const head = (kicker, title, extra = '') => `<header><div class="kicker">${kicker}</div><h2>${title}</h2>${extra}</header>`;
   const S = [];
@@ -9,7 +10,7 @@
   add({
     id: 'title', seq: 'intro', cls: 'title-slide',
     html: () => `<div class="title-wrap">
-        <div class="kicker">a hypersleep story · 45 min</div>
+        <div class="kicker">a hypersleep story</div>
         <h1>Out of<br>Hypersleep</h1>
         <div class="subtitle">Obscure dev tooling that sat frozen for years,<br>until AI agents woke it up.</div>
         <div class="footer">Wouter Van Schandevijl · itenium</div>
@@ -18,7 +19,7 @@
   });
 
   add({
-    id: 'launch', seq: 'intro', steps: 4, cls: 'launch',
+    id: 'launch', seq: 'intro', steps: 3, cls: 'launch',
     html: () => `<div class="launch-stage">
         <svg viewBox="0 0 1460 520" class="voyage">
           <circle class="earth" cx="110" cy="300" r="70"/>
@@ -27,51 +28,12 @@
           <g class="target"><circle cx="1310" cy="250" r="18" class="star a"/><circle cx="1350" cy="280" r="11" class="star b"/>
             <text x="1330" y="210" text-anchor="middle" class="lbl">Alpha Centauri</text><text x="1330" y="330" text-anchor="middle" class="lbl dim">4.37 light years</text></g>
           <g class="ship" data-s="1"><path d="M-46 -12 L30 -12 L58 0 L30 12 L-46 12 L-36 0Z" class="hull"/><rect x="-20" y="-6" width="34" height="12" rx="6" class="win"/><path d="M-46 -8 L-72 0 L-46 8Z" class="flame"/></g>
-          <g class="mini-pods" data-s="3">${[0, 1, 2, 3, 4, 5].map(i => A.pod('frozen').replace('<svg ', `<svg x="${470 + i * 90}" y="380" width="50" height="84" `)).join('')}</g>
         </svg>
         <div class="launch-lines">
           <div class="big" data-s="0">"We've done it."</div>
           <div class="mid" data-s="1">We built a starship, and we're going to colonize Alpha Centauri.</div>
           <div class="mid accent" data-s="2">Exciting times to be alive!</div>
-          <div class="mid cold" data-s="3">The whole crew is asleep in their pods.</div>
         </div></div>`,
-  });
-
-  add({
-    id: 'manifest', seq: 'intro', cls: 'manifest',
-    html: () => `${head('crew manifest', 'Before departure: a photo for the ship\'s records')}
-      <div class="manifest-body">
-        <div class="polaroid"><div class="frame">${HS.photo ? `<img src="${HS.photo}" alt="crew manifest">` : `<video autoplay playsinline muted></video><div class="placeholder">${Array.from({ length: 18 }, () => '<i></i>').join('')}</div>`}</div>
-          <div class="cap-line">CREW · ${new Date().toISOString().slice(0, 10)} · ALL HANDS</div></div>
-        <div class="manifest-side">
-          <p>Everybody smile. This is the crew manifest. <b>It matters later.</b></p>
-          <div class="btns"><button data-act="cam">Start camera</button><button data-act="snap">📸 Snap</button><label class="btn">Load photo<input type="file" accept="image/*" hidden></label><button data-act="clear">Clear</button></div>
-          <p class="small">Or take the photo with your phone and load it here. Kept in this browser tab only: nothing is uploaded.</p>
-        </div></div>`,
-    init: (el, c) => {
-      const video = el.querySelector('video');
-      const frame = el.querySelector('.frame');
-      const showImg = url => { frame.innerHTML = `<img src="${url}" alt="crew manifest">`; };
-      el.querySelector('[data-act=cam]').onclick = async () => {
-        try { const v = el.querySelector('video'); v.srcObject = await navigator.mediaDevices.getUserMedia({ video: true }); el.classList.add('live'); }
-        catch { alert('No camera available: take a photo with your phone and load it.'); }
-      };
-      el.querySelector('[data-act=snap]').onclick = () => {
-        const v = el.querySelector('video');
-        if (!v || !v.videoWidth) return;
-        const cv = document.createElement('canvas');
-        cv.width = 960; cv.height = Math.round(960 * v.videoHeight / v.videoWidth);
-        cv.getContext('2d').drawImage(v, 0, 0, cv.width, cv.height);
-        v.srcObject && v.srcObject.getTracks().forEach(t => t.stop());
-        const url = cv.toDataURL('image/jpeg', 0.8);
-        HS.setPhoto(url); showImg(url);
-      };
-      el.querySelector('input[type=file]').onchange = e => {
-        const f = e.target.files[0]; if (!f) return;
-        const r = new FileReader(); r.onload = () => { HS.setPhoto(r.result); showImg(r.result); }; r.readAsDataURL(f);
-      };
-      el.querySelector('[data-act=clear]').onclick = () => { HS.photo = null; try { sessionStorage.removeItem('hypersleep-photo'); } catch {} c.refresh(); };
-    },
   });
 
   add({
@@ -83,7 +45,7 @@
 
   add({
     id: 'twist', seq: 'intro', steps: 3, cls: 'twist',
-    html: () => `<div class="alarm-bar">⚠ INTRUDER DETECTED · DECK 3 · ⚠ INTRUDER DETECTED · DECK 3 · ⚠</div>
+    html: () => `${HS.marquee('⚠ INTRUDER DETECTED · DECK 3 ·')}
       <div class="twist-body">
         <div class="twist-eye" data-s="1">${A.alien()}</div>
         <div class="twist-text">
@@ -120,7 +82,7 @@
         <div class="rule"><div class="ico">${A.rel(4)}</div><b>Relevance today</b><span>its score for the crew, once woken</span></div>
         <div class="rule"><div class="ico"><i class="tdot t-isolation"></i><i class="tdot t-integration"></i><i class="tdot t-verification"></i></div><b>Deck</b><span>1 isolation · 2 integration · 3 verification</span></div>
         <div class="rule" data-s="1"><div class="ico">🗳</div><b>Vote</b><span>the pod with the most votes opens</span></div>
-        <div class="rule awake" data-s="1"><div class="ico">💚</div><b>Already awake</b><span>TDD and unit testing: +20 head start</span></div>
+        <div class="rule awake" data-s="1"><div class="ico">💚</div><b>Already awake</b><span>TDD and unit testing are on duty</span></div>
         <div class="rule warn" data-s="2"><div class="ico">☠</div><b>Careful</b><span>not every crew member survives the thaw</span></div>
       </div>`,
   });
@@ -158,7 +120,7 @@
           <div class="deck-row">${row('dead')}${HS.dying.map(d => `<div class="pod t-dying ${st.events.intermezzo ? 'is-lost' : 'is-dying'}" title="${d.why}">${A.pod(st.events.intermezzo ? 'dead' : 'dying')}<div class="pc"><b>${d.name}</b><span class="yr">${st.events.intermezzo ? '<span class="red">lost</span>' : 'life support'}</span></div></div>`).join('')}</div>
         </div>
         <div class="bow">
-          <div class="medbay"><div class="kicker">medbay · awake</div>${HS.awake.map(a => `<div class="awake-pod">${A.pod('open')}<b>${a.name}</b><span>+${a.points}</span></div>`).join('')}</div>
+          <div class="medbay"><div class="kicker">medbay · awake</div>${HS.awake.map(a => `<div class="awake-pod">${A.pod('open')}<b>${a.name}</b><span>on duty</span></div>`).join('')}</div>
           <div class="pod final-pod" data-pod="schrodinger">${A.pod('dying')}<div class="pc"><b>Schrödinger's developer</b><span class="yr">final pod</span></div></div>
         </div>
         <div class="map-help">click <b>+ / −</b> for votes (show of hands) · click a pod to open it · <b>→</b> opens the leader · final pod at the bow</div>`;
@@ -435,7 +397,7 @@ decode(encode("123"))   <span class="green">✓</span></pre></div>
   // ───────────────────────── INTERMEZZO ─────────────────────────
   add({
     id: 'strike', seq: 'intermezzo', steps: 3, cls: 'twist strike',
-    html: () => `<div class="alarm-bar">⚠ HULL BREACH · LIFE SUPPORT FAILING · ⚠ HULL BREACH · LIFE SUPPORT FAILING · ⚠</div>
+    html: () => `${HS.marquee('⚠ HULL BREACH · LIFE SUPPORT FAILING ·')}
       <div class="twist-body">
         <div class="twist-eye">${A.alien('angry')}</div>
         <div class="twist-text">

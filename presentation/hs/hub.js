@@ -40,7 +40,28 @@ HS.refreshActive = () => listeners.forEach(fn => fn())
 HS.onRefresh = (fn) => { listeners.add(fn); return () => listeners.delete(fn) }
 
 const lastClick = id => (byId[id].steps || 1) - 1
-HS.go = (id, clicks = 0) => nav && nav.go(id, clicks < 0 ? lastClick(id) : clicks)
+
+HS.deckOf = (id) => {
+  const seq = byId[id].seq
+  if (seq === 'intro' || seq === 'map') return ''
+  if (seq.startsWith('pod:')) return 'pod-' + seq.slice(4)
+  if (seq === 'intermezzo') return 'intermezzo'
+  return 'finale'
+}
+HS.deckSlides = deck => HS.slides.filter(s => HS.deckOf(s.id) === deck).map(s => s.id)
+HS.currentDeck = () => { const id = HS.currentId(); return id && byId[id] ? HS.deckOf(id) : null }
+HS.rootBase = () => {
+  const b = import.meta.env.BASE_URL
+  const d = HS.currentDeck()
+  return d && b.endsWith(`/${d}/`) ? b.slice(0, -(d.length + 1)) : b
+}
+HS.go = (id, clicks = 0) => {
+  const c = clicks < 0 ? lastClick(id) : clicks
+  const deck = HS.deckOf(id)
+  if (deck === HS.currentDeck()) return nav && nav.go(id, c)
+  const no = HS.deckSlides(deck).indexOf(id) + 1
+  location.href = `${HS.rootBase()}${deck ? deck + '/' : ''}#/${no}${c ? `?clicks=${c}` : ''}`
+}
 
 HS.ctx = (active, refresh) => ({ state, score: HS.score(state), save: HS.save, active, go: HS.go, refresh })
 
