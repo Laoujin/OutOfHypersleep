@@ -70,7 +70,7 @@ import QRCode from 'qrcode';
     html: () => `<div class="ask-top"><div class="big">We need <em>you</em> to wake crew members to battle it.</div></div>
       <div class="vote-cta" data-s="1">
         ${qrSvg(HS.VOTE_URL)}
-        <div class="vote-side"><div class="kicker">vote for the next pod</div><div class="vote-badge">${HS.VOTE_URL.replace('https://', '')}</div><div class="to-cryo">one vote per pod · → to the cryo chamber</div></div>
+        <div class="vote-side"><div class="kicker">vote for the next pod</div><div class="vote-badge">${HS.VOTE_URL}</div></div>
       </div>`,
   });
 

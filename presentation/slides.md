@@ -79,7 +79,7 @@ clicks: 1
 
 <!--
 The ask. The audience is now in charge of the crew.
-[click] QR code: phones out, vote at pods.sangu.be (one vote per pod, tap again to undo). Then → to the cryo chamber.
+[click] QR code: phones out, vote at https://pods.sangu.be (one vote per pod, tap again to undo). Then → to the ship map.
 -->
 
 ---
