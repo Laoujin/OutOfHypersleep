@@ -1,5 +1,6 @@
 ---
 theme: none
+favicon: favicon.svg
 title: Out of Hypersleep · Throwaway boxes
 info: |
   Obscure dev tooling that sat frozen for years until AI agents woke it up.

@@ -1,5 +1,6 @@
 ---
 theme: none
+favicon: favicon.svg
 title: Out of Hypersleep · Stack Overflow
 info: |
   Obscure dev tooling that sat frozen for years until AI agents woke it up.
