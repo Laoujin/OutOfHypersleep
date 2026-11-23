@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pod Mockups</title>
+<style>
+:root {
+  --bg: #04070b; --panel: #0b1117; --line: #1e2a33; --ink: #e9e6dc; --muted: #8b958f; --faint: #47524d;
+  --ivory: #d8d2c2; --ivory2: #a9a291; --steel: #5d6660;
+  --phos: #7dffb0; --amber: #ffb547; --red: #ff3b3b; --cryo: #8fe6ff;
+  --mono: "JetBrains Mono", "Cascadia Code", ui-monospace, Menlo, Consolas, monospace;
+  --sans: "Inter", "Segoe UI", system-ui, sans-serif;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--sans); }
+main { max-width: 1280px; margin: 0 auto; padding: 32px 16px 80px; }
+h1 { font-size: 34px; margin: 0 0 6px; }
+h2 { font-size: 22px; margin: 48px 0 6px; font-family: var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--phos); }
+p.lead { color: var(--muted); margin: 0 0 18px; max-width: 900px; line-height: 1.5; }
+
+/* ── pod art ── */
+.pod svg { display: block; width: 100%; overflow: visible; }
+.shell { fill: url(#gShell); stroke: #6e6a5e; stroke-width: 2; }
+.rib { stroke: #8c8676; stroke-width: 2; }
+.vent { fill: #2a2e2b; }
+.glass { fill: url(#gGlass); stroke: #3c4a48; stroke-width: 2; }
+.frost { fill: none; stroke: rgba(225, 245, 255, .6); stroke-width: 2.5; stroke-linecap: round; }
+.sleeper { fill: #4b6b78; transition: fill 1s, opacity 1s; }
+.lid { transition: transform 1.6s cubic-bezier(.6, 0, .2, 1), opacity 1.6s; transform-box: fill-box; transform-origin: 50% 0; }
+.strip rect { fill: #1d2b2a; transition: fill .4s; }
+.readout { fill: #050807; stroke: #2c3a33; }
+.readout-t { fill: var(--phos); font: 600 11px var(--mono); letter-spacing: .08em; }
+.interior { fill: #0a1416; transition: fill 1s; }
+.scratch { stroke: var(--red); stroke-width: 3; stroke-linecap: round; fill: none; opacity: 0; }
+.eye { opacity: 0; }
+
+.pod.closed .strip rect { fill: var(--cryo); animation: breathe 3.2s ease-in-out infinite; }
+.pod.closed .strip rect:nth-child(2n) { animation-delay: .4s; }
+.pod.awake .lid { transform: translate(0, -46px) rotate(-6deg); opacity: .22; }
+.pod.awake .interior { fill: #13241c; }
+.pod.awake .sleeper { fill: #e7c6a1; }
+.pod.awake .strip rect { fill: var(--phos); }
+.pod.awake .readout-t { fill: var(--phos); }
+.pod.dead .lid { transform: translate(0, -46px) rotate(-6deg); opacity: .22; }
+.pod.dead .interior { fill: #2a0608; }
+.pod.dead .sleeper { opacity: 0; }
+.pod.dead .scratch { opacity: 1; }
+.pod.dead .eye { opacity: .9; }
+.pod.dead .strip rect { fill: var(--red); animation: blink .9s steps(2) infinite; }
+.pod.dead .readout-t { fill: var(--red); }
+@keyframes breathe { 50% { opacity: .35; } }
+@keyframes blink { 50% { opacity: .2; } }
+
+/* ── map cards ── */
+.cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.card { background: linear-gradient(180deg, #0d141a, #080c10); border: 1px solid var(--line); border-radius: 14px; padding: 14px 16px 16px; position: relative; overflow: hidden; }
+.card::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: repeating-linear-gradient(0deg, rgba(255, 255, 255, .025) 0 1px, transparent 1px 3px); }
+.card .state { font: 600 12px var(--mono); letter-spacing: .14em; color: var(--muted); text-transform: uppercase; margin-bottom: 8px; }
+.card .row { display: flex; align-items: center; gap: 16px; margin-top: 10px; }
+.card .yr { font: 700 22px var(--mono); color: var(--cryo); }
+.power { display: inline-flex; gap: 3px; }
+.power i { width: 10px; height: 18px; border-radius: 2px; background: #1c2a2a; }
+.power i.on { background: var(--phos); box-shadow: 0 0 6px rgba(125, 255, 176, .5); }
+.flip { position: relative; display: inline-block; width: 80px; height: 30px; font: 800 26px/30px var(--mono); }
+.flip span { position: absolute; left: 0; top: 0; animation: flipA 3s steps(1) infinite; }
+.flip span.neg { color: var(--red); animation-name: flipB; }
+.flip span.pos { color: var(--phos); }
+@keyframes flipA { 0% { opacity: 1; } 50% { opacity: 0; } }
+@keyframes flipB { 0% { opacity: 0; } 50% { opacity: 1; } }
+.flip.settled span { animation: none; }
+.flip.settled span.neg { opacity: 0; }
+.flip.settled.neg-only span.pos { opacity: 0; }
+.flip.settled.neg-only span.neg { opacity: 1; }
+.votes { margin-left: auto; text-align: center; }
+.votes b { display: block; font: 800 44px/1 var(--mono); color: var(--amber); text-shadow: 0 0 18px rgba(255, 181, 71, .35); }
+.votes small { font: 600 11px var(--mono); color: var(--muted); letter-spacing: .14em; }
+.card.lead { border-color: var(--amber); box-shadow: 0 0 0 2px var(--amber), 0 0 30px rgba(255, 181, 71, .25); }
+.card.dead { border-color: rgba(255, 59, 59, .5); }
+.card.awake { border-color: rgba(125, 255, 176, .45); }
+
+/* ── fullscreen stage ── */
+.stage-wrap { position: relative; width: 100%; aspect-ratio: 16 / 9; border: 1px solid var(--line); border-radius: 12px; overflow: hidden; background: radial-gradient(900px 500px at 35% 55%, #0b1714, #030506 70%); }
+.stage { position: absolute; left: 0; top: 0; width: 1600px; height: 900px; transform-origin: 0 0; }
+.stage .bigpod { position: absolute; left: 80px; top: 230px; width: 880px; }
+.stage .steam i { position: absolute; width: 140px; height: 140px; border-radius: 50%; background: radial-gradient(circle, rgba(235, 245, 245, .55), transparent 65%); filter: blur(6px); opacity: 0; }
+.stage.s-vent .steam i { animation: steam 3.2s ease-out forwards; }
+@keyframes steam { 0% { opacity: 0; transform: translate(0, 0) scale(.6); } 25% { opacity: .9; } 100% { opacity: 0; transform: translate(var(--dx), -260px) scale(2.2); } }
+.stage .alarm { position: absolute; left: 0; right: 0; top: 0; padding: 12px 0; font: 700 18px var(--mono); letter-spacing: .3em; text-align: center; color: var(--amber); background: repeating-linear-gradient(45deg, #2a1d06 0 24px, #1a1204 24px 48px); opacity: 0; transition: opacity .4s; }
+.stage.s-vent .alarm { opacity: 1; animation: blink 1s steps(2) infinite; }
+.stage.s-dead .alarm { color: var(--red); background: repeating-linear-gradient(45deg, #2a0606 0 24px, #1a0404 24px 48px); }
+.stage .info { position: absolute; left: 1010px; top: 190px; width: 540px; opacity: 0; transform: translateY(16px); transition: opacity .8s, transform .8s; }
+.stage.s-reveal .info { opacity: 1; transform: none; }
+.info .k { font: 600 16px var(--mono); letter-spacing: .2em; color: var(--muted); }
+.info h3 { font-size: 76px; line-height: 1; margin: 10px 0 26px; letter-spacing: -.02em; }
+.dates { display: grid; grid-template-columns: auto 1fr; gap: 8px 22px; font: 600 26px var(--mono); }
+.dates dt { color: var(--muted); }
+.dates dd { margin: 0; color: var(--cryo); }
+.dates dd.died { color: var(--faint); transition: color .6s; }
+.stage.s-dead .dates dd.died { color: var(--red); }
+.verdict { margin-top: 34px; font: 800 44px var(--mono); letter-spacing: .06em; opacity: 0; transition: opacity .6s; }
+.stage.s-alive .verdict.alive, .stage.s-dead .verdict.dead { opacity: 1; }
+.verdict.alive { color: var(--phos); }
+.verdict.dead { color: var(--red); position: absolute; }
+.verdict small { display: block; font-size: 20px; color: var(--muted); letter-spacing: .1em; margin-top: 6px; }
+.ecg { position: absolute; left: 80px; bottom: 70px; width: 880px; height: 120px; opacity: 0; transition: opacity .6s; }
+.stage.s-alive .ecg.alive, .stage.s-dead .ecg.dead { opacity: 1; }
+.ecg path { fill: none; stroke-width: 4; stroke-dasharray: 2200; stroke-dashoffset: 2200; }
+.stage.s-alive .ecg.alive path { stroke: var(--phos); animation: trace 2.6s linear infinite; filter: drop-shadow(0 0 6px var(--phos)); }
+.stage.s-dead .ecg.dead path { stroke: var(--red); animation: trace 2.6s linear forwards; }
+@keyframes trace { to { stroke-dashoffset: 0; } }
+.stage.s-dead { animation: hit .5s 2; }
+@keyframes hit { 25% { transform: translate(-10px, 4px); } 75% { transform: translate(10px, -4px); } }
+.stage .flash { position: absolute; inset: 0; background: var(--red); opacity: 0; pointer-events: none; }
+.stage.s-dead .flash { animation: flash .9s ease-out; }
+@keyframes flash { 0% { opacity: .55; } 100% { opacity: 0; } }
+.stage.s-alive .bigpod .sleeper { animation: pulse 1.1s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+@keyframes pulse { 50% { transform: scale(1.03); } }
+
+.controls { display: flex; flex-wrap: wrap; gap: 10px; margin: 14px 0 0; }
+button { font: 600 15px var(--sans); color: var(--ink); background: #111a20; border: 1px solid var(--line); border-radius: 9px; padding: 9px 16px; cursor: pointer; }
+button:hover { border-color: var(--phos); }
+.frames { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 16px; }
+.frames figure { margin: 0; }
+.frames figcaption { font: 12px var(--mono); color: var(--muted); margin-top: 6px; }
+@media (max-width: 760px) { .cards { grid-template-columns: 1fr; } .frames { grid-template-columns: 1fr 1fr; } }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="gShell" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ece6d6"/><stop offset=".55" stop-color="#c9c2b0"/><stop offset="1" stop-color="#8f8979"/></linearGradient>
+    <linearGradient id="gGlass" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="rgba(160,230,240,.35)"/><stop offset="1" stop-color="rgba(20,60,70,.55)"/></linearGradient>
+    <radialGradient id="gEye"><stop offset="0" stop-color="#ff3b3b"/><stop offset=".5" stop-color="rgba(255,59,59,.35)"/><stop offset="1" stop-color="rgba(255,59,59,0)"/></radialGradient>
+  </defs>
+</svg>
+
+<template id="podTpl">
+  <svg viewBox="0 0 440 180" aria-hidden="true">
+    <rect class="shell" x="10" y="30" width="420" height="120" rx="60"/>
+    <g>${ribs}</g>
+    <rect class="vent" x="28" y="76" width="14" height="28" rx="4"/><rect class="vent" x="398" y="76" width="14" height="28" rx="4"/>
+    <rect class="interior" x="62" y="48" width="316" height="84" rx="42"/>
+    <g class="sleeper"><circle cx="112" cy="90" r="17"/><rect x="134" y="73" width="196" height="34" rx="17"/></g>
+    <g class="scratch"><path d="M180 64 l70 52"/><path d="M200 60 l70 52"/><path d="M220 58 l66 50"/></g>
+    <circle class="eye" cx="300" cy="90" r="44" fill="url(#gEye)"/>
+    <g class="lid"><rect class="glass" x="62" y="48" width="316" height="84" rx="42"/>
+      <path class="frost" d="M86 72 q20 -10 34 2 t40 -2 t36 6 M92 106 q26 -8 44 4 t52 -2 t40 4 M210 70 q24 -8 40 2 t40 0 M240 112 q22 -6 36 2 t44 -2"/></g>
+    <g class="strip">${strip}</g>
+    <rect class="readout" x="300" y="146" width="104" height="24" rx="4"/><text class="readout-t" x="352" y="162" text-anchor="middle">${label}</text>
+  </svg>
+</template>
+
+<main>
+  <h1>Pod mockups</h1>
+  <p class="lead">Hypersleep pods in a "used future" style: ivory shells, smoked glass, retro phosphor readouts. Own artwork, no film references. On the map a pod never shows its name; the score flips between <b style="color:var(--phos)">+</b> and <b style="color:var(--red)">−</b> because nobody knows whether the crew member will survive.</p>
+
+  <h2>1 · Ship map: pod states</h2>
+  <div class="cards" id="cards"></div>
+
+  <h2>2 · Opening a pod: fullscreen</h2>
+  <p class="lead">Vent → lid opens → name, born and died years → the crew member wakes up, or the alien got there first.</p>
+  <div class="stage-wrap" id="wrap">
+    <div class="stage" id="stage">
+      <div class="alarm" id="alarm">REVIVAL SEQUENCE · REVIVAL SEQUENCE · REVIVAL SEQUENCE</div>
+      <div class="bigpod pod closed" id="bigpod"></div>
+      <div class="steam" id="steam"></div>
+      <div class="info">
+        <div class="k">CREW MEMBER · POD 07</div>
+        <h3 id="name">git worktree</h3>
+        <dl class="dates"><dt>BORN</dt><dd id="born">2015</dd><dt>DIED</dt><dd class="died" id="died">—</dd></dl>
+        <div class="verdict alive">LIFE SIGNS: STABLE<small>crew +50</small></div>
+        <div class="verdict dead">NO LIFE SIGNS<small>eaten by the alien AI · alien +40</small></div>
+      </div>
+      <svg class="ecg alive" viewBox="0 0 880 120" preserveAspectRatio="none"><path d="M0 60 l90 0 l14 -26 l14 70 l16 -100 l16 80 l12 -24 l70 0 l14 -26 l14 70 l16 -100 l16 80 l12 -24 l70 0 l14 -26 l14 70 l16 -100 l16 80 l12 -24 l70 0 l14 -26 l14 70 l16 -100 l16 80 l12 -24 l100 0"/></svg>
+      <svg class="ecg dead" viewBox="0 0 880 120" preserveAspectRatio="none"><path d="M0 60 l90 0 l14 -26 l14 70 l16 -100 l16 80 l12 -24 l90 0 l10 -10 l10 20 l10 -10 l560 0"/></svg>
+      <div class="flash"></div>
+    </div>
+  </div>
+  <div class="controls">
+    <button data-run="alive">▶ Open: git worktree (survives)</button>
+    <button data-run="dead">▶ Open: Stack Overflow (dies)</button>
+    <button data-run="reset">Reset</button>
+  </div>
+  <div class="frames" id="frames"></div>
+</main>
+
+<script>
+const tpl = document.getElementById('podTpl').innerHTML;
+const pod = (label, strip = 7) => tpl
+  .replace('${ribs}', [90, 130, 310, 350].map(x => `<line class="rib" x1="${x}" y1="32" x2="${x}" y2="46"/><line class="rib" x1="${x}" y1="134" x2="${x}" y2="148"/>`).join(''))
+  .replace('${strip}', Array.from({ length: strip }, (_, i) => `<rect x="${130 + i * 22}" y="152" width="16" height="8" rx="2"/>`).join(''))
+  .replace('${label}', label);
+const power = n => `<span class="power">${[1, 2, 3, 4, 5].map(i => `<i class="${i <= n ? 'on' : ''}"></i>`).join('')}</span>`;
+
+const cards = [
+  { state: 'closed', title: 'closed · asleep', yr: 2015, pw: 5, pos: 50, neg: 40, votes: 23, lead: true, label: 'HYPERSLEEP' },
+  { state: 'awake', title: 'opened · survived', yr: 2015, pw: 5, pos: 50, neg: 40, votes: null, settled: 'pos', label: 'REVIVED' },
+  { state: 'dead', title: 'opened · died', yr: 2023, pw: 5, pos: 50, neg: 40, votes: null, settled: 'neg', label: 'NO SIGNS' },
+];
+document.getElementById('cards').innerHTML = cards.map(c => `
+  <div class="card ${c.state} ${c.lead ? 'lead' : ''}">
+    <div class="state">${c.title}</div>
+    <div class="pod ${c.state}">${pod(c.label)}</div>
+    <div class="row">
+      <span class="yr">❄ ${c.yr}</span>${power(c.pw)}
+      <span class="flip ${c.settled ? 'settled' : ''} ${c.settled === 'neg' ? 'neg-only' : ''}"><span class="pos">+${c.pos}</span><span class="neg">−${c.neg}</span></span>
+      ${c.votes != null ? `<span class="votes"><b>${c.votes}</b><small>VOTES</small></span>` : ''}
+    </div>
+  </div>`).join('');
+
+const stage = document.getElementById('stage');
+const wrap = document.getElementById('wrap');
+const big = document.getElementById('bigpod');
+const fit = () => { stage.style.transform = `scale(${wrap.clientWidth / 1600})`; };
+addEventListener('resize', fit); fit();
+document.getElementById('steam').innerHTML = Array.from({ length: 12 }, (_, i) => `<i style="left:${140 + i * 64}px;top:${330 + (i % 3) * 30}px;--dx:${(i % 2 ? 1 : -1) * (20 + i * 4)}px;animation-delay:${(i * 0.12).toFixed(2)}s"></i>`).join('');
+
+const PODS = {
+  alive: { name: 'git worktree', born: 2015, died: '—', label: 'REVIVED' },
+  dead: { name: 'Stack Overflow', born: 2008, died: 2023, label: 'NO SIGNS' },
+};
+let timers = [];
+function setFrame(kind, step) {
+  const p = PODS[kind];
+  stage.className = 'stage';
+  big.className = 'bigpod pod closed';
+  big.innerHTML = pod(step >= 3 ? p.label : step >= 1 ? 'VENTING' : 'HYPERSLEEP', 9);
+  document.getElementById('name').textContent = p.name;
+  document.getElementById('born').textContent = p.born;
+  document.getElementById('died').textContent = step >= 3 ? p.died : '—';
+  if (step >= 1) stage.classList.add('s-vent');
+  if (step >= 2) big.className = `bigpod pod ${kind === 'alive' ? 'awake' : 'awake'}`;
+  if (step >= 2) stage.classList.add('s-reveal');
+  if (step >= 3) { stage.classList.add(kind === 'alive' ? 's-alive' : 's-dead'); big.className = `bigpod pod ${kind === 'alive' ? 'awake' : 'dead'}`; }
+}
+function run(kind) {
+  timers.forEach(clearTimeout); timers = [];
+  setFrame(kind, 0);
+  [1, 2, 3].forEach((s, i) => timers.push(setTimeout(() => setFrame(kind, s), 700 + i * 1700)));
+}
+document.querySelectorAll('[data-run]').forEach(b => b.onclick = () => (b.dataset.run === 'reset' ? (timers.forEach(clearTimeout), setFrame('alive', 0)) : run(b.dataset.run)));
+setFrame('alive', 0);
+window.mock = { setFrame, run };
+</script>
+</body>
+</html>
