@@ -14,6 +14,10 @@ cd presentation
 npm install
 npm run dev      # http://localhost:3030, presenter view at /presenter
 npm run build    # static site in presentation/dist
+
+cd voting
+npm install
+npm run dev      # http://localhost:3000, votes in voting/data/
 ```
 
 Every push to `main` builds the Slidev deck and publishes it to GitHub Pages (`.github/workflows/pages.yml`).
@@ -22,14 +26,15 @@ Every push to `main` builds the Slidev deck and publishes it to GitHub Pages (`.
 
 It is **one Slidev deck**. The ship map is a slide (a hub); every pod's slides live in the same deck, each with a `routeAlias`.
 
-- Votes are shown per pod on the map (+ / − buttons for now: show of hands). The leader glows.
+- The audience votes on their phones at **https://pods.sangu.be** (`voting/`): one vote per pod per browser, tap again to undo.
+- The rules slide ends with "→ to the cryo chamber": the map polls `pods.sangu.be/api/votes` and shows the live count per pod (+ / − add a show of hands on top). The leader glows.
 - Click a pod, or press → on the map to open the vote leader: the deck jumps to that pod's slides.
 - At the end of a pod, → returns to the ship map (the scoreboard counts up). Skipped pods are simply never visited.
 - After the 3rd pod, → goes to the intermezzo first. The final pod (Schrödinger's developer) is at the bow of the map.
 
 This works by overriding Slidev's navigation shortcuts (`presentation/setup/shortcuts.ts`): → / ← / PageDown / PageUp / clicker follow the hub instead of the linear slide order. Presenter view and notes are plain Slidev. Game state (woken pods, votes, score) lives in `localStorage`, so it survives a refresh and syncs to the presenter window.
 
-For QR voting later: call `HS.setVotes({ podId: n, ... })` from a poll integration.
+Before the talk, reset the live votes: `curl -X POST -H "Authorization: Bearer $ADMIN_TOKEN" https://pods.sangu.be/api/reset`.
 
 | Key | Action |
 |---|---|
@@ -49,8 +54,10 @@ For QR voting later: call `HS.setVotes({ podId: n, ... })` from a poll integrati
 
 | Path | What |
 |---|---|
+| `pods.yaml` | the pods: shared by the deck and the voting app |
+| `voting/` | pods.sangu.be: Node voting app + API (`/api/votes`), votes in `/data/votes.json`, deployed by Coolify (`voting/Dockerfile`, build context = repo root) |
 | `presentation/slides.md` | the deck: one `<Hs id>` per slide, with `routeAlias`, `clicks` and speaker notes |
-| `presentation/hs/data.js` | pods, scoring rules, alien events, score function |
+| `presentation/hs/data.js` | scoring rules, alien events, score function |
 | `presentation/hs/slides.js` | slide content and per-step SVG/CSS animations |
 | `presentation/hs/art.js` | artwork: cryo pod, alien eye, ECG, scoreboard |
 | `presentation/hs/hub.js` | game state and hub navigation |
