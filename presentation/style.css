@@ -190,6 +190,8 @@ button:hover, .btn:hover { border-color: var(--cryo); }
 .rule.awake { border-color: rgba(69, 230, 160, .4); }
 .rule.warn { border-color: rgba(255, 59, 92, .5); }
 .rule.warn .ico { color: var(--alien); }
+.to-cryo { text-align: right; font: 600 28px var(--mono); color: var(--cryo); letter-spacing: .04em; }
+.to-cryo b { color: var(--ink); }
 .tdot { width: 20px; height: 20px; border-radius: 50%; display: inline-block; }
 .tdot.t-isolation { background: var(--iso); } .tdot.t-integration { background: var(--int); } .tdot.t-verification { background: var(--ver); }
 

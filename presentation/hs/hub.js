@@ -44,11 +44,30 @@ HS.go = (id, clicks = 0) => nav && nav.go(id, clicks < 0 ? lastClick(id) : click
 
 HS.ctx = (active, refresh) => ({ state, score: HS.score(state), save: HS.save, active, go: HS.go, refresh })
 
+HS.live = {}
+HS.votesOf = id => (state.votes[id] || 0) + (HS.live[id] || 0)
+
 HS.leader = () => {
   let best = null, max = 0
-  for (const [id, v] of Object.entries(state.votes)) if (v > max) { max = v; best = id }
+  for (const p of HS.pods) {
+    const v = HS.votesOf(p.id)
+    if (!state.woken.includes(p.id) && v > max) { max = v; best = p.id }
+  }
   return best
 }
+
+const pollLive = async () => {
+  if (HS.currentId() !== 'map') return
+  try {
+    const r = await fetch(HS.VOTE_URL + '/api/votes', { cache: 'no-store' })
+    if (!r.ok) return
+    const live = await r.json()
+    if (JSON.stringify(live) === JSON.stringify(HS.live)) return
+    HS.live = live
+    HS.refreshActive()
+  } catch {}
+}
+setInterval(pollLive, 2000)
 
 HS.toMap = () => {
   const sc = HS.score(state)

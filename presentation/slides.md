@@ -109,7 +109,7 @@ Why now, not how. Point to the Worktrees and Guardrails talks for the hands-on p
 ---
 layout: hs
 routeAlias: rules
-clicks: 2
+clicks: 3
 ---
 
 <Hs id="rules" />
@@ -118,7 +118,7 @@ clicks: 2
 Explain the map indicators: freeze year, relevance today, deck.
 [click] Voting: QR code / show of hands. The pod with the most votes opens. TDD and unit testing are already awake: the crew starts with 20 points.
 [click] Warning: not every crew member survives the thaw. A dead pod costs a vote and feeds the alien.
-Then: to the ship map.
+[click] Phones out: vote at pods.sangu.be (one vote per pod, tap again to undo). Then: to the cryo chamber.
 -->
 
 ---

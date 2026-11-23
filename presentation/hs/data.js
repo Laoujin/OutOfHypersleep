@@ -2,6 +2,7 @@ import pods from '../../pods.yaml';
 
 window.HS = window.HS || {};
 
+HS.VOTE_URL = 'https://pods.sangu.be';
 HS.SOURCE = 'https://github.com/itenium-be/git-worktrees/issues/3';
 
 HS.TYPES = {

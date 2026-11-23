@@ -113,7 +113,7 @@
   });
 
   add({
-    id: 'rules', seq: 'intro', steps: 3, cls: 'rules',
+    id: 'rules', seq: 'intro', steps: 4, cls: 'rules',
     html: () => `${head('how this works', 'You wake the crew')}
       <div class="rules-grid">
         <div class="rule"><div class="ico">❄ 2015</div><b>Freeze date</b><span>the year it went to sleep</span></div>
@@ -122,7 +122,8 @@
         <div class="rule" data-s="1"><div class="ico">🗳</div><b>Vote</b><span>the pod with the most votes opens</span></div>
         <div class="rule awake" data-s="1"><div class="ico">💚</div><b>Already awake</b><span>TDD and unit testing: +20 head start</span></div>
         <div class="rule warn" data-s="2"><div class="ico">☠</div><b>Careful</b><span>not every crew member survives the thaw</span></div>
-      </div>`,
+      </div>
+      <div class="to-cryo" data-s="3">vote at <b>${HS.VOTE_URL.replace('https://', '')}</b> · → to the cryo chamber</div>`,
   });
 
   // ───────────────────────── MAP ─────────────────────────
@@ -130,7 +131,7 @@
     const woken = st.woken.includes(p.id);
     const dead = p.type === 'dead';
     const cls = ['pod', `t-${p.type}`, woken ? (dead ? 'is-dead' : 'is-woken') : 'is-frozen', HS.leader() === p.id ? 'lead' : ''].join(' ');
-    const votes = st.votes[p.id] || 0;
+    const votes = HS.votesOf(p.id);
     return `<div class="${cls}" data-pod="${p.id}">
       ${A.pod(woken ? (dead ? 'dead' : 'open') : 'frozen')}
       <div class="pc">
@@ -150,7 +151,7 @@
       const sc = c.score;
       const row = type => HS.pods.filter(p => p.type === type).map(p => podCard(p, st)).join('');
       const cov = type => HS.pods.filter(p => p.type === type && st.woken.includes(p.id)).length;
-      return `<div class="map-head"><div><div class="kicker">ship map · ${sc.wokenLive.length + sc.wokenDead.length} opened · ${sc.sleeping} still asleep</div><h2>Which pod do we open?</h2></div>${A.hud()}</div>
+      return `<div class="map-head"><div><div class="kicker">cryo chamber · vote at <b>${HS.VOTE_URL.replace('https://', '')}</b> · ${sc.wokenLive.length + sc.wokenDead.length} opened · ${sc.sleeping} still asleep</div><h2>Which pod do we open?</h2></div>${A.hud()}</div>
         <svg class="hull" viewBox="0 0 1500 720" preserveAspectRatio="none"><path d="M20 60 L1180 40 Q1460 120 1480 360 Q1460 600 1180 680 L20 660 Q0 360 20 60Z"/></svg>
         <div class="map-grid">
           ${['isolation', 'integration', 'verification'].map(t => `<div class="deck-lbl t-${t}"><b>Deck ${HS.TYPES[t].n}</b>${HS.TYPES[t].label}<small>${cov(t)} awake</small></div><div class="deck-row">${row(t)}</div>`).join('')}
@@ -161,7 +162,7 @@
           <div class="medbay"><div class="kicker">medbay · awake</div>${HS.awake.map(a => `<div class="awake-pod">${A.pod('open')}<b>${a.name}</b><span>+${a.points}</span></div>`).join('')}</div>
           <div class="pod final-pod" data-pod="schrodinger">${A.pod('dying')}<div class="pc"><b>Schrödinger's developer</b><span class="yr">final pod</span></div></div>
         </div>
-        <div class="map-help">click <b>+ / −</b> for votes (show of hands) · click a pod to open it · <b>→</b> opens the leader · final pod at the bow</div>`;
+        <div class="map-help">live votes from <b>${HS.VOTE_URL.replace('https://', '')}</b> · <b>+ / −</b> adds a show of hands · click a pod to open it · <b>→</b> opens the leader · final pod at the bow</div>`;
     },
     init: (el, c) => {
       A.hudUpdate(el, c);
@@ -171,7 +172,7 @@
           const id = b.dataset.id;
           c.state.votes[id] = Math.max(0, (c.state.votes[id] || 0) + (b.dataset.act === 'up' ? 1 : -1));
           c.save();
-          el.querySelector(`[data-pod="${id}"] .votes span`).textContent = c.state.votes[id];
+          el.querySelector(`[data-pod="${id}"] .votes span`).textContent = HS.votesOf(id);
           const lead = HS.leader();
           el.querySelectorAll('.pod').forEach(p => p.classList.toggle('lead', p.dataset.pod === lead));
           return;
