@@ -31,7 +31,6 @@ pod:
   score:
     alive: 50
     dead: -40
-  was: The crew's shared memory. Every error you pasted into a search bar ended up here.
   takeaway: Not every crew member survives the thaw.
   diesBecause: Questions are answered inside the agent now. Volume collapsed after 2023.
 layout: hs
@@ -46,10 +45,37 @@ Frame slide, generated from the pod: header.
 
 ---
 layout: hs
-routeAlias: stackoverflow-froze
+routeAlias: stackoverflow-empire
 ---
 
-<Hs id="stackoverflow-froze" />
+<Hs id="stackoverflow-empire" />
+
+<!--
+The Q&A site that won so hard every other dev forum died (Experts Exchange, phpBB, mailing lists). Then spread into the Stack Exchange network: 50+ sister sites (actually ~180, to verify).
+-->
+
+---
+layout: hs
+routeAlias: stackoverflow-gamification
+---
+
+<Hs id="stackoverflow-gamification" />
+
+<!--
+My own profile. 10,297 reputation, 7 gold, 46 silver, 74 bronze. Top answer: ESLint "window" is not defined, 411 votes, Sep 2015. ~855k people reached.
+Reputation was coveted, a gold badge a medal of honour, an accepted answer made your day.
+-->
+
+---
+layout: hs
+routeAlias: stackoverflow-reflex
+---
+
+<Hs id="stackoverflow-reflex" />
+
+<!--
+Paste the error. Add stackoverflow. Hit enter. For fifteen years, that was debugging.
+-->
 
 ---
 layout: hs

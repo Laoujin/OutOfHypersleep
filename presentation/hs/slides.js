@@ -514,6 +514,45 @@ decode(encode("123"))   <span class="green">✓</span></pre></div>
     }],
   };
 
+  const SO_SITES = ['Super User', 'ServerFault', 'Ask Ubuntu', 'Math', 'English', 'Cooking', 'Bicycles', 'Arqade', 'Travel', 'Photo', 'Physics', 'Unix', 'CodeReview', 'Security', 'DBA', 'TeX', 'Android', 'Apple', 'WordPress', 'GIS', 'Movies', 'Music', 'Law', 'History', 'Chess', 'Gardening', 'Pets', 'Space'];
+  const soEmpire = () => {
+    let h = '', k = 0;
+    const W = 80, H = 30, SX = 88, SY = 40;
+    for (let r = 0; r < 8; r++) for (let c = 0; c < 6; c++) {
+      if (c >= 2 && c <= 3 && r >= 3 && r <= 4) continue;
+      const x = 4 + c * SX, y = 4 + r * SY, lbl = (r + c) % 3 && k < SO_SITES.length ? SO_SITES[k++] : '';
+      h += `<rect class="tile" x="${x}" y="${y}" width="${W}" height="${H}" rx="5"/>${lbl ? `<text class="tl" x="${x + W / 2}" y="${y + 20}" text-anchor="middle">${lbl}</text>` : ''}`;
+    }
+    const cx = 4 + 2 * SX, cy = 4 + 3 * SY;
+    h += `<rect class="core" x="${cx}" y="${cy}" width="${SX + W}" height="${SY + H}" rx="10"/><text class="cl" x="${cx + (SX + W) / 2}" y="${cy + (SY + H) / 2 + 7}" text-anchor="middle">Stack Overflow</text>`;
+    h += `<text class="dead" x="265" y="360" text-anchor="middle">Experts Exchange · phpBB forums · mailing lists · Usenet</text>`;
+    return `<svg viewBox="0 0 530 370" class="so-empire">${h}</svg>`;
+  };
+  const podFrame = {
+    stackoverflow: {
+      froze: [{
+        slug: 'empire', title: 'The empire', cls: 'beat',
+        body: soEmpire(),
+        caps: ['The Q&A site that won so hard every other dev forum died.<small>Then spread into 50+ sister sites.</small>'],
+      }, {
+        slug: 'gamification', title: 'Gamification done right', cls: 'beat',
+        body: `<div class="so-rep">
+          <div class="rep-top"><div class="rep-n"><small>reputation</small>10,297</div><div class="rep-tag"><small>top tag</small><code>c#</code></div></div>
+          <div class="rep-badges"><span class="g">7</span><span class="s">46</span><span class="b">74</span></div>
+          <div class="rep-best"><b>411</b><span>ESLint: "window" is not defined</span><small>Sep 2015</small></div>
+          <div class="rep-impact"><span><b>~855k</b>people reached</span><span><b>168</b>answers</span></div>
+        </div>`,
+        caps: ['Reputation was coveted, a gold badge a medal of honour, an accepted answer made your day.'],
+      }, {
+        slug: 'reflex', title: 'The reflex', cls: 'beat',
+        body: `<div class="so-search"><span>TypeError: Cannot read properties of undefined (reading 'map')</span> <b>stackoverflow</b><i></i></div>
+          <div class="so-res top"><small>stackoverflow.com › questions</small><b>Cannot read properties of undefined (reading 'map') in React</b><em>✓ accepted</em></div>
+          <div class="so-res"><small>stackoverflow.com › questions</small><b>Cannot read property 'map' of undefined</b><em>✓ accepted</em></div>`,
+        caps: ['Paste the error. Add <b class="amber">stackoverflow</b>. Hit enter.<small>For fifteen years, that was debugging.</small>'],
+      }],
+    },
+  };
+
   const BASE = import.meta.env.BASE_URL;
   const bg = p => `<div class="pod-bg" style="--plate-img: url('${BASE}plates/pod-${p.id}.webp')"></div>`;
   const todo = t => t || '<span class="todo">TODO</span>';
@@ -548,7 +587,10 @@ decode(encode("123"))   <span class="green">✓</span></pre></div>
   HS.FRAME_AFTER = ['woke', 'log'];
 
   for (const p of HS.pods) {
-    for (const k of HS.FRAME_BEFORE) add(frame(p, k, FRAME[k]));
+    for (const k of HS.FRAME_BEFORE) {
+      if (podFrame[p.id]?.[k]) podFrame[p.id][k].forEach(d => add(custom(p.id, d)));
+      else add(frame(p, k, FRAME[k]));
+    }
     for (const d of podSlides[p.id] || []) add(custom(p.id, d));
     for (const k of HS.FRAME_AFTER) add(frame(p, k, FRAME[k]));
   }
