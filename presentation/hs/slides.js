@@ -90,7 +90,7 @@ import QRCode from 'qrcode';
       const why = p.dead
         ? `<div class="why dies"><label>dies because</label>${p.diesBecause || ''}</div>`
         : `<div class="why frozen"><label>frozen because</label>${p.frozenBecause || ''}</div><div class="why woken"><label>woken because</label>${p.wokenBecause || ''}</div>`;
-      return `<div class="rv-alarm"><span>REVIVAL SEQUENCE · REVIVAL SEQUENCE · REVIVAL SEQUENCE · REVIVAL SEQUENCE</span></div>
+      return `<button class="rv-close" data-act="close-pod" title="Close without waking this pod">×</button><div class="rv-alarm"><span>REVIVAL SEQUENCE · REVIVAL SEQUENCE · REVIVAL SEQUENCE · REVIVAL SEQUENCE</span></div>
         <div class="rv-pod">${A.cryo('closed', 'HYPERSLEEP', 9)}</div>
         <div class="rv-steam">${Array.from({ length: 12 }, (_, i) => `<i style="left:${140 + i * 64}px;top:${330 + (i % 3) * 30}px;--dx:${(i % 2 ? 1 : -1) * (20 + i * 4)}px;animation-delay:${(i * 0.12).toFixed(2)}s"></i>`).join('')}</div>
         <div class="rv-info">
@@ -148,7 +148,7 @@ import QRCode from 'qrcode';
       ov.className = 'revive rv-overlay';
       ov.hidden = true;
       el.appendChild(ov);
-      let cur = null, st = 0, timer = null;
+      let cur = null, st = 0, timer = null, snapshot = null;
       const DELAYS = [700, 2000, 2400];
       const auto = () => {
         clearTimeout(timer);
@@ -165,6 +165,7 @@ import QRCode from 'qrcode';
         const p = HS.podById(id);
         if (!p) return;
         cur = p;
+        snapshot = { votes: { ...c.state.votes }, woken: [...c.state.woken] };
         c.state.votes = {};
         c.save();
         ov.innerHTML = revive.html(p);
@@ -176,9 +177,14 @@ import QRCode from 'qrcode';
         get active() { return !!cur && el.isConnected; },
         next: () => (st < 3 ? (step(st + 1), auto()) : openSlides()),
         prev: () => { clearTimeout(timer); st > 0 ? step(st - 1) : close(); },
-        show, close,
+        show, close, cancel: () => cancel(),
+      };
+      const cancel = () => {
+        if (snapshot) { c.state.votes = snapshot.votes; c.state.woken = snapshot.woken; c.save(); }
+        close();
       };
       ov.addEventListener('click', e => {
+        if (e.target.closest('[data-act=close-pod]')) return cancel();
         if (e.target.closest('[data-act=open-slides]')) return openSlides();
         if (st < 3) { step(st + 1); auto(); }
       });

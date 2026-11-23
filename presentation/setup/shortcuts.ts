@@ -44,6 +44,7 @@ export default defineShortcutsSetup((_ops, base) => {
 
   return [
     ...base.map(s => (s.name && fns[s.name] ? { ...s, fn: fns[s.name] } : s)),
+    { name: 'hs_close_pod', key: 'escape', fn: () => { if (HS.overlay?.active) HS.overlay.cancel() } },
     { name: 'hs_map', key: 'm', fn: () => HS.go('map') },
     { name: 'hs_intermezzo', key: 'i', fn: () => HS.go(HS.seqs.intermezzo[0]) },
     { name: 'hs_final', key: 'e', fn: () => HS.go(HS.seqs.final[0]) },
