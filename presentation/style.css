@@ -604,3 +604,15 @@ pre.code { margin: 0; font: 21px/1.6 var(--mono); color: var(--ink); white-space
 .but-log i { flex: 1; min-width: 40px; border-bottom: 2px dotted rgba(255, 59, 92, .5); margin-bottom: 8px; }
 .revive .rv-close { position: absolute; top: 64px; right: 40px; z-index: 5; width: 64px; height: 64px; padding: 0; border-radius: 50%; font: 300 44px/1 var(--sans); color: var(--ink); background: rgba(10, 14, 18, .8); border: 1px solid var(--line); cursor: pointer; }
 .revive .rv-close:hover { border-color: var(--cred); color: var(--cred); }
+
+/* revival: died row only for dead outcomes, monitor-style ECG */
+.rv-dates .died { display: none; }
+.revive.is-dead .rv-dates .died { display: block; color: var(--cred); }
+.revive .rv-ecg { position: absolute; left: 80px; bottom: 70px; width: 880px; height: 120px; opacity: 0; transition: opacity .4s; }
+.revive.s3 .rv-ecg { opacity: 1; }
+.revive .rv-tip { position: absolute; width: 14px; height: 14px; margin: -7px 0 0 -7px; border-radius: 50%; opacity: 0; pointer-events: none; transform: translateY(710px); }
+.revive.s3 .rv-tip { opacity: 1; }
+.rv-tip.alive { background: #eafff2; box-shadow: 0 0 10px 4px var(--phos), 0 0 28px 8px rgba(125, 255, 176, .5); }
+.rv-tip.dead { background: #fff0f0; box-shadow: 0 0 10px 4px var(--cred), 0 0 30px 10px rgba(255, 59, 59, .55); animation: tip-pulse 1s ease-in-out infinite; }
+@keyframes tip-pulse { 50% { box-shadow: 0 0 6px 2px var(--cred), 0 0 16px 4px rgba(255, 59, 59, .35); } }
+.rv-verdict .rv-sub { display: block; font: 500 20px var(--mono); color: var(--muted); letter-spacing: .08em; margin-top: 8px; }

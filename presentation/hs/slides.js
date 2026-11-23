@@ -84,26 +84,58 @@ import QRCode from 'qrcode';
     </div>`;
   };
 
+  const BEAT = [[0, 0], [70, 0], [84, -26], [98, 44], [114, -56], [130, 24], [142, 0], [220, 0]];
+  const beatY = x => {
+    for (let i = 1; i < BEAT.length; i++) {
+      const [x0, y0] = BEAT[i - 1], [x1, y1] = BEAT[i];
+      if (x <= x1) return y0 + (y1 - y0) * ((x - x0) / (x1 - x0));
+    }
+    return 0;
+  };
+  const stopEcg = cv => { if (cv && cv._raf) { cancelAnimationFrame(cv._raf); cv._raf = 0; } };
+  const startEcg = (cv, dead) => {
+    if (!cv || cv._raf) return;
+    const ctx = cv.getContext('2d');
+    ctx.setTransform(2, 0, 0, 2, 0, 0);
+    const W = 880, H = 120, MID = 60, SPEED = 260, GAP = 36;
+    const color = dead ? '#ff3b3b' : '#7dffb0';
+    let x = 0, total = 0, last = performance.now(), prevY = MID;
+    ctx.clearRect(0, 0, W, H);
+    const yAt = t => MID + (dead ? (t < 220 ? beatY(t) : 0) : beatY(t % 220));
+    const frame = now => {
+      if (!cv.isConnected) return stopEcg(cv);
+      const dx = Math.min(40, ((now - last) / 1000) * SPEED);
+      last = now;
+      ctx.clearRect(x, 0, GAP + dx, H);
+      ctx.strokeStyle = color; ctx.lineWidth = 3; ctx.lineJoin = 'round'; ctx.shadowColor = color; ctx.shadowBlur = 8;
+      ctx.beginPath(); ctx.moveTo(x, prevY);
+      let nx = x, ny = prevY;
+      for (let s = 1; s <= Math.ceil(dx); s++) { nx = x + Math.min(s, dx); ny = yAt(total + Math.min(s, dx)); ctx.lineTo(nx, ny); }
+      ctx.stroke();
+      total += dx; x = nx; prevY = ny;
+      if (x >= W) { x = 0; ctx.clearRect(0, 0, GAP, H); prevY = yAt(total); }
+      const tip = cv.parentElement.querySelector('.rv-tip');
+      if (tip) { tip.style.left = `${80 + x}px`; tip.style.top = `${prevY}px`; }
+      cv._raf = requestAnimationFrame(frame);
+    };
+    cv._raf = requestAnimationFrame(frame);
+  };
+
   const revive = {
     html: p => {
       const pts = p.score.alive;
-      const why = p.dead
-        ? `<div class="why dies"><label>dies because</label>${p.diesBecause || ''}</div>`
-        : `<div class="why frozen"><label>frozen because</label>${p.frozenBecause || ''}</div><div class="why woken"><label>woken because</label>${p.wokenBecause || ''}</div>`;
       return `<button class="rv-close" data-act="close-pod" title="Close without waking this pod">×</button><div class="rv-alarm"><span>REVIVAL SEQUENCE · REVIVAL SEQUENCE · REVIVAL SEQUENCE · REVIVAL SEQUENCE</span></div>
         <div class="rv-pod">${A.cryo('closed', 'HYPERSLEEP', 9)}</div>
         <div class="rv-steam">${Array.from({ length: 12 }, (_, i) => `<i style="left:${140 + i * 64}px;top:${330 + (i % 3) * 30}px;--dx:${(i % 2 ? 1 : -1) * (20 + i * 4)}px;animation-delay:${(i * 0.12).toFixed(2)}s"></i>`).join('')}</div>
         <div class="rv-info">
           <div class="kicker">crew member · ${deckOf(p)}</div>
           <h1>${p.name}</h1>
-          <dl class="rv-dates"><dt>BORN</dt><dd>${p.born}</dd><dt>DIED</dt><dd class="died">—</dd></dl>
-          <div class="rv-verdict ${p.dead ? 'dead' : 'alive'}">${p.dead ? `NO LIFE SIGNS<small>eaten by the alien AI · alien +${Math.abs(p.score.dead)}</small>` : `LIFE SIGNS: STABLE<small>crew ${pts > 0 ? '+' : ''}${pts}</small>`}</div>
-          <div class="rv-why">${why}</div>
+          <dl class="rv-dates"><dt>BORN</dt><dd>${p.born}</dd><dt class="died">DIED</dt><dd class="died">${p.died ?? '?'}</dd></dl>
+          <div class="rv-verdict ${p.dead ? 'dead' : 'alive'}">${p.dead ? `NO LIFE SIGNS<small>alien +${Math.abs(p.score.dead)}</small><span class="rv-sub">eaten by the alien AI</span>` : `LIFE SIGNS: STABLE<small>crew ${pts > 0 ? '+' : ''}${pts}</small>`}</div>
           <button class="rv-open" data-act="open-slides">Open the slides ↗</button>
         </div>
-        <svg class="rv-ecg ${p.dead ? 'dead' : 'alive'}" viewBox="0 0 880 120" preserveAspectRatio="none"><path d="${p.dead
-          ? 'M0 60 l90 0 l14 -26 l14 70 l16 -100 l16 80 l12 -24 l90 0 l10 -10 l10 20 l10 -10 l560 0'
-          : 'M0 60 ' + Array(4).fill('l70 0 l14 -26 l14 70 l16 -100 l16 80 l12 -24').join(' ') + ' l100 0'}"/></svg>
+        <canvas class="rv-ecg ${p.dead ? 'dead' : 'alive'}" width="1760" height="240"></canvas>
+        <div class="rv-tip ${p.dead ? 'dead' : 'alive'}"></div>
         <div class="rv-flash"></div>`;
     },
     step: (el, p, st) => {
@@ -112,7 +144,8 @@ import QRCode from 'qrcode';
       const state = st >= 3 && p.dead ? 'dead' : st >= 2 ? 'awake' : 'closed';
       svg.setAttribute('class', `cryo ${state}`);
       svg.querySelector('.readout-t').textContent = st >= 3 ? (p.dead ? 'NO SIGNS' : 'REVIVED') : st >= 1 ? 'VENTING' : 'HYPERSLEEP';
-      el.querySelector('.rv-dates .died').textContent = st >= 3 && p.dead ? (p.died ?? '?') : '—';
+      const ecg = el.querySelector('canvas.rv-ecg');
+      if (st >= 3) startEcg(ecg, p.dead); else stopEcg(ecg);
       el.classList.toggle('is-dead', st >= 3 && p.dead);
       el.classList.toggle('is-alive', st >= 3 && !p.dead);
     },
