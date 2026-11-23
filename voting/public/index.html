@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cryo Pods</title>
+<meta name="description" content="Out of Hypersleep: vote which cryo pod to open.">
+<link rel="stylesheet" href="/app.css">
+</head>
+<body>
+<main>
+  <div class="kicker">Out of Hypersleep · cryo chamber</div>
+  <h1>Which pod do we open?</h1>
+  <p class="lead">Vote for any pod you want woken. Tap again to undo.</p>
+  <div id="pods"></div>
+  <p class="foot" id="foot">One vote per pod per device.</p>
+</main>
+<script>
+const DECKS = [
+  ['isolation', 'Deck 1 · Isolation'],
+  ['integration', 'Deck 2 · Integration'],
+  ['verification', 'Deck 3 · Verification'],
+  ['dead', 'Cargo · unmarked pods'],
+]
+const store = {
+  get(k, d) { try { return JSON.parse(localStorage.getItem(k)) ?? d } catch { return d } },
+  set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)) } catch {} },
+}
+let voter = store.get('hs-voter', null)
+if (!voter) { voter = crypto.randomUUID ? crypto.randomUUID() : Date.now().toString(36) + Math.random().toString(36).slice(2); store.set('hs-voter', voter) }
+const voted = new Set(store.get('hs-voted', []))
+let pods = [], votes = {}
+
+const el = document.getElementById('pods')
+const foot = document.getElementById('foot')
+const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c])
+
+function render() {
+  el.innerHTML = DECKS.map(([type, label]) => {
+    const list = pods.filter(p => p.type === type)
+    if (!list.length) return ''
+    return `<div class="deck t-${type}"><b>${label}</b></div><div class="pods">${list.map(p => `
+      <button class="pod ${voted.has(p.id) ? 'voted' : ''}" data-id="${p.id}" aria-pressed="${voted.has(p.id)}">
+        <span class="info"><span class="name">${esc(p.name)}</span>${p.sub ? `<br><span class="sub">${esc(p.sub)}</span>` : ''}<br><span class="yr">❄ ${p.year}</span></span>
+        <span class="count">${votes[p.id] || 0}</span>
+        <span class="mark">${voted.has(p.id) ? '✓ voted' : 'vote'}</span>
+      </button>`).join('')}</div>`
+  }).join('')
+}
+
+async function load() {
+  try {
+    const r = await fetch('/api/pods', { cache: 'no-store' })
+    ;({ pods, votes } = await r.json())
+    render()
+  } catch { foot.innerHTML = '<span class="err">Can\'t reach the ship. Retrying…</span>'; setTimeout(load, 3000) }
+}
+
+async function poll() {
+  try { votes = await (await fetch('/api/votes', { cache: 'no-store' })).json(); render() } catch {}
+}
+
+el.addEventListener('click', async e => {
+  const b = e.target.closest('.pod')
+  if (!b) return
+  const id = b.dataset.id
+  const on = !voted.has(id)
+  b.disabled = true
+  try {
+    const r = await fetch(`/api/votes/${id}?voter=${encodeURIComponent(voter)}`, { method: on ? 'PUT' : 'DELETE' })
+    if (!r.ok) throw new Error(r.status)
+    votes = await r.json()
+    on ? voted.add(id) : voted.delete(id)
+    store.set('hs-voted', [...voted])
+    foot.textContent = 'One vote per pod per device.'
+  } catch { foot.innerHTML = '<span class="err">Vote didn\'t reach the ship. Try again.</span>' }
+  render()
+})
+
+load()
+setInterval(() => document.hidden || poll(), 5000)
+</script>
+</body>
+</html>
