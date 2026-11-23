@@ -60,16 +60,11 @@ clicks: 3
 <Hs id="stackoverflow-chart" />
 
 <!--
-Background: Dies because: Questions are answered inside the agent now. Volume collapsed after 2023.
-Costs the audience this vote, alien +40.
-The best-known dead pod. Show the numbers: monthly new questions from peak to today.
-Numbers on the chart are approximate placeholders: replace with a Stack Exchange Data Explorer query before giving the talk.
-
-The best-known dead pod. Let the chart do the talking.
-[click] Plateau and slow decline already before AI.
-[click] After late 2022: collapse.
-[click] The message of its own: not every old practice survives the AI era.
-TODO before giving the talk: replace placeholder figures with real SEDE numbers.
+Source: Stack Exchange Data Explorer, new questions per month (deleted posts excluded), presentation/data/stackoverflow-questions.csv. Current month is dropped (incomplete).
+Let the chart do the talking.
+[click] Peak March 2014, ~207k a month. Then a long, slow plateau: decline was already there before AI.
+[click] Nov 2022, ChatGPT. Collapse.
+[click] Oct 2026: 844 questions. Fewer than in its first month, Aug 2008 (3,744). −99.6%.
 -->
 
 ---

@@ -1,4 +1,5 @@
 import QRCode from 'qrcode';
+import soCsv from '../data/stackoverflow-questions.csv?raw';
 
 (() => {
   const A = HS.art;
@@ -426,20 +427,35 @@ decode(encode("123"))   <span class="green">✓</span></pre></div>
       caps: ['Hooks: since Git 1.0, 2005.', 'Slow hook? Humans skipped it.', 'Agents don\'t get the choice: <code>--no-verify</code> is blocked.', 'The hook finally is what it was meant to be: <b>a gate</b>.<br><small>A guardrail that only warns is documentation.</small>'],
     }],
     stackoverflow: [{
-      slug: 'chart', title: 'Monthly new questions', cls: 'deadslide',
+      slug: 'chart', title: 'New questions per month', cls: 'deadslide',
       body: (() => {
-        const data = [[2009, 25], [2010, 50], [2011, 85], [2012, 130], [2013, 175], [2014, 200], [2015, 195], [2016, 190], [2017, 180], [2018, 160], [2019, 145], [2020, 155], [2021, 130], [2022, 110], [2023, 70], [2024, 35], [2025, 15]];
-        const X = i => 90 + i * 52, Y = v => 470 - v * 2;
-        return `<svg viewBox="0 0 1000 560" class="chart">
+        const rows = soCsv.trim().split('\n').slice(1).map(l => l.split(',')).map(([m, v]) => [m, +v])
+          .filter(([m]) => m >= '2008-08' && m < new Date().toISOString().slice(0, 7));
+        const n = rows.length, peak = rows.reduce((a, r) => (r[1] > a[1] ? r : a)), last = rows[n - 1], first = rows[0];
+        const idx = m => rows.findIndex(r => r[0] === m);
+        const X = i => 80 + (i / (n - 1)) * 890, Y = v => 470 - (v / 220000) * 420;
+        const seg = (a, b) => rows.slice(a, b + 1).map((r, k) => `${k ? 'L' : 'M'}${X(a + k).toFixed(1)} ${Y(r[1]).toFixed(1)}`).join('');
+        const pk = idx(peak[0]), gpt = idx('2022-11');
+        const fmtM = m => new Date(m + '-01').toLocaleString('en', { month: 'short', year: 'numeric' });
+        const k = v => (v >= 1000 ? Math.round(v / 1000) + 'k' : v);
+        const drop = ((1 - last[1] / peak[1]) * 100).toFixed(1);
+        return `<svg viewBox="0 0 1000 560" class="chart so-chart">
           <path class="axis" d="M70 470 H980 M70 470 V40"/>
-          ${[50, 100, 150, 200].map(v => `<text class="mono dim" x="60" y="${Y(v) + 6}" text-anchor="end">${v}k</text><path class="grid" d="M70 ${Y(v)} H980"/>`).join('')}
-          ${data.map(([y, v], i) => `<g data-s="${y <= 2014 ? 0 : y <= 2022 ? 1 : 2}"><rect class="bar ${y >= 2023 ? 'bad' : ''}" x="${X(i)}" y="${Y(v)}" width="38" height="${v * 2}" rx="4"/><text class="mono dim" x="${X(i) + 19}" y="500" text-anchor="middle">${String(y).slice(2)}</text></g>`).join('')}
-          <g data-s="2"><path class="marker" d="M${X(13) + 46} 60 V470"/><text class="mono" x="${X(13) + 40}" y="56" text-anchor="end">Nov 2022: chat assistants</text></g>
-          <g data-s="3"><text class="lbl red huge" x="975" y="200" text-anchor="end">−90%</text></g>
-          <text class="mono dim" x="980" y="540" text-anchor="end">≈ placeholder figures · replace with a Stack Exchange Data Explorer query</text>
+          ${[50000, 100000, 150000, 200000].map(v => `<text class="mono dim" x="60" y="${Y(v) + 6}" text-anchor="end">${k(v)}</text><path class="grid" d="M70 ${Y(v)} H980"/>`).join('')}
+          ${rows.map((r, i) => (r[0].endsWith('-01') && +r[0].slice(0, 4) % 2 === 0 ? `<text class="mono dim" x="${X(i)}" y="500" text-anchor="middle">${r[0].slice(0, 4)}</text>` : '')).join('')}
+          <path class="so-line" d="${seg(0, pk + 9)}"/>
+          <g data-s="0"><circle class="so-dot" cx="${X(pk)}" cy="${Y(peak[1])}" r="7"/><text class="mono" x="${X(pk)}" y="${Y(peak[1]) - 18}" text-anchor="middle">${k(peak[1])} · ${fmtM(peak[0])}</text></g>
+          <g data-s="1"><path class="so-line" d="${seg(pk + 9, gpt)}"/></g>
+          <g data-s="2"><path class="marker" d="M${X(gpt)} 60 V470"/><text class="mono" x="${X(gpt) - 8}" y="56" text-anchor="end">Nov 2022: ChatGPT</text>
+            <path class="so-line bad" d="${seg(gpt, n - 1)}"/></g>
+          <g data-s="3"><circle class="so-dot bad" cx="${X(n - 1)}" cy="${Y(last[1])}" r="7"/>
+            <text class="lbl red huge" x="760" y="360" text-anchor="end">−${drop}%</text>
+            <text class="mono" x="760" y="400" text-anchor="end">${fmtM(last[0])}: ${last[1].toLocaleString('en')} questions</text>
+            <text class="mono dim" x="760" y="430" text-anchor="end">first month, ${fmtM(first[0])}: ${first[1].toLocaleString('en')}</text></g>
+          <text class="mono dim" x="980" y="540" text-anchor="end">Stack Exchange Data Explorer · new questions per month · deleted posts excluded</text>
         </svg>`;
       })(),
-      caps: ['2008–2014: the place every developer went.', 'A long, slow plateau.', 'Then: questions get answered <b>inside the agent</b>.', 'Back to 2009 levels.'],
+      caps: ['2008–2014: the place every developer went.', 'Then a long, slow plateau.', 'Nov 2022: questions move <b>inside the agent</b>.', 'Fewer questions than in <b>its very first month</b>.'],
     }, {
       slug: 'irony', title: 'It learned from the crew', cls: 'deadslide',
       body: `<svg viewBox="0 0 1000 560">

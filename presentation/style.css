@@ -347,6 +347,10 @@ pre.code { margin: 0; font: 21px/1.6 var(--mono); color: var(--ink); white-space
 .chart .bar { fill: var(--cryo); }
 .chart .bar.bad { fill: var(--alien); }
 .chart .marker { stroke: var(--amber); stroke-width: 2; stroke-dasharray: 6 6; }
+.chart .so-line { fill: none; stroke: var(--cryo); stroke-width: 3; stroke-linejoin: round; }
+.chart .so-line.bad { stroke: var(--alien); }
+.chart .so-dot { fill: var(--cryo); }
+.chart .so-dot.bad { fill: var(--alien); }
 .check { list-style: none; padding: 0; margin: 0; font-size: 28px; line-height: 1.7; }
 .check li::before { content: "▢ "; color: var(--faint); }
 .check.ok li::before { content: "✓ "; color: var(--awake); }
