@@ -3,7 +3,7 @@ WORKDIR /app/voting
 COPY voting/package.json voting/package-lock.json ./
 RUN npm ci --omit=dev
 COPY voting/ ./
-COPY pods.yaml /app/pods.yaml
+COPY presentation/pod-*.md /app/presentation/
 ENV PORT=3000 DATA_DIR=/data NODE_ENV=production
 VOLUME /data
 EXPOSE 3000

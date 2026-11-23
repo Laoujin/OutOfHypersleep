@@ -56,9 +56,10 @@
   });
 
   add({
-    id: 'ask', seq: 'intro', steps: 2,
+    id: 'ask', seq: 'intro', steps: 3,
     html: () => `<div class="statement"><div class="big">We need <em>you</em> to wake crew members to battle it.</div>
-      <div class="small" data-s="1">We need to <b>tame the LLM output</b>.</div></div>`,
+      <div class="small" data-s="1">We need to <b>tame the LLM output</b>.</div>
+      <div class="to-cryo" data-s="2">vote at <b>${HS.VOTE_URL.replace('https://', '')}</b> · → to the cryo chamber</div></div>`,
   });
 
   // ───────────────────────── MAP ─────────────────────────
@@ -66,7 +67,7 @@
     const woken = st.woken.includes(p.id);
     const state = woken ? (p.dead ? 'dead' : 'awake') : 'closed';
     const cls = ['pod', `t-${p.deck}`, `is-${state}`, HS.leader() === p.id ? 'lead' : ''].join(' ');
-    const votes = st.votes[p.id] || 0;
+    const votes = HS.votesOf(p.id);
     const label = { closed: 'HYPERSLEEP', awake: 'REVIVED', dead: 'NO SIGNS' }[state];
     return `<div class="${cls}" data-pod="${p.id}">
       <div class="pod-art">${A.cryo(state, label)}</div>
@@ -117,7 +118,7 @@
       const sc = c.score;
       const row = deck => HS.pods.filter(p => p.deck === deck).map(p => podCard(p, st)).join('');
       const cov = deck => HS.pods.filter(p => p.deck === deck && st.woken.includes(p.id)).length;
-      return `<div class="map-head"><div><div class="kicker">ship map</div><h2>Which pod do we open?</h2></div>${A.hud()}</div>
+      return `<div class="map-head"><div><div class="kicker">cryo chamber · vote at <b>${HS.VOTE_URL.replace('https://', '')}</b></div><h2>Which pod do we open?</h2></div>${A.hud()}</div>
         <svg class="hull" viewBox="0 0 1500 720" preserveAspectRatio="none"><path d="M20 60 L1180 40 Q1460 120 1480 360 Q1460 600 1180 680 L20 660 Q0 360 20 60Z"/></svg>
         <div class="map-grid">
           ${['isolation', 'integration', 'verification'].map(t => `<div class="deck-lbl t-${t}"><b>Deck ${HS.TYPES[t].n}</b>${HS.TYPES[t].label}<small>${cov(t)} awake</small></div><div class="deck-row">${row(t)}</div>`).join('')}
@@ -128,6 +129,13 @@
     },
     init: (el, c) => {
       A.hudUpdate(el, c);
+      const syncVotes = () => {
+        if (!el.isConnected) return;
+        el.querySelectorAll('.pod[data-pod] .votes .vn').forEach(n => { n.textContent = HS.votesOf(n.closest('.pod').dataset.pod); });
+        const lead = HS.leader();
+        el.querySelectorAll('.pod').forEach(p => p.classList.toggle('lead', p.dataset.pod === lead));
+      };
+      HS.onLive = syncVotes;
       const ov = document.createElement('section');
       ov.className = 'revive rv-overlay';
       ov.hidden = true;
@@ -164,9 +172,7 @@
           const id = b.dataset.id;
           c.state.votes[id] = Math.max(0, (c.state.votes[id] || 0) + (b.dataset.act === 'up' ? 1 : -1));
           c.save();
-          el.querySelector(`[data-pod="${id}"] .votes .vn`).textContent = c.state.votes[id];
-          const lead = HS.leader();
-          el.querySelectorAll('.pod').forEach(p => p.classList.toggle('lead', p.dataset.pod === lead));
+          syncVotes();
           return;
         }
         const pod = e.target.closest('.pod[data-pod]');

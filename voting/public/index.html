@@ -11,7 +11,7 @@
 <main>
   <div class="kicker">Out of Hypersleep · cryo chamber</div>
   <h1>Which pod do we open?</h1>
-  <p class="lead">Vote for any pod you want woken. Tap again to undo.</p>
+  <p class="lead">Nobody knows who's inside. Vote for every pod you want woken, tap again to undo.</p>
   <div id="pods"></div>
   <p class="foot" id="foot">One vote per pod per device.</p>
 </main>
@@ -20,7 +20,7 @@ const DECKS = [
   ['isolation', 'Deck 1 · Isolation'],
   ['integration', 'Deck 2 · Integration'],
   ['verification', 'Deck 3 · Verification'],
-  ['dead', 'Cargo · unmarked pods'],
+  ['cargo', 'Cargo · unmarked pods'],
 ]
 const store = {
   get(k, d) { try { return JSON.parse(localStorage.getItem(k)) ?? d } catch { return d } },
@@ -33,15 +33,17 @@ let pods = [], votes = {}
 
 const el = document.getElementById('pods')
 const foot = document.getElementById('foot')
+const bars = n => Array.from({ length: 5 }, (_, i) => `<i class="${i < n ? 'on' : ''}"></i>`).join('')
+const signed = n => (n > 0 ? '+' : n < 0 ? '−' : '') + Math.abs(n)
 const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c])
 
 function render() {
   el.innerHTML = DECKS.map(([type, label]) => {
-    const list = pods.filter(p => p.type === type)
+    const list = pods.filter(p => p.deck === type)
     if (!list.length) return ''
     return `<div class="deck t-${type}"><b>${label}</b></div><div class="pods">${list.map(p => `
       <button class="pod ${voted.has(p.id) ? 'voted' : ''}" data-id="${p.id}" aria-pressed="${voted.has(p.id)}">
-        <span class="info"><span class="name">${esc(p.name)}</span>${p.sub ? `<br><span class="sub">${esc(p.sub)}</span>` : ''}<br><span class="yr">❄ ${p.year}</span></span>
+        <span class="info"><span class="name">❄ ${esc(p.frozen)}</span><br><span class="power">${bars(p.power)}</span> <span class="pts"><span class="pos">${signed(p.score.alive)}</span> / <span class="neg">${signed(-Math.abs(p.score.dead))}</span></span></span>
         <span class="count">${votes[p.id] || 0}</span>
         <span class="mark">${voted.has(p.id) ? '✓ voted' : 'vote'}</span>
       </button>`).join('')}</div>`

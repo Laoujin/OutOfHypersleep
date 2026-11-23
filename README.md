@@ -15,6 +15,10 @@ bun install
 bun run preview  # build all decks and serve them at http://localhost:4173/OutOfHypersleep/
 bun run build    # all decks into presentation/dist
 bunx slidev pod-mutation.md   # work on a single deck (links to other decks only work in preview/build)
+
+cd ../voting
+npm install
+npm run dev      # voting app at http://localhost:3000, votes in voting/data/
 ```
 
 Every push to `main` builds the Slidev deck and publishes it to GitHub Pages (`.github/workflows/pages.yml`).
@@ -30,13 +34,19 @@ The talk is split into **separate Slidev decks**:
 | Intermezzo: the alien strikes back | `intermezzo.md` | `/OutOfHypersleep/intermezzo/` |
 | Finale: Schrödinger's developer, scoreboard, closing | `finale.md` | `/OutOfHypersleep/finale/` |
 
-1. **Ship map** (last slide of the intro). Pods are anonymous: freeze year, power and a score that flips between + (green) and − (red), because nobody knows whether the crew member survives. Votes come from the voting app via `HS.setVotes({ podId: n })`, or + / − for a show of hands. The leader glows.
+1. **Ship map** (last slide of the intro). Pods are anonymous: freeze year, power and a score that flips between + (green) and − (red), because nobody knows whether the crew member survives. Votes come live from the voting app at **https://pods.sangu.be** (`voting/`, polled every 2s), + / − add a show of hands on top. The leader glows.
 2. Click a pod, or → for the vote leader: the pod opens **fullscreen** on top of the map.
    → venting · → the lid opens: name and born year · → it lives or dies (died year, score applied).
 3. **Open the slides ↗** (or → once more) opens that pod's deck in a **new tab**, closes the fullscreen pod and the map updates: score counts up, the pod shows revived or dead. At the end of the pod deck, → closes the tab.
 4. After the 3rd pod, → on the map goes to the intermezzo deck. E opens the finale.
 
 Game state (woken pods, votes, score) is in `localStorage`, shared by all decks on the same origin.
+
+## Voting app (pods.sangu.be)
+
+`voting/` is a small Node app, deployed by Coolify from `voting/Dockerfile` (build context = repo root). It reads the `pod:` headers of `presentation/pod-*.md` and shows the pods anonymously (deck, freeze year, power, score), like the map. One vote per pod per browser (localStorage), tap again to undo. Votes persist in `/data/votes.json`.
+
+The `ask` slide ends with "→ to the cryo chamber" (the map). Reset the live votes before the talk: `POST /api/reset` with `Authorization: Bearer <ADMIN_TOKEN>` (the token is in the Home repo's Coolify config, not here).
 
 ## Pods and scores live in YAML
 

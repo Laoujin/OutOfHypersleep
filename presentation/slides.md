@@ -71,7 +71,7 @@ The scoreboard stays with us all talk.
 ---
 layout: hs
 routeAlias: ask
-clicks: 1
+clicks: 2
 ---
 
 <Hs id="ask" />
@@ -79,6 +79,7 @@ clicks: 1
 <!--
 The ask. The audience is now in charge of the crew.
 [click] Translate the metaphor once, then never again: waking crew = using old tools to keep LLM output in line.
+[click] Phones out: vote at pods.sangu.be (one vote per pod, tap again to undo). → to the cryo chamber.
 -->
 
 ---
@@ -89,7 +90,7 @@ routeAlias: map
 <Hs id="map" />
 
 <!--
-Run the vote: the voting app (or + / − for a show of hands). Click a pod, or → for the vote leader: the pod opens fullscreen.
+Run the vote: live counts from pods.sangu.be (+ / − adds a show of hands on top). Click a pod, or → for the vote leader: the pod opens fullscreen.
 Fullscreen pod: [→] venting · [→] lid opens: name + born · [→] it lives or dies (score applied) · [→] or the button: opens the pod's slides in a new tab and returns here. ← steps back / closes the pod.
 Aim for 5–6 pods. Watch the "N awake" per deck: if a deck is still empty after 3 pods, nudge: "nobody wants to verify anything?"
 After the 3rd pod, → on the map goes to the intermezzo. Press E for the final pod (Schrödinger's developer).

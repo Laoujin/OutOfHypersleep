@@ -5,13 +5,19 @@ import { parse } from 'yaml'
 
 const here = path.dirname(new URL(import.meta.url).pathname)
 const PORT = +(process.env.PORT || 3000)
-const PODS_FILE = process.env.PODS_FILE || path.join(here, '..', 'pods.yaml')
+const PODS_DIR = process.env.PODS_DIR || path.join(here, '..', 'presentation')
 const DATA_DIR = process.env.DATA_DIR || path.join(here, 'data')
 const ADMIN_TOKEN = process.env.ADMIN_TOKEN || ''
 const VOTES_FILE = path.join(DATA_DIR, 'votes.json')
 
-const pods = parse(fs.readFileSync(PODS_FILE, 'utf8'))
-  .map(({ id, name, sub, type, year }) => ({ id, name, sub, type, year }))
+const DECKS = ['isolation', 'integration', 'verification', 'cargo']
+const frontmatter = src => parse(src.split(/^---\s*$/m)[1] || '') || {}
+const pods = fs.readdirSync(PODS_DIR)
+  .filter(f => /^pod-.+\.md$/.test(f))
+  .map(f => frontmatter(fs.readFileSync(path.join(PODS_DIR, f), 'utf8')).pod)
+  .filter(Boolean)
+  .map(({ id, deck, order, frozen, power, score = {} }) => ({ id, deck, order, frozen, power, score: { alive: score.alive || 0, dead: score.dead || 0 } }))
+  .sort((a, b) => DECKS.indexOf(a.deck) - DECKS.indexOf(b.deck) || (a.order ?? 99) - (b.order ?? 99))
 const podIds = new Set(pods.map(p => p.id))
 
 fs.mkdirSync(DATA_DIR, { recursive: true })
@@ -74,4 +80,4 @@ http.createServer((req, res) => {
   }
 
   send(res, 404, { error: 'not found' })
-}).listen(PORT, () => console.log(`voting on :${PORT} · ${pods.length} pods from ${PODS_FILE}`))
+}).listen(PORT, () => console.log(`voting on :${PORT} · ${pods.length} pods from ${PODS_DIR}`))

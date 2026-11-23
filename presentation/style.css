@@ -566,3 +566,6 @@ pre.code { margin: 0; font: 21px/1.6 var(--mono); color: var(--ink); white-space
 .revive .rv-open { margin-top: 28px; font: 700 22px var(--mono); padding: 14px 24px; color: #04140d; background: var(--phos); border: 0; border-radius: 12px; cursor: pointer; opacity: 0; pointer-events: none; transition: opacity .5s 1s; }
 .revive.s3 .rv-open { opacity: 1; pointer-events: auto; }
 .revive.is-dead .rv-open { background: var(--cred); color: #fff; }
+
+.to-cryo { margin-top: 48px; font: 600 30px var(--mono); color: var(--cryo); letter-spacing: .04em; }
+.to-cryo b { color: var(--ink); }
