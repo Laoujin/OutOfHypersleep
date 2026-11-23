@@ -34,7 +34,7 @@ It is **one Slidev deck**. The ship map is a slide (a hub); every pod's slides l
 
 This works by overriding Slidev's navigation shortcuts (`presentation/setup/shortcuts.ts`): → / ← / PageDown / PageUp / clicker follow the hub instead of the linear slide order. Presenter view and notes are plain Slidev. Game state (woken pods, votes, score) lives in `localStorage`, so it survives a refresh and syncs to the presenter window.
 
-Before the talk, reset the live votes: `curl -X POST -H "Authorization: Bearer $ADMIN_TOKEN" https://pods.sangu.be/api/reset`.
+Before the talk, reset the live votes: `curl -X POST -H "Authorization: Bearer e9f031bd33407643654b280f" https://pods.sangu.be/api/reset`.
 
 | Key | Action |
 |---|---|
