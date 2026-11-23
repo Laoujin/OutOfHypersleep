@@ -523,7 +523,7 @@ decode(encode("123"))   <span class="green">✓</span></pre></div>
     html: () => html(p),
   });
   const statement = (p, title, text, art) => `${head(deckOf(p) + ' · ' + p.name, title)}
-    <div class="stmt"><p>${todo(text)}</p><div class="stmt-art">${art}</div></div>`;
+    <div class="stmt"><p>${todo(text)}</p>${art ? `<div class="stmt-art">${art}</div>` : ''}</div>`;
   const FRAME = {
     thaw: p => `${bg(p)}<div class="thaw-card">
       <div class="kicker">${deckOf(p)}</div>
@@ -532,7 +532,7 @@ decode(encode("123"))   <span class="green">✓</span></pre></div>
       <div class="fate">${p.dead ? 'No signs of life' : 'Revived'}</div>
     </div>`,
     froze: p => p.dead
-      ? statement(p, 'What it was', p.was, A.cryo('awake', `ONLINE ${p.born}`))
+      ? statement(p, 'What it was', p.was)
       : statement(p, 'Why it froze', p.frozenBecause, A.cryo('closed', `FROZEN ${p.frozen}`)),
     woke: p => p.dead
       ? statement(p, 'What killed it', p.diesBecause, A.cryo('dead', 'NO SIGNS'))
