@@ -1,0 +1,16 @@
+{
+  "name": "out-of-hypersleep",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "slidev --open",
+    "build": "slidev build --base /OutOfHypersleep/",
+    "export": "slidev export --with-clicks=false"
+  },
+  "dependencies": {
+    "@slidev/cli": "^53.1.0"
+  },
+  "devDependencies": {
+    "@slidev/types": "^53.1.0"
+  }
+}
