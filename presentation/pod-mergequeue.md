@@ -34,6 +34,24 @@ pod:
   frozenBecause: '"Only Google-scale needs this."'
   wokenBecause: 20 green branches at once. Each is green alone; together they break main.
 layout: hs
+routeAlias: mergequeue-thaw
+---
+
+<Hs id="mergequeue-thaw" />
+
+<!--
+Frame slide, generated from the pod: header.
+-->
+
+---
+layout: hs
+routeAlias: mergequeue-froze
+---
+
+<Hs id="mergequeue-froze" />
+
+---
+layout: hs
 routeAlias: mergequeue-why
 clicks: 3
 ---
@@ -49,3 +67,17 @@ The Dark Factory talk started exactly here: I needed a merge queue.
 [click] Semantic conflicts: no textual conflict, but together they break.
 [click] The queue: test the combination, bounce the one that breaks. This is how the Dark Factory talk started: I needed a merge queue.
 -->
+
+---
+layout: hs
+routeAlias: mergequeue-woke
+---
+
+<Hs id="mergequeue-woke" />
+
+---
+layout: hs
+routeAlias: mergequeue-log
+---
+
+<Hs id="mergequeue-log" />

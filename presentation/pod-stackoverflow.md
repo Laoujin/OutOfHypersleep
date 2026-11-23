@@ -31,7 +31,27 @@ pod:
   score:
     alive: 50
     dead: -40
+  was: The crew's shared memory. Every error you pasted into a search bar ended up here.
+  takeaway: Not every crew member survives the thaw.
   diesBecause: Questions are answered inside the agent now. Volume collapsed after 2023.
+layout: hs
+routeAlias: stackoverflow-thaw
+---
+
+<Hs id="stackoverflow-thaw" />
+
+<!--
+Frame slide, generated from the pod: header.
+-->
+
+---
+layout: hs
+routeAlias: stackoverflow-froze
+---
+
+<Hs id="stackoverflow-froze" />
+
+---
 layout: hs
 routeAlias: stackoverflow-chart
 clicks: 3
@@ -51,3 +71,48 @@ The best-known dead pod. Let the chart do the talking.
 [click] The message of its own: not every old practice survives the AI era.
 TODO before giving the talk: replace placeholder figures with real SEDE numbers.
 -->
+
+---
+layout: hs
+routeAlias: stackoverflow-irony
+clicks: 3
+---
+
+<Hs id="stackoverflow-irony" />
+
+<!--
+Today the question never leaves the IDE: the agent has your code, answers instantly, no snark.
+[click] Where did it learn that?
+[click] From Stack Overflow. The public answers went into the training sets.
+[click] 2024: Stack Overflow licenses its data (OverflowAPI) to Google (Feb) and OpenAI (May). To verify.
+Question counts on the left are illustrative vote counts, ~24M questions is approximate: to verify.
+-->
+
+---
+layout: hs
+routeAlias: stackoverflow-well
+clicks: 3
+---
+
+<Hs id="stackoverflow-well" />
+
+<!--
+The loop that fed every model: bug, public question, answer, index, training.
+[click] The question now goes to the agent, in private. The public loop breaks.
+[click] Nothing new goes into the well.
+[click] Open question for the audience: who answers next year's framework?
+-->
+
+---
+layout: hs
+routeAlias: stackoverflow-woke
+---
+
+<Hs id="stackoverflow-woke" />
+
+---
+layout: hs
+routeAlias: stackoverflow-log
+---
+
+<Hs id="stackoverflow-log" />

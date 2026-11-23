@@ -34,6 +34,24 @@ pod:
   frozenBecause: "Too slow and too expensive: run the whole suite once per mutant."
   wokenBecause: Compute is cheap and agents write the tests. Who tests the tests?
 layout: hs
+routeAlias: mutation-thaw
+---
+
+<Hs id="mutation-thaw" />
+
+<!--
+Frame slide, generated from the pod: header.
+-->
+
+---
+layout: hs
+routeAlias: mutation-froze
+---
+
+<Hs id="mutation-froze" />
+
+---
+layout: hs
 routeAlias: mutation-why
 clicks: 3
 ---
@@ -50,3 +68,17 @@ Mutation testing: 1970s. Frozen because you run the whole suite once per mutant:
 [click] Feed survivors back to the agent: it writes the missing test.
 [click] Compute is cheap now, and the agent does the boring part. Spin-off: "Who Goes There?".
 -->
+
+---
+layout: hs
+routeAlias: mutation-woke
+---
+
+<Hs id="mutation-woke" />
+
+---
+layout: hs
+routeAlias: mutation-log
+---
+
+<Hs id="mutation-log" />

@@ -34,6 +34,24 @@ pod:
   frozenBecause: Everyone bypassed them with <code>--no-verify</code>.
   wokenBecause: Agents can't skip a gate they aren't allowed to skip.
 layout: hs
+routeAlias: hooks-thaw
+---
+
+<Hs id="hooks-thaw" />
+
+<!--
+Frame slide, generated from the pod: header.
+-->
+
+---
+layout: hs
+routeAlias: hooks-froze
+---
+
+<Hs id="hooks-froze" />
+
+---
+layout: hs
 routeAlias: hooks-why
 clicks: 3
 ---
@@ -49,3 +67,17 @@ Everyone has a pre-commit hook story ending in --no-verify.
 [click] For agents: a permission rule or PreToolUse hook denies --no-verify.
 [click] The hook becomes backpressure. More in the Guardrails & Backpressure talk.
 -->
+
+---
+layout: hs
+routeAlias: hooks-woke
+---
+
+<Hs id="hooks-woke" />
+
+---
+layout: hs
+routeAlias: hooks-log
+---
+
+<Hs id="hooks-log" />

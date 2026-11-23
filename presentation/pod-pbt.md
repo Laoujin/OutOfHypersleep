@@ -34,6 +34,24 @@ pod:
   frozenBecause: Seen as academic. Generators are hard to write.
   wokenBecause: Agents write the generators. Properties catch what an agent's own examples only confirm.
 layout: hs
+routeAlias: pbt-thaw
+---
+
+<Hs id="pbt-thaw" />
+
+<!--
+Frame slide, generated from the pod: header.
+-->
+
+---
+layout: hs
+routeAlias: pbt-froze
+---
+
+<Hs id="pbt-froze" />
+
+---
+layout: hs
 routeAlias: pbt-why
 clicks: 3
 ---
@@ -49,3 +67,17 @@ Property-based testing: QuickCheck, ~1999. Frozen as academic; writing generator
 [click] A counterexample.
 [click] Shrinking: the minimal failing input. The agent's blind spots are not the generator's blind spots.
 -->
+
+---
+layout: hs
+routeAlias: pbt-woke
+---
+
+<Hs id="pbt-woke" />
+
+---
+layout: hs
+routeAlias: pbt-log
+---
+
+<Hs id="pbt-log" />

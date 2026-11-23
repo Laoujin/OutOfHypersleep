@@ -34,6 +34,24 @@ pod:
   frozenBecause: Nobody knew they existed (except kernel devs and <code>Signed-off-by</code>).
   wokenBecause: "Every AI commit carries <code>Co-Authored-By</code>: the alien's mark."
 layout: hs
+routeAlias: trailers-thaw
+---
+
+<Hs id="trailers-thaw" />
+
+<!--
+Frame slide, generated from the pod: header.
+-->
+
+---
+layout: hs
+routeAlias: trailers-froze
+---
+
+<Hs id="trailers-froze" />
+
+---
+layout: hs
 routeAlias: trailers-why
 clicks: 3
 ---
@@ -50,3 +68,17 @@ Ask the room: who recognises the last line? Everyone has seen it, almost nobody 
 [click] They are structured: git log can filter and count them.
 [click] Scoring twist: commit trailers give the crew NEGATIVE points. The alien's mark on every commit. The number on screen is illustrative.
 -->
+
+---
+layout: hs
+routeAlias: trailers-woke
+---
+
+<Hs id="trailers-woke" />
+
+---
+layout: hs
+routeAlias: trailers-log
+---
+
+<Hs id="trailers-log" />

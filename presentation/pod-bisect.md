@@ -34,6 +34,24 @@ pod:
   frozenBecause: "Bisecting by hand is tedious: build, test, mark good or bad, repeat."
   wokenBecause: An agent runs it unattended and reports the culprit.
 layout: hs
+routeAlias: bisect-thaw
+---
+
+<Hs id="bisect-thaw" />
+
+<!--
+Frame slide, generated from the pod: header.
+-->
+
+---
+layout: hs
+routeAlias: bisect-froze
+---
+
+<Hs id="bisect-froze" />
+
+---
+layout: hs
 routeAlias: bisect-why
 clicks: 7
 ---
@@ -48,3 +66,17 @@ git bisect: binary search through history. By hand: build, run, mark good/bad, r
 Step through the halvings: 64 → 32 → 16 → 8 → 4 → 2 → 1.
 (last step) git bisect run: the script decides good/bad. An agent kicks it off and comes back with the culprit commit.
 -->
+
+---
+layout: hs
+routeAlias: bisect-woke
+---
+
+<Hs id="bisect-woke" />
+
+---
+layout: hs
+routeAlias: bisect-log
+---
+
+<Hs id="bisect-log" />

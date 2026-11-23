@@ -35,6 +35,24 @@ pod:
   frozenBecause: Far too expensive to write the proofs.
   wokenBecause: LLMs write the proofs. A proof checker is backpressure that can't be argued with.
 layout: hs
+routeAlias: formal-thaw
+---
+
+<Hs id="formal-thaw" />
+
+<!--
+Frame slide, generated from the pod: header.
+-->
+
+---
+layout: hs
+routeAlias: formal-froze
+---
+
+<Hs id="formal-froze" />
+
+---
+layout: hs
 routeAlias: formal-why
 clicks: 3
 ---
@@ -51,3 +69,17 @@ Formal methods: TLA+, Dafny, Lean. Frozen because writing proofs cost more than 
 [click] Loop until it passes.
 [click] Keep it light: the point is the cost moved, not that everyone should write TLA+.
 -->
+
+---
+layout: hs
+routeAlias: formal-woke
+---
+
+<Hs id="formal-woke" />
+
+---
+layout: hs
+routeAlias: formal-log
+---
+
+<Hs id="formal-log" />

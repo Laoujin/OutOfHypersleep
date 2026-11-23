@@ -34,6 +34,24 @@ pod:
   frozenBecause: Only sysadmins on SSH used it.
   wokenBecause: Agents run dev servers and long processes in panes; you watch several agents at once.
 layout: hs
+routeAlias: tmux-thaw
+---
+
+<Hs id="tmux-thaw" />
+
+<!--
+Frame slide, generated from the pod: header.
+-->
+
+---
+layout: hs
+routeAlias: tmux-froze
+---
+
+<Hs id="tmux-froze" />
+
+---
+layout: hs
 routeAlias: tmux-why
 clicks: 3
 ---
@@ -48,3 +66,17 @@ tmux used to be the SSH-survival tool for sysadmins.
 Now: agents run long-lived processes, and you want to watch several agents at once.
 [click] capture-pane / send-keys: the agent reads the dev-server error and types into the pane. No more copy-pasting stack traces.
 -->
+
+---
+layout: hs
+routeAlias: tmux-woke
+---
+
+<Hs id="tmux-woke" />
+
+---
+layout: hs
+routeAlias: tmux-log
+---
+
+<Hs id="tmux-log" />

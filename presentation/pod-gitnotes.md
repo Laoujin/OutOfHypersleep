@@ -34,6 +34,24 @@ pod:
   frozenBecause: Notes got lost on push and clone.
   wokenBecause: Recording which agent wrote which commit, and with which prompt.
 layout: hs
+routeAlias: gitnotes-thaw
+---
+
+<Hs id="gitnotes-thaw" />
+
+<!--
+Frame slide, generated from the pod: header.
+-->
+
+---
+layout: hs
+routeAlias: gitnotes-froze
+---
+
+<Hs id="gitnotes-froze" />
+
+---
+layout: hs
 routeAlias: gitnotes-why
 clicks: 3
 ---
@@ -50,3 +68,17 @@ git notes: attach data to a commit without changing its hash.
 [click] Not pushed or fetched by default: notes "got lost", so the feature froze.
 [click] Push refs/notes/* (and add a fetch refspec). Pairs well with the commit trailers pod.
 -->
+
+---
+layout: hs
+routeAlias: gitnotes-woke
+---
+
+<Hs id="gitnotes-woke" />
+
+---
+layout: hs
+routeAlias: gitnotes-log
+---
+
+<Hs id="gitnotes-log" />

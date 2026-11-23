@@ -35,6 +35,24 @@ pod:
     dead: -40
   diesBecause: Why estimate something that takes 4 minutes to build?
 layout: hs
+routeAlias: storypoints-thaw
+---
+
+<Hs id="storypoints-thaw" />
+
+<!--
+Frame slide, generated from the pod: header.
+-->
+
+---
+layout: hs
+routeAlias: storypoints-froze
+---
+
+<Hs id="storypoints-froze" />
+
+---
+layout: hs
 routeAlias: storypoints-poker
 clicks: 2
 ---
@@ -50,3 +68,17 @@ The estimation meeting took longer than the build.
 Why estimate something that takes 4 minutes to build?
 The alien eats story points. Some will cheer.
 -->
+
+---
+layout: hs
+routeAlias: storypoints-woke
+---
+
+<Hs id="storypoints-woke" />
+
+---
+layout: hs
+routeAlias: storypoints-log
+---
+
+<Hs id="storypoints-log" />

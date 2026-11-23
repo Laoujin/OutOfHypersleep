@@ -35,6 +35,24 @@ pod:
   frozenBecause: A homelab hobby. Your laptop <em>was</em> the dev environment.
   wokenBecause: <code>--dangerously-skip-permissions</code> needs a box you can wipe.
 layout: hs
+routeAlias: boxes-thaw
+---
+
+<Hs id="boxes-thaw" />
+
+<!--
+Frame slide, generated from the pod: header.
+-->
+
+---
+layout: hs
+routeAlias: boxes-froze
+---
+
+<Hs id="boxes-froze" />
+
+---
+layout: hs
 routeAlias: boxes-why
 clicks: 3
 ---
@@ -50,3 +68,17 @@ Skipping permissions is the only way agents run for hours unattended. On your la
 [click] It will break it.
 [click] Snapshot rollback in seconds. Homelab story: Proxmox, one VM per agent.
 -->
+
+---
+layout: hs
+routeAlias: boxes-woke
+---
+
+<Hs id="boxes-woke" />
+
+---
+layout: hs
+routeAlias: boxes-log
+---
+
+<Hs id="boxes-log" />

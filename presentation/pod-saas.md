@@ -35,6 +35,24 @@ pod:
     dead: -40
   diesBecause: Building beats buying. A PDF tool in 2 hours instead of hosting Stirling PDF.
 layout: hs
+routeAlias: saas-thaw
+---
+
+<Hs id="saas-thaw" />
+
+<!--
+Frame slide, generated from the pod: header.
+-->
+
+---
+layout: hs
+routeAlias: saas-froze
+---
+
+<Hs id="saas-froze" />
+
+---
+layout: hs
 routeAlias: saas-story
 clicks: 2
 ---
@@ -50,3 +68,17 @@ Sleep year is a placeholder (TBD in the source).
 Own story: Stirling PDF vs a small tool built by an agent in 2 hours.
 Build vs buy flipped for small tools. Not for your ERP.
 -->
+
+---
+layout: hs
+routeAlias: saas-woke
+---
+
+<Hs id="saas-woke" />
+
+---
+layout: hs
+routeAlias: saas-log
+---
+
+<Hs id="saas-log" />

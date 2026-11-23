@@ -439,7 +439,48 @@ decode(encode("123"))   <span class="green">✓</span></pre></div>
           <text class="mono dim" x="980" y="540" text-anchor="end">≈ placeholder figures · replace with a Stack Exchange Data Explorer query</text>
         </svg>`;
       })(),
-      caps: ['2008–2014: the place every developer went.', 'A long, slow plateau.', 'Then: questions get answered <b>inside the agent</b>.', 'The alien ate it. <b>Not every crew member survives the thaw.</b>'],
+      caps: ['2008–2014: the place every developer went.', 'A long, slow plateau.', 'Then: questions get answered <b>inside the agent</b>.', 'Back to 2009 levels.'],
+    }, {
+      slug: 'irony', title: 'It learned from the crew', cls: 'deadslide',
+      body: `<svg viewBox="0 0 1000 560">
+        <g data-s="1">
+          <rect class="box" x="20" y="70" width="320" height="330" rx="14"/>
+          <text class="lbl" x="44" y="112">stackoverflow.com</text>
+          ${[['undo last commit?', '26k'], ['exit vim?', '9k'], ['center a div?', '7k'], ['regex for email?', '4k']].map(([q, v], i) => `<rect class="qbox ok" x="44" y="${140 + i * 62}" width="272" height="48" rx="8"/><text class="mono" x="60" y="${171 + i * 62}">${q}</text><text class="mono dim" x="300" y="${171 + i * 62}" text-anchor="end">${v}</text>`).join('')}
+        </g>
+        <g data-s="2">
+          <path class="arrow" d="M345 235 H395"/>
+          <ellipse class="git" cx="500" cy="170" rx="95" ry="24"/><path class="git" d="M405 170 v130 a95 24 0 0 0 190 0 v-130"/><ellipse class="git-top" cx="500" cy="170" rx="95" ry="24"/>
+          <text class="lbl" x="500" y="250" text-anchor="middle">training set</text><text class="mono dim" x="500" y="280" text-anchor="middle">~24M questions</text>
+          <path class="arrow" d="M600 235 H650"/>
+        </g>
+        <rect class="term" x="660" y="110" width="320" height="250" rx="12"/>
+        <text class="mono dim" x="684" y="150">agent</text>
+        <text class="mono" x="684" y="200">&gt; why does this</text><text class="mono" x="684" y="228">  fail on line 42?</text>
+        <text class="mono green" x="684" y="280">off-by-one. fixed,</text><text class="mono green" x="684" y="308">tests pass.</text>
+        <g data-s="3">
+          <rect class="box bad" x="140" y="440" width="720" height="80" rx="12"/>
+          <text class="lbl red" x="500" y="490" text-anchor="middle">2024: Stack Overflow licenses its answers to the AI labs</text>
+        </g>
+      </svg>`,
+      caps: ['Today: ask the agent. Your code as context, instant, <b>no "closed as duplicate"</b>.', 'Where did it learn to answer?', 'Fifteen years of <b>Stack Overflow answers</b>.', 'Stack Overflow then <b>sells access</b> to the models replacing it.<br><small>OverflowAPI: Google, OpenAI.</small>'],
+    }, {
+      slug: 'well', title: 'The well runs dry', cls: 'deadslide',
+      body: `<svg viewBox="0 0 1000 560" class="so-loop">
+        ${[[500, 70, 'dev hits a bug', ''], [830, 280, 'asks in public', 'dry'], [500, 490, 'answered · voted · indexed', 'dry'], [170, 280, 'next model trains on it', '']].map(([x, y, t, c]) => `<g class="${c}"><rect class="box" x="${x - 150}" y="${y - 32}" width="300" height="64" rx="12"/><text class="lbl" x="${x}" y="${y + 9}" text-anchor="middle">${t}</text></g>`).join('')}
+        <path class="arrow" data-o="1" d="M650 82 Q800 110 830 238"/>
+        <path class="arrow dry" d="M830 322 Q800 450 655 482"/>
+        <path class="arrow dry" d="M345 482 Q200 450 170 322"/>
+        <path class="arrow" d="M170 238 Q200 110 345 82"/>
+        <g data-s="1">
+          <path class="arrow bad dashed" d="M650 82 Q800 110 830 238"/><text class="lbl red big" x="770" y="150" text-anchor="middle">✗</text>
+          <path class="arrow ok" d="M500 104 V236"/>
+          <rect class="term" x="380" y="242" width="240" height="64" rx="12"/><text class="mono green" x="500" y="281" text-anchor="middle">agent · private</text>
+        </g>
+        <g data-s="2"><text class="lbl red" x="500" y="370" text-anchor="middle">nothing new goes in</text></g>
+        <g data-s="3"><text class="lbl red huge" x="170" y="390" text-anchor="middle">?</text></g>
+      </svg>`,
+      caps: ['Every answer an agent gives was once a <b>public answer</b>.', 'Now the question goes to the agent. <b>In private.</b>', 'No question, no answer, no vote, no index.', 'So who answers <b>next year\'s framework</b>?'],
     }],
     saas: [{
       slug: 'story', title: 'I needed three PDF operations', cls: 'deadslide',
@@ -457,8 +498,43 @@ decode(encode("123"))   <span class="green">✓</span></pre></div>
     }],
   };
 
+  const BASE = import.meta.env.BASE_URL;
+  const bg = p => `<div class="pod-bg" style="--plate-img: url('${BASE}plates/pod-${p.id}.webp')"></div>`;
+  const todo = t => t || '<span class="todo">TODO</span>';
+  const frame = (p, slug, html) => ({
+    id: `${p.id}-${slug}`, seq: 'pod:' + p.id,
+    cls: `frame f-${slug} t-${p.deck} ${p.dead ? 'is-deadpod' : 'is-alivepod'}`,
+    html: () => html(p),
+  });
+  const statement = (p, title, text, art) => `${head(deckOf(p) + ' · ' + p.name, title)}
+    <div class="stmt"><p>${todo(text)}</p><div class="stmt-art">${art}</div></div>`;
+  const FRAME = {
+    thaw: p => `${bg(p)}<div class="thaw-card">
+      <div class="kicker">${deckOf(p)}</div>
+      <h1>${p.name}</h1>
+      <div class="ids"><span>born<b>${p.born}</b></span><span>frozen<b>${p.frozen}</b></span>${p.dead ? `<span>died<b>${p.died}</b></span>` : ''}<span>relevance${A.rel(p.power)}</span></div>
+      <div class="fate">${p.dead ? 'No signs of life' : 'Revived'}</div>
+    </div>`,
+    froze: p => p.dead
+      ? statement(p, 'What it was', p.was, A.cryo('awake', `ONLINE ${p.born}`))
+      : statement(p, 'Why it froze', p.frozenBecause, A.cryo('closed', `FROZEN ${p.frozen}`)),
+    woke: p => p.dead
+      ? statement(p, 'What killed it', p.diesBecause, A.cryo('dead', 'NO SIGNS'))
+      : statement(p, 'What woke it', p.wokenBecause, A.cryo('awake', 'REVIVED')),
+    log: p => `${bg(p)}<div class="log">
+      <div class="log-h">Crew log · ${p.name}</div>
+      <div class="log-line">&gt; ${todo(p.takeaway)}</div>
+      <div class="log-score ${p.dead ? 'red' : ''}">${p.dead ? `alien +${Math.abs(p.score.dead)}` : `crew +${p.score.alive}`}</div>
+      <div class="log-next">→ back to the cryo chamber</div>
+    </div>`,
+  };
+  HS.FRAME_BEFORE = ['thaw', 'froze'];
+  HS.FRAME_AFTER = ['woke', 'log'];
+
   for (const p of HS.pods) {
+    for (const k of HS.FRAME_BEFORE) add(frame(p, k, FRAME[k]));
     for (const d of podSlides[p.id] || []) add(custom(p.id, d));
+    for (const k of HS.FRAME_AFTER) add(frame(p, k, FRAME[k]));
   }
 
   // ───────────────────────── INTERMEZZO ─────────────────────────

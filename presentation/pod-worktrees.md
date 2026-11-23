@@ -34,6 +34,24 @@ pod:
   frozenBecause: One developer only ever needs one checkout. <code>git stash</code> was good enough.
   wokenBecause: "N agents on one repo: each needs its own working directory and branch."
 layout: hs
+routeAlias: worktrees-thaw
+---
+
+<Hs id="worktrees-thaw" />
+
+<!--
+Frame slide, generated from the pod: header.
+-->
+
+---
+layout: hs
+routeAlias: worktrees-froze
+---
+
+<Hs id="worktrees-froze" />
+
+---
+layout: hs
 routeAlias: worktrees-why
 clicks: 3
 ---
@@ -50,3 +68,17 @@ Three agents in one folder: show the collisions.
 [click] Worktrees: one object store, a working directory per agent. Cheap: no re-clone.
 [click] git worktree add. That's it. Ten years in the freezer as "the hotfix trick".
 -->
+
+---
+layout: hs
+routeAlias: worktrees-woke
+---
+
+<Hs id="worktrees-woke" />
+
+---
+layout: hs
+routeAlias: worktrees-log
+---
+
+<Hs id="worktrees-log" />
