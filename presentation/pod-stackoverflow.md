@@ -102,11 +102,10 @@ clicks: 3
 <Hs id="stackoverflow-irony" />
 
 <!--
-Today the question never leaves the IDE: the agent has your code, answers instantly, no snark.
-[click] Where did it learn that?
-[click] From Stack Overflow. The public answers went into the training sets.
-[click] 2024: Stack Overflow licenses its data (OverflowAPI) to Google (Feb) and OpenAI (May). To verify.
-Question counts on the left are illustrative vote counts, ~24M questions is approximate: to verify.
+Fifteen years of crew knowledge in one database: ~24M questions (to verify).
+[click] The alien finds it.
+[click] Tractor beam: it absorbs everything. The answers went into the training sets.
+[click] And Stack Overflow sold it the meal: 2024 OverflowAPI deals with Google (Feb) and OpenAI (May). To verify.
 -->
 
 ---

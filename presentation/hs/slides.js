@@ -457,29 +457,28 @@ decode(encode("123"))   <span class="green">✓</span></pre></div>
       })(),
       caps: ['2008–2014: the place every developer went.', 'Then a long, slow plateau.', 'Nov 2022: questions move <b>inside the agent</b>.', 'Fewer questions than in <b>its very first month</b>.'],
     }, {
-      slug: 'irony', title: 'It learned from the crew', cls: 'deadslide',
-      body: `<svg viewBox="0 0 1000 560">
-        <g data-s="1">
-          <rect class="box" x="20" y="70" width="320" height="330" rx="14"/>
-          <text class="lbl" x="44" y="112">stackoverflow.com</text>
-          ${[['undo last commit?', '26k'], ['exit vim?', '9k'], ['center a div?', '7k'], ['regex for email?', '4k']].map(([q, v], i) => `<rect class="qbox ok" x="44" y="${140 + i * 62}" width="272" height="48" rx="8"/><text class="mono" x="60" y="${171 + i * 62}">${q}</text><text class="mono dim" x="300" y="${171 + i * 62}" text-anchor="end">${v}</text>`).join('')}
-        </g>
-        <g data-s="2">
-          <path class="arrow" d="M345 235 H395"/>
-          <ellipse class="git" cx="500" cy="170" rx="95" ry="24"/><path class="git" d="M405 170 v130 a95 24 0 0 0 190 0 v-130"/><ellipse class="git-top" cx="500" cy="170" rx="95" ry="24"/>
-          <text class="lbl" x="500" y="250" text-anchor="middle">training set</text><text class="mono dim" x="500" y="280" text-anchor="middle">~24M questions</text>
-          <path class="arrow" d="M600 235 H650"/>
-        </g>
-        <rect class="term" x="660" y="110" width="320" height="250" rx="12"/>
-        <text class="mono dim" x="684" y="150">agent</text>
-        <text class="mono" x="684" y="200">&gt; why does this</text><text class="mono" x="684" y="228">  fail on line 42?</text>
-        <text class="mono green" x="684" y="280">off-by-one. fixed,</text><text class="mono green" x="684" y="308">tests pass.</text>
-        <g data-s="3">
-          <rect class="box bad" x="140" y="440" width="720" height="80" rx="12"/>
-          <text class="lbl red" x="500" y="490" text-anchor="middle">2024: Stack Overflow licenses its answers to the AI labs</text>
-        </g>
-      </svg>`,
-      caps: ['Today: ask the agent. Your code as context, instant, <b>no "closed as duplicate"</b>.', 'Where did it learn to answer?', 'Fifteen years of <b>Stack Overflow answers</b>.', 'Stack Overflow then <b>sells access</b> to the models replacing it.<br><small>OverflowAPI: Google, OpenAI.</small>'],
+      slug: 'irony', title: 'It absorbed all the knowledge of the crew', cls: 'deadslide so-absorb',
+      body: (() => {
+        const cx = 500, top = 280, rx = 250, ry = 50, h = 210;
+        const body = `M${cx - rx} ${top} v${h} a${rx} ${ry} 0 0 0 ${rx * 2} 0 v-${h}`;
+        const bits = Array.from({ length: 14 }, (_, i) => `<rect class="bit" x="${cx - 90 + (i * 37) % 180}" y="${top - 10}" width="12" height="12" rx="2" style="animation-delay:${(i * 0.17).toFixed(2)}s"/>`).join('');
+        return `<svg viewBox="0 0 1000 560">
+          <defs><clipPath id="so-db-clip"><path d="${body} a${rx} ${ry} 0 0 0 -${rx * 2} 0z"/></clipPath></defs>
+          <g data-s="2" data-o="3"><path class="beam" d="M${cx - 40} 150 L${cx + 40} 150 L${cx + rx} ${top} L${cx - rx} ${top}Z"/><g class="bits">${bits}</g></g>
+          <g data-o="3">
+            <ellipse class="git" cx="${cx}" cy="${top}" rx="${rx}" ry="${ry}"/><path class="git" d="${body}"/>
+            <g clip-path="url(#so-db-clip)"><rect class="lvl" x="${cx - rx - 5}" y="${top - ry}" width="${rx * 2 + 10}" height="${h + ry * 2 + 5}"/></g>
+            <ellipse class="git-top" cx="${cx}" cy="${top}" rx="${rx}" ry="${ry}"/>
+            <text class="lbl big" x="${cx}" y="${top + 110}" text-anchor="middle">training set</text>
+            <text class="mono dim" x="${cx}" y="${top + 148}" text-anchor="middle">~24M questions · 15 years of answers</text>
+          </g>
+          <g data-s="3"><path class="ghost" d="${body}"/><ellipse class="ghost" cx="${cx}" cy="${top}" rx="${rx}" ry="${ry}"/>
+            <text class="lbl big dim" x="${cx}" y="${top + 110}" text-anchor="middle">training set</text>
+            <text class="mono red" x="${cx}" y="${top + 148}" text-anchor="middle">0 rows</text></g>
+          <g data-s="1"><svg class="alien-host alien" x="${cx - 100}" y="0" width="200" height="200" viewBox="-100 -100 200 200">${A.alien().replace(/^<svg[^>]*>|<\/svg>$/g, '')}</svg></g>
+        </svg>`;
+      })(),
+      caps: ['Fifteen years of crew knowledge: <b>~24M questions</b>, answered and voted.', 'Then the alien found it.', 'It absorbed <b>everything</b>.', 'Stack Overflow even <b>sold</b> it the meal.<small>2024: licensing deals with Google and OpenAI.</small>'],
     }, {
       slug: 'well', title: 'The well runs dry', cls: 'deadslide',
       body: `<svg viewBox="0 0 1000 560" class="so-loop">

@@ -693,3 +693,14 @@ div.absolute.bottom-0.left-0:has(> nav) { display: none !important; }
 .so-res small { font: 16px var(--mono); color: var(--muted); }
 .so-res b { font: 600 24px var(--sans); color: var(--cryo); }
 .so-res em { font: normal 17px var(--mono); color: var(--awake); }
+
+/* Stack Overflow: tractor beam */
+.so-absorb svg .ghost { fill: none; stroke: var(--faint); stroke-width: 2; stroke-dasharray: 8 8; }
+.so-absorb svg .lvl { fill: rgba(159,216,240,.3); transform-box: fill-box; transform-origin: bottom; transition: transform 2.4s ease-in, fill 1s; }
+.so-absorb.s2 svg .lvl { transform: scaleY(.15); fill: rgba(255,59,92,.35); }
+.so-absorb svg .beam { fill: rgba(255,59,92,.16); stroke: rgba(255,59,92,.5); stroke-width: 1.5; }
+.so-absorb svg .bit { fill: var(--cryo); animation: so-rise 1.6s linear infinite; transform-box: fill-box; }
+@keyframes so-rise { 0% { transform: translateY(0); opacity: 0; fill: var(--cryo); } 15% { opacity: 1; } 100% { transform: translateY(-150px); opacity: 0; fill: var(--alien); } }
+.so-absorb .alien-host { overflow: visible; }
+.so-absorb .alien-host circle { fill: none; stroke: var(--alien); }
+.so-absorb.s2 .alien-host, .so-absorb.s3 .alien-host { filter: drop-shadow(0 0 24px rgba(255,59,92,.7)); }
