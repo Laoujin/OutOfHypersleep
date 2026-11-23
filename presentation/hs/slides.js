@@ -152,13 +152,18 @@ import QRCode from 'qrcode';
       ov.className = 'revive rv-overlay';
       ov.hidden = true;
       el.appendChild(ov);
-      let cur = null, st = 0;
+      let cur = null, st = 0, timer = null;
+      const DELAYS = [700, 2000, 2400];
+      const auto = () => {
+        clearTimeout(timer);
+        if (cur && st < 3) timer = setTimeout(() => { step(st + 1); auto(); }, DELAYS[st]);
+      };
       const step = n => {
         st = Math.max(0, Math.min(3, n));
         revive.step(ov, cur, st);
         if (st === 3 && !c.state.woken.includes(cur.id)) { c.state.woken.push(cur.id); c.save(); }
       };
-      const close = () => { ov.hidden = true; cur = null; HS.refreshActive(); };
+      const close = () => { clearTimeout(timer); ov.hidden = true; cur = null; HS.refreshActive(); };
       const openSlides = () => { const id = cur.id; if (st < 3) step(3); window.open(HS.deckUrl('pod-' + id), '_blank'); close(); };
       const show = id => {
         const p = HS.podById(id);
@@ -169,14 +174,18 @@ import QRCode from 'qrcode';
         ov.innerHTML = revive.html(p);
         ov.hidden = false;
         step(0);
+        auto();
       };
       HS.overlay = {
         get active() { return !!cur && el.isConnected; },
-        next: () => (st < 3 ? step(st + 1) : openSlides()),
-        prev: () => (st > 0 ? step(st - 1) : close()),
+        next: () => (st < 3 ? (step(st + 1), auto()) : openSlides()),
+        prev: () => { clearTimeout(timer); st > 0 ? step(st - 1) : close(); },
         show, close,
       };
-      ov.addEventListener('click', e => { if (e.target.closest('[data-act=open-slides]')) openSlides(); });
+      ov.addEventListener('click', e => {
+        if (e.target.closest('[data-act=open-slides]')) return openSlides();
+        if (st < 3) { step(st + 1); auto(); }
+      });
       el.addEventListener('click', e => {
         if (e.target.closest('.rv-overlay')) return;
         const b = e.target.closest('[data-act]');
