@@ -14,8 +14,10 @@ download: false
 routerMode: hash
 wakeLock: false
 fonts:
-  sans: Inter
-  mono: JetBrains Mono
+  sans: IBM Plex Sans
+  serif: Chakra Petch
+  mono: IBM Plex Mono
+  weights: '400,500,600,700'
 layout: hs
 routeAlias: strike
 clicks: 2
