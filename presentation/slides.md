@@ -45,7 +45,6 @@ This talk answers WHY NOW, not HOW. The how is in the Git Worktrees and Guardrai
 ---
 layout: hs
 routeAlias: launch
-clicks: 2
 ---
 
 <Hs id="launch" />

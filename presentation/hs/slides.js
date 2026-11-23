@@ -28,16 +28,15 @@ import QRCode from 'qrcode';
   });
 
   add({
-    id: 'launch', seq: 'intro', steps: 3, cls: 'launch plate',
+    id: 'launch', seq: 'intro', cls: 'launch plate',
     html: () => `<div class="lt">
         <div class="lt-live"><i></i>Live</div>
         <div class="lt-hl"><b>First colony ship leaves Earth orbit</b><span>Destination Alpha Centauri · 4.37 light years · crew in hypersleep</span></div>
       </div>
       <div class="launch-q">
         <h1>"We've done it."</h1>
-        <div class="sub" data-s="1">We built a starship, and we're going to colonize Alpha Centauri.</div>
-      </div>
-      <div class="ticker" data-s="2"><div class="marquee">${Array(6).fill(`<span>EXCITING TIMES TO BE ALIVE · MARKETS RALLY ON LAUNCH NEWS · NEXT CONTACT IN 4 YEARS ·</span>`).join('')}</div></div>`,
+        <div class="sub">We built a starship, and we're going to colonize Alpha Centauri.</div>
+      </div>`,
   });
 
   add({

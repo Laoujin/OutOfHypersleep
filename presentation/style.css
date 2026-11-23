@@ -587,9 +587,6 @@ pre.code { margin: 0; font: 21px/1.6 var(--mono); color: var(--ink); white-space
 .launch-q { position: absolute; left: 90px; bottom: 130px; }
 .launch-q h1 { font-size: 120px; line-height: 1; color: #fff; }
 .launch-q .sub { margin-top: 18px; font: 400 32px var(--sans); color: var(--frost); }
-.launch .ticker { position: absolute; left: 0; right: 0; bottom: 30px; height: 44px; background: #000; color: var(--amber); font: 600 20px var(--mono); letter-spacing: .14em; display: flex; align-items: center; overflow: hidden; white-space: nowrap; }
-.launch .ticker .marquee { display: inline-flex; animation: marquee 40s linear infinite; }
-.launch .ticker .marquee span { padding-right: .8em; }
 
 .but { --plate-img: url('/plates/red-corridor.webp'); --plate-shade: linear-gradient(180deg, rgba(0,0,0,.45), rgba(0,0,0,.35) 50%, rgba(0,0,0,.55)); }
 .but .alarm-bar { padding: 0; height: 44px; display: flex; align-items: center; color: #111; font: 700 18px var(--mono); letter-spacing: .2em; background: repeating-linear-gradient(-45deg, var(--alien) 0 24px, #c2203d 24px 48px); animation: none; }
