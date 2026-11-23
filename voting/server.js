@@ -46,6 +46,7 @@ const send = (res, status, body, type = 'application/json') => {
 const statics = {
   '/': ['index.html', 'text/html; charset=utf-8'],
   '/app.css': ['app.css', 'text/css; charset=utf-8'],
+  '/favicon.svg': ['favicon.svg', 'image/svg+xml'],
 }
 
 const VOTER = /^[a-zA-Z0-9-]{8,64}$/
