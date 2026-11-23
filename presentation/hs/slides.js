@@ -62,19 +62,18 @@
   });
 
   // ───────────────────────── MAP ─────────────────────────
-  const podScore = p => (p.type === 'dead' ? -HS.RULES.dead : HS.podPoints(p));
+  const podScore = (p, woken) => (p.type === 'dead' ? (woken ? -HS.RULES.dead : p.rel * HS.RULES.relevance) : HS.podPoints(p));
   const podCard = (p, st) => {
     const woken = st.woken.includes(p.id);
     const dead = p.type === 'dead';
     const cls = ['pod', `t-${p.type}`, woken ? (dead ? 'is-dead' : 'is-woken') : 'is-frozen', HS.leader() === p.id ? 'lead' : ''].join(' ');
     const votes = st.votes[p.id] || 0;
-    const sc = podScore(p);
+    const sc = podScore(p, woken);
     return `<div class="${cls}" data-pod="${p.id}">
       ${A.pod(woken ? (dead ? 'dead' : 'open') : 'frozen')}
       <div class="pc">
-        ${woken ? `<b>${p.name}</b>` : ''}
-        <span class="yr">❄ ${p.year}${woken && dead ? ` · <span class="red">✝ ${p.died}</span>` : ''}</span>
-        ${dead ? `<span class="rel unknown">? ? ?</span>` : A.rel(p.rel)}
+        <span class="yr">❄ ${p.year}</span>
+        ${A.rel(p.rel)}
         <span class="pts ${sc < 0 ? 'neg' : 'pos'}">${sc > 0 ? '+' : sc < 0 ? '−' : ''}${Math.abs(sc)}</span>
       </div>
       ${woken ? '' : `<div class="votes"><span class="vn">${votes}</span><small>votes</small><div class="vb"><button data-act="down" data-id="${p.id}">−</button><button data-act="up" data-id="${p.id}">+</button></div></div>`}
@@ -88,14 +87,14 @@
       const sc = c.score;
       const row = type => HS.pods.filter(p => p.type === type).map(p => podCard(p, st)).join('');
       const cov = type => HS.pods.filter(p => p.type === type && st.woken.includes(p.id)).length;
-      return `<div class="map-head"><div><div class="kicker">ship map · ${sc.wokenLive.length + sc.wokenDead.length} opened · ${sc.sleeping} still asleep</div><h2>Which pod do we open?</h2></div>${A.hud()}</div>
+      return `<div class="map-head"><div><div class="kicker">ship map</div><h2>Which pod do we open?</h2></div>${A.hud()}</div>
         <svg class="hull" viewBox="0 0 1500 720" preserveAspectRatio="none"><path d="M20 60 L1180 40 Q1460 120 1480 360 Q1460 600 1180 680 L20 660 Q0 360 20 60Z"/></svg>
         <div class="map-grid">
           ${['isolation', 'integration', 'verification'].map(t => `<div class="deck-lbl t-${t}"><b>Deck ${HS.TYPES[t].n}</b>${HS.TYPES[t].label}<small>${cov(t)} awake</small></div><div class="deck-row">${row(t)}</div>`).join('')}
           <div class="deck-lbl t-dead"><b>Cargo</b>unmarked pods</div>
           <div class="deck-row">${row('dead')}${HS.dying.map(d => `<div class="pod t-dying ${st.events.intermezzo ? 'is-lost' : 'is-dying'}" title="${d.why}">${A.pod(st.events.intermezzo ? 'dead' : 'dying')}<div class="pc"><span class="yr">${st.events.intermezzo ? '<span class="red">lost</span>' : 'life support'}</span></div></div>`).join('')}</div>
         </div>
-        <div class="map-help">votes come from the voting app (or <b>+ / −</b> for a show of hands) · click a pod to open it · <b>→</b> opens the leader · <b>E</b> final pod</div>`;
+`;
     },
     init: (el, c) => {
       A.hudUpdate(el, c);
@@ -127,9 +126,9 @@
         <div class="thaw-info">
           <div class="kicker">${deckOf(p)} · pod opening</div>
           <h1>${p.name}</h1>${p.sub ? `<div class="sub">${p.sub}</div>` : ''}
-          <div class="meta"><span>❄ asleep since <b>${p.year}</b></span><span>in hypersleep <b>${HS.thisYear - p.year} years</b></span>${dead ? '' : A.rel(p.rel)}</div>
+          <div class="meta"><span>❄ asleep since <b>${p.year}</b></span><span>in hypersleep <b>${HS.thisYear - p.year} year${HS.thisYear - p.year === 1 ? '' : 's'}</b></span>${dead ? '' : A.rel(p.rel)}</div>
           ${dead
-            ? `<div class="why dies" data-s="2"><label>✝ ${p.died} · dies because</label>${p.dies}</div>
+            ? `<div class="why dies" data-s="2"><label>dies because</label>${p.dies}</div>
                <div class="award alien" data-s="2">eaten by the alien · alien +${HS.RULES.dead}</div>`
             : `<div class="why frozen" data-s="1"><label>Frozen because</label>${p.frozen}</div>
                <div class="why woken" data-s="2"><label>Woken because</label>${p.woken}</div>

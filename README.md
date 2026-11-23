@@ -30,7 +30,7 @@ The talk is split into **separate Slidev decks** that link into each other:
 | Intermezzo: the alien strikes back | `intermezzo.md` | `/OutOfHypersleep/intermezzo/` |
 | Finale: Schrödinger's developer, scoreboard, closing | `finale.md` | `/OutOfHypersleep/finale/` |
 
-- The ship map is the last slide of the intro deck. Pods are anonymous until opened: each shows its freeze year, power (relevance) and score (+ green / − red). Votes are shown per pod (+ / − buttons for now; a separate voting app will feed them). The leader glows.
+- The ship map is the last slide of the intro deck. Pods never show their name on the map: each shows its freeze year, power (relevance) and score (+ green / − red). Votes are shown per pod (+ / − buttons for now; a separate voting app will feed them). The leader glows.
 - Click a pod, or press → on the map to open the vote leader: the browser opens that pod's deck.
 - At the end of a pod deck, → returns to the ship map. After the 3rd pod, → goes to the intermezzo deck first. Press E for the final pod (Schrödinger's developer).
 
@@ -83,7 +83,7 @@ Everything below is a default; change it in `presentation/hs/data.js` (`HS.pods`
 | Rigged? | No. Balanced so a 5–6 pod run with one dead pod ends close (e.g. five pods + one dead pod: crew ≈ 210 vs alien ≈ 220, a knife edge now that the crew starts at 0). Many dead pods or few pods opened → the alien wins. The speaker notes have a closing line for both outcomes. |
 | Message map vs random order | Free vote. The map shows "N awake" per deck, and the intermezzo status report lists coverage per deck so the speaker can steer ("nobody wants to verify anything?"). |
 | Already awake | Shown in the medbay as open pods (on duty); not selectable, no points. |
-| Do voters know a pod is dead? | Subtle hint only: cargo-deck pods show `? ? ?` instead of relevance bars and no deck colour. |
+| Do voters know a pod is dead? | No hint on the pod itself: a dead pod shows a normal power and positive score, and its freeze year is the year it died (Stack Overflow ❄ 2023). They do sit in the cargo row. |
 | Voting | Local click-to-choose: **+ / −** on each pod (show of hands). `HS.setVotes({ podId: n, ... })` is the hook for a future QR/poll integration. |
 | Intermezzo | The alien strikes back (its turn on the scoreboard) + a status report. Auto after the 3rd pod, or press I. |
 | Crew manifest photo | Slide removed from the intro. The final pod shows a placeholder crowd for now. |

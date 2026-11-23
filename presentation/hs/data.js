@@ -76,17 +76,17 @@ HS.pods = [
     notes: 'Hooks exist since Git 1.0 (2005).\nHumans bypassed slow hooks. Agents get a permission rule that blocks --no-verify, so the hook becomes a real gate.\nFrom the Guardrails talk: a guardrail that only warns is documentation.',
   },
   {
-    id: 'stackoverflow', name: 'Stack Overflow', type: 'dead', year: 2008, died: 2023, star: true,
+    id: 'stackoverflow', name: 'Stack Overflow', type: 'dead', year: 2023, rel: 5, star: true,
     dies: 'Questions are answered inside the agent now. Volume collapsed after 2023.',
     notes: 'The best-known dead pod. Show the numbers: monthly new questions from peak to today.\nNumbers on the chart are approximate placeholders: replace with a Stack Exchange Data Explorer query before giving the talk.',
   },
   {
-    id: 'saas', name: 'Small SaaS tools', sub: 'build vs buy', type: 'dead', year: 2010, died: 2025,
+    id: 'saas', name: 'Small SaaS tools', sub: 'build vs buy', type: 'dead', year: 2025, rel: 3,
     dies: 'Building beats buying. A PDF tool in 2 hours instead of hosting Stirling PDF.',
     notes: 'Own story: I needed a few PDF operations. Hosting and securing Stirling PDF vs. asking an agent for exactly the three features I need: 2 hours, done.\nSleep year is a placeholder (TBD in the source).',
   },
   {
-    id: 'storypoints', name: 'Story points', sub: 'planning poker', type: 'dead', year: 2002, died: 2025,
+    id: 'storypoints', name: 'Story points', sub: 'planning poker', type: 'dead', year: 2025, rel: 3,
     dies: 'Why estimate something that takes 4 minutes to build?',
     notes: 'Planning poker: James Grenning, 2002 (to verify). Death year placeholder (TBD in the source).\nThe estimation meeting took longer than the build.',
   },
