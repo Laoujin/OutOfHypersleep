@@ -61,26 +61,6 @@
       <div class="small" data-s="1">We need to <b>tame the LLM output</b>.</div></div>`,
   });
 
-  add({
-    id: 'headline', seq: 'intro',
-    html: () => `<div class="statement headline"><div class="big">The tools for running 10 agents were already on board.</div>
-      <div class="big cold">They were frozen.</div>
-      <div class="small">This talk: <b>why now</b>. For the <b>how</b>: <i>Git Worktrees: One Repo, N Coding Agents</i> and <i>Guardrails &amp; Backpressure</i>.</div></div>`,
-  });
-
-  add({
-    id: 'rules', seq: 'intro', steps: 3, cls: 'rules',
-    html: () => `${head('how this works', 'You wake the crew')}
-      <div class="rules-grid">
-        <div class="rule"><div class="ico">❄ 2015</div><b>Freeze date</b><span>the year it went to sleep</span></div>
-        <div class="rule"><div class="ico">${A.rel(4)}</div><b>Relevance today</b><span>its score for the crew, once woken</span></div>
-        <div class="rule"><div class="ico"><i class="tdot t-isolation"></i><i class="tdot t-integration"></i><i class="tdot t-verification"></i></div><b>Deck</b><span>1 isolation · 2 integration · 3 verification</span></div>
-        <div class="rule" data-s="1"><div class="ico">🗳</div><b>Vote</b><span>the pod with the most votes opens</span></div>
-        <div class="rule awake" data-s="1"><div class="ico">💚</div><b>Already awake</b><span>TDD and unit testing are on duty</span></div>
-        <div class="rule warn" data-s="2"><div class="ico">☠</div><b>Careful</b><span>not every crew member survives the thaw</span></div>
-      </div>`,
-  });
-
   // ───────────────────────── MAP ─────────────────────────
   const podCard = (p, st) => {
     const woken = st.woken.includes(p.id);

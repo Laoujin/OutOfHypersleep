@@ -70,33 +70,6 @@ The ask. The audience is now in charge of the crew.
 
 ---
 layout: hs
-routeAlias: headline
----
-
-<Hs id="headline" />
-
-<!--
-The headline. Pause on it.
-Why now, not how. Point to the Worktrees and Guardrails talks for the hands-on part.
--->
-
----
-layout: hs
-routeAlias: rules
-clicks: 2
----
-
-<Hs id="rules" />
-
-<!--
-Explain the map indicators: freeze year, relevance today, deck.
-[click] Voting: QR code / show of hands. The pod with the most votes opens. TDD and unit testing are already on duty. The crew starts at 0.
-[click] Warning: not every crew member survives the thaw. A dead pod costs a vote and feeds the alien.
-Then: to the ship map.
--->
-
----
-layout: hs
 routeAlias: map
 ---
 
