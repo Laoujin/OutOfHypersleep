@@ -110,21 +110,6 @@ Fifteen years of crew knowledge in one database: ~24M questions (to verify).
 
 ---
 layout: hs
-routeAlias: stackoverflow-well
-clicks: 3
----
-
-<Hs id="stackoverflow-well" />
-
-<!--
-The loop that fed every model: bug, public question, answer, index, training.
-[click] The question now goes to the agent, in private. The public loop breaks.
-[click] Nothing new goes into the well.
-[click] Open question for the audience: who answers next year's framework?
--->
-
----
-layout: hs
 routeAlias: stackoverflow-log
 ---
 

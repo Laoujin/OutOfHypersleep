@@ -479,23 +479,6 @@ decode(encode("123"))   <span class="green">✓</span></pre></div>
         </svg>`;
       })(),
       caps: ['Fifteen years of crew knowledge: <b>~24M questions</b>, answered and voted.', 'Then the alien found it.', 'It absorbed <b>everything</b>.', 'Stack Overflow even <b>sold</b> it the meal.<small>2024: licensing deals with Google and OpenAI.</small>'],
-    }, {
-      slug: 'well', title: 'The well runs dry', cls: 'deadslide',
-      body: `<svg viewBox="0 0 1000 560" class="so-loop">
-        ${[[500, 70, 'dev hits a bug', ''], [830, 280, 'asks in public', 'dry'], [500, 490, 'answered · voted · indexed', 'dry'], [170, 280, 'next model trains on it', '']].map(([x, y, t, c]) => `<g class="${c}"><rect class="box" x="${x - 150}" y="${y - 32}" width="300" height="64" rx="12"/><text class="lbl" x="${x}" y="${y + 9}" text-anchor="middle">${t}</text></g>`).join('')}
-        <path class="arrow" data-o="1" d="M650 82 Q800 110 830 238"/>
-        <path class="arrow dry" d="M830 322 Q800 450 655 482"/>
-        <path class="arrow dry" d="M345 482 Q200 450 170 322"/>
-        <path class="arrow" d="M170 238 Q200 110 345 82"/>
-        <g data-s="1">
-          <path class="arrow bad dashed" d="M650 82 Q800 110 830 238"/><text class="lbl red big" x="770" y="150" text-anchor="middle">✗</text>
-          <path class="arrow ok" d="M500 104 V236"/>
-          <rect class="term" x="380" y="242" width="240" height="64" rx="12"/><text class="mono green" x="500" y="281" text-anchor="middle">agent · private</text>
-        </g>
-        <g data-s="2"><text class="lbl red" x="500" y="370" text-anchor="middle">nothing new goes in</text></g>
-        <g data-s="3"><text class="lbl red huge" x="170" y="390" text-anchor="middle">?</text></g>
-      </svg>`,
-      caps: ['Every answer an agent gives was once a <b>public answer</b>.', 'Now the question goes to the agent. <b>In private.</b>', 'No question, no answer, no vote, no index.', 'So who answers <b>next year\'s framework</b>?'],
     }],
     saas: [{
       slug: 'story', title: 'I needed three PDF operations', cls: 'deadslide',
