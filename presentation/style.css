@@ -617,3 +617,6 @@ pre.code { margin: 0; font: 21px/1.6 var(--mono); color: var(--ink); white-space
 .rv-tip.dead { background: #fff0f0; box-shadow: 0 0 10px 4px var(--cred), 0 0 30px 10px rgba(255, 59, 59, .55); animation: tip-pulse 1s ease-in-out infinite; }
 @keyframes tip-pulse { 50% { box-shadow: 0 0 6px 2px var(--cred), 0 0 16px 4px rgba(255, 59, 59, .35); } }
 .rv-verdict .rv-sub { display: block; font: 500 20px var(--mono); color: var(--muted); letter-spacing: .08em; margin-top: 8px; }
+
+/* hide Slidev navigation controls (bottom-left) */
+div.absolute.bottom-0.left-0:has(> nav) { display: none !important; }
