@@ -1,0 +1,62 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Alien eats the training set</title>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@600;700&family=IBM+Plex+Mono:wght@400;600;700&family=IBM+Plex+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0b0d10;--panel:#15191f;--line:#2e3540;--ink:#d9dee6;--muted:#8a93a1;--faint:#565e6b;--cryo:#9fd8f0;--awake:#45e6a0;--alien:#ff3b5c;--amber:#ffb547;--mono:"IBM Plex Mono",monospace;--sans:"IBM Plex Sans",sans-serif;--head:"Chakra Petch",sans-serif}
+body{margin:0;background:#000;color:var(--ink);font-family:var(--sans)}
+.v{padding:24px 30px 40px}.v h2{font:700 30px var(--head);text-transform:uppercase;color:var(--amber);margin:0 0 4px}.v p{margin:0 0 16px;color:var(--muted);font-size:18px}
+.sb{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;width:1840px}
+.fr{background:var(--bg);border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.fr .cap{padding:10px 14px;font:15px var(--mono);color:var(--muted);border-top:1px solid var(--line)}.fr .cap b{color:var(--ink)}
+.head{padding:14px 18px 0;font:700 20px var(--head);text-transform:uppercase}.kick{font:600 10px var(--mono);letter-spacing:.2em;color:var(--alien)}
+svg.st{display:block;width:100%}
+.box{fill:var(--panel);stroke:var(--line);stroke-width:2}.term{fill:#08090b;stroke:var(--line);stroke-width:2}.term.bad{stroke:var(--alien)}
+.lbl{fill:var(--ink);font:600 24px var(--sans)}.mono{fill:var(--ink);font:20px var(--mono)}.dim{fill:var(--muted)}.green{fill:var(--awake)}.red{fill:var(--alien)}
+.qbox{fill:#0e2a1f;stroke:var(--awake);stroke-width:2}
+.git{fill:#172744;stroke:var(--cryo);stroke-width:2}.git-top{fill:#1f3459;stroke:var(--cryo);stroke-width:2}
+.ghost{fill:none;stroke:var(--faint);stroke-width:2;stroke-dasharray:8 8}
+.lvl{fill:rgba(159,216,240,.35)}
+.arrow{fill:none;stroke:#8ea2c2;stroke-width:3;marker-end:url(#ah)}.arrow.bad{stroke:var(--alien);marker-end:url(#ahb)}
+.beam{fill:rgba(255,59,92,.18);stroke:rgba(255,59,92,.5);stroke-width:1.5}
+.bit{fill:var(--cryo)}.bit.r{fill:var(--alien)}
+.cable{fill:none;stroke:var(--alien);stroke-width:6;stroke-linecap:round}
+.ban{fill:#1c0710;stroke:var(--alien);stroke-width:2}
+.a-r1,.a-r2,.a-r3{fill:none;stroke:var(--alien)}.a-r1{stroke-width:2;opacity:.5;stroke-dasharray:6 10}.a-r2{stroke-width:3;opacity:.7;stroke-dasharray:40 14}.a-r3{stroke-width:2;opacity:.4}
+.a-eye{fill:#2a0610;stroke:var(--alien);stroke-width:3}.a-pupil{fill:var(--alien);filter:drop-shadow(0 0 10px var(--alien))}.a-ticks line{stroke:var(--alien);stroke-width:2;opacity:.6}
+.glow{filter:drop-shadow(0 0 24px rgba(255,59,92,.7))}
+</style></head><body>
+<svg width="0" height="0" style="position:absolute"><defs>
+<marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10z" fill="#8ea2c2"/></marker>
+<marker id="ahb" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10z" fill="#ff3b5c"/></marker>
+<clipPath id="dbclip"><path d="M405 170 v130 a95 24 0 0 0 190 0 v-130 a95 24 0 0 0 -190 0z"/></clipPath>
+</defs></svg>
+<div id="out"></div>
+<script>
+const alien=(x,y,s,pupil=1,cls='')=>`<g transform="translate(${x} ${y}) scale(${s/200})" class="${cls}"><circle class="a-r1" r="92"/><circle class="a-r2" r="72"/><circle class="a-r3" r="52"/><path class="a-eye" d="M-60 0 Q0 -46 60 0 Q0 46 -60 0Z"/><path class="a-pupil" d="M0 -30 Q${10*pupil} 0 0 30 Q${-10*pupil} 0 0 -30Z"/><g class="a-ticks">${Array.from({length:24},(_,i)=>`<line x1="0" y1="-96" x2="0" y2="${i%6?-88:-80}" transform="rotate(${i*15})"/>`).join('')}</g></g>`;
+const so=(dim)=>`<g opacity="${dim?.35:1}"><rect class="box" x="20" y="110" width="320" height="300" rx="14"/><text class="lbl" x="44" y="150">stackoverflow.com</text>
+${[['undo last commit?','26k'],['exit vim?','9k'],['center a div?','7k'],['regex for email?','4k']].map(([q,v],i)=>`<rect class="qbox" x="44" y="${175+i*56}" width="272" height="44" rx="8"/><text class="mono" x="60" y="${204+i*56}">${q}</text><text class="mono dim" x="300" y="${204+i*56}" text-anchor="end">${v}</text>`).join('')}</g>`;
+const db=(level=1,red=0,ghost=0,label='training set')=>ghost?`<path class="ghost" d="M405 170 v130 a95 24 0 0 0 190 0 v-130"/><ellipse class="ghost" cx="500" cy="170" rx="95" ry="24"/><text class="lbl dim" x="500" y="250" text-anchor="middle">${label}</text><text class="mono red" x="500" y="280" text-anchor="middle">0 rows</text>`:
+`<ellipse class="git" cx="500" cy="170" rx="95" ry="24"/><path class="git" d="M405 170 v130 a95 24 0 0 0 190 0 v-130"/><g clip-path="url(#dbclip)"><rect class="lvl" x="400" y="${324-154*level}" width="200" height="${154*level}" style="${red?'fill:rgba(255,59,92,.35)':''}"/></g><ellipse class="git-top" cx="500" cy="170" rx="95" ry="24"/><text class="lbl" x="500" y="250" text-anchor="middle">${label}</text><text class="mono dim" x="500" y="280" text-anchor="middle">~24M questions</text>`;
+const term=(bad=0,eye=0)=>`<rect class="term ${bad?'bad':''}" x="660" y="130" width="320" height="250" rx="12"/><text class="mono dim" x="684" y="170">agent</text><text class="mono" x="684" y="220">&gt; why does this</text><text class="mono" x="684" y="248">  fail on line 42?</text><text class="mono green" x="684" y="300">off-by-one. fixed,</text><text class="mono green" x="684" y="328">tests pass.</text>${eye?alien(940,170,60,1):''}`;
+const ar=(bad)=>`<path class="arrow ${bad?'bad':''}" d="M345 235 H395"/>`, ar2=(bad)=>`<path class="arrow ${bad?'bad':''}" d="M605 235 H650"/>`;
+const banner=t=>`<rect class="ban" x="140" y="470" width="720" height="70" rx="12"/><text class="lbl red" x="500" y="514" text-anchor="middle">${t}</text>`;
+const bits=(n,x0,y0,x1,y1,r)=>Array.from({length:n},(_,i)=>{const t=(i+.5)/n,x=x0+(x1-x0)*t+Math.sin(i*7)*18*(1-t),y=y0+(y1-y0)*t;return `<rect class="bit ${r&&t>.5?'r':''}" x="${x-5}" y="${y-5}" width="10" height="10" rx="2" transform="rotate(${i*23} ${x} ${y})"/>`}).join('');
+const V=[
+ {t:'A · Tractor beam',d:'The eye hovers over the database and drains it upward. The crew\'s knowledge streams into the alien.',f:[
+  ['Today you ask the agent.',so()+ar()+db()+ar2()+term()],
+  ['It learned from <b>the crew</b>.',so()+ar()+db()+ar2()+term()+alien(500,40,90)],
+  ['The alien <b>absorbs</b> it.',so(1)+db(.35,1)+`<path class="beam" d="M470 75 L520 75 L585 160 L415 160Z"/>`+bits(9,500,150,495,70,1)+term()+alien(495,40,110,1.6,'glow')],
+  ['Answers now come <b>from the alien</b>. Stack Overflow sold the meal.',so(1)+db(0,0,1)+`<path class="arrow bad" d="M560 60 Q640 60 700 125"/>`+term(1,1)+alien(495,50,130,1,'glow')+banner('2024: Stack Overflow licenses its answers to the AI labs')]]},
+ {t:'B · Swallowed whole',d:'The eye rolls in and swallows the database. Where the knowledge was, the alien sits.',f:[
+  ['Today you ask the agent.',so()+ar()+db()+ar2()+term()],
+  ['The eye <b>arrives</b>.',so()+ar()+db()+ar2()+term()+alien(640,420,130)],
+  ['<b>Gulp.</b>',so(1)+`<g transform="translate(500 235) scale(.45) translate(-500 -235)" opacity=".7">${db(.8,1)}</g>`+alien(560,260,240,3,'glow')+term()],
+  ['The alien <b>is</b> the training set now.',so(1)+alien(500,235,240,1,'glow')+`<text class="mono red" x="500" y="400" text-anchor="middle">~24M questions, digested</text>`+`<path class="arrow bad" d="M605 235 H650"/>`+term(1)+banner('Stack Overflow sold the meal (2024)')]]},
+ {t:'C · Feeding tube',d:'A red cable plugs the database into the alien. It grows as the database empties, then it powers the agent.',f:[
+  ['Today you ask the agent.',so()+ar()+db()+ar2()+term()],
+  ['A <b>cable</b> plugs in.',so()+ar()+db(.9)+term()+`<path class="cable" d="M500 330 Q500 430 600 450"/>`+alien(660,460,90)],
+  ['It <b>feeds</b>.',so(1)+db(.25,1)+term()+`<path class="cable" d="M500 330 Q500 430 600 450"/>`+bits(6,505,335,600,445,1)+alien(680,450,150,1.4,'glow')],
+  ['The agent runs <b>on the alien</b>.',so(1)+db(0,0,1)+`<path class="cable" d="M500 330 Q500 430 600 450"/><path class="cable" d="M760 440 Q830 430 830 385"/>`+term(1)+alien(680,450,170,1,'glow')]]},
+];
+out.innerHTML=V.map(v=>`<section class="v" id="${v.t[0]}"><h2>${v.t}</h2><p>${v.d}</p><div class="sb">${v.f.map(([c,svg],i)=>`<div class="fr"><div class="head"><div class="kick">CARGO DECK · STACK OVERFLOW</div>It absorbed all the knowledge of the crew</div><svg class="st" viewBox="0 0 1000 560">${svg}</svg><div class="cap">${i+1} · ${c}</div></div>`).join('')}</div></section>`).join('');
+</script></body></html>
