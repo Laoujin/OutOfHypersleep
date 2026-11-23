@@ -650,3 +650,5 @@ pre.code { margin: 0; font: 21px/1.6 var(--mono); color: var(--ink); white-space
 
 .so-loop .dry { transition: opacity .5s; }
 .s2 .so-loop .dry { opacity: .2; }
+/* hide Slidev navigation controls (bottom-left) */
+div.absolute.bottom-0.left-0:has(> nav) { display: none !important; }
