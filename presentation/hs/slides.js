@@ -61,8 +61,8 @@ import QRCode from 'qrcode';
     cls: 'ask plate',
     html: () => `<div class="ask-top">
         <div class="alarm"><i></i>intruder alert · all hands</div>
-        <div class="poster">We need<br><em>YOU</em></div>
-        <div class="poster-sub">to wake the crew that can fight the alien.</div>
+        <div class="poster"><span>We need</span><em>YOU</em></div>
+        <div class="poster-sub">to wake the crew to tame the alien LLM output.</div>
       </div>
       <div class="vote-cta" data-s="1">
         ${qrSvg(HS.VOTE_URL)}
