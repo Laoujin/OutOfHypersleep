@@ -1,0 +1,328 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hypersleep Style Board</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;700&family=IBM+Plex+Sans:wght@400;600&family=IBM+Plex+Mono:wght@400;600&family=VT323&display=swap">
+<style>
+/* Layout: one long ship manifest; sections are numbered decks of the ship, slide mocks at 16:9 */
+:root {
+  --hull: #0b0d10;
+  --hull2: #15191f;
+  --plate: #1e232b;
+  --seam: #2e3540;
+  --ink: #d9dee6;
+  --muted: #8a93a1;
+  --amber: #ffb547;
+  --frost: #cfefff;
+  --awake: #45e6a0;
+  --alien: #ff3b5c;
+  --head: "Chakra Petch", "Eurostile", "Arial Narrow", sans-serif;
+  --body: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+  --crt: "VT323", "IBM Plex Mono", monospace;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--hull); color: var(--ink); font: 400 15px/1.6 var(--body); }
+.wrap { max-width: 1080px; margin: 0 auto; padding-block: 48px 96px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); display: grid; gap: 72px; }
+.stencil { font: 600 12px var(--mono); letter-spacing: .18em; text-transform: uppercase; color: var(--amber); }
+h1, h2, h3 { font-family: var(--head); font-weight: 700; text-wrap: balance; margin: 0; letter-spacing: .02em; }
+h1 { font-size: clamp(40px, 7vw, 76px); line-height: .95; text-transform: uppercase; }
+h2 { font-size: 28px; text-transform: uppercase; }
+h3 { font-size: 17px; text-transform: uppercase; letter-spacing: .06em; }
+p { margin: 0; max-width: 65ch; color: var(--muted); }
+p strong { color: var(--ink); font-weight: 600; }
+section { display: grid; gap: 24px; }
+.sec-head { display: grid; gap: 8px; border-top: 1px solid var(--seam); padding-top: 20px; }
+.hazard { height: 10px; background: repeating-linear-gradient(-45deg, var(--amber) 0 12px, var(--hull) 12px 24px); opacity: .85; border-radius: 2px; }
+header.top { display: grid; gap: 16px; }
+header.top p { font-size: 17px; }
+
+.swatches { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; }
+.sw { background: var(--hull2); border: 1px solid var(--seam); border-radius: 4px; overflow: hidden; display: grid; }
+.sw i { display: block; height: 72px; }
+.sw div { padding: 10px 12px 12px; display: grid; gap: 2px; }
+.sw b { font: 600 13px var(--head); text-transform: uppercase; letter-spacing: .08em; }
+.sw code { font: 12px var(--mono); color: var(--muted); }
+.sw span { font-size: 12.5px; color: var(--muted); line-height: 1.4; }
+
+.type { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; }
+.spec { background: var(--hull2); border: 1px solid var(--seam); border-radius: 4px; padding: 18px; display: grid; gap: 10px; align-content: start; min-width: 0; }
+.spec .role { font: 600 11px var(--mono); letter-spacing: .16em; text-transform: uppercase; color: var(--muted); }
+.spec .s-head { font: 700 34px/1 var(--head); text-transform: uppercase; }
+.spec .s-body { font: 400 16px/1.5 var(--body); }
+.spec .s-mono { font: 400 14px/1.5 var(--mono); color: var(--frost); }
+.spec .s-crt { font: 30px/1 var(--crt); color: var(--awake); text-shadow: 0 0 8px rgba(69, 230, 160, .55); }
+.spec small { font: 12px var(--mono); color: var(--muted); }
+
+.slides { display: grid; gap: 20px; }
+.slide { position: relative; aspect-ratio: 16 / 9; max-width: 100%; border-radius: 6px; overflow: hidden; border: 1px solid var(--seam); container-type: inline-size; isolation: isolate; }
+.slide::after { content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 5;
+  background: repeating-linear-gradient(0deg, rgba(255,255,255,.025) 0 1px, transparent 1px 3px), radial-gradient(ellipse at center, transparent 55%, rgba(0,0,0,.55) 100%); }
+.plate { position: absolute; inset: 0; z-index: -1; }
+.plate-label { position: absolute; right: 2cqw; bottom: 1.6cqw; font: 600 1.1cqw var(--mono); letter-spacing: .14em; color: rgba(207,239,255,.35); text-transform: uppercase; z-index: 6; }
+.cap { font-size: 13px; color: var(--muted); }
+
+.s1 .plate { background:
+  radial-gradient(40% 70% at 78% 55%, rgba(207,239,255,.20), transparent 70%),
+  radial-gradient(25% 40% at 78% 45%, rgba(207,239,255,.18), transparent 70%),
+  linear-gradient(90deg, #07090c 0%, #0b0e12 45%, #1a2129 100%); }
+.s1 .txt { position: absolute; left: 6cqw; top: 50%; translate: 0 -50%; display: grid; gap: 1.6cqw; }
+.s1 .k { font: 600 1.3cqw var(--mono); letter-spacing: .22em; color: var(--amber); text-transform: uppercase; }
+.s1 h1 { font-size: 8cqw; line-height: .9; }
+.s1 .sub { font: 400 1.7cqw/1.4 var(--body); color: var(--muted); max-width: 34cqw; }
+.s1 .pods { position: absolute; right: 5cqw; bottom: 8cqw; display: flex; gap: 1.6cqw; align-items: flex-end; }
+.s1 .pods svg { width: 5.4cqw; height: auto; }
+.s1 .pods svg:nth-child(2) { width: 6.6cqw; }
+.s1 .tag { position: absolute; left: 6cqw; bottom: 3.5cqw; font: 1.8cqw var(--crt); color: var(--awake); text-shadow: 0 0 .6cqw rgba(69,230,160,.6); }
+
+.s2 .plate { background:
+  radial-gradient(35% 60% at 22% 60%, rgba(255,181,71,.12), transparent 70%),
+  linear-gradient(90deg, #1a1d22 0%, #0d1014 50%, #08090b 100%); }
+.s2 .left { position: absolute; left: 7cqw; top: 12%; bottom: 12%; display: grid; place-items: center; }
+.s2 .left svg { height: 100%; width: auto; }
+.s2 .right { position: absolute; left: 40cqw; right: 6cqw; top: 50%; translate: 0 -50%; display: grid; gap: 1.4cqw; }
+.s2 .k { font: 600 1.25cqw var(--mono); letter-spacing: .2em; color: var(--amber); text-transform: uppercase; }
+.s2 h2 { font-size: 5.6cqw; line-height: .95; }
+.s2 .term { font: 2cqw/1.25 var(--crt); color: var(--awake); background: rgba(0,0,0,.45); border: 1px solid rgba(69,230,160,.25); padding: 1.2cqw 1.6cqw; border-radius: .4cqw; text-shadow: 0 0 .5cqw rgba(69,230,160,.5); }
+.s2 .term .d { color: var(--muted); text-shadow: none; }
+.s2 .meta { display: flex; gap: 2cqw; font: 600 1.1cqw var(--mono); letter-spacing: .14em; color: var(--muted); text-transform: uppercase; }
+.s2 .meta b { color: var(--frost); font-weight: 600; }
+.s2 .stripe { position: absolute; left: 0; right: 0; top: 0; height: 1.1cqw; background: repeating-linear-gradient(-45deg, var(--amber) 0 1.4cqw, transparent 1.4cqw 2.8cqw); opacity: .5; }
+
+.s3 .plate { background:
+  radial-gradient(30% 45% at 50% 50%, rgba(255,59,92,.35), transparent 70%),
+  radial-gradient(60% 80% at 50% 50%, rgba(255,59,92,.08), transparent 70%),
+  #050506; }
+.s3 .eye { position: absolute; left: 50%; top: 44%; translate: -50% -50%; width: 26cqw; }
+.s3 .line { position: absolute; left: 0; right: 0; bottom: 9cqw; text-align: center; display: grid; gap: 1cqw; }
+.s3 .k { font: 600 1.25cqw var(--mono); letter-spacing: .24em; color: var(--alien); text-transform: uppercase; }
+.s3 .big { font: 700 4.4cqw/1 var(--head); text-transform: uppercase; }
+.s3 .big em { font-style: normal; color: var(--alien); text-shadow: 0 0 1.4cqw rgba(255,59,92,.6); }
+
+.rules { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; }
+.rule { background: var(--hull2); border: 1px solid var(--seam); border-radius: 4px; padding: 16px 18px; display: grid; gap: 6px; align-content: start; }
+.rule p { font-size: 14px; }
+
+.howto { display: grid; gap: 10px; padding-left: 0; margin: 0; list-style: none; counter-reset: s; }
+.howto li { counter-increment: s; display: grid; grid-template-columns: 34px 1fr; gap: 10px; align-items: baseline; max-width: 75ch; color: var(--muted); }
+.howto li::before { content: counter(s, decimal-leading-zero); font: 600 13px var(--mono); color: var(--amber); }
+.howto li strong { color: var(--ink); }
+.howto code, p code { font: 13px var(--mono); color: var(--frost); background: var(--plate); padding: 1px 5px; border-radius: 3px; }
+
+.group { display: grid; gap: 12px; }
+.group > h3 { color: var(--frost); }
+.prompts { display: grid; gap: 10px; }
+.pr { background: var(--hull2); border: 1px solid var(--seam); border-radius: 4px; padding: 14px 16px; display: grid; gap: 8px; min-width: 0; }
+.pr.dead { border-left: 3px solid var(--alien); }
+.pr.live { border-left: 3px solid var(--awake); }
+.pr.ship { border-left: 3px solid var(--amber); }
+.pr-top { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+.pr-top b { font: 600 14px var(--head); text-transform: uppercase; letter-spacing: .08em; }
+.pr-top small { font: 12px var(--mono); color: var(--muted); margin-left: 8px; }
+.pr pre { margin: 0; font: 13px/1.55 var(--mono); color: var(--ink); white-space: pre-wrap; word-break: break-word; }
+.pr pre .sfx { color: var(--muted); }
+button.copy { font: 600 11px var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--amber); background: transparent; border: 1px solid var(--seam); border-radius: 3px; padding: 5px 10px; cursor: pointer; }
+button.copy:hover { border-color: var(--amber); }
+button.copy:focus-visible { outline: 2px solid var(--amber); outline-offset: 2px; }
+button.copy.ok { color: var(--awake); border-color: var(--awake); }
+.suffix-box { background: var(--plate); border: 1px dashed var(--seam); border-radius: 4px; padding: 14px 16px; display: grid; gap: 8px; }
+.suffix-box pre { margin: 0; font: 13px/1.55 var(--mono); color: var(--frost); white-space: pre-wrap; word-break: break-word; }
+@media (prefers-reduced-motion: no-preference) {
+  .s3 .eye .pupil { animation: look 6s ease-in-out infinite; }
+  @keyframes look { 0%, 40%, 100% { transform: translateX(0); } 50%, 70% { transform: translateX(6px); } }
+}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+<header class="top">
+  <div class="hazard"></div>
+  <div class="stencil">Out of Hypersleep · art direction · rev A</div>
+  <h1>Used future</h1>
+  <p><strong>The direction:</strong> late-70s industrial sci-fi. Heavy hulls, CRT phosphor, stencilled labels, frost on steel. The ship and its tooling are old, scuffed and reliable. The alien AI is the only clean, glossy, modern thing on screen, so the contrast carries the story.</p>
+</header>
+
+<section>
+  <div class="sec-head"><div class="stencil">Deck 01</div><h2>Palette</h2></div>
+  <div class="swatches">
+    <div class="sw"><i style="background:var(--hull)"></i><div><b>Hull</b><code>#0b0d10</code><span>Slide ground. Never pure black.</span></div></div>
+    <div class="sw"><i style="background:var(--plate)"></i><div><b>Plate</b><code>#1e232b</code><span>Panels, terminals, cards.</span></div></div>
+    <div class="sw"><i style="background:var(--amber)"></i><div><b>Ship amber</b><code>#ffb547</code><span>Ship UI: kickers, labels, hazard stripes.</span></div></div>
+    <div class="sw"><i style="background:var(--frost)"></i><div><b>Frost</b><code>#cfefff</code><span>Cryo only. Pods, ice, cold light.</span></div></div>
+    <div class="sw"><i style="background:var(--awake)"></i><div><b>Phosphor</b><code>#45e6a0</code><span>Awake pods, terminal output, crew score.</span></div></div>
+    <div class="sw"><i style="background:var(--alien)"></i><div><b>Alien</b><code>#ff3b5c</code><span>The alien only. Glossy, glowing, rare.</span></div></div>
+  </div>
+  <p>This replaces the neon navy and cyan. The current <code>--cryo #7fe3ff</code> becomes the softer frost; amber moves up from a warning colour to the ship's main UI colour.</p>
+</section>
+
+<section>
+  <div class="sec-head"><div class="stencil">Deck 02</div><h2>Type</h2></div>
+  <div class="type">
+    <div class="spec"><div class="role">Headings</div><div class="s-head">Cryo bay 03</div><small>Chakra Petch 700, uppercase</small></div>
+    <div class="spec"><div class="role">Body</div><div class="s-body">Obscure dev tooling that sat frozen for years, until AI agents woke it up.</div><small>IBM Plex Sans 400 / 600</small></div>
+    <div class="spec"><div class="role">Code &amp; labels</div><div class="s-mono">git bisect run ./test.sh</div><small>IBM Plex Mono 400 / 600</small></div>
+    <div class="spec"><div class="role">CRT moments</div><div class="s-crt">&gt; POD 07 THAWING_</div><small>VT323, phosphor glow, sparingly</small></div>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head"><div class="stencil">Deck 03</div><h2>Sample slides, re-skinned</h2>
+    <p>The gradients stand in for the Midjourney plates. Pods, terminals and text stay SVG/HTML on top.</p></div>
+  <div class="slides">
+    <div class="slide s1">
+      <div class="plate"></div>
+      <div class="txt">
+        <div class="k">a hypersleep story</div>
+        <h1>Out of<br>Hypersleep</h1>
+        <div class="sub">Obscure dev tooling that sat frozen for years, until AI agents woke it up.</div>
+      </div>
+      <div class="pods">
+        <svg viewBox="0 0 120 200" aria-hidden="true"><rect x="8" y="4" width="104" height="192" rx="52" fill="#2a3039" stroke="#4a525e" stroke-width="3"/><rect x="24" y="24" width="72" height="140" rx="36" fill="#cfefff" fill-opacity=".18"/><path d="M30 70 q14 -10 22 2 t24 -4 M28 110 q18 -8 28 4 t34 -2" stroke="#cfefff" stroke-opacity=".6" stroke-width="3" fill="none"/><circle cx="60" cy="178" r="6" fill="#cfefff"/></svg>
+        <svg viewBox="0 0 120 200" aria-hidden="true"><rect x="8" y="4" width="104" height="192" rx="52" fill="#2a3039" stroke="#4a525e" stroke-width="3"/><rect x="24" y="24" width="72" height="140" rx="36" fill="#cfefff" fill-opacity=".22"/><g fill="#cfefff" fill-opacity=".55"><circle cx="60" cy="60" r="13"/><rect x="41" y="78" width="38" height="72" rx="18"/></g><circle cx="60" cy="178" r="6" fill="#45e6a0"/></svg>
+        <svg viewBox="0 0 120 200" aria-hidden="true"><rect x="8" y="4" width="104" height="192" rx="52" fill="#2a3039" stroke="#4a525e" stroke-width="3"/><rect x="24" y="24" width="72" height="140" rx="36" fill="#cfefff" fill-opacity=".18"/><path d="M30 90 q14 -10 22 2 t24 -4 M30 140 q20 -6 30 2 t30 0" stroke="#cfefff" stroke-opacity=".6" stroke-width="3" fill="none"/><circle cx="60" cy="178" r="6" fill="#cfefff"/></svg>
+      </div>
+      <div class="tag">&gt; 14 PODS IN STASIS_</div>
+      <div class="plate-label">plate: cryo bay</div>
+    </div>
+    <div class="cap">Title slide. Cryo-bay plate with negative space on the left for the title.</div>
+
+    <div class="slide s2">
+      <div class="plate"></div>
+      <div class="stripe"></div>
+      <div class="left">
+        <svg viewBox="0 0 120 200" aria-hidden="true"><rect x="8" y="4" width="104" height="192" rx="52" fill="#2a3039" stroke="#ffb547" stroke-opacity=".5" stroke-width="3"/><rect x="16" y="12" width="88" height="176" rx="44" fill="none" stroke="#4a525e" stroke-width="2"/><rect x="24" y="24" width="72" height="140" rx="36" fill="#0b0d10"/><g fill="#45e6a0" fill-opacity=".8"><circle cx="60" cy="60" r="13"/><rect x="41" y="78" width="38" height="72" rx="18"/></g><circle cx="60" cy="178" r="6" fill="#45e6a0"/></svg>
+      </div>
+      <div class="right">
+        <div class="k">Pod 07 · frozen 2008 · thawed</div>
+        <h2>git bisect run</h2>
+        <div class="term"><span class="d">$</span> git bisect run ./test.sh<br>running ./test.sh<br>a41f9c2 is the first bad commit<span class="d">_</span></div>
+        <div class="meta"><span>Relevance <b>■■■■□</b></span><span>Status <b>awake</b></span></div>
+      </div>
+      <div class="plate-label">plate: pod-bisect</div>
+    </div>
+    <div class="cap">Pod opening. Plate on the left behind the pod, text block right, amber hazard stripe as the deck's signature.</div>
+
+    <div class="slide s3">
+      <div class="plate"></div>
+      <svg class="eye" viewBox="-100 -60 200 120" aria-hidden="true"><path d="M-90 0 Q0 -60 90 0 Q0 60 -90 0Z" fill="#ff3b5c"/><path class="pupil" d="M0 -40 Q13 0 0 40 Q-13 0 0 -40Z" fill="#050506"/></svg>
+      <div class="line">
+        <div class="k">intermezzo</div>
+        <div class="big">The alien <em>strikes back</em></div>
+      </div>
+      <div class="plate-label">plate: alien presence</div>
+    </div>
+    <div class="cap">Intermezzo. The only slide type allowed to be glossy and clean.</div>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head"><div class="stencil">Deck 04</div><h2>House rules</h2></div>
+  <div class="rules">
+    <div class="rule"><h3>Plates are backgrounds</h3><p>Midjourney does atmosphere only. Pods, votes, HUD, ship map and code stay SVG so they animate and stay sharp.</p></div>
+    <div class="rule"><h3>Dark, quiet, one side empty</h3><p>Every plate leaves a dark, low-detail third for text. Darken in post rather than fighting the prompt.</p></div>
+    <div class="rule"><h3>Red belongs to the alien</h3><p>No red in ship plates. Dead pods use a dim red status light, nothing more.</p></div>
+    <div class="rule"><h3>Texture over effects</h3><p>Film grain and faint scanlines on top of everything. No lens flares, no neon glow outside CRTs and the alien.</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head"><div class="stencil">Deck 05</div><h2>Midjourney prompt pack</h2></div>
+  <ol class="howto">
+    <li><span><strong>Make the master first.</strong> Run the hero prompt, reroll until one image nails the mood, upscale it.</span></li>
+    <li><span><strong>Lock the style.</strong> Copy that image's URL and replace <code>HERO_URL</code> in the suffix. Every other prompt reuses it via <code>--sref</code>.</span></li>
+    <li><span><strong>Upscale to 3200px+</strong> (the canvas is 1600 wide), export as WebP, drop into <code>presentation/public/plates/</code>.</span></li>
+    <li><span><strong>Grade once.</strong> Same curves on every plate: crush blacks toward <code>#0b0d10</code>, pull saturation down 15–20%.</span></li>
+  </ol>
+
+  <div class="suffix-box">
+    <div class="pr-top"><b>Shared suffix</b><button class="copy" type="button" data-copy="suffix">Copy</button></div>
+    <pre id="suffix"></pre>
+  </div>
+
+  <div class="group">
+    <h3>00 · Hero (style master, no --sref)</h3>
+    <div class="prompts" id="g-hero"></div>
+  </div>
+  <div class="group">
+    <h3>Ship plates</h3>
+    <div class="prompts" id="g-ship"></div>
+  </div>
+  <div class="group">
+    <h3>Pods that wake up</h3>
+    <div class="prompts" id="g-live"></div>
+  </div>
+  <div class="group">
+    <h3>Pods that stay dead</h3>
+    <div class="prompts" id="g-dead"></div>
+  </div>
+</section>
+
+</div>
+
+<script>
+const SUFFIX = "1979 industrial science fiction, cassette futurism, practical film set, worn painted steel, stencilled hull markings, frost and condensation, low-key cinematic lighting, anamorphic 35mm film grain, muted desaturated palette, dark negative space --ar 16:9 --style raw --s 150 --v 7 --no text, letters, logos, people's faces --sref HERO_URL";
+const HERO = "Wide shot of a dim cryogenic sleep bay on an old industrial starship, rows of heavy capsule-shaped hypersleep pods with frosted glass lids, pale ice-blue light seeping from inside the pods, amber status lamps, chunky cables and pipes along the floor, hazard stripes on the bulkheads, cold mist, left third of the frame dark and empty, 1979 industrial science fiction, cassette futurism, practical film set, worn painted steel, anamorphic 35mm film grain, muted desaturated palette --ar 16:9 --style raw --s 150 --v 7 --no text, letters, logos";
+const P = {
+  ship: [
+    ["Title · cryo bay", "title", "Cryogenic bay of an old starship, a short row of capsule hypersleep pods on the right, frosted lids glowing faintly ice-blue, one amber lamp lit, left half of the frame in deep shadow"],
+    ["Ship map · schematic table", "slides (map)", "Top-down view of a dark navigation table with a backlit translucent starship schematic, faint amber grid lines, scattered tools and a coffee-stained manual at the edges, centre of the frame clear and dark"],
+    ["Bridge · rules / transitions", "slides", "Cramped starship bridge, banks of chunky toggle switches and small green CRT monitors with scanlines, empty pilot chairs, amber warning lamps, deep shadows, right third dark"],
+    ["Corridor · section breaks", "slides", "Long narrow starship service corridor, ribbed walls, hanging cables, grated floor, cold mist at ankle height, a single amber light at the far end, symmetrical"],
+    ["Alien presence · intermezzo", "intermezzo", "A smooth glossy red organic-machine presence filling a dark starship corridor, sleek and seamless like polished lacquer, glowing crimson from within, contrasting sharply with rusted bulkheads, centre dark for a large symbol"],
+    ["Schrödinger · finale", "finale", "A single hypersleep pod in a dark bay, lid half open, interior hidden in thick fog, one status lamp flickering between green and red, dramatic overhead spotlight, everything else in shadow"],
+  ],
+  live: [
+    ["git worktree", "pod-worktrees", "Inside a frozen pod: one thick cable trunk branching into many parallel cables, each running to its own small workstation, frost on every branch"],
+    ["Throwaway boxes", "pod-boxes", "Stack of identical sealed steel containment crates in a cargo hold, numbered stencils, one crate open and empty, frost on the lids"],
+    ["tmux", "pod-tmux", "A wall of small tiled green CRT monitors in a dark control room, each showing different scrolling text-like noise, one operator chair facing them"],
+    ["Mutation testing", "pod-mutation", "Laboratory shelf of glass specimen jars on a starship, each holding a slightly different mutated circuit board suspended in fluid, cold backlight"],
+    ["Commit trailers", "pod-trailers", "Cargo containers on a starship dock, each tagged with a row of small metal ID plates and wire seals, close-up on the tags, shallow depth of field"],
+    ["git bisect run", "pod-bisect", "Long rack of identical reel-to-reel data tapes, an automated arm halfway down the rack pulling one tape, single amber spotlight on that tape"],
+    ["git notes", "pod-gitnotes", "Steel clipboard hanging on a frozen pod with handwritten paper notes clipped on, frost creeping over the paper, close-up, background dark"],
+    ["Property-based testing", "pod-pbt", "Mechanical randomiser machine in a starship lab, a glass drum full of tumbling dice and ball bearings, brass gears, ice-blue light"],
+    ["Merge queue", "pod-mergequeue", "Line of small shuttles waiting single-file in a docking tunnel, one at a time entering a lit airlock, amber guide lights on the floor"],
+    ["Git hooks", "pod-hooks", "Heavy steel hooks and clamps mounted around an airlock door, cables tensioned, inspection lamp, frost on the metal"],
+    ["Formal methods", "pod-formal", "An intricate brass and steel orrery-like proof machine under a glass dome, engraved dials, precise and cold, single top light"],
+  ],
+  dead: [
+    ["Stack Overflow", "pod-stackoverflow", "Abandoned archive room on a starship, shelves of paper folders overflowing onto the floor, dust and frost, a dead pod in the corner with a dim red status lamp"],
+    ["Story points", "pod-storypoints", "Planning cards frozen inside a block of ice on a metal table, scattered cards around it, dim red status lamp in the background"],
+    ["Small SaaS tools", "pod-saas", "Row of small powered-down vending terminals in a dark starship mess hall, screens black, coin slots frosted, one dim red status lamp"],
+  ],
+};
+const shortSfx = "--sref HERO_URL --ar 16:9 --style raw --v 7";
+document.getElementById("suffix").textContent = SUFFIX;
+const texts = { suffix: SUFFIX };
+const card = (cls, id, title, file, body) => {
+  texts[id] = body;
+  const d = document.createElement("div");
+  d.className = "pr " + cls;
+  const top = document.createElement("div"); top.className = "pr-top";
+  const t = document.createElement("span"); const b = document.createElement("b"); b.textContent = title; const s = document.createElement("small"); s.textContent = file; t.append(b, s);
+  const btn = document.createElement("button"); btn.className = "copy"; btn.type = "button"; btn.dataset.copy = id; btn.textContent = "Copy";
+  top.append(t, btn);
+  const pre = document.createElement("pre"); pre.textContent = body;
+  d.append(top, pre);
+  return d;
+};
+document.getElementById("g-hero").append(card("ship", "hero", "Cryo bay master", "style reference", HERO));
+for (const g of ["ship", "live", "dead"]) {
+  const el = document.getElementById("g-" + g);
+  P[g].forEach(([title, file, desc], i) => el.append(card(g, g + i, title, file, desc + ", " + SUFFIX)));
+}
+document.addEventListener("click", async e => {
+  const btn = e.target.closest("button.copy"); if (!btn) return;
+  const txt = texts[btn.dataset.copy];
+  try { await navigator.clipboard.writeText(txt); btn.textContent = "Copied"; btn.classList.add("ok"); }
+  catch { const pre = btn.closest(".pr, .suffix-box").querySelector("pre"); const r = document.createRange(); r.selectNodeContents(pre); const sel = getSelection(); sel.removeAllRanges(); sel.addRange(r); btn.textContent = "Selected"; }
+  setTimeout(() => { btn.textContent = "Copy"; btn.classList.remove("ok"); }, 1600);
+});
+</script>
+</body>
+</html>
