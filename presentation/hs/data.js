@@ -7,6 +7,7 @@ const podFiles = import.meta.glob('../pod-*.md', { query: '?raw', import: 'defau
 const intro = Object.values(import.meta.glob('../slides.md', { query: '?raw', import: 'default', eager: true }))[0];
 const DECKS = ['isolation', 'integration', 'verification', 'cargo'];
 
+HS.VOTE_URL = 'https://pods.sangu.be';
 HS.SOURCE = 'https://github.com/itenium-be/git-worktrees/issues/3';
 
 HS.TYPES = {
