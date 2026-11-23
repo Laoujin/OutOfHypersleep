@@ -1,7 +1,7 @@
 (() => {
   const A = HS.art;
   HS.marquee = t => `<div class="alarm-bar"><div class="marquee">${Array(8).fill(`<span>${t}</span>`).join('')}</div></div><div class="alarm-bar bottom"><div class="marquee rev">${Array(8).fill(`<span>${t}</span>`).join('')}</div></div>`;
-  const deckOf = p => (p.type === 'dead' ? 'Cargo deck' : `Deck ${HS.TYPES[p.type].n} · ${HS.TYPES[p.type].label}`);
+  const deckOf = p => (p.deck === 'cargo' ? 'Cargo deck' : `Deck ${HS.TYPES[p.deck].n} · ${HS.TYPES[p.deck].label}`);
   const head = (kicker, title, extra = '') => `<header><div class="kicker">${kicker}</div><h2>${title}</h2>${extra}</header>`;
   const S = [];
   const add = s => S.push(s);
@@ -62,43 +62,103 @@
   });
 
   // ───────────────────────── MAP ─────────────────────────
-  const podScore = (p, woken) => (p.type === 'dead' ? (woken ? -HS.RULES.dead : p.rel * HS.RULES.relevance) : HS.podPoints(p));
   const podCard = (p, st) => {
     const woken = st.woken.includes(p.id);
-    const dead = p.type === 'dead';
-    const cls = ['pod', `t-${p.type}`, woken ? (dead ? 'is-dead' : 'is-woken') : 'is-frozen', HS.leader() === p.id ? 'lead' : ''].join(' ');
+    const state = woken ? (p.dead ? 'dead' : 'awake') : 'closed';
+    const cls = ['pod', `t-${p.deck}`, `is-${state}`, HS.leader() === p.id ? 'lead' : ''].join(' ');
     const votes = st.votes[p.id] || 0;
-    const sc = podScore(p, woken);
+    const label = { closed: 'HYPERSLEEP', awake: 'REVIVED', dead: 'NO SIGNS' }[state];
     return `<div class="${cls}" data-pod="${p.id}">
-      ${A.pod(woken ? (dead ? 'dead' : 'open') : 'frozen')}
-      <div class="pc">
-        <span class="yr">❄ ${p.year}</span>
-        ${A.rel(p.rel)}
-        <span class="pts ${sc < 0 ? 'neg' : 'pos'}">${sc > 0 ? '+' : sc < 0 ? '−' : ''}${Math.abs(sc)}</span>
-      </div>
+      <div class="pod-art">${A.cryo(state, label)}</div>
       ${woken ? '' : `<div class="votes"><span class="vn">${votes}</span><small>votes</small><div class="vb"><button data-act="down" data-id="${p.id}">−</button><button data-act="up" data-id="${p.id}">+</button></div></div>`}
+      <div class="pod-info"><span class="yr">❄ ${p.frozen}</span>${A.rel(p.power)}${A.flip(p.score.alive, Math.abs(p.score.dead), woken ? (p.dead ? 'show-neg' : 'show-pos') : '')}</div>
     </div>`;
   };
+
+  const revive = {
+    html: p => {
+      const pts = p.score.alive;
+      const why = p.dead
+        ? `<div class="why dies"><label>dies because</label>${p.diesBecause || ''}</div>`
+        : `<div class="why frozen"><label>frozen because</label>${p.frozenBecause || ''}</div><div class="why woken"><label>woken because</label>${p.wokenBecause || ''}</div>`;
+      return `<div class="rv-alarm"><span>REVIVAL SEQUENCE · REVIVAL SEQUENCE · REVIVAL SEQUENCE · REVIVAL SEQUENCE</span></div>
+        <div class="rv-pod">${A.cryo('closed', 'HYPERSLEEP', 9)}</div>
+        <div class="rv-steam">${Array.from({ length: 12 }, (_, i) => `<i style="left:${140 + i * 64}px;top:${330 + (i % 3) * 30}px;--dx:${(i % 2 ? 1 : -1) * (20 + i * 4)}px;animation-delay:${(i * 0.12).toFixed(2)}s"></i>`).join('')}</div>
+        <div class="rv-info">
+          <div class="kicker">crew member · ${deckOf(p)}</div>
+          <h1>${p.name}</h1>
+          <dl class="rv-dates"><dt>BORN</dt><dd>${p.born}</dd><dt>DIED</dt><dd class="died">—</dd></dl>
+          <div class="rv-verdict ${p.dead ? 'dead' : 'alive'}">${p.dead ? `NO LIFE SIGNS<small>eaten by the alien AI · alien +${Math.abs(p.score.dead)}</small>` : `LIFE SIGNS: STABLE<small>crew ${pts > 0 ? '+' : ''}${pts}</small>`}</div>
+          <div class="rv-why">${why}</div>
+          <button class="rv-open" data-act="open-slides">Open the slides ↗</button>
+        </div>
+        <svg class="rv-ecg ${p.dead ? 'dead' : 'alive'}" viewBox="0 0 880 120" preserveAspectRatio="none"><path d="${p.dead
+          ? 'M0 60 l90 0 l14 -26 l14 70 l16 -100 l16 80 l12 -24 l90 0 l10 -10 l10 20 l10 -10 l560 0'
+          : 'M0 60 ' + Array(4).fill('l70 0 l14 -26 l14 70 l16 -100 l16 80 l12 -24').join(' ') + ' l100 0'}"/></svg>
+        <div class="rv-flash"></div>`;
+    },
+    step: (el, p, st) => {
+      for (let k = 1; k < 4; k++) el.classList.toggle('s' + k, k <= st);
+      const svg = el.querySelector('.rv-pod .cryo');
+      const state = st >= 3 && p.dead ? 'dead' : st >= 2 ? 'awake' : 'closed';
+      svg.setAttribute('class', `cryo ${state}`);
+      svg.querySelector('.readout-t').textContent = st >= 3 ? (p.dead ? 'NO SIGNS' : 'REVIVED') : st >= 1 ? 'VENTING' : 'HYPERSLEEP';
+      el.querySelector('.rv-dates .died').textContent = st >= 3 && p.dead ? (p.died ?? '?') : '—';
+      el.classList.toggle('is-dead', st >= 3 && p.dead);
+      el.classList.toggle('is-alive', st >= 3 && !p.dead);
+    },
+  };
+  HS.revive = revive;
 
   add({
     id: 'map', seq: 'map', cls: 'map',
     html: c => {
       const st = c.state;
       const sc = c.score;
-      const row = type => HS.pods.filter(p => p.type === type).map(p => podCard(p, st)).join('');
-      const cov = type => HS.pods.filter(p => p.type === type && st.woken.includes(p.id)).length;
+      const row = deck => HS.pods.filter(p => p.deck === deck).map(p => podCard(p, st)).join('');
+      const cov = deck => HS.pods.filter(p => p.deck === deck && st.woken.includes(p.id)).length;
       return `<div class="map-head"><div><div class="kicker">ship map</div><h2>Which pod do we open?</h2></div>${A.hud()}</div>
         <svg class="hull" viewBox="0 0 1500 720" preserveAspectRatio="none"><path d="M20 60 L1180 40 Q1460 120 1480 360 Q1460 600 1180 680 L20 660 Q0 360 20 60Z"/></svg>
         <div class="map-grid">
           ${['isolation', 'integration', 'verification'].map(t => `<div class="deck-lbl t-${t}"><b>Deck ${HS.TYPES[t].n}</b>${HS.TYPES[t].label}<small>${cov(t)} awake</small></div><div class="deck-row">${row(t)}</div>`).join('')}
           <div class="deck-lbl t-dead"><b>Cargo</b>unmarked pods</div>
-          <div class="deck-row">${row('dead')}${HS.dying.map(d => `<div class="pod t-dying ${st.events.intermezzo ? 'is-lost' : 'is-dying'}" title="${d.why}">${A.pod(st.events.intermezzo ? 'dead' : 'dying')}<div class="pc"><span class="yr">${st.events.intermezzo ? '<span class="red">lost</span>' : 'life support'}</span></div></div>`).join('')}</div>
+          <div class="deck-row">${row('cargo')}${HS.dying.map(d => `<div class="pod t-dying ${st.events.intermezzo ? 'is-lost' : 'is-dying'}" title="${d.why}"><div class="pod-art">${A.cryo(st.events.intermezzo ? 'dead' : 'dying', st.events.intermezzo ? 'LOST' : 'LIFE SUPP.')}</div></div>`).join('')}</div>
         </div>
 `;
     },
     init: (el, c) => {
       A.hudUpdate(el, c);
+      const ov = document.createElement('section');
+      ov.className = 'revive rv-overlay';
+      ov.hidden = true;
+      el.appendChild(ov);
+      let cur = null, st = 0;
+      const step = n => {
+        st = Math.max(0, Math.min(3, n));
+        revive.step(ov, cur, st);
+        if (st === 3 && !c.state.woken.includes(cur.id)) { c.state.woken.push(cur.id); c.save(); }
+      };
+      const close = () => { ov.hidden = true; cur = null; HS.refreshActive(); };
+      const openSlides = () => { const id = cur.id; if (st < 3) step(3); window.open(HS.deckUrl('pod-' + id), '_blank'); close(); };
+      const show = id => {
+        const p = HS.podById(id);
+        if (!p) return;
+        cur = p;
+        c.state.votes = {};
+        c.save();
+        ov.innerHTML = revive.html(p);
+        ov.hidden = false;
+        step(0);
+      };
+      HS.overlay = {
+        get active() { return !!cur && el.isConnected; },
+        next: () => (st < 3 ? step(st + 1) : openSlides()),
+        prev: () => (st > 0 ? step(st - 1) : close()),
+        show, close,
+      };
+      ov.addEventListener('click', e => { if (e.target.closest('[data-act=open-slides]')) openSlides(); });
       el.addEventListener('click', e => {
+        if (e.target.closest('.rv-overlay')) return;
         const b = e.target.closest('[data-act]');
         if (b) {
           const id = b.dataset.id;
@@ -110,41 +170,15 @@
           return;
         }
         const pod = e.target.closest('.pod[data-pod]');
-        if (pod) HS.openPod(pod.dataset.pod);
+        if (pod && !c.state.woken.includes(pod.dataset.pod)) show(pod.dataset.pod);
       });
     },
   });
 
   // ───────────────────────── PODS ─────────────────────────
-  const thaw = p => ({
-    id: p.id, seq: 'pod:' + p.id, steps: 3, cls: `thaw t-${p.type}${p.type === 'dead' ? ' is-deadpod' : ''}`,
-    enter: c => { if (!c.state.woken.includes(p.id)) c.state.woken.push(p.id); },
-    html: () => {
-      const dead = p.type === 'dead';
-      const pts = HS.podPoints(p);
-      return `<div class="thaw-pod">${A.pod('frozen big')}${dead ? `<div class="thaw-alien">${A.alien()}</div>` : ''}</div>
-        <div class="thaw-info">
-          <div class="kicker">${deckOf(p)} · pod opening</div>
-          <h1>${p.name}</h1>${p.sub ? `<div class="sub">${p.sub}</div>` : ''}
-          <div class="meta"><span>❄ asleep since <b>${p.year}</b></span><span>in hypersleep <b>${HS.thisYear - p.year} year${HS.thisYear - p.year === 1 ? '' : 's'}</b></span>${dead ? '' : A.rel(p.rel)}</div>
-          ${dead
-            ? `<div class="why dies" data-s="2"><label>dies because</label>${p.dies}</div>
-               <div class="award alien" data-s="2">eaten by the alien · alien +${HS.RULES.dead}</div>`
-            : `<div class="why frozen" data-s="1"><label>Frozen because</label>${p.frozen}</div>
-               <div class="why woken" data-s="2"><label>Woken because</label>${p.woken}</div>
-               <div class="award ${pts < 0 ? 'neg' : ''}" data-s="2">crew ${pts > 0 ? '+' : ''}${pts}</div>`}
-        </div>`;
-    },
-    step: (el, st) => {
-      const svg = el.querySelector('.podsvg');
-      svg.classList.toggle('open', st >= 1);
-      if (p.type === 'dead') svg.classList.toggle('dead', st >= 2);
-    },
-  });
-
   const custom = (podId, def) => ({
     id: `${podId}-${def.slug}`, seq: 'pod:' + podId, steps: def.caps.length,
-    cls: `custom t-${HS.podById(podId).type} ${def.cls || ''}`,
+    cls: `custom t-${HS.podById(podId).deck} ${def.cls || ''}`,
     html: () => `${head(deckOf(HS.podById(podId)) + ' · ' + HS.podById(podId).name, def.title)}
       <div class="pane"><div class="stage">${def.body}</div><aside>${HS.caps(def.caps)}</aside></div>`,
     init: def.init,
@@ -361,7 +395,6 @@ decode(encode("123"))   <span class="green">✓</span></pre></div>
   };
 
   for (const p of HS.pods) {
-    add(thaw(p));
     for (const d of podSlides[p.id] || []) add(custom(p.id, d));
   }
 
@@ -374,14 +407,14 @@ decode(encode("123"))   <span class="green">✓</span></pre></div>
         <div class="twist-text">
           <div class="big">The alien strikes back.</div>
           <ul class="alien-events" data-s="1">${HS.alienEvents.intermezzo.map(([n, v]) => `<li><span>${n}</span><b>+${v}</b></li>`).join('')}</ul>
-          <div class="dying-row" data-s="2">${HS.dying.map(d => `<div class="dpod">${A.pod('dying')}<b>${d.name}</b><small>${d.why}</small></div>`).join('')}</div>
+          <div class="dying-row" data-s="2">${HS.dying.map(d => `<div class="dpod">${A.cryo('dying', 'LIFE SUPP.')}<b>${d.name}</b><small>${d.why}</small></div>`).join('')}</div>
         </div>
       </div>
       <div class="hud-corner">${A.hud()}</div>`,
     step: (el, st, c) => {
       if (c.active && st >= 1 && !c.state.events.intermezzo) { c.state.events.intermezzo = true; A.hudUpdate(el, c); }
       else A.hudUpdate(el, c, false);
-      el.querySelectorAll('.dpod .podsvg').forEach(s => { s.classList.toggle('dying', st < 2); s.classList.toggle('dead', st >= 2); s.classList.toggle('open', st >= 2); });
+      el.querySelectorAll('.dpod .cryo').forEach(s => { s.setAttribute('class', `cryo ${st >= 2 ? 'dead' : 'dying'}`); s.querySelector('.readout-t').textContent = st >= 2 ? 'LOST' : 'LIFE SUPP.'; });
     },
   });
 
@@ -390,7 +423,7 @@ decode(encode("123"))   <span class="green">✓</span></pre></div>
     html: c => {
       const sc = c.score;
       return `${head('status report', 'Halfway there')}
-        <div class="status-cols">${['isolation', 'integration', 'verification'].map(t => `<div class="scol t-${t}"><div class="scol-h">Deck ${HS.TYPES[t].n} · ${HS.TYPES[t].label}</div>${HS.pods.filter(p => p.type === t).map(p => `<div class="srow ${c.state.woken.includes(p.id) ? 'on' : ''}">${c.state.woken.includes(p.id) ? '●' : '○'} ${p.name}</div>`).join('')}</div>`).join('')}</div>
+        <div class="status-cols">${['isolation', 'integration', 'verification'].map(t => `<div class="scol t-${t}"><div class="scol-h">Deck ${HS.TYPES[t].n} · ${HS.TYPES[t].label}</div>${HS.pods.filter(p => p.deck === t).map(p => `<div class="srow ${c.state.woken.includes(p.id) ? 'on' : ''}">${c.state.woken.includes(p.id) ? '●' : '○'} ${p.name}</div>`).join('')}</div>`).join('')}</div>
         <div class="status-foot">${sc.wokenDead.length ? `Lost to the alien: ${sc.wokenDead.map(p => p.name).join(', ')}. ` : ''}Crew <b>${sc.crew}</b> · alien <b class="red">${sc.alien}</b></div>`;
     },
   });
@@ -443,7 +476,7 @@ decode(encode("123"))   <span class="green">✓</span></pre></div>
           <div class="brow alien"><label>Alien AI</label><div class="b"><i style="--w0:${(pre.alien / max) * 100}%;--w:${(sc.alien / max) * 100}%"></i></div><b data-n="${sc.alien}">${pre.alien}</b></div>
         </div>
         <div class="sleepers" data-s="1">${sc.sleeping} crew members left in hypersleep · alien +${HS.RULES.sleeping} each</div>
-        <div class="reveal" data-s="2">The "new AI tooling" you woke tonight is on average <b>${sc.avgAge} years old</b>.<small>${sc.wokenLive.map(p => `${p.name} ${p.year}`).join(' · ')}</small></div>
+        <div class="reveal" data-s="2">The "new AI tooling" you woke tonight is on average <b>${sc.avgAge} years old</b>.<small>${sc.wokenLive.map(p => `${p.name} ${p.born}`).join(' · ')}</small></div>
         <div class="verdict ${win ? 'ok' : 'bad'}" data-s="3">${win ? 'The crew wins. Narrowly.' : 'The alien AI wins. This time.'}</div>`;
     },
     step: (el, st, c) => {

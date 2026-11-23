@@ -15,22 +15,21 @@ wakeLock: false
 fonts:
   sans: Inter
   mono: JetBrains Mono
-layout: hs
-routeAlias: storypoints
-clicks: 2
----
-
-<Hs id="storypoints" />
-
-<!--
-DEAD POD. Step 1: the pod opens… step 2: the alien eats it.
-Dies because: Why estimate something that takes 4 minutes to build?
-Costs the audience this vote, alien +40.
-Planning poker: James Grenning, 2002 (to verify). Death year placeholder (TBD in the source).
-The estimation meeting took longer than the build.
--->
-
----
+pod:
+  id: storypoints
+  name: Story points
+  sub: planning poker
+  deck: cargo
+  order: 3
+  frozen: 2025
+  born: 2002
+  died: 2025
+  power: 3
+  fate: dead
+  score:
+    alive: 30
+    dead: -40
+  diesBecause: Why estimate something that takes 4 minutes to build?
 layout: hs
 routeAlias: storypoints-poker
 clicks: 2
@@ -39,6 +38,11 @@ clicks: 2
 <Hs id="storypoints-poker" />
 
 <!--
+Background: Dies because: Why estimate something that takes 4 minutes to build?
+Costs the audience this vote, alien +40.
+Planning poker: James Grenning, 2002 (to verify). Death year placeholder (TBD in the source).
+The estimation meeting took longer than the build.
+
 Why estimate something that takes 4 minutes to build?
 The alien eats story points. Some will cheer.
 -->

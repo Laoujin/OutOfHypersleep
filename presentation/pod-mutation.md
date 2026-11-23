@@ -15,21 +15,20 @@ wakeLock: false
 fonts:
   sans: Inter
   mono: JetBrains Mono
-layout: hs
-routeAlias: mutation
-clicks: 2
----
-
-<Hs id="mutation" />
-
-<!--
-Pod opens. Step 1: why it was frozen. Step 2: why agents woke it (+50).
-Lipton 1971; DeMillo, Lipton & Sayward 1978. PIT (Java) and Stryker (JS/.NET) made it practical (to verify).
-Agents write tests that confirm their own code. A surviving mutant proves the test asserts nothing.
-Spin-off lightning talk: "Who Goes There?" (itenium-be/UnitTesting#4).
--->
-
----
+pod:
+  id: mutation
+  name: Mutation testing
+  deck: verification
+  order: 1
+  frozen: 1978
+  born: 1978
+  power: 5
+  fate: alive
+  score:
+    alive: 50
+    dead: -40
+  frozenBecause: "Too slow and too expensive: run the whole suite once per mutant."
+  wokenBecause: Compute is cheap and agents write the tests. Who tests the tests?
 layout: hs
 routeAlias: mutation-why
 clicks: 3
@@ -38,6 +37,10 @@ clicks: 3
 <Hs id="mutation-why" />
 
 <!--
+Background: Lipton 1971; DeMillo, Lipton & Sayward 1978. PIT (Java) and Stryker (JS/.NET) made it practical (to verify).
+Agents write tests that confirm their own code. A surviving mutant proves the test asserts nothing.
+Spin-off lightning talk: "Who Goes There?" (itenium-be/UnitTesting#4).
+
 Mutation testing: 1970s. Frozen because you run the whole suite once per mutant: too slow.
 [click] A surviving mutant proves the tests do not check that line.
 [click] Feed survivors back to the agent: it writes the missing test.

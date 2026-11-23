@@ -15,6 +15,19 @@ wakeLock: false
 fonts:
   sans: Inter
   mono: JetBrains Mono
+game:
+  # alien points for every live pod still asleep at the end
+  sleepingPenalty: 10
+  # alien scores with LLM problems at fixed moments
+  alien:
+    twist:
+      - { name: Hallucinations, points: 20 }
+      - { name: Bias, points: 20 }
+      - { name: Environmental cost, points: 20 }
+    intermezzo:
+      - { name: Prompt injection, points: 20 }
+      - { name: '"You''re absolutely right!"', points: 20 }
+      - { name: Slop at scale, points: 20 }
 layout: hs
 routeAlias: title
 ---
@@ -76,9 +89,10 @@ routeAlias: map
 <Hs id="map" />
 
 <!--
-Run the vote: QR / show of hands, use + / − on the pods. → (or clicking a pod) opens it; → opens the vote leader.
+Run the vote: the voting app (or + / − for a show of hands). Click a pod, or → for the vote leader: the pod opens fullscreen.
+Fullscreen pod: [→] venting · [→] lid opens: name + born · [→] it lives or dies (score applied) · [→] or the button: opens the pod's slides in a new tab and returns here. ← steps back / closes the pod.
 Aim for 5–6 pods. Watch the "N awake" per deck: if a deck is still empty after 3 pods, nudge: "nobody wants to verify anything?"
-The intermezzo (alien strikes back) triggers automatically after the 3rd pod. Press E for the final pod (Schrödinger's developer).
+After the 3rd pod, → on the map goes to the intermezzo. Press E for the final pod (Schrödinger's developer).
 Pods are anonymous until opened: the audience votes on year, power and score only.
 Keys: E final pod · M map · I intermezzo · S scoreboard · A about · X reset game · R replay · F fullscreen.
 -->

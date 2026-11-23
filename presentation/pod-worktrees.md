@@ -15,21 +15,20 @@ wakeLock: false
 fonts:
   sans: Inter
   mono: JetBrains Mono
-layout: hs
-routeAlias: worktrees
-clicks: 2
----
-
-<Hs id="worktrees" />
-
-<!--
-Pod opens. Step 1: why it was frozen. Step 2: why agents woke it (+50).
-Shipped in Git 2.5 (July 2015). For ten years it was the hotfix side door: "keep your feature branch open, fix prod in a second folder".
-What changed: three agents in one checkout trample each other's files and switch branches under each other's feet.
-The how is in the Git Worktrees deck. Here: why it woke up.
--->
-
----
+pod:
+  id: worktrees
+  name: git worktree
+  deck: isolation
+  order: 1
+  frozen: 2015
+  born: 2015
+  power: 5
+  fate: alive
+  score:
+    alive: 50
+    dead: -40
+  frozenBecause: One developer only ever needs one checkout. <code>git stash</code> was good enough.
+  wokenBecause: "N agents on one repo: each needs its own working directory and branch."
 layout: hs
 routeAlias: worktrees-why
 clicks: 3
@@ -38,6 +37,10 @@ clicks: 3
 <Hs id="worktrees-why" />
 
 <!--
+Background: Shipped in Git 2.5 (July 2015). For ten years it was the hotfix side door: "keep your feature branch open, fix prod in a second folder".
+What changed: three agents in one checkout trample each other's files and switch branches under each other's feet.
+The how is in the Git Worktrees deck. Here: why it woke up.
+
 Three agents in one folder: show the collisions.
 [click] Branch switches under someone else's feet; files change on disk mid-edit; three npm installs fight over the lockfile.
 [click] Worktrees: one object store, a working directory per agent. Cheap: no re-clone.

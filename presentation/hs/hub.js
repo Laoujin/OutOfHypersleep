@@ -71,26 +71,29 @@ HS.leader = () => {
   return best
 }
 
-HS.toMap = () => {
+HS.deckUrl = deck => `${HS.rootBase()}${deck ? deck + '/' : ''}`
+HS.intermezzoDue = () => {
   const sc = HS.score(state)
-  if (!state.events.intermezzo && sc.wokenLive.length + sc.wokenDead.length >= 3) return HS.go(seqs.intermezzo[0])
-  HS.go('map')
+  return !state.events.intermezzo && sc.wokenLive.length + sc.wokenDead.length >= 3
 }
 
 HS.openPod = (id) => {
   if (id === 'schrodinger') return HS.go(seqs.final[0])
-  if (!seqs['pod:' + id]) return
-  state.votes = {}
-  HS.save()
-  HS.go(seqs['pod:' + id][0])
+  if (HS.overlay) HS.overlay.show(id)
 }
 
 HS.after = (id) => {
   const s = byId[id]
-  if (s.seq === 'map') { const l = HS.leader(); if (l) HS.openPod(l); return }
+  if (s.seq === 'map') {
+    if (HS.intermezzoDue()) return HS.go(seqs.intermezzo[0])
+    const l = HS.leader()
+    if (l) HS.openPod(l)
+    return
+  }
   const seq = seqs[s.seq]
   if (s.idx < seq.length - 1) return HS.go(seq[s.idx + 1])
-  if (s.seq === 'intro' || s.seq.startsWith('pod:')) return HS.toMap()
+  if (s.seq === 'intro') return HS.go('map')
+  if (s.seq.startsWith('pod:')) { if (window.opener) return window.close(); return HS.go('map') }
   if (s.seq === 'intermezzo') return HS.go('map')
   if (s.seq === 'final') return HS.go(seqs.outro[0])
 }

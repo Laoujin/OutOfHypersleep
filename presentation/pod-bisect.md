@@ -15,20 +15,20 @@ wakeLock: false
 fonts:
   sans: Inter
   mono: JetBrains Mono
-layout: hs
-routeAlias: bisect
-clicks: 2
----
-
-<Hs id="bisect" />
-
-<!--
-Pod opens. Step 1: why it was frozen. Step 2: why agents woke it (+40).
-`git bisect run` landed in Git 1.5 (2007, to verify).
-64 commits = 6 test runs. Humans skipped it because each step needed a human. Agents don't get bored.
--->
-
----
+pod:
+  id: bisect
+  name: git bisect run
+  deck: integration
+  order: 3
+  frozen: 2007
+  born: 2007
+  power: 4
+  fate: alive
+  score:
+    alive: 40
+    dead: -40
+  frozenBecause: "Bisecting by hand is tedious: build, test, mark good or bad, repeat."
+  wokenBecause: An agent runs it unattended and reports the culprit.
 layout: hs
 routeAlias: bisect-why
 clicks: 7
@@ -37,6 +37,9 @@ clicks: 7
 <Hs id="bisect-why" />
 
 <!--
+Background: `git bisect run` landed in Git 1.5 (2007, to verify).
+64 commits = 6 test runs. Humans skipped it because each step needed a human. Agents don't get bored.
+
 git bisect: binary search through history. By hand: build, run, mark good/bad, repeat. Tedious, so nobody did it.
 Step through the halvings: 64 → 32 → 16 → 8 → 4 → 2 → 1.
 (last step) git bisect run: the script decides good/bad. An agent kicks it off and comes back with the culprit commit.

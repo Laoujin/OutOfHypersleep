@@ -15,22 +15,21 @@ wakeLock: false
 fonts:
   sans: Inter
   mono: JetBrains Mono
-layout: hs
-routeAlias: saas
-clicks: 2
----
-
-<Hs id="saas" />
-
-<!--
-DEAD POD. Step 1: the pod opens… step 2: the alien eats it.
-Dies because: Building beats buying. A PDF tool in 2 hours instead of hosting Stirling PDF.
-Costs the audience this vote, alien +40.
-Own story: I needed a few PDF operations. Hosting and securing Stirling PDF vs. asking an agent for exactly the three features I need: 2 hours, done.
-Sleep year is a placeholder (TBD in the source).
--->
-
----
+pod:
+  id: saas
+  name: Small SaaS tools
+  sub: build vs buy
+  deck: cargo
+  order: 2
+  frozen: 2025
+  born: 2010
+  died: 2025
+  power: 3
+  fate: dead
+  score:
+    alive: 30
+    dead: -40
+  diesBecause: Building beats buying. A PDF tool in 2 hours instead of hosting Stirling PDF.
 layout: hs
 routeAlias: saas-story
 clicks: 2
@@ -39,6 +38,11 @@ clicks: 2
 <Hs id="saas-story" />
 
 <!--
+Background: Dies because: Building beats buying. A PDF tool in 2 hours instead of hosting Stirling PDF.
+Costs the audience this vote, alien +40.
+Own story: I needed a few PDF operations. Hosting and securing Stirling PDF vs. asking an agent for exactly the three features I need: 2 hours, done.
+Sleep year is a placeholder (TBD in the source).
+
 Own story: Stirling PDF vs a small tool built by an agent in 2 hours.
 Build vs buy flipped for small tools. Not for your ERP.
 -->

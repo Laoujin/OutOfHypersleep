@@ -1,6 +1,22 @@
 window.HS = window.HS || {};
 
 HS.art = {
+  cryo: (state = 'closed', label = 'HYPERSLEEP', strip = 7) => `<svg class="cryo ${state}" viewBox="0 0 440 180" aria-hidden="true">
+    <rect class="shell" x="10" y="30" width="420" height="120" rx="60"/>
+    ${[90, 130, 310, 350].map(x => `<line class="rib" x1="${x}" y1="32" x2="${x}" y2="46"/><line class="rib" x1="${x}" y1="134" x2="${x}" y2="148"/>`).join('')}
+    <rect class="vent" x="28" y="76" width="14" height="28" rx="4"/><rect class="vent" x="398" y="76" width="14" height="28" rx="4"/>
+    <rect class="interior" x="62" y="48" width="316" height="84" rx="42"/>
+    <g class="sleeper"><circle cx="112" cy="90" r="17"/><rect x="134" y="73" width="196" height="34" rx="17"/></g>
+    <g class="scratch"><path d="M180 64 l70 52"/><path d="M200 60 l70 52"/><path d="M220 58 l66 50"/></g>
+    <circle class="eye" cx="300" cy="90" r="44" fill="url(#gEye)"/>
+    <g class="lid"><rect class="glass" x="62" y="48" width="316" height="84" rx="42"/>
+      <path class="frost" d="M86 72 q20 -10 34 2 t40 -2 t36 6 M92 106 q26 -8 44 4 t52 -2 t40 4 M210 70 q24 -8 40 2 t40 0 M240 112 q22 -6 36 2 t44 -2"/></g>
+    <g class="strip">${Array.from({ length: strip }, (_, i) => `<rect x="${(440 - strip * 22) / 2 + i * 22 - 40}" y="152" width="16" height="8" rx="2"/>`).join('')}</g>
+    <rect class="readout" x="300" y="146" width="104" height="24" rx="4"/><text class="readout-t" x="352" y="162" text-anchor="middle">${label}</text>
+  </svg>`,
+
+  flip: (pos, neg, settled) => `<span class="flip ${settled ? 'settled ' + settled : ''}"><span class="fv ${pos < 0 ? 'neg' : 'pos'}">${pos > 0 ? '+' : pos < 0 ? '−' : ''}${Math.abs(pos)}</span><span class="fv neg alt">−${neg}</span></span>`,
+
   pod: (cls = '') => `<svg class="podsvg ${cls}" viewBox="0 0 120 200" aria-hidden="true">
     <rect class="shell" x="8" y="4" width="104" height="192" rx="52"/>
     <rect class="rim" x="16" y="12" width="88" height="176" rx="44"/>

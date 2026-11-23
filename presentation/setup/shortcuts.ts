@@ -8,12 +8,14 @@ export default defineShortcutsSetup((_ops, base) => {
   const cur = () => HS.currentId()
 
   const next = () => {
+    if (HS.overlay?.active) return HS.overlay.next()
     const id = cur()
     if (!id || !HS.byId[id]) return nav.next()
     if (nav.clicks.value < nav.clicksTotal.value) return nav.next()
     HS.after(id)
   }
   const prev = () => {
+    if (HS.overlay?.active) return HS.overlay.prev()
     const id = cur()
     if (!id || !HS.byId[id]) return nav.prev()
     if (nav.clicks.value > 0) return nav.prev()

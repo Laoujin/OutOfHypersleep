@@ -15,21 +15,20 @@ wakeLock: false
 fonts:
   sans: Inter
   mono: JetBrains Mono
-layout: hs
-routeAlias: trailers
-clicks: 2
----
-
-<Hs id="trailers" />
-
-<!--
-Pod opens. Step 1: why it was frozen. Step 2: why agents woke it (+-10).
-`git interpret-trailers`: Git 2.2, 2014 (to verify).
-The twist: this crew member costs the crew points. Every Co-Authored-By trailer is the alien's mark on your history.
-Surprise: the audience has been looking at one for two years without knowing the name.
--->
-
----
+pod:
+  id: trailers
+  name: Commit trailers
+  deck: integration
+  order: 2
+  frozen: 2014
+  born: 2014
+  power: 3
+  fate: alive
+  score:
+    alive: -10
+    dead: -40
+  frozenBecause: Nobody knew they existed (except kernel devs and <code>Signed-off-by</code>).
+  wokenBecause: "Every AI commit carries <code>Co-Authored-By</code>: the alien's mark."
 layout: hs
 routeAlias: trailers-why
 clicks: 3
@@ -38,6 +37,10 @@ clicks: 3
 <Hs id="trailers-why" />
 
 <!--
+Background: `git interpret-trailers`: Git 2.2, 2014 (to verify).
+The twist: this crew member costs the crew points. Every Co-Authored-By trailer is the alien's mark on your history.
+Surprise: the audience has been looking at one for two years without knowing the name.
+
 Ask the room: who recognises the last line? Everyone has seen it, almost nobody knows it is called a trailer.
 [click] git interpret-trailers, since 2014. Signed-off-by is the famous one.
 [click] They are structured: git log can filter and count them.

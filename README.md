@@ -21,22 +21,46 @@ Every push to `main` builds the Slidev deck and publishes it to GitHub Pages (`.
 
 ## How the audience picks pods
 
-The talk is split into **separate Slidev decks** that link into each other:
+The talk is split into **separate Slidev decks**:
 
 | Deck | File | URL |
 |---|---|---|
-| Intro: starship, alien AI invasion, rules, **ship map** | `slides.md` | `/OutOfHypersleep/` |
-| One deck per pod | `pod-<id>.md` | `/OutOfHypersleep/pod-<id>/` |
+| Intro: starship, alien AI invasion, **ship map** | `slides.md` | `/OutOfHypersleep/` |
+| One deck per pod (its content slides) | `pod-<id>.md` | `/OutOfHypersleep/pod-<id>/` |
 | Intermezzo: the alien strikes back | `intermezzo.md` | `/OutOfHypersleep/intermezzo/` |
 | Finale: Schrödinger's developer, scoreboard, closing | `finale.md` | `/OutOfHypersleep/finale/` |
 
-- The ship map is the last slide of the intro deck. Pods never show their name on the map: each shows its freeze year, power (relevance) and score (+ green / − red). Votes are shown per pod (+ / − buttons for now; a separate voting app will feed them). The leader glows.
-- Click a pod, or press → on the map to open the vote leader: the browser opens that pod's deck.
-- At the end of a pod deck, → returns to the ship map. After the 3rd pod, → goes to the intermezzo deck first. Press E for the final pod (Schrödinger's developer).
+1. **Ship map** (last slide of the intro). Pods are anonymous: freeze year, power and a score that flips between + (green) and − (red), because nobody knows whether the crew member survives. Votes come from the voting app via `HS.setVotes({ podId: n })`, or + / − for a show of hands. The leader glows.
+2. Click a pod, or → for the vote leader: the pod opens **fullscreen** on top of the map.
+   → venting · → the lid opens: name and born year · → it lives or dies (died year, score applied).
+3. **Open the slides ↗** (or → once more) opens that pod's deck in a **new tab**, closes the fullscreen pod and the map updates: score counts up, the pod shows revived or dead. At the end of the pod deck, → closes the tab.
+4. After the 3rd pod, → on the map goes to the intermezzo deck. E opens the finale.
 
-The hub navigation lives in `presentation/hs/hub.js` and `presentation/setup/shortcuts.ts` (→ / ← / PageDown / PageUp / clicker follow the hub). Game state (woken pods, votes, score) is in `localStorage`, shared by all decks because they're on the same origin, so the score carries across decks and survives a refresh.
+Game state (woken pods, votes, score) is in `localStorage`, shared by all decks on the same origin.
 
-For QR voting later: call `HS.setVotes({ podId: n, ... })` from a poll integration.
+## Pods and scores live in YAML
+
+Each pod is defined in the YAML header of its own deck, `presentation/pod-<id>.md`:
+
+```yaml
+pod:
+  id: stackoverflow
+  name: Stack Overflow
+  deck: cargo          # isolation | integration | verification | cargo (row on the ship map)
+  order: 1             # position in that row
+  frozen: 2023         # year shown on the map
+  born: 2008           # shown when the pod opens
+  died: 2023           # shown when it dies (fate: dead)
+  power: 5             # 1–5 bars on the map
+  fate: dead           # alive | dead
+  score:
+    alive: 50          # crew points if it lives (the + on the map)
+    dead: -40          # alien points if it dies (the − on the map)
+  diesBecause: ...     # dead pods
+  # frozenBecause / wokenBecause for pods that live
+```
+
+Game-wide rules (alien events at the twist and intermezzo, the penalty per pod left asleep) are in the `game:` block of `presentation/slides.md`. Add a pod by adding a `pod-<id>.md` with a `pod:` header and its slides.
 
 | Key | Action |
 |---|---|
@@ -58,7 +82,7 @@ For QR voting later: call `HS.setVotes({ podId: n, ... })` from a poll integrati
 |---|---|
 | `presentation/slides.md`, `pod-*.md`, `intermezzo.md`, `finale.md` | the decks: one `<Hs id>` per slide, with `routeAlias`, `clicks` and speaker notes |
 | `presentation/build.mjs` | builds every deck into `dist/` |
-| `presentation/hs/data.js` | pods, scoring rules, alien events, score function |
+| `presentation/hs/data.js` | reads the pods and game rules from the YAML headers; score function |
 | `presentation/hs/slides.js` | slide content and per-step SVG/CSS animations |
 | `presentation/hs/art.js` | artwork: cryo pod, alien eye, ECG, scoreboard |
 | `presentation/hs/hub.js` | game state and hub navigation |
@@ -70,7 +94,7 @@ All artwork is original SVG/CSS: a sci-fi cryosleep theme, no film stills, logos
 
 ## Choices made for the open questions
 
-Everything below is a default; change it in `presentation/hs/data.js` (`HS.pods`, `HS.RULES`, `HS.alienEvents`) or `presentation/hs/slides.js`.
+Everything below is a default; change pods in the `pod:` header of `presentation/pod-*.md`, game rules in the `game:` header of `presentation/slides.md`, slide content in `presentation/hs/slides.js`.
 
 | Open question | Choice |
 |---|---|

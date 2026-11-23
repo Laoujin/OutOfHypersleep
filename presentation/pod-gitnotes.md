@@ -15,21 +15,20 @@ wakeLock: false
 fonts:
   sans: Inter
   mono: JetBrains Mono
-layout: hs
-routeAlias: gitnotes
-clicks: 2
----
-
-<Hs id="gitnotes" />
-
-<!--
-Pod opens. Step 1: why it was frozen. Step 2: why agents woke it (+30).
-git notes: Git 1.6.6 (2010, to verify).
-refs/notes/* is not pushed or fetched by default, so everyone assumed notes were broken. One refspec fixes it.
-Metadata on a commit without rewriting the commit: model, prompt, cost, session link.
--->
-
----
+pod:
+  id: gitnotes
+  name: git notes
+  deck: integration
+  order: 4
+  frozen: 2010
+  born: 2010
+  power: 3
+  fate: alive
+  score:
+    alive: 30
+    dead: -40
+  frozenBecause: Notes got lost on push and clone.
+  wokenBecause: Recording which agent wrote which commit, and with which prompt.
 layout: hs
 routeAlias: gitnotes-why
 clicks: 3
@@ -38,6 +37,10 @@ clicks: 3
 <Hs id="gitnotes-why" />
 
 <!--
+Background: git notes: Git 1.6.6 (2010, to verify).
+refs/notes/* is not pushed or fetched by default, so everyone assumed notes were broken. One refspec fixes it.
+Metadata on a commit without rewriting the commit: model, prompt, cost, session link.
+
 git notes: attach data to a commit without changing its hash.
 [click] Which agent, which prompt, cost, link to the session.
 [click] Not pushed or fetched by default: notes "got lost", so the feature froze.

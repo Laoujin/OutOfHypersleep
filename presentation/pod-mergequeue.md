@@ -15,20 +15,20 @@ wakeLock: false
 fonts:
   sans: Inter
   mono: JetBrains Mono
-layout: hs
-routeAlias: mergequeue
-clicks: 2
----
-
-<Hs id="mergequeue" />
-
-<!--
-Pod opens. Step 1: why it was frozen. Step 2: why agents woke it (+50).
-bors (Rust, 2013) after Graydon Hoare's "not rocket science rule". Zuul (OpenStack) around the same time. GitHub merge queue GA: 2023. All to verify.
-The Dark Factory talk started exactly here: I needed a merge queue.
--->
-
----
+pod:
+  id: mergequeue
+  name: Merge queue
+  deck: integration
+  order: 1
+  frozen: 2013
+  born: 2013
+  power: 5
+  fate: alive
+  score:
+    alive: 50
+    dead: -40
+  frozenBecause: '"Only Google-scale needs this."'
+  wokenBecause: 20 green branches at once. Each is green alone; together they break main.
 layout: hs
 routeAlias: mergequeue-why
 clicks: 3
@@ -37,6 +37,9 @@ clicks: 3
 <Hs id="mergequeue-why" />
 
 <!--
+Background: bors (Rust, 2013) after Graydon Hoare's "not rocket science rule". Zuul (OpenStack) around the same time. GitHub merge queue GA: 2023. All to verify.
+The Dark Factory talk started exactly here: I needed a merge queue.
+
 "Only Google-scale needs this." Google-scale used to mean 1000 engineers. Now it means you plus 20 agents.
 [click] Five branches, all green.
 [click] Semantic conflicts: no textual conflict, but together they break.

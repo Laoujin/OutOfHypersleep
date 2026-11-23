@@ -15,22 +15,20 @@ wakeLock: false
 fonts:
   sans: Inter
   mono: JetBrains Mono
-layout: hs
-routeAlias: stackoverflow
-clicks: 2
----
-
-<Hs id="stackoverflow" />
-
-<!--
-DEAD POD. Step 1: the pod opens… step 2: the alien eats it.
-Dies because: Questions are answered inside the agent now. Volume collapsed after 2023.
-Costs the audience this vote, alien +40.
-The best-known dead pod. Show the numbers: monthly new questions from peak to today.
-Numbers on the chart are approximate placeholders: replace with a Stack Exchange Data Explorer query before giving the talk.
--->
-
----
+pod:
+  id: stackoverflow
+  name: Stack Overflow
+  deck: cargo
+  order: 1
+  frozen: 2023
+  born: 2008
+  died: 2023
+  power: 5
+  fate: dead
+  score:
+    alive: 50
+    dead: -40
+  diesBecause: Questions are answered inside the agent now. Volume collapsed after 2023.
 layout: hs
 routeAlias: stackoverflow-chart
 clicks: 3
@@ -39,6 +37,11 @@ clicks: 3
 <Hs id="stackoverflow-chart" />
 
 <!--
+Background: Dies because: Questions are answered inside the agent now. Volume collapsed after 2023.
+Costs the audience this vote, alien +40.
+The best-known dead pod. Show the numbers: monthly new questions from peak to today.
+Numbers on the chart are approximate placeholders: replace with a Stack Exchange Data Explorer query before giving the talk.
+
 The best-known dead pod. Let the chart do the talking.
 [click] Plateau and slow decline already before AI.
 [click] After late 2022: collapse.

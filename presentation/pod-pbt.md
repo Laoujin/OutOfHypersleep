@@ -15,20 +15,20 @@ wakeLock: false
 fonts:
   sans: Inter
   mono: JetBrains Mono
-layout: hs
-routeAlias: pbt
-clicks: 2
----
-
-<Hs id="pbt" />
-
-<!--
-Pod opens. Step 1: why it was frozen. Step 2: why agents woke it (+50).
-QuickCheck (Claessen & Hughes, ICFP 2000; written 1999, to verify). Hypothesis, fast-check, FsCheck, jqwik.
-The agent that wrote the code also picks the examples: of course they pass. A generator does not share its blind spots.
--->
-
----
+pod:
+  id: pbt
+  name: Property-based testing
+  deck: verification
+  order: 2
+  frozen: 1999
+  born: 1999
+  power: 5
+  fate: alive
+  score:
+    alive: 50
+    dead: -40
+  frozenBecause: Seen as academic. Generators are hard to write.
+  wokenBecause: Agents write the generators. Properties catch what an agent's own examples only confirm.
 layout: hs
 routeAlias: pbt-why
 clicks: 3
@@ -37,6 +37,9 @@ clicks: 3
 <Hs id="pbt-why" />
 
 <!--
+Background: QuickCheck (Claessen & Hughes, ICFP 2000; written 1999, to verify). Hypothesis, fast-check, FsCheck, jqwik.
+The agent that wrote the code also picks the examples: of course they pass. A generator does not share its blind spots.
+
 Property-based testing: QuickCheck, ~1999. Frozen as academic; writing generators was the hard part.
 [click] Agents write generators happily.
 [click] A counterexample.
