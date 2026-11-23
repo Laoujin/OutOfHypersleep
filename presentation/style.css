@@ -437,3 +437,24 @@ pre.code { margin: 0; font: 21px/1.6 var(--mono); color: var(--ink); white-space
 .alarm-bar .marquee span { padding-right: 1.2em; }
 @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 .launch-exciting { position: absolute; left: 0; right: 0; bottom: 20px; text-align: center; font-size: 88px; font-weight: 800; letter-spacing: -.02em; color: var(--amber); text-shadow: 0 0 40px rgba(255, 181, 71, .35); }
+
+/* map pods v2: anonymous, votes prominent */
+.map .map-grid { width: 1500px; }
+.map .pod { width: 300px; height: 150px; }
+.map .pod .podsvg { width: 62px; }
+.map .pod .pc { gap: 8px; justify-content: center; }
+.map .pod .yr { font-size: 20px; }
+.map .pod .rel i { width: 12px; height: 20px; }
+.map .pod .pts { font: 800 26px var(--mono); }
+.map .pod .pts.pos { color: var(--awake); }
+.map .pod .pts.neg { color: var(--alien); }
+.map .pod .votes { position: absolute; right: 12px; top: 10px; bottom: 10px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; min-width: 78px; }
+.map .pod .votes .vn { font: 800 52px/1 var(--mono); color: var(--amber); }
+.map .pod .votes small { font: 600 12px var(--mono); color: var(--muted); letter-spacing: .12em; text-transform: uppercase; }
+.map .pod .votes .vb { display: flex; gap: 6px; margin-top: 4px; opacity: .35; }
+.map .pod .votes .vb button { width: 26px; height: 26px; font-size: 16px; }
+.map .pod:hover .votes .vb { opacity: 1; }
+.map .pod.t-dying { width: 150px; }
+.map .pod.t-dying { width: 118px; padding: 10px 6px; gap: 6px; }
+.map .pod.t-dying .podsvg { width: 40px; }
+.map .pod.t-dying .yr { font-size: 13px; line-height: 1.2; }

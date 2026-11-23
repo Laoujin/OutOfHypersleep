@@ -78,6 +78,7 @@ routeAlias: map
 <!--
 Run the vote: QR / show of hands, use + / − on the pods. → (or clicking a pod) opens it; → opens the vote leader.
 Aim for 5–6 pods. Watch the "N awake" per deck: if a deck is still empty after 3 pods, nudge: "nobody wants to verify anything?"
-The intermezzo (alien strikes back) triggers automatically after the 3rd pod; the final pod is at the bow.
-Keys: M map · I intermezzo · S scoreboard · A about · X reset game · R replay · F fullscreen.
+The intermezzo (alien strikes back) triggers automatically after the 3rd pod. Press E for the final pod (Schrödinger's developer).
+Pods are anonymous until opened: the audience votes on year, power and score only.
+Keys: E final pod · M map · I intermezzo · S scoreboard · A about · X reset game · R replay · F fullscreen.
 -->

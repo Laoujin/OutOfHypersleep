@@ -30,9 +30,9 @@ The talk is split into **separate Slidev decks** that link into each other:
 | Intermezzo: the alien strikes back | `intermezzo.md` | `/OutOfHypersleep/intermezzo/` |
 | Finale: Schrödinger's developer, scoreboard, closing | `finale.md` | `/OutOfHypersleep/finale/` |
 
-- The ship map is the last slide of the intro deck. Votes are shown per pod (+ / − buttons for now; a separate voting app will feed them). The leader glows.
+- The ship map is the last slide of the intro deck. Pods are anonymous until opened: each shows its freeze year, power (relevance) and score (+ green / − red). Votes are shown per pod (+ / − buttons for now; a separate voting app will feed them). The leader glows.
 - Click a pod, or press → on the map to open the vote leader: the browser opens that pod's deck.
-- At the end of a pod deck, → returns to the ship map. After the 3rd pod, → goes to the intermezzo deck first. The final pod (Schrödinger's developer) is at the bow of the map.
+- At the end of a pod deck, → returns to the ship map. After the 3rd pod, → goes to the intermezzo deck first. Press E for the final pod (Schrödinger's developer).
 
 The hub navigation lives in `presentation/hs/hub.js` and `presentation/setup/shortcuts.ts` (→ / ← / PageDown / PageUp / clicker follow the hub). Game state (woken pods, votes, score) is in `localStorage`, shared by all decks because they're on the same origin, so the score carries across decks and survives a refresh.
 
@@ -44,6 +44,7 @@ For QR voting later: call `HS.setVotes({ podId: n, ... })` from a poll integrati
 | ← / PageUp | back |
 | ↑ / ↓ | previous / next slide (skip clicks) |
 | M | ship map |
+| E | final pod (Schrödinger's developer) |
 | I | intermezzo |
 | S | scoreboard |
 | A | about slide |
