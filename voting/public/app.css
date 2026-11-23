@@ -1,0 +1,40 @@
+:root {
+  --bg: #050a14; --panel: #0d1626; --line: #22324f; --ink: #e6f0ff; --muted: #8ea2c2; --faint: #4a5b7a;
+  --cryo: #7fe3ff; --iso: #4fb3ff; --int: #b08cff; --ver: #45e6a0; --amber: #ffb547;
+  --sans: "Inter", "Segoe UI", system-ui, -apple-system, Roboto, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--sans); }
+body {
+  min-height: 100vh; padding: 20px 16px 48px;
+  background-image: radial-gradient(1px 1px at 20% 30%, #fff8, transparent), radial-gradient(1px 1px at 70% 80%, #fff6, transparent),
+    radial-gradient(1px 1px at 40% 70%, #fff5, transparent), radial-gradient(1px 1px at 85% 15%, #fff7, transparent);
+  background-size: 300px 300px;
+}
+main { max-width: 720px; margin: 0 auto; }
+.kicker { font-family: var(--mono); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--cryo); }
+h1 { margin: 6px 0 4px; font-size: 28px; }
+.lead { color: var(--muted); margin: 0 0 20px; }
+.deck { margin: 22px 0 10px; display: flex; align-items: baseline; gap: 10px; border-left: 3px solid var(--faint); padding-left: 10px; }
+.deck b { font-family: var(--mono); font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+.deck.t-isolation { border-color: var(--iso); } .deck.t-integration { border-color: var(--int); } .deck.t-verification { border-color: var(--ver); }
+.pods { display: grid; gap: 8px; }
+.pod {
+  display: flex; align-items: center; gap: 12px; width: 100%; padding: 12px 14px; text-align: left;
+  background: var(--panel); color: inherit; font: inherit; border: 1px solid var(--line); border-radius: 10px; cursor: pointer;
+  transition: border-color .15s, background .15s;
+}
+.pod .info { flex: 1; min-width: 0; }
+.pod .name { font-weight: 600; }
+.pod .sub, .pod .yr { color: var(--muted); font-size: 13px; }
+.pod .yr { font-family: var(--mono); }
+.pod .count { font-family: var(--mono); font-size: 20px; min-width: 2ch; text-align: right; color: var(--muted); }
+.pod .mark { font-size: 13px; padding: 6px 10px; border-radius: 999px; border: 1px solid var(--line); color: var(--muted); white-space: nowrap; }
+.pod.voted { border-color: var(--cryo); background: #0f2236; }
+.pod.voted .mark { background: var(--cryo); color: var(--bg); border-color: var(--cryo); font-weight: 600; }
+.pod.voted .count { color: var(--cryo); }
+.pod:disabled { opacity: .6; cursor: progress; }
+.foot { margin-top: 28px; color: var(--faint); font-size: 13px; text-align: center; }
+.err { color: var(--amber); }
