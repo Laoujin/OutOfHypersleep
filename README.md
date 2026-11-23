@@ -58,7 +58,7 @@ pod:
   name: Stack Overflow
   deck: cargo          # isolation | integration | verification | cargo (row on the ship map)
   order: 1             # position in that row
-  frozen: 2023         # year shown on the map
+  frozen: 2008         # year shown on the map (dead pods: = born)
   born: 2008           # shown when the pod opens
   died: 2023           # shown when it dies (fate: dead)
   power: 5             # 1–5 bars on the map

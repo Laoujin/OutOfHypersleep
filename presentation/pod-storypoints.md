@@ -25,7 +25,7 @@ pod:
   sub: planning poker
   deck: cargo
   order: 3
-  frozen: 2025
+  frozen: 2002
   born: 2002
   died: 2025
   power: 3

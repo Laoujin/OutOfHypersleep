@@ -23,7 +23,7 @@ pod:
   name: Stack Overflow
   deck: cargo
   order: 1
-  frozen: 2023
+  frozen: 2008
   born: 2008
   died: 2023
   power: 5

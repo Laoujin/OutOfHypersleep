@@ -25,7 +25,7 @@ pod:
   sub: build vs buy
   deck: cargo
   order: 2
-  frozen: 2025
+  frozen: 2010
   born: 2010
   died: 2025
   power: 3

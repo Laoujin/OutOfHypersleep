@@ -512,7 +512,7 @@ decode(encode("123"))   <span class="green">✓</span></pre></div>
     thaw: p => `${bg(p)}<div class="thaw-card">
       <div class="kicker">${deckOf(p)}</div>
       <h1>${p.name}</h1>
-      <div class="ids"><span>born<b>${p.born}</b></span><span>frozen<b>${p.frozen}</b></span>${p.dead ? `<span>died<b>${p.died}</b></span>` : ''}<span>relevance${A.rel(p.power)}</span></div>
+      <div class="ids"><span>born<b>${p.born}</b></span>${p.dead ? `<span>died<b>${p.died}</b></span>` : `<span>frozen<b>${p.frozen}</b></span>`}<span>relevance${A.rel(p.power)}</span></div>
       <div class="fate">${p.dead ? 'No signs of life' : 'Revived'}</div>
     </div>`,
     froze: p => p.dead
