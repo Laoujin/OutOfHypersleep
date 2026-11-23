@@ -17,7 +17,7 @@ import QRCode from 'qrcode';
 
   // ───────────────────────── INTRO ─────────────────────────
   add({
-    id: 'title', seq: 'intro', cls: 'title-slide',
+    id: 'title', seq: 'intro', cls: 'title-slide plate',
     html: () => `<div class="title-wrap">
         <div class="kicker">a hypersleep story</div>
         <h1>Out of<br>Hypersleep</h1>
@@ -124,7 +124,7 @@ import QRCode from 'qrcode';
   HS.revive = revive;
 
   add({
-    id: 'map', seq: 'map', cls: 'map',
+    id: 'map', seq: 'map', cls: 'map plate',
     html: c => {
       const st = c.state;
       const sc = c.score;
@@ -437,7 +437,7 @@ decode(encode("123"))   <span class="green">✓</span></pre></div>
   });
 
   add({
-    id: 'status', seq: 'intermezzo',
+    id: 'status', seq: 'intermezzo', cls: 'status plate',
     html: c => {
       const sc = c.score;
       return `${head('status report', 'Halfway there')}
