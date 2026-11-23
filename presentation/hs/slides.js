@@ -1,5 +1,14 @@
+import QRCode from 'qrcode';
+
 (() => {
   const A = HS.art;
+  const qrSvg = url => {
+    const { modules } = QRCode.create(url, { errorCorrectionLevel: 'M' });
+    const n = modules.size, q = 2;
+    let d = '';
+    for (let y = 0; y < n; y++) for (let x = 0; x < n; x++) if (modules.get(y, x)) d += `M${x + q} ${y + q}h1v1h-1z`;
+    return `<svg class="qr" viewBox="0 0 ${n + q * 2} ${n + q * 2}" shape-rendering="crispEdges"><rect width="100%" height="100%" fill="#fff"/><path d="${d}" fill="#04070b"/></svg>`;
+  };
   HS.marquee = t => `<div class="alarm-bar"><div class="marquee">${Array(8).fill(`<span>${t}</span>`).join('')}</div></div><div class="alarm-bar bottom"><div class="marquee rev">${Array(8).fill(`<span>${t}</span>`).join('')}</div></div>`;
   const deckOf = p => (p.deck === 'cargo' ? 'Cargo deck' : `Deck ${HS.TYPES[p.deck].n} · ${HS.TYPES[p.deck].label}`);
   const head = (kicker, title, extra = '') => `<header><div class="kicker">${kicker}</div><h2>${title}</h2>${extra}</header>`;
@@ -56,10 +65,13 @@
   });
 
   add({
-    id: 'ask', seq: 'intro', steps: 3,
-    html: () => `<div class="statement"><div class="big">We need <em>you</em> to wake crew members to battle it.</div>
-      <div class="small" data-s="1">We need to <b>tame the LLM output</b>.</div>
-      <div class="to-cryo" data-s="2">vote at <b>${HS.VOTE_URL.replace('https://', '')}</b> · → to the cryo chamber</div></div>`,
+    id: 'ask', seq: 'intro', steps: 2,
+    cls: 'ask',
+    html: () => `<div class="ask-top"><div class="big">We need <em>you</em> to wake crew members to battle it.</div></div>
+      <div class="vote-cta" data-s="1">
+        ${qrSvg(HS.VOTE_URL)}
+        <div class="vote-side"><div class="kicker">vote for the next pod</div><div class="vote-badge">${HS.VOTE_URL.replace('https://', '')}</div><div class="to-cryo">one vote per pod · → to the cryo chamber</div></div>
+      </div>`,
   });
 
   // ───────────────────────── MAP ─────────────────────────

@@ -9,7 +9,8 @@
     "export": "slidev export --with-clicks=false"
   },
   "dependencies": {
-    "@slidev/cli": "^53.1.0"
+    "@slidev/cli": "^53.1.0",
+    "qrcode": "^1.5.4"
   },
   "devDependencies": {
     "@slidev/types": "^53.1.0"

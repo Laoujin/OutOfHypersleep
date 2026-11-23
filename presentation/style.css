@@ -567,5 +567,12 @@ pre.code { margin: 0; font: 21px/1.6 var(--mono); color: var(--ink); white-space
 .revive.s3 .rv-open { opacity: 1; pointer-events: auto; }
 .revive.is-dead .rv-open { background: var(--cred); color: #fff; }
 
-.to-cryo { margin-top: 48px; font: 600 30px var(--mono); color: var(--cryo); letter-spacing: .04em; }
-.to-cryo b { color: var(--ink); }
+/* ask slide: voting call to action */
+.ask { justify-content: center; gap: 46px; }
+.ask .ask-top .big { font-size: 76px; font-weight: 800; line-height: 1.06; letter-spacing: -.02em; max-width: 1400px; }
+.ask .ask-top .big em { font-style: normal; color: var(--amber); }
+.vote-cta { display: flex; align-items: center; gap: 64px; }
+.vote-cta .qr { width: 400px; height: 400px; border-radius: 18px; box-shadow: 0 0 0 10px #fff, 0 0 60px rgba(127, 227, 255, .25); }
+.vote-side .kicker { font-size: 22px; margin-bottom: 18px; }
+.vote-badge { display: inline-block; font: 800 72px var(--mono); letter-spacing: -.01em; color: #04140d; background: var(--phos, #7dffb0); padding: 18px 40px; border-radius: 999px; box-shadow: 0 0 40px rgba(125, 255, 176, .45); }
+.to-cryo { margin-top: 26px; font: 600 26px var(--mono); color: var(--cryo); letter-spacing: .04em; }

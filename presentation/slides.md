@@ -72,15 +72,14 @@ The scoreboard stays with us all talk.
 ---
 layout: hs
 routeAlias: ask
-clicks: 2
+clicks: 1
 ---
 
 <Hs id="ask" />
 
 <!--
 The ask. The audience is now in charge of the crew.
-[click] Translate the metaphor once, then never again: waking crew = using old tools to keep LLM output in line.
-[click] Phones out: vote at pods.sangu.be (one vote per pod, tap again to undo). → to the cryo chamber.
+[click] QR code: phones out, vote at pods.sangu.be (one vote per pod, tap again to undo). Then → to the cryo chamber.
 -->
 
 ---
