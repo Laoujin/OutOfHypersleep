@@ -590,3 +590,16 @@ pre.code { margin: 0; font: 21px/1.6 var(--mono); color: var(--ink); white-space
 .launch .ticker { position: absolute; left: 0; right: 0; bottom: 30px; height: 44px; background: #000; color: var(--amber); font: 600 20px var(--mono); letter-spacing: .14em; display: flex; align-items: center; overflow: hidden; white-space: nowrap; }
 .launch .ticker .marquee { display: inline-flex; animation: marquee 40s linear infinite; }
 .launch .ticker .marquee span { padding-right: .8em; }
+
+.but { --plate-img: url('/plates/red-corridor.webp'); --plate-shade: linear-gradient(180deg, rgba(0,0,0,.45), rgba(0,0,0,.35) 50%, rgba(0,0,0,.55)); }
+.but .alarm-bar { padding: 0; height: 44px; display: flex; align-items: center; color: #111; font: 700 18px var(--mono); letter-spacing: .2em; background: repeating-linear-gradient(-45deg, var(--alien) 0 24px, #c2203d 24px 48px); animation: none; }
+.but .hud-corner { top: 70px; }
+.but-eye { position: absolute; left: 50%; top: 250px; width: 260px; translate: -50% -50%; filter: drop-shadow(0 0 40px rgba(255, 59, 92, .6)); }
+.but-eye .alien { width: 260px; height: 260px; }
+.but-text { position: absolute; left: 0; right: 0; top: 440px; text-align: center; }
+.but-text h1 { font-size: 150px; line-height: 1; color: #fff; text-shadow: 0 0 40px rgba(0, 0, 0, .8); }
+.but-text p { margin: 16px 0 0; font: 400 34px var(--sans); color: #fff; }
+.but-text p b { color: var(--alien); font-weight: 600; }
+.but-log { position: absolute; left: 50%; translate: -50% 0; width: 640px; bottom: 74px; display: grid; gap: 2px; font: 600 22px/1.45 var(--mono); letter-spacing: .08em; color: var(--alien); text-shadow: 0 0 8px rgba(255, 59, 92, .6); background: rgba(0, 0, 0, .6); padding: 14px 22px; border-left: 3px solid var(--alien); }
+.but-log div { display: flex; gap: 12px; }
+.but-log i { flex: 1; min-width: 40px; border-bottom: 2px dotted rgba(255, 59, 92, .5); margin-bottom: 8px; }

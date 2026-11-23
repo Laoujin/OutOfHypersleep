@@ -41,17 +41,15 @@ import QRCode from 'qrcode';
   });
 
   add({
-    id: 'twist', seq: 'intro', steps: 3, cls: 'twist',
+    id: 'twist', seq: 'intro', steps: 3, cls: 'but plate',
     enter: c => { Object.assign(c.state, { woken: [], votes: {}, events: {}, shown: { crew: 0, alien: 0 } }); },
     html: () => `${HS.marquee('⚠ INTRUDER DETECTED · DECK 3 ·')}
-      <div class="twist-body">
-        <div class="twist-eye" data-s="1">${A.alien()}</div>
-        <div class="twist-text">
-          <div class="big">But…</div>
-          <div class="mid" data-s="1">An evil <b class="red">alien AI</b> has infiltrated the ship.</div>
-          <ul class="alien-events" data-s="2">${HS.alienEvents.twist.map(([n, v]) => `<li><span>${n}</span><b>+${v}</b></li>`).join('')}</ul>
-        </div>
+      <div class="but-eye" data-s="1">${A.alien()}</div>
+      <div class="but-text">
+        <h1>But…</h1>
+        <p data-s="1">An evil <b>alien AI</b> has infiltrated the ship.</p>
       </div>
+      <div class="but-log" data-s="2">${HS.alienEvents.twist.map(([n, v]) => `<div>&gt; ${n.toUpperCase()} <i></i> +${v}</div>`).join('')}</div>
       <div class="hud-corner" data-s="2">${A.hud()}</div>`,
     step: (el, st, c) => {
       if (c.active && st >= 2 && !c.state.events.twist) { c.state.events.twist = true; A.hudUpdate(el, c); }
