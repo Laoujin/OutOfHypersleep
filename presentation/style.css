@@ -436,3 +436,4 @@ pre.code { margin: 0; font: 21px/1.6 var(--mono); color: var(--ink); white-space
 .alarm-bar .marquee.rev { animation-direction: reverse; }
 .alarm-bar .marquee span { padding-right: 1.2em; }
 @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+.launch-exciting { position: absolute; left: 0; right: 0; bottom: 20px; text-align: center; font-size: 88px; font-weight: 800; letter-spacing: -.02em; color: var(--amber); text-shadow: 0 0 40px rgba(255, 181, 71, .35); }

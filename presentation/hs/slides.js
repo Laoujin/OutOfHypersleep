@@ -32,8 +32,8 @@
         <div class="launch-lines">
           <div class="big" data-s="0">"We've done it."</div>
           <div class="mid" data-s="1">We built a starship, and we're going to colonize Alpha Centauri.</div>
-          <div class="mid accent" data-s="2">Exciting times to be alive!</div>
-        </div></div>`,
+        </div>
+        <div class="launch-exciting" data-s="2">Exciting times to be alive!</div></div>`,
   });
 
   add({
