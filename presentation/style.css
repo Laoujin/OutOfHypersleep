@@ -580,12 +580,12 @@ pre.code { margin: 0; font: 21px/1.6 var(--mono); color: var(--ink); white-space
 .plate { isolation: isolate; }
 .plate::before { content: ""; position: absolute; inset: 0; z-index: -2; background: var(--plate-img) center / cover no-repeat; transform: var(--plate-flip, none); }
 .plate::after { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; background: var(--plate-shade), radial-gradient(ellipse at center, transparent 55%, rgba(0,0,0,.6) 100%); }
-.title-slide { --plate-img: url('/plates/cryo-bay.jpg'); --plate-flip: scaleX(-1);
+.title-slide { --plate-img: url('/plates/cryo-bay.webp'); --plate-flip: scaleX(-1);
   --plate-shade: linear-gradient(90deg, rgba(5,7,10,.92) 0%, rgba(5,7,10,.78) 38%, rgba(5,7,10,.15) 70%, rgba(5,7,10,.35) 100%); }
 .title-slide .title-pods { display: none; }
-.map { --plate-img: url('/plates/map-table.jpg');
+.map { --plate-img: url('/plates/map-table.webp');
   --plate-shade: linear-gradient(180deg, rgba(5,7,10,.9) 0%, rgba(5,7,10,.7) 22%, rgba(5,7,10,.72) 100%); }
 .map .hull path { fill: rgba(5,7,10,.35); }
-.status { --plate-img: url('/plates/bridge.jpg');
+.status { --plate-img: url('/plates/bridge.webp');
   --plate-shade: linear-gradient(180deg, rgba(5,7,10,.85) 0%, rgba(5,7,10,.55) 40%, rgba(5,7,10,.6) 100%); }
 .rv-verdict small { font: 800 40px var(--mono); letter-spacing: .02em; margin-top: 10px; color: inherit; }
