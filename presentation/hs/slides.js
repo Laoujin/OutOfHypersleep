@@ -166,7 +166,7 @@ import soCsv from '../data/stackoverflow-questions.csv?raw';
         <div class="map-grid">
           ${['isolation', 'integration', 'verification'].map(t => `<div class="deck-lbl t-${t}"><b>Deck ${HS.TYPES[t].n}</b>${HS.TYPES[t].label}<small>${cov(t)} awake</small></div><div class="deck-row">${row(t)}</div>`).join('')}
           <div class="deck-lbl t-dead"><b>Cargo</b>unmarked pods</div>
-          <div class="deck-row">${row('cargo')}${HS.dying.map(d => `<div class="pod t-dying ${st.events.intermezzo ? 'is-lost' : 'is-dying'}" title="${d.why}"><div class="pod-art">${A.cryo(st.events.intermezzo ? 'dead' : 'dying', st.events.intermezzo ? 'LOST' : 'LIFE SUPP.')}</div></div>`).join('')}</div>
+          <div class="deck-row">${row('cargo')}</div>
         </div>
 `;
     },
@@ -292,37 +292,6 @@ import soCsv from '../data/stackoverflow-questions.csv?raw';
           ${BADGES.map(([n, c, , pos]) => `<div class="wt-badge" style="${pos}"><b style="background:${c}"></b>../app-${n}</div>`).join('')}`,
       }];
     })(),
-    boxes: [{
-      slug: 'why', title: 'Give the agent a box you can wipe',
-      body: `<svg viewBox="0 0 1000 560">
-        <g class="laptop"><rect class="box" x="60" y="120" width="340" height="220" rx="14"/><path class="box" d="M30 350 h400 l-30 34 h-340Z"/>
-          ${['~/.ssh/id_ed25519', '~/.aws/credentials', 'browser cookies', 'your other repos'].map((t, i) => `<text class="mono" x="90" y="${175 + i * 42}">${t}</text>`).join('')}
-          <text class="lbl dim" x="230" y="420" text-anchor="middle">your laptop</text></g>
-        <g class="agent-yolo" data-o="1"><circle class="ag ag1" cx="700" cy="220" r="26"/><text class="mono red" x="700" y="290" text-anchor="middle">--dangerously-skip-permissions</text>
-          <path class="arrow bad" d="M670 220 L420 220"/></g>
-        <g data-s="1">
-          <g class="vm" data-o="2"><rect class="box ok" x="560" y="110" width="360" height="260" rx="16"/><text class="lbl" x="590" y="150">throwaway VM</text><text class="mono dim" x="590" y="182">snapshot: clean</text>
-            <circle class="ag ag1" cx="740" cy="270" r="26"/><text class="mono red" x="740" y="340" text-anchor="middle">--dangerously-skip-permissions</text></g>
-          <path class="wall" d="M480 90 v320"/>
-        </g>
-        <g data-s="2" data-o="3" class="crumble"><rect class="box bad" x="560" y="110" width="360" height="260" rx="16"/><text class="lbl red" x="740" y="230" text-anchor="middle">rm -rf / --no-preserve-root</text><text class="lbl red" x="740" y="270" text-anchor="middle">✗ box destroyed</text></g>
-        <g data-s="3"><rect class="box ok" x="560" y="110" width="360" height="260" rx="16"/><text class="lbl" x="590" y="150">throwaway VM</text><text class="mono green" x="590" y="182">rollback to snapshot · 4 s</text><circle class="ag ag1" cx="740" cy="270" r="26"/></g>
-      </svg>`,
-      caps: ['YOLO mode on your laptop: the agent can reach <b>everything you can</b>.', 'Put it in a box. The wall is the point.', 'It will break the box. That\'s fine.', 'Roll back, carry on. <b>Homelab: one VM per agent.</b>'],
-    }],
-    tmux: [{
-      slug: 'why', title: 'Watching several agents at once',
-      body: `<svg viewBox="0 0 1000 560">
-        <rect class="term" x="40" y="30" width="920" height="500" rx="12"/>
-        <g class="pane-a"><text class="mono" x="66" y="80">agent-1 ❯ refactor billing</text><text class="mono dim" x="66" y="112">● editing src/billing.ts</text></g>
-        <g data-s="1"><path class="split" d="M500 40 v480"/><text class="mono" x="526" y="80">dev ❯ npm run dev</text><text class="mono green" x="526" y="112">ready on :5173</text><text class="mono red" x="526" y="144">TypeError: total is undefined</text></g>
-        <g data-s="2"><path class="split" d="M40 285 h920"/><text class="mono" x="66" y="330">agent-2 ❯ add search filters</text><text class="mono dim" x="66" y="362">● running tests 41/120</text>
-          <text class="mono" x="526" y="330">tests ❯ vitest --watch</text><text class="mono green" x="526" y="362">✓ 118 passed</text><text class="mono red" x="526" y="394">✗ 2 failed</text></g>
-        <g data-s="3"><path class="arrow ok" d="M300 140 C 360 200, 420 200, 516 150"/><rect class="tag" x="90" y="176" width="420" height="78" rx="10"/>
-          <text class="mono" x="118" y="210">tmux capture-pane -p -t dev</text><text class="mono dim" x="118" y="238">the agent reads the error itself</text></g>
-      </svg>`,
-      caps: ['One agent, one terminal.', 'The dev server needs a pane.', 'Four panes: two agents, a dev server, a test watcher.', 'The surprise: the agent <b>reads the other panes itself</b>.'],
-    }],
     mergequeue: (() => {
       const crawler = (x, y, s = 1, cls = '', attr = '') => `<g ${attr}><g class="mq-crawler ${cls}" transform="translate(${x} ${y}) scale(${s})">
         <rect class="tr" x="0" y="50" width="104" height="18" rx="9"/>
@@ -492,47 +461,6 @@ import soCsv from '../data/stackoverflow-questions.csv?raw';
         <div class="stamp" data-s="2">ALIEN MARK<br><span>alien +10</span></div>`,
       steps: 3,
     }],
-    bisect: [{
-      slug: 'why', title: '64 commits, nobody watching',
-      body: `<svg viewBox="0 0 1000 560" class="bisect">
-        ${Array.from({ length: 64 }, (_, i) => `<rect class="c" data-i="${i}" x="${40 + i * 14.4}" y="230" width="11" height="70" rx="3"/>`).join('')}
-        <text class="lbl green" x="45" y="210">good</text><text class="lbl red" x="960" y="210" text-anchor="end">bad</text>
-        <g class="marks"></g>
-        <text class="lbl big runs" x="40" y="400">test runs: 0</text>
-        <g data-s="7"><rect class="term" x="40" y="440" width="920" height="90" rx="10"/><text class="mono" x="64" y="478">$ git bisect start HEAD v2.3 &amp;&amp; git bisect run npm test</text><text class="mono green" x="64" y="510">a41c9e0 is the first bad commit</text></g>
-      </svg>`,
-      caps: ['Somewhere in 64 commits, something broke.', 'Test the middle: good.', 'Middle again: bad.', 'Good.', 'Bad.', 'Bad.', 'Good. Found it.', '<b>6 test runs.</b> An agent runs them unattended.'],
-      step: (el, st) => {
-        const culprit = 41;
-        let lo = 0, hi = 63;
-        const tested = [];
-        for (let k = 0; k < Math.min(st, 6); k++) {
-          const mid = Math.floor((lo + hi) / 2);
-          const bad = mid >= culprit;
-          tested.push([mid, bad]);
-          if (bad) hi = mid; else lo = mid;
-        }
-        el.querySelectorAll('.bisect .c').forEach(r => {
-          const i = +r.dataset.i;
-          r.setAttribute('class', `c ${i < lo || i > hi ? 'out' : ''} ${st >= 6 && i === culprit ? 'culprit' : ''}`);
-        });
-        el.querySelector('.marks').innerHTML = tested.map(([m, b]) => `<text class="lbl ${b ? 'red' : 'green'}" x="${45 + m * 14.4}" y="340" text-anchor="middle">${b ? '✗' : '✓'}</text>`).join('');
-        el.querySelector('.runs').textContent = `test runs: ${tested.length}`;
-      },
-    }],
-    gitnotes: [{
-      slug: 'why', title: 'Metadata that doesn\'t rewrite history',
-      body: `<svg viewBox="0 0 1000 560">
-        <path class="main" d="M40 200 H420"/><circle class="commit-dot" cx="300" cy="200" r="22"/><text class="mono" x="300" y="160" text-anchor="middle">a41c9e0</text>
-        <g data-s="1" data-o="2"><path class="link dashed" d="M300 222 V300"/><rect class="note" x="140" y="300" width="330" height="170" rx="10"/>
-          ${['agent: claude-code', 'prompt: "add vote buttons"', 'cost: $0.42 · 6 min', 'session: …/sessions/8f2c'].map((t, i) => `<text class="mono" x="160" y="${340 + i * 34}">${t}</text>`).join('')}</g>
-        <g data-s="2"><path class="arrow" d="M440 200 H620"/><rect class="box" x="640" y="110" width="320" height="180" rx="14"/><text class="lbl" x="660" y="150">origin</text><circle class="commit-dot" cx="800" cy="220" r="22"/>
-          <g data-o="3"><rect class="note lost" x="140" y="330" width="330" height="140" rx="10"/><text class="mono red" x="160" y="400">refs/notes/* not pushed</text></g></g>
-        <g data-s="3"><rect class="term" x="40" y="480" width="920" height="60" rx="10"/><text class="mono" x="64" y="518">$ git push origin 'refs/notes/*'</text>
-          <path class="link dashed" d="M800 242 V320"/><rect class="note" x="660" y="320" width="300" height="110" rx="10"/><text class="mono" x="680" y="360">agent: claude-code</text><text class="mono" x="680" y="392">prompt: "add vote…"</text></g>
-      </svg>`,
-      caps: ['A commit.', 'Attach a note: which agent, which prompt, what it cost. The commit hash doesn\'t change.', 'Push… and the note stays behind. That\'s why everyone thought notes were broken.', 'One refspec. Now every commit carries its <b>provenance</b>.'],
-    }],
     mutation: [{
       slug: 'why', title: 'Who tests the tests?',
       body: `<div class="two">
@@ -547,28 +475,6 @@ expect(canVote(5)).toBe(false)   <span class="green">✓</span>
         <div class="meter" data-s="3"><label>mutation score</label><div class="bar"><i></i></div><b><span class="from">61%</span> → <span class="to">94%</span></b></div>`,
       caps: ['Agent-written code. Agent-written tests. All green.', 'Flip one operator. <b>The tests stay green.</b> They assert nothing about the boundary.', 'The agent adds the boundary test. Mutant killed.', 'Compute is cheap: run thousands of mutants on every PR.'],
     }],
-    pbt: [{
-      slug: 'why', title: 'The agent picked its own examples',
-      body: `<div class="two">
-        <div class="card"><div class="card-h">examples <small>(chosen by the agent that wrote the code)</small></div><pre class="code">decode(encode("hello")) <span class="green">✓</span>
-decode(encode("abc"))   <span class="green">✓</span>
-decode(encode("123"))   <span class="green">✓</span></pre></div>
-        <div class="card" data-s="1"><div class="card-h">property</div><pre class="code">∀ s: decode(encode(s)) === s</pre>
-          <svg viewBox="0 0 400 160" class="spray">${Array.from({ length: 120 }, (_, i) => `<circle cx="${12 + (i % 20) * 19}" cy="${14 + Math.floor(i / 20) * 26}" r="7" class="${i === 87 ? 'hit' : ''}" style="animation-delay:${(i * 0.015).toFixed(3)}s"/>`).join('')}</svg></div>
-        </div>
-        <div class="counter" data-s="2"><span class="mono red">✗ "Ünïcödé ☃ test"</span> <span class="arrow-r" data-s="3">→ shrinks to</span> <span class="mono red big" data-s="3">"é"</span></div>`,
-      caps: ['Three examples. All green. Of course: the same agent wrote the code.', 'A property and a generator: hundreds of inputs the agent never thought of.', 'One fails.', 'Shrinking finds the <b>smallest</b> counterexample. Agents write the generators.'],
-    }],
-    formal: [{
-      slug: 'why', title: 'Backpressure that can\'t be argued with',
-      body: `<div class="chat">
-        <div class="bubble llm">This lock-free queue is correct. ✅ Trust me.</div>
-        <div class="bubble checker bad" data-s="1">✗ Invariant <code>NoLostWrites</code> violated<br><small>state 7: two writers claim slot 3</small></div>
-        <div class="bubble llm" data-s="2">You're absolutely right! Here's the fix.</div>
-        <div class="bubble checker ok" data-s="3">✓ 2,416,331 states explored · no violations</div>
-      </div>`,
-      caps: ['The LLM is very good at <b>sounding</b> right.', 'The model checker doesn\'t care how it sounds.', 'Iterate.', 'Writing the spec and proof was the cost. <b>LLMs write them now.</b>'],
-    }],
     hooks: [{
       slug: 'why', title: 'The gate everyone walked around',
       body: `<svg viewBox="0 0 1000 560">
@@ -582,6 +488,19 @@ decode(encode("123"))   <span class="green">✓</span></pre></div>
         <g data-s="3"><text class="lbl green" x="500" y="168" text-anchor="middle">✓ the gate holds</text></g>
       </svg>`,
       caps: ['Hooks: since Git 1.0, 2005.', 'Slow hook? Humans skipped it.', 'Agents don\'t get the choice: <code>--no-verify</code> is blocked.', 'The hook finally is what it was meant to be: <b>a gate</b>.<br><small>A guardrail that only warns is documentation.</small>'],
+    }, {
+      slug: 'loop', title: 'A gate on every edit',
+      body: `<svg viewBox="0 0 1000 560">
+        <rect class="box" x="40" y="200" width="200" height="110" rx="12"/><text class="lbl" x="140" y="248" text-anchor="middle">agent</text><text class="mono dim" x="140" y="282" text-anchor="middle">Edit vote.ts</text>
+        <path class="arrow" d="M240 255 H380"/>
+        <g data-s="1"><rect class="gate" x="380" y="170" width="250" height="170" rx="12"/><text class="lbl" x="505" y="212" text-anchor="middle">PostToolUse</text>
+          ${['eslint --fix', 'tsc --noEmit', 'LSP diagnostics'].map((t, i) => `<text class="mono dim" x="505" y="${250 + i * 28}" text-anchor="middle">${t}</text>`).join('')}</g>
+        <g data-s="2"><path class="arrow bad" d="M505 340 C 505 450, 140 450, 140 314"/><rect class="term" x="300" y="440" width="560" height="80" rx="10"/>
+          <text class="mono red" x="320" y="474">vote.ts:12 'total' is possibly undefined</text><text class="mono dim" x="320" y="504">fed straight back into the agent's context</text></g>
+        <g data-s="3"><path class="arrow" d="M630 255 H720"/><rect class="gate" x="720" y="170" width="250" height="170" rx="12"/><text class="lbl" x="845" y="212" text-anchor="middle">Stop</text>
+          <text class="mono dim" x="845" y="250" text-anchor="middle">npm test</text><text class="mono red" x="845" y="290" text-anchor="middle">✗ not done yet</text></g>
+      </svg>`,
+      caps: ['Git hooks gate a commit. Agent hooks gate <b>every edit</b>.', 'After each edit: lint, types, and the language server the IDE used to keep to itself.', 'Errors go straight back to the agent. No human reading red squiggles.', 'A Stop hook: the agent can\'t say "done" until the tests pass.'],
     }],
     stackoverflow: [{
       slug: 'chart', title: 'New questions per month', cls: 'deadslide',
@@ -650,6 +569,22 @@ decode(encode("123"))   <span class="green">✓</span></pre></div>
       body: `<div class="poker">${['1', '2', '3', '5', '8', '13', '?'].map((v, i) => `<div class="pcard" style="transform: rotate(${(i - 3) * 7}deg) translateY(${Math.abs(i - 3) * 9}px)">${v}</div>`).join('')}</div>
         <div class="timers"><div class="tm" data-s="1"><label>estimation meeting</label><b>45:00</b></div><div class="tm ok" data-s="2"><label>agent builds it</label><b>03:52</b></div></div>`,
       caps: ['How many points is this story?', 'The meeting takes 45 minutes.', 'The build takes four.'],
+    }],
+    codereview: [{
+      slug: 'lgtm', title: 'Review requested', cls: 'deadslide',
+      body: `<div class="two">
+        <div class="card"><div class="card-h">review queue <small>(10 agents)</small></div><ul class="check">${[['#409', '+812 −97', 0], ['#410', '+1,904 −340', 0], ['#411', '+455 −1,022', 1], ['#412', '+3,412 −1,208', 1], ['#413', '+2,766 −51', 1], ['… 35 more', '', 1]].map(([n, d, s]) => `<li data-s="${s}"><code>${n}</code> <small>${d}</small></li>`).join('')}</ul></div>
+        <div class="card" data-s="2"><div class="card-h">PR #412 · +3,412 −1,208</div><ul class="check ok"><li>looks good to me</li></ul><div class="timer">⏱ 0:11</div><div class="banner ok">APPROVED · LGTM</div></div>
+      </div>`,
+      caps: ['Ten agents. <b>Forty PRs a day.</b>', 'Every one of them hundreds of lines nobody typed.', 'Approved in eleven seconds.<small>The real review moved into the gates: tests, types, hooks.</small>'],
+    }],
+    ide: [{
+      slug: 'features', title: 'Built for a human at a keyboard', cls: 'deadslide',
+      body: `<div class="two">
+        <div class="card"><div class="card-h">the IDE · 40 years of features</div><ul class="check">${['autocomplete', 'refactor › rename', 'go to definition', 'debugger', 'file tree', 'find usages'].map(t => `<li>${t}</li>`).join('')}</ul><div class="stamp" data-s="1">AGENT<br><span>does this now</span></div></div>
+        <div class="card" data-s="2"><div class="card-h">what's left</div><ul class="check ok"><li>a terminal</li><li>git diff</li><li>LSP <small>→ feeds the agent</small></li></ul></div>
+      </div>`,
+      caps: ['Forty years of features. All for a human typing code.', 'The agent does all of it itself.', 'What\'s left: a terminal and a diff.<small>One survivor: the language server got a new job.</small>'],
     }],
   };
 
@@ -744,21 +679,19 @@ decode(encode("123"))   <span class="green">✓</span></pre></div>
 
   // ───────────────────────── INTERMEZZO ─────────────────────────
   add({
-    id: 'strike', seq: 'intermezzo', steps: 3, cls: 'twist strike',
+    id: 'strike', seq: 'intermezzo', steps: 2, cls: 'twist strike',
     html: () => `${HS.marquee('⚠ HULL BREACH · LIFE SUPPORT FAILING ·')}
       <div class="twist-body">
         <div class="twist-eye">${A.alien('angry')}</div>
         <div class="twist-text">
           <div class="big">The alien strikes back.</div>
           <ul class="alien-events" data-s="1">${HS.alienEvents.intermezzo.map(([n, v]) => `<li><span>${n}</span><b>+${v}</b></li>`).join('')}</ul>
-          <div class="dying-row" data-s="2">${HS.dying.map(d => `<div class="dpod">${A.cryo('dying', 'LIFE SUPP.')}<b>${d.name}</b><small>${d.why}</small></div>`).join('')}</div>
         </div>
       </div>
       <div class="hud-corner">${A.hud()}</div>`,
     step: (el, st, c) => {
       if (c.active && st >= 1 && !c.state.events.intermezzo) { c.state.events.intermezzo = true; A.hudUpdate(el, c); }
       else A.hudUpdate(el, c, false);
-      el.querySelectorAll('.dpod .cryo').forEach(s => { s.setAttribute('class', `cryo ${st >= 2 ? 'dead' : 'dying'}`); s.querySelector('.readout-t').textContent = st >= 2 ? 'LOST' : 'LIFE SUPP.'; });
     },
   });
 

@@ -21,9 +21,10 @@ fonts:
 pod:
   wip: true
   id: hooks
-  name: Git hooks
+  name: Hooks
+  sub: git hooks · agent hooks · LSP
   deck: verification
-  order: 4
+  order: 2
   frozen: 2005
   born: 2005
   power: 4
@@ -32,7 +33,7 @@ pod:
     alive: 40
     dead: -40
   frozenBecause: Everyone bypassed them with <code>--no-verify</code>.
-  wokenBecause: Agents can't skip a gate they aren't allowed to skip.
+  wokenBecause: Agent hooks run the checks on every edit, and LSP diagnostics go straight back to the agent.
 layout: hs
 routeAlias: hooks-thaw
 ---
@@ -66,6 +67,21 @@ From the Guardrails talk: a guardrail that only warns is documentation.
 Everyone has a pre-commit hook story ending in --no-verify.
 [click] For agents: a permission rule or PreToolUse hook denies --no-verify.
 [click] The hook becomes backpressure. More in the Guardrails & Backpressure talk.
+-->
+
+---
+layout: hs
+routeAlias: hooks-loop
+clicks: 3
+---
+
+<Hs id="hooks-loop" />
+
+<!--
+Claude Code hooks: PreToolUse, PostToolUse, Stop. Same idea as git hooks, one level up.
+[click] PostToolUse on Edit/Write: lint, typecheck, LSP diagnostics. The language server used to only feed red squiggles to a human.
+[click] Exit code 2 / JSON output goes straight back into the agent's context. It fixes it before you see it.
+[click] Stop hook: run the tests; block "done" until green.
 -->
 
 ---
