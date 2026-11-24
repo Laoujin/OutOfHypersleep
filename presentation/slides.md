@@ -26,7 +26,7 @@ game:
     twist:
       - { name: Hallucinations, points: 20 }
       - { name: Bias, points: 20 }
-      - { name: Environmental cost, points: 20 }
+      - { name: Env. cost, points: 20 }
     intermezzo:
       - { name: Prompt injection, points: 20 }
       - { name: '"You''re absolutely right!"', points: 20 }

@@ -599,15 +599,15 @@ pre.code { margin: 0; font: 21px/1.6 var(--mono); color: var(--ink); white-space
 .but { --plate-img: url('/plates/red-corridor.webp'); --plate-shade: linear-gradient(180deg, rgba(0,0,0,.45), rgba(0,0,0,.35) 50%, rgba(0,0,0,.55)); }
 .but .alarm-bar { padding: 0; height: 44px; display: flex; align-items: center; color: #fff; text-shadow: 0 1px 2px rgba(0,0,0,.6); font: 700 18px var(--mono); letter-spacing: .2em; background: repeating-linear-gradient(-45deg, var(--alien) 0 24px, #c2203d 24px 48px); animation: none; }
 .but .hud-corner { top: 70px; }
-.but-eye { position: absolute; left: 50%; top: 250px; width: 260px; translate: -50% -50%; filter: drop-shadow(0 0 40px rgba(255, 59, 92, .6)); }
-.but-eye .alien { width: 260px; height: 260px; }
-.but-text { position: absolute; left: 0; right: 0; top: 440px; text-align: center; }
-.but-text h1 { font-size: 150px; line-height: 1; color: #fff; text-shadow: 0 0 40px rgba(0, 0, 0, .8); }
-.but-text p { margin: 16px 0 0; font: 400 34px var(--sans); color: #fff; }
+.but-eye { position: absolute; left: 50%; top: 470px; width: 420px; translate: -50% -50%; filter: drop-shadow(0 0 50px rgba(255, 59, 92, .75)); }
+.but-eye .alien { width: 420px; height: 420px; }
+.but-text { position: absolute; left: 72px; top: 92px; text-align: left; }
+.but-text h1 { font-size: 120px; line-height: 1; color: #fff; text-shadow: 0 0 40px rgba(0, 0, 0, .85); }
+.but-text p { margin: 14px 0 0; font: 400 34px var(--sans); color: #fff; text-shadow: 0 2px 12px rgba(0, 0, 0, .9); }
 .but-text p b { color: var(--alien); font-weight: 600; }
-.but-log { position: absolute; left: 50%; translate: -50% 0; width: 640px; bottom: 74px; display: grid; gap: 2px; font: 600 22px/1.45 var(--mono); letter-spacing: .08em; color: var(--alien); text-shadow: 0 0 8px rgba(255, 59, 92, .6); background: rgba(0, 0, 0, .6); padding: 14px 22px; border-left: 3px solid var(--alien); }
-.but-log div { display: flex; gap: 12px; }
-.but-log i { flex: 1; min-width: 40px; border-bottom: 2px dotted rgba(255, 59, 92, .5); margin-bottom: 8px; }
+.but-log { position: absolute; right: 48px; bottom: 76px; width: 300px; white-space: nowrap; display: grid; font: 600 15px/1.65 var(--mono); letter-spacing: .08em; color: var(--alien); text-shadow: 0 0 6px rgba(255, 59, 92, .6); background: rgba(8, 2, 4, .74); border: 1px solid rgba(255, 59, 92, .45); border-radius: 8px; padding: 10px 14px; }
+.but-log div { display: flex; gap: 8px; }
+.but-log i { flex: 1; border-bottom: 1px dotted rgba(255, 59, 92, .45); margin-bottom: 7px; }
 .revive .rv-close { position: absolute; top: 64px; right: 40px; z-index: 5; width: 64px; height: 64px; padding: 0; border-radius: 50%; font: 300 44px/1 var(--sans); color: var(--ink); background: rgba(10, 14, 18, .8); border: 1px solid var(--line); cursor: pointer; }
 .revive .rv-close:hover { border-color: var(--cred); color: var(--cred); }
 
