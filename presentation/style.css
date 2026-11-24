@@ -794,7 +794,7 @@ header .sub { font-size: 26px; color: var(--muted); margin-top: 6px; }
 .mq-al-lock.done { fill: rgba(69, 230, 160, .07); stroke: var(--awake); }
 .mq-al-door { fill: #2a313a; stroke: var(--int); stroke-width: 2; transition: transform .6s ease-in-out, opacity .6s; }
 .mq-al-door.open { transform: translateY(-120px); opacity: 0; }
-.mq-al-scan { fill: url(#mqScan); opacity: 0; }
+.mq-al-scan { fill: url(#mqScan); opacity: 0; mix-blend-mode: screen; }
 .mq-al-scan.on { opacity: 1; animation: mq-scan 1.1s ease-in-out infinite alternate; }
 @keyframes mq-scan { from { transform: translateX(0); } to { transform: translateX(330px); } }
 .mq-al-status { font: 700 34px var(--head); fill: var(--amber); text-transform: uppercase; letter-spacing: .04em; }

@@ -397,16 +397,16 @@ import soCsv from '../data/stackoverflow-questions.csv?raw';
           return `<svg class="mq-svg" viewBox="0 0 1600 900">
             <defs>
               <pattern id="mqHz" width="20" height="20" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="10" height="20" fill="#ffb547"/><rect x="10" width="10" height="20" fill="#1a1f26"/></pattern>
-              <linearGradient id="mqScan" x1="0" x2="1"><stop offset="0" stop-color="#ffb547" stop-opacity="0"/><stop offset=".5" stop-color="#ffb547" stop-opacity=".35"/><stop offset="1" stop-color="#ffb547" stop-opacity="0"/></linearGradient>
+              <linearGradient id="mqScan" x1="0" x2="1"><stop offset="0" stop-color="#ffb547" stop-opacity="0"/><stop offset=".5" stop-color="#ffb547" stop-opacity=".5"/><stop offset="1" stop-color="#ffb547" stop-opacity="0"/></linearGradient>
               <clipPath id="mqLockClip"><rect x="${L.x}" y="${L.y}" width="${L.w}" height="${L.h}" rx="16"/></clipPath>
             </defs>
             <path class="mq-tunnel" d="M-10 560 V360 Q-10 300 60 300 H${L.x - 10} V560 Z"/>
             ${[60, 200, 340, 480].map(x => `<line class="mq-lamp" x1="${x}" y1="312" x2="${x + 70}" y2="312"/>`).join('')}
             <line class="mq-floor" x1="0" y1="535" x2="1290" y2="535"/>
             <rect class="mq-al-lock" x="${L.x}" y="${L.y}" width="${L.w}" height="${L.h}" rx="16"/>
-            <g clip-path="url(#mqLockClip)"><rect class="mq-al-scan" x="${L.x}" y="${L.y}" width="110" height="${L.h}"/></g>
             <text class="mq-locktag" x="${L.x + L.w / 2}" y="${L.y - 18}" text-anchor="middle">the airlock</text>
             <g class="mq-al-ships"></g>
+            <g clip-path="url(#mqLockClip)"><rect class="mq-al-scan" x="${L.x}" y="${L.y}" width="110" height="${L.h}"/></g>
             <rect class="mq-al-door l" x="${L.x - 8}" y="${L.y + 8}" width="16" height="${L.h - 16}"/>
             <rect class="mq-al-door r" x="${L.x + L.w - 8}" y="${L.y + 8}" width="16" height="${L.h - 16}"/>
             <rect fill="url(#mqHz)" x="${L.x}" y="${L.y + L.h}" width="${L.w}" height="10"/>
