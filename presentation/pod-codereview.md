@@ -23,8 +23,8 @@ pod:
   id: codereview
   name: Code review
   sub: line by line, by a human
-  deck: cargo
-  order: 4
+  deck: integration
+  order: 3
   frozen: 1976
   born: 1976
   died: 2025

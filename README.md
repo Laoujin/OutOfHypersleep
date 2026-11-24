@@ -114,7 +114,7 @@ Everything below is a default; change pods in the `pod:` header of `presentation
 | Open question | Choice |
 |---|---|
 | Crew size | 5 live pods: Isolation (git worktree), Integration (merge queue, commit trailers), Verification (mutation testing, hooks: git hooks · agent hooks · LSP). Parked candidates are GitHub issues labelled `parked pod`. ArchUnit left for the architecture spin-off, as the source suggests. |
-| Dead pods | 5: Stack Overflow ⭐, small SaaS tools, story points, code review, the IDE. |
+| Dead pods | 5: Stack Overflow ⭐, small SaaS tools, story points (cargo row), code review (integration row), the IDE (isolation row). |
 | Dying pods | 3 flickering, not selectable: pair programming (human with human), sprints & ceremonies, docs for humans. They die on stage at the intermezzo: nobody can save them. |
 | Context column | Left out (goes to the Memento talk). |
 | Crew score | `relevance today × 10` (30–50 per pod). Commit trailers: **−10** (the alien's mark). TDD + unit testing are already awake (on duty, no points): the crew starts at 0. |

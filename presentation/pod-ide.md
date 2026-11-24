@@ -23,8 +23,8 @@ pod:
   id: ide
   name: The IDE
   sub: Eclipse · Visual Studio · IntelliJ
-  deck: cargo
-  order: 5
+  deck: isolation
+  order: 2
   frozen: 1983
   born: 1983
   died: 2025
