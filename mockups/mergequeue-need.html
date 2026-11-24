@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Merge Queue Need</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@600;700&family=IBM+Plex+Mono:wght@500;600;700&family=IBM+Plex+Sans:wght@400;600&display=swap">
+<style>
+:root {
+  --bg: #0b0d10; --ink: #d9dee6; --muted: #8a93a1; --line: #2e3540; --panel: #15191f;
+  --cryo: #9fd8f0; --frost: #cfefff; --awake: #45e6a0; --alien: #ff3b5c; --amber: #ffb547; --int: #b39ae0;
+  --head: "Chakra Petch", "Eurostile", "Arial Narrow", sans-serif;
+  --sans: "IBM Plex Sans", system-ui, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: #05070a; color: var(--ink); font-family: var(--sans); }
+main { max-width: 1280px; margin: 0 auto; padding-block: 32px 80px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+h1.page { font: 700 32px var(--head); margin: 0 0 6px; }
+p.lead { color: var(--muted); margin: 0 0 24px; line-height: 1.5; }
+h2.opt { font: 700 20px var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--amber); margin: 40px 0 6px; }
+p.what { color: var(--muted); margin: 0 0 12px; line-height: 1.5; }
+.ctl { display: flex; gap: 8px; align-items: center; margin: 10px 0 24px; font: 600 14px var(--mono); color: var(--muted); }
+.ctl button { font: 600 14px var(--mono); background: var(--panel); color: var(--ink); border: 1px solid var(--line); border-radius: 6px; padding: 6px 14px; cursor: pointer; }
+.wrap { position: relative; width: 100%; aspect-ratio: 16 / 9; overflow: hidden; border-radius: 10px; border: 1px solid #222; cursor: pointer; }
+.slide { position: absolute; left: 0; top: 0; width: 1600px; height: 900px; transform-origin: 0 0; overflow: hidden;
+  background: radial-gradient(1100px 700px at 80% -20%, #1b2027 0%, transparent 60%), radial-gradient(900px 600px at -10% 120%, #171a1f 0%, transparent 55%), var(--bg); }
+.slide > svg { position: absolute; inset: 0; }
+[data-s] { opacity: 0; transition: opacity .45s; }
+[data-s].on { opacity: 1; }
+[data-o].off { opacity: 0 !important; }
+[data-o] { transition: opacity .45s; }
+header.h { position: absolute; left: 72px; top: 64px; z-index: 2; }
+.kicker { font: 600 18px var(--mono); letter-spacing: .2em; text-transform: uppercase; color: var(--int); }
+header.h h3 { margin: 6px 0 0; font: 700 54px/1.05 var(--head); text-transform: uppercase; color: #fff; }
+.cap { position: absolute; left: 0; right: 0; bottom: 34px; text-align: center; font: 400 32px var(--sans); color: var(--ink); z-index: 3; }
+.cap b { color: var(--int); } .cap .r { color: var(--alien); font-weight: 600; } .cap .g { color: var(--awake); font-weight: 600; }
+.bar { position: absolute; left: 0; right: 0; height: 40px; display: flex; gap: 60px; align-items: center; overflow: hidden; white-space: nowrap; color: #fff; font: 700 17px var(--mono); letter-spacing: .2em; background: repeating-linear-gradient(-45deg, var(--alien) 0 24px, #c2203d 24px 48px); z-index: 4; }
+.bar.top { top: 0; } .bar.bottom { bottom: 0; }
+
+.sh .tr { fill: #1c2228; stroke: #0c0f12; stroke-width: 2; }
+.sh .bd { fill: #46525e; stroke: #222a32; stroke-width: 2; }
+.sh .wn { fill: #ffcf7a; opacity: .55; }
+.sh .st { fill: #d9822b; }
+.sh .lp { fill: var(--amber); }
+.sh.ok .bd { stroke: var(--awake); stroke-width: 3; }
+.sh.bad .bd { stroke: var(--alien); stroke-width: 3; } .sh.bad .st, .sh.bad .lp { fill: var(--alien); }
+.tag { font: 500 17px var(--mono); fill: var(--ink); }
+.tag.g { fill: var(--awake); } .tag.r { fill: var(--alien); } .tag.m { fill: var(--muted); } .tag.i { fill: var(--int); }
+.tag.big { font-size: 26px; font-weight: 700; }
+.ok-dot { fill: var(--awake); filter: drop-shadow(0 0 6px var(--awake)); }
+.path { fill: none; stroke: var(--amber); stroke-width: 3; stroke-dasharray: 10 8; opacity: .8; }
+.path.r { stroke: var(--alien); }
+.port { fill: rgba(179, 154, 224, .06); stroke: var(--int); stroke-width: 4; }
+.port.bad { fill: rgba(255, 59, 92, .14); stroke: var(--alien); filter: drop-shadow(0 0 14px var(--alien)); }
+.rail { stroke: var(--awake); stroke-width: 6; stroke-linecap: round; }
+.rail.bad { stroke: var(--alien); filter: drop-shadow(0 0 8px var(--alien)); }
+.beam { fill: rgba(159, 216, 240, .08); stroke: var(--cryo); stroke-width: 2; stroke-dasharray: 4 6; }
+.flash { fill: var(--alien); opacity: .9; filter: drop-shadow(0 0 20px var(--alien)); }
+
+.alien circle { fill: none; stroke: var(--alien); }
+.alien .a-r1 { stroke-width: 2; opacity: .5; stroke-dasharray: 6 10; }
+.alien .a-r2 { stroke-width: 3; opacity: .7; stroke-dasharray: 40 14; }
+.alien .a-r3 { stroke-width: 2; opacity: .4; }
+.alien .a-eye { fill: #2a0610; stroke: var(--alien); stroke-width: 3; }
+.alien .a-pupil { fill: var(--alien); filter: drop-shadow(0 0 10px var(--alien)); }
+.alien .a-ticks line { stroke: var(--alien); stroke-width: 2; opacity: .5; }
+.seam { fill: none; stroke: var(--alien); stroke-width: 6; filter: drop-shadow(0 0 16px var(--alien)) drop-shadow(0 0 30px var(--alien)); }
+.code { font: 500 22px var(--mono); fill: var(--ink); } .code .k { fill: var(--int); } .code .r { fill: var(--alien); }
+.cardbox { fill: #06080b; stroke: var(--awake); stroke-width: 3; }
+.hud { position: absolute; right: 60px; top: 64px; display: flex; gap: 18px; align-items: center; font: 700 22px var(--mono); z-index: 3; }
+.hud div { padding: 10px 18px; border: 2px solid var(--line); border-radius: 10px; background: #06080b; }
+.hud .c { color: var(--awake); border-color: var(--awake); } .hud .a { color: var(--alien); border-color: var(--alien); }
+.hud .a b { display: inline-block; }
+
+.pod .shell { fill: #2a2f2c; stroke: #6e6a5e; stroke-width: 2; }
+.pod .glass { fill: rgba(159, 216, 240, .25); stroke: #3c4a48; stroke-width: 2; }
+.pod .lid { fill: rgba(207, 239, 255, .35); stroke: var(--frost); stroke-width: 2; }
+.pod .lamp { fill: var(--awake); filter: drop-shadow(0 0 6px var(--awake)); }
+.crew { fill: var(--cryo); stroke: #0b0d10; stroke-width: 2; }
+.crew.bad { fill: var(--alien); }
+.door { fill: #1a1f26; stroke: var(--int); stroke-width: 4; }
+.door.bad { stroke: var(--alien); fill: rgba(255, 59, 92, .15); filter: drop-shadow(0 0 14px var(--alien)); }
+.corr { fill: rgba(159, 216, 240, .05); stroke: var(--cryo); stroke-width: 2; }
+
+.radar circle.ring { fill: none; stroke: rgba(69, 230, 160, .25); stroke-width: 2; }
+.radar .bg { fill: rgba(5, 25, 15, .7); stroke: var(--awake); stroke-width: 3; }
+.radar .sweep { fill: rgba(69, 230, 160, .14); }
+.radar .x { stroke: rgba(69, 230, 160, .2); stroke-width: 1.5; }
+.blip { fill: var(--awake); filter: drop-shadow(0 0 8px var(--awake)); }
+.blip.r { fill: var(--alien); filter: drop-shadow(0 0 8px var(--alien)); }
+.runway { fill: #14181d; stroke: var(--muted); stroke-width: 2; }
+.runway-l { stroke: var(--amber); stroke-width: 3; stroke-dasharray: 16 14; }
+
+.belt { fill: #14181d; stroke: var(--line); stroke-width: 3; }
+.belt-l { stroke: #3a4350; stroke-width: 4; stroke-dasharray: 24 18; }
+.flag { fill: var(--awake); } .pole { stroke: var(--muted); stroke-width: 4; }
+.runner { fill: none; stroke: var(--int); stroke-width: 7; stroke-linecap: round; stroke-linejoin: round; }
+.runner-h { fill: var(--int); }
+.counter { font: 700 64px var(--head); fill: var(--alien); }
+</style>
+</head>
+<body>
+<main>
+<h1 class="page">Merge queue · showing why landings must be serialized</h1>
+<p class="lead">Five options for the slide before “One lane to main”. Click a slide (or →) to step; buttons step back and reset. My pick: 1 followed by 2.</p>
+
+<h2 class="opt">1 · Ten shuttles, one docking port</h2>
+<p class="what">Ten green shuttles converge on main at once, jam the port, main turns red. A tractor beam lines them up.</p>
+<div class="wrap" data-steps="3"><div class="slide" id="m1"></div></div>
+<div class="ctl"><button data-act="prev">←</button><button data-act="next">→</button><button data-act="reset">reset</button><span class="st"></span></div>
+
+<h2 class="opt">2 · The alien slips through the seam</h2>
+<p class="what">Two green branches dock together. In the gap between them: the alien. Green alone, red together. Alien scores.</p>
+<div class="wrap" data-steps="3"><div class="slide" id="m2"></div></div>
+<div class="ctl"><button data-act="prev">←</button><button data-act="next">→</button><button data-act="reset">reset</button><span class="st"></span></div>
+
+<h2 class="opt">3 · Ten pods wake at once</h2>
+<p class="what">Cryo pods from the map pop open together, everybody rushes the one bridge door. Then: single file.</p>
+<div class="wrap" data-steps="3"><div class="slide" id="m3"></div></div>
+<div class="ctl"><button data-act="prev">←</button><button data-act="next">→</button><button data-act="reset">reset</button><span class="st"></span></div>
+
+<h2 class="opt">4 · Air traffic control</h2>
+<p class="what">Radar with ten blips on one runway. Paths cross, collision, alien. Then one glide path.</p>
+<div class="wrap" data-steps="3"><div class="slide" id="m4"></div></div>
+<div class="ctl"><button data-act="prev">←</button><button data-act="next">→</button><button data-act="reset">reset</button><span class="st"></span></div>
+
+<h2 class="opt">5 · The rebase treadmill</h2>
+<p class="what">One agent running toward main, main keeps sliding away. Rebase counter climbs.</p>
+<div class="wrap" data-steps="3"><div class="slide" id="m5"></div></div>
+<div class="ctl"><button data-act="prev">←</button><button data-act="next">→</button><button data-act="reset">reset</button><span class="st"></span></div>
+</main>
+<script>
+const AG = ['auth', 'pdf-export', 'user-prefs', 'search', 'dark-mode', 'fix-i18n', 'checkout', 'discount', 'wishlist', 'tax'];
+const head = (t, k = 'Deck 2 · Integration · Merge queue') => `<header class="h"><div class="kicker">${k}</div><h3>${t}</h3></header>`;
+const bar = (t, pos, s) => `<div class="bar ${pos}" ${s ? `data-s="${s}"` : ''}>${Array(8).fill(`<span>${t}</span>`).join('')}</div>`;
+const sh = (x, y, s = 1, cls = '', r = 0) => `<g transform="translate(${x} ${y}) rotate(${r}) scale(${s})"><g class="sh ${cls}" transform="translate(-53 -37)">
+  <rect class="tr" x="0" y="50" width="104" height="18" rx="9"/><path class="bd" d="M6 52 L12 16 L70 6 L98 22 L106 52 Z"/>
+  <path class="wn" d="M74 13 L94 24 L91 32 L72 28 Z"/><rect class="st" x="10" y="38" width="92" height="6"/><circle class="lp" cx="103" cy="46" r="4"/></g></g>`;
+const alien = (x, y, s) => `<g class="alien" transform="translate(${x} ${y}) scale(${s})">
+  <circle class="a-r1" r="92"/><circle class="a-r2" r="72"/><circle class="a-r3" r="52"/>
+  <path class="a-eye" d="M-60 0 Q0 -46 60 0 Q0 46 -60 0Z"/><path class="a-pupil" d="M0 -30 Q10 0 0 30 Q-10 0 0 -30Z"/>
+  <g class="a-ticks">${Array.from({ length: 24 }, (_, i) => `<line x1="0" y1="-96" x2="0" y2="${i % 6 ? -88 : -80}" transform="rotate(${i * 15})"/>`).join('')}</g></g>`;
+const cap = (s, t, o) => `<div class="cap" data-s="${s}" ${o ? `data-o="${o}"` : ''}>${t}</div>`;
+
+// 1 · shuttles
+(() => {
+  const pts = AG.map((n, i) => { const a = (-62 + i * 13.8) * Math.PI / 180; return [300 + Math.cos(a) * 220, 520 + Math.sin(a) * 290, n]; });
+  document.getElementById('m1').innerHTML = head('Ten agents, one main') + `<svg viewBox="0 0 1600 900">
+    <rect class="port" x="1180" y="400" width="140" height="160" rx="16" data-o="1"/>
+    <rect class="port bad" x="1180" y="400" width="140" height="160" rx="16" data-s="1" data-o="3"/>
+    <rect class="port" x="1180" y="400" width="140" height="160" rx="16" data-s="3"/>
+    <text class="tag i big" x="1250" y="385" text-anchor="middle">port</text>
+    <line class="rail" x1="1360" y1="480" x2="1560" y2="480" data-o="1"/>
+    <line class="rail bad" x1="1360" y1="480" x2="1560" y2="480" data-s="1" data-o="3"/>
+    <line class="rail" x1="1360" y1="480" x2="1560" y2="480" data-s="3"/>
+    <text class="tag big m" x="1460" y="520" text-anchor="middle">main</text>
+    <g data-o="3">${pts.map(([x, y, n]) => `${sh(x, y, .8, 'ok')}<circle class="ok-dot" cx="${x + 54}" cy="${y - 30}" r="9"/><text class="tag" x="${x - 70}" y="${y + 6}" text-anchor="end">${n}</text>`).join('')}</g>
+    <g data-s="1" data-o="3">${pts.map(([x, y]) => `<path class="path r" d="M${x + 50} ${y} C ${x + 400} ${y}, 1000 480, 1175 480"/>`).join('')}
+      ${[0, 1, 2, 3].map(i => sh(1090 - i * 24, 450 + (i % 2 ? 40 : -10), .8, 'bad', i % 2 ? 12 : -14)).join('')}</g>
+    <g data-s="3"><path class="beam" d="M80 420 H1175 V540 H80 Z"/>${AG.map((n, i) => `${sh(1110 - i * 108, 480, .8, 'ok')}<text class="tag ${i ? '' : 'i'}" x="${1110 - i * 108}" y="${i % 2 ? 560 : 425}" text-anchor="middle">${n}</text>`).join('')}</g>
+  </svg>${bar('⚠ COLLISION AT MAIN ·', 'bottom', 2).replace('data-s="2"', 'data-s="2" data-o="3"')}
+  ${cap(0, 'Ten agents. Ten green branches. <b>All ready to land.</b>', 1)}
+  ${cap(1, 'They all land at once.', 2)}
+  ${cap(2, '<span class="r">main is red.</span> Whose fault? Nobody\'s. Everybody\'s.', 3)}
+  ${cap(3, 'One lane. One at a time.')}`;
+})();
+
+// 2 · alien seam
+document.getElementById('m2').innerHTML = head('Green alone, red together') + `<div class="hud" data-s="3"><div class="c">Crew 0</div><div class="a">Alien <b>+10</b></div></div><svg viewBox="0 0 1600 900">
+  <g data-o="1">
+    <rect class="cardbox" x="150" y="300" width="560" height="330" rx="16"/>
+    <text class="tag g big" x="180" y="350">✓ feat/discount</text>
+    <text class="code" x="180" y="420"><tspan class="k">-</tspan> calcTotals(cart)</text>
+    <text class="code" x="180" y="460"><tspan class="k">+</tspan> computeTotals(cart)</text>
+    <text class="tag m" x="180" y="590">128 tests pass</text>
+    <rect class="cardbox" x="890" y="300" width="560" height="330" rx="16"/>
+    <text class="tag g big" x="920" y="350">✓ feat/checkout</text>
+    <text class="code" x="920" y="420"><tspan class="k">+</tspan> total = calcTotals(cart)</text>
+    <text class="tag m" x="920" y="590">131 tests pass</text>
+  </g>
+  <g data-s="1">
+    <rect class="cardbox" x="250" y="300" width="545" height="330" rx="16" style="stroke:var(--awake)"/>
+    <rect class="cardbox" x="805" y="300" width="545" height="330" rx="16" style="stroke:var(--awake)"/>
+    <text class="tag g big" x="280" y="350">✓ feat/discount</text><text class="code" x="280" y="420">computeTotals(cart)</text>
+    <text class="tag g big" x="835" y="350">✓ feat/checkout</text><text class="code" x="835" y="420">calcTotals(cart)</text>
+    <text class="tag m" x="800" y="680" text-anchor="middle">no textual conflict · git merges cleanly</text>
+  </g>
+  <g data-s="2">
+    <path class="seam" d="M800 290 L790 360 L810 420 L792 480 L808 550 L800 640"/>
+    ${alien(800, 465, .95)}
+    <text class="tag r big" x="800" y="740" text-anchor="middle">TS2304: Cannot find name 'calcTotals'</text>
+  </g>
+</svg>
+${cap(0, 'Two agents. Both green.', 1)}
+${cap(1, 'They land together. <b>No conflict.</b>', 2)}
+${cap(2, 'The alien lives <span class="r">in the seam</span>.', 3)}
+${cap(3, 'Green alone, red together. <span class="r">Alien +10.</span>')}`;
+
+// 3 · pods
+(() => {
+  const pod = (x, open) => `<g class="pod" transform="translate(${x} 520)"><rect class="shell" x="-42" y="-130" width="84" height="230" rx="40"/>
+    <rect class="glass" x="-28" y="-110" width="56" height="150" rx="26"/>${open ? '' : '<rect class="lid" x="-28" y="-110" width="56" height="150" rx="26"/>'}
+    <circle class="lamp" cx="0" cy="75" r="7"/></g>`;
+  const xs = AG.map((_, i) => 110 + i * 105);
+  document.getElementById('m3').innerHTML = head('All hands wake at once') + `<svg viewBox="0 0 1600 900">
+    <rect class="door" x="1380" y="380" width="130" height="250" rx="12" data-o="2"/>
+    <rect class="door bad" x="1380" y="380" width="130" height="250" rx="12" data-s="2" data-o="3"/>
+    <text class="tag i big" x="1445" y="360" text-anchor="middle">bridge · main</text>
+    <g data-o="1">${xs.map(x => pod(x, false)).join('')}</g>
+    <g data-s="1">${xs.map(x => pod(x, true)).join('')}</g>
+    <g data-s="1" data-o="2">${xs.map((x, i) => `<circle class="crew" cx="${x + 20 + i * 14}" cy="${700 - (i % 3) * 14}" r="16"/><path class="path" d="M${x + 40 + i * 14} ${700 - (i % 3) * 14} L 1370 ${470 + (i % 5) * 30}"/>`).join('')}</g>
+    <g data-s="2" data-o="3">${Array.from({ length: 10 }, (_, i) => `<circle class="crew bad" cx="${1340 - (i % 4) * 30 + (i % 2) * 10}" cy="${420 + Math.floor(i / 4) * 60 + (i % 3) * 18}" r="18"/>`).join('')}</g>
+    <g data-s="3"><rect class="corr" x="100" y="680" width="1280" height="70" rx="35"/>
+      ${AG.map((n, i) => `<circle class="crew" cx="${1340 - i * 120}" cy="715" r="16"/><text class="tag m" x="${1340 - i * 120}" y="790" text-anchor="middle">${n}</text>`).join('')}
+      <path class="path" d="M1360 715 H1380" style="stroke:var(--awake)"/></g>
+  </svg>${bar('⚠ CRUSH AT THE BRIDGE DOOR ·', 'top', 2).replace('data-s="2"', 'data-s="2" data-o="3"')}
+  ${cap(0, 'Ten crew members asleep in their pods.', 1)}
+  ${cap(1, 'Ten agents finish <b>at the same time</b>.', 2)}
+  ${cap(2, '<span class="r">One door. Everybody through it.</span>', 3)}
+  ${cap(3, 'Single file.')}`;
+})();
+
+// 4 · radar
+(() => {
+  const cx = 600, cy = 500, R = 330;
+  const blips = AG.map((n, i) => { const a = (200 + i * 16) * Math.PI / 180; return [cx + Math.cos(a) * (R - 40 - (i % 3) * 50), cy + Math.sin(a) * (R - 40 - (i % 3) * 50), n]; });
+  document.getElementById('m4').innerHTML = head('Ten approaches, one runway') + `<svg viewBox="0 0 1600 900">
+    <g class="radar"><circle class="bg" cx="${cx}" cy="${cy}" r="${R}"/>${[80, 160, 240].map(r => `<circle class="ring" cx="${cx}" cy="${cy}" r="${r}"/>`).join('')}
+      <line class="x" x1="${cx - R}" y1="${cy}" x2="${cx + R}" y2="${cy}"/><line class="x" x1="${cx}" y1="${cy - R}" x2="${cx}" y2="${cy + R}"/>
+      <path class="sweep" d="M${cx} ${cy} L${cx + R} ${cy} A${R} ${R} 0 0 0 ${cx + R * Math.cos(-.6)} ${cy + R * Math.sin(-.6)} Z"/></g>
+    <rect class="runway" x="1050" y="470" width="480" height="60" rx="6"/><line class="runway-l" x1="1070" y1="500" x2="1510" y2="500"/>
+    <text class="tag big m" x="1290" y="580" text-anchor="middle">runway · main</text>
+    <g data-o="3">${blips.map(([x, y, n]) => `<circle class="blip" cx="${x}" cy="${y}" r="9"/><text class="tag g" x="${x + 14}" y="${y - 10}">${n}</text>`).join('')}</g>
+    <g data-s="1" data-o="3">${blips.map(([x, y]) => `<path class="path r" d="M${x} ${y} Q ${cx + 200} ${cy + (y - cy) * .3}, ${cx + R} ${cy}"/>`).join('')}</g>
+    <g data-s="2" data-o="3"><circle class="flash" cx="${cx + R - 10}" cy="${cy}" r="34"/>${alien(cx + R - 10, cy - 150, .7)}</g>
+    <g data-s="3"><path class="path" style="stroke:var(--awake)" d="M${cx - R + 30} ${cy} H1050"/>${AG.map((n, i) => `<circle class="blip" cx="${cx + R - 20 - i * 60}" cy="${cy}" r="9"/><text class="tag g" x="${cx + R - 20 - i * 60}" y="${cy + (i % 2 ? 40 : -22)}" text-anchor="middle" style="font-size:14px">${n}</text>`).join('')}</g>
+  </svg>
+  ${cap(0, 'Ten agents on approach. All cleared.', 1)}
+  ${cap(1, 'Everyone lands now.', 2)}
+  ${cap(2, '<span class="r">Collision on the runway.</span> The alien was waiting.', 3)}
+  ${cap(3, 'One glide path. <b>Land in order.</b>')}`;
+})();
+
+// 5 · treadmill
+(() => {
+  const runner = `<g transform="translate(420 470)"><circle class="runner-h" cx="0" cy="-90" r="22"/>
+    <path class="runner" d="M0 -66 L-6 0 M-6 0 L-40 60 L-60 50 M-6 0 L26 50 L50 80 M-2 -50 L-40 -20 M-2 -50 L36 -30 L46 -60"/></g>`;
+  const flag = x => `<g transform="translate(${x} 0)"><line class="pole" x1="0" y1="330" x2="0" y2="560"/><path class="flag" d="M0 330 L80 350 L0 372 Z"/><text class="tag g big" x="0" y="310" text-anchor="middle">main</text></g>`;
+  document.getElementById('m5').innerHTML = head('Chasing main') + `<svg viewBox="0 0 1600 900">
+    <rect class="belt" x="120" y="560" width="1380" height="60" rx="30"/><line class="belt-l" x1="150" y1="590" x2="1470" y2="590"/>
+    ${runner}<text class="tag i big" x="420" y="640" text-anchor="middle">feat/checkout</text>
+    <g data-o="1">${flag(760)}</g><g data-s="1" data-o="2">${flag(1040)}</g><g data-s="2">${flag(1400)}</g>
+    <text class="counter" x="1450" y="200" text-anchor="end" data-s="1" data-o="2">rebase ×2</text>
+    <text class="counter" x="1450" y="200" text-anchor="end" data-s="2" data-o="3">rebase ×6</text>
+    <text class="counter" x="1450" y="200" text-anchor="end" data-s="3">rebase ×11</text>
+    <g data-s="1">${['fix/i18n', 'feat/auth'].map((t, i) => `<text class="tag" style="fill:var(--amber)" x="${820 + i * 100}" y="${700 + i * 30}">+ ${t}</text>`).join('')}</g>
+    <g data-s="2">${['feat/discount', 'chore/deps', 'fix/tax', 'feat/wishlist'].map((t, i) => `<text class="tag" style="fill:var(--amber)" x="${1100 + (i % 2) * 180}" y="${700 + Math.floor(i / 2) * 30}">+ ${t}</text>`).join('')}</g>
+  </svg>
+  ${cap(0, 'Green. Ready to land.', 1)}
+  ${cap(1, 'main moved. Rebase.', 2)}
+  ${cap(2, 'main moved. Again.', 3)}
+  ${cap(3, '<span class="r">main moves faster than I can rebase onto it.</span>')}`;
+})();
+
+const wraps = [...document.querySelectorAll('.wrap')];
+const fit = () => wraps.forEach(w => { w.firstElementChild.style.transform = 'scale(' + (w.clientWidth / 1600) + ')'; });
+const show = (w, st) => {
+  const max = +w.dataset.steps;
+  st = Math.max(0, Math.min(max, st));
+  w.dataset.st = st;
+  w.querySelectorAll('[data-s]').forEach(e => e.classList.toggle('on', st >= +e.dataset.s));
+  w.querySelectorAll('[data-o]').forEach(e => e.classList.toggle('off', st >= +e.dataset.o));
+  w.nextElementSibling.querySelector('.st').textContent = 'step ' + st + ' / ' + max;
+};
+let current = wraps[0];
+const q = new URLSearchParams(location.search).get('step');
+wraps.forEach(w => {
+  show(w, q === 'max' ? +w.dataset.steps : q ? +q : 0);
+  w.addEventListener('click', () => { current = w; show(w, +w.dataset.st + 1); });
+  w.nextElementSibling.addEventListener('click', e => {
+    const a = e.target.dataset.act; if (!a) return; current = w;
+    show(w, a === 'next' ? +w.dataset.st + 1 : a === 'prev' ? +w.dataset.st - 1 : 0);
+  });
+});
+addEventListener('keydown', e => { if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); show(current, +current.dataset.st + 1); } if (e.key === 'ArrowLeft') show(current, +current.dataset.st - 1); });
+addEventListener('resize', fit); fit();
+</script>
+</body>
+</html>

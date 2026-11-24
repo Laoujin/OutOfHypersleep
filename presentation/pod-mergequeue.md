@@ -30,7 +30,7 @@ pod:
   score:
     alive: 30
     dead: -40
-  frozenBecause: '"Only Google-scale needs this."'
+  frozenBecause: '"Only Google-scale needed this."'
   wokenBecause: 20 green branches at once. Each is green alone; together they break main.
 layout: hs
 routeAlias: mergequeue-thaw
@@ -51,56 +51,33 @@ routeAlias: mergequeue-froze
 
 ---
 layout: hs
-routeAlias: mergequeue-race
-clicks: 4
+routeAlias: mergequeue-landing
+clicks: 2
 ---
 
-<Hs id="mergequeue-race" />
+<Hs id="mergequeue-landing" />
 
 <!--
 Background: bors (Rust, 2013) after Graydon Hoare's "not rocket science rule": keep main always green. Zuul (OpenStack) around the same time. GitHub merge queue GA: 2023. All to verify.
-"Only Google-scale needs this." Google-scale used to mean 1000 engineers. Now it means you plus 20 agents.
+"Only Google-scale needed this." Google-scale used to mean 1000 engineers. Now it means you plus 20 agents.
 
-The agent is green and wants to land.
-[click] Fast-forward fails: another agent landed fix/i18n.
-[click] Rebase: no textual conflict. Build breaks anyway: feat/discount renamed calcTotals to computeTotals. Semantic conflict.
-[click] Fixed, green again. main moved again.
-[click] The agent gives up: "tell me when nobody else is landing". This is how the Dark Factory talk started: I needed a merge queue.
+Ten agents, ten green branches, all ready to land.
+[click] They all land at once. main is red. Whose fault? Nobody's. Everybody's. This is how the Dark Factory talk started: I needed a merge queue.
+[click] One lane. One at a time.
 -->
 
 ---
 layout: hs
-routeAlias: mergequeue-lander
-clicks: 6
+routeAlias: mergequeue-airlock
 ---
 
-<Hs id="mergequeue-lander" />
+<Hs id="mergequeue-airlock" />
 
 <!--
-Serialize the landing: one lane to main.
+Serialize the landing: one at a time through the airlock. Runs on its own, no clicks.
 
-[click] Every agent pushes its branch into one queue.
-[click] Rebase onto the latest main.
-[click] Build.
-[click] Test exactly the commit that will land.
-[click] merge --ff-only. Nobody lands in between, so main is never red.
-[click] Red? The branch bounces back to its agent, the next one rolls in.
--->
-
----
-layout: hs
-routeAlias: mergequeue-jam
-clicks: 3
----
-
-<Hs id="mergequeue-jam" />
-
-<!--
-The queue itself becomes the bottleneck. 20 agents, 10 minute pipeline: the last one lands after 3h20.
-
-[click] Batch: test main + A + B + C + D in one run (bors, GitHub merge queue). Green: all four land.
-[click] Red: bisect the batch, bounce the culprit. Buys time, doesn't remove the wall.
-[click] Where I ended up: stop running the full suite on every merge. main is red a lot. A dedicated agent fixes forward.
+Each branch: rebase onto the latest main, build, test exactly the commit that will land, merge --ff-only. Nobody lands in between, so main is never red.
+A red one would bounce back to its agent and the next one rolls in.
 -->
 
 ---
