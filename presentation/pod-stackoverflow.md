@@ -29,7 +29,7 @@ pod:
   power: 5
   fate: dead
   score:
-    alive: 50
+    alive: 40
     dead: -40
   takeaway: Closed as duplicate.
   diesBecause: Questions are answered inside the agent now. Volume collapsed after 2023.
