@@ -755,7 +755,7 @@ Subject: Re: SCO: "thread creation is about a thousand times faster
 <span class="me">                Linus</span>
     </div>
     <div class="bar bot">? Help  &lt; MsgIndex  P PrevMsg  - PrevPage  R Reply  F Forward</div>
-  </div><div class="lbl"><span class="y">2000</span><span class="n">the mailing list</span><span class="q">Quote the claim.<br>Demand the code.</span></div></div>
+  </div><div class="lbl"><span class="y">2000</span><span class="n">the mailing list</span><span class="q">Quote the diff.<br>Argue inline.</span></div></div>
 
   <div class="era e2"><div class="scr s08">
     <div class="top">
