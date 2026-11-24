@@ -35,7 +35,6 @@ pod:
   wokenBecause: Agents read it, write it and think in it.<br>Every prompt, plan, skill and answer is Markdown.
   logTitle: The agent's native tongue
   takeaway: Nobody read the README.<br>Now the crew reads every word.
-  wip: true
 layout: hs
 routeAlias: markdown-thaw
 ---
