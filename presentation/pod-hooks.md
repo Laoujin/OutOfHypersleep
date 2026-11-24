@@ -70,13 +70,6 @@ What we want is a fast feedback loop. CI is out there: minutes away.
 
 ---
 layout: hs
-routeAlias: hooks-woke
----
-
-<Hs id="hooks-woke" />
-
----
-layout: hs
 routeAlias: hooks-log
 ---
 

@@ -960,6 +960,7 @@ Subject: Re: SCO: "thread creation is about a thousand times faster
     worktrees: { woke: [] },
     mutation: { woke: [] },
     spec: { woke: [] },
+    hooks: { woke: [] },
     stackoverflow: {
       froze: [{
         slug: 'empire', title: 'The empire', cls: 'beat',
