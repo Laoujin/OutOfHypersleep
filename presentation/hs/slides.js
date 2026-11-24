@@ -297,8 +297,7 @@ import soCsv from '../data/stackoverflow-questions.csv?raw';
             <ellipse class="wt-ring" cx="782" cy="355" rx="215" ry="62"/>
             ${BADGES.map(b => `<path class="wt-glow" d="${b[2]}"/>`).join('')}
           </svg>
-          <div class="wt-hub">.git</div>
-          ${BADGES.map(([n, c, , pos]) => `<div class="wt-badge" style="${pos}"><b style="background:${c}"></b>${n} <small>../app-${n}</small></div>`).join('')}`,
+          ${BADGES.map(([n, c, , pos]) => `<div class="wt-badge" style="${pos}"><b style="background:${c}"></b>../app-${n}</div>`).join('')}`,
       }];
     })(),
     boxes: [{

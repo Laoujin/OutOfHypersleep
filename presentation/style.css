@@ -740,7 +740,5 @@ header .sub { font-size: 26px; color: var(--muted); margin-top: 6px; }
 .wt-cables { position: absolute; inset: 0; width: 1600px; height: 900px; z-index: -1; }
 .wt-glow { fill: none; stroke: var(--awake); stroke-width: 10; stroke-linecap: round; filter: drop-shadow(0 0 10px var(--awake)) drop-shadow(0 0 24px var(--awake)); opacity: .85; }
 .wt-ring { fill: none; stroke: var(--awake); stroke-width: 3; stroke-dasharray: 10 8; filter: drop-shadow(0 0 10px var(--awake)); }
-.wt-hub { position: absolute; left: 700px; top: 258px; width: 200px; text-align: center; font: 700 40px var(--mono); color: #fff; text-shadow: 0 0 20px #000, 0 0 6px #000; }
 .wt-badge { position: absolute; display: flex; align-items: center; gap: 8px; padding: 6px 14px 6px 10px; border-radius: 999px; background: rgba(4, 14, 10, .86); border: 1.5px solid var(--awake); box-shadow: 0 0 16px rgba(69, 230, 160, .35); font: 600 20px var(--mono); color: #fff; white-space: nowrap; }
 .wt-badge b { width: 22px; height: 22px; border-radius: 50%; border: 2px solid #fff; flex: none; }
-.wt-badge small { font: 500 15px var(--mono); color: var(--awake); }
