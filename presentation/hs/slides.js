@@ -662,11 +662,20 @@ decode(encode("123"))   <span class="green">✓</span></pre></div>
     woke: p => p.dead
       ? statement(p, 'What killed it', p.diesBecause, A.cryo('dead', 'NO SIGNS'))
       : statement(p, 'What woke it', p.wokenBecause, A.cryo('awake', 'REVIVED')),
-    log: p => `${bg(p)}<div class="log">
+    log: p => {
+      const score = p.dead ? `alien +${Math.abs(p.score.dead)}` : p.score.alive < 0 ? `alien +${-p.score.alive}` : `crew +${p.score.alive}`;
+      const red = p.dead || p.score.alive < 0;
+      if (p.logTitle) return `${bg(p)}${head(deckOf(p) + ' · ' + p.name, p.logTitle)}<div class="log titled">
+        <div class="log-h">Crew log · ${p.name}</div>
+        <div class="log-line">&gt; ${todo(p.takeaway)}</div>
+        <div class="log-stamp ${red ? 'red' : ''}">${score}</div>
+      </div>`;
+      return `${bg(p)}<div class="log">
       <div class="log-h">Crew log · ${p.name}</div>
       <div class="log-line">&gt; ${todo(p.takeaway)}</div>
-      <div class="log-score ${p.dead || p.score.alive < 0 ? 'red' : ''}">${p.dead ? `alien +${Math.abs(p.score.dead)}` : p.score.alive < 0 ? `alien +${-p.score.alive}` : `crew +${p.score.alive}`}</div>
-    </div>`,
+      <div class="log-score ${red ? 'red' : ''}">${score}</div>
+    </div>`;
+    },
   };
   HS.FRAME_BEFORE = ['thaw', 'froze'];
   HS.FRAME_AFTER = ['woke', 'log'];
