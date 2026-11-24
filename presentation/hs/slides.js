@@ -514,10 +514,10 @@ import soCsv from '../data/stackoverflow-questions.csv?raw';
         panel('show contained'); score(100);
       };
       const TESTS = [
-        ['calculates the total', ['<span class="k">const</span> total = calcTotal(cart)'], 'expect(total).toBeDefined()', 'has a weak assertion'],
-        ['applies VAT', [], 'expect(calcTotal(cart)).toEqual(calcTotal(cart))', 'compares x with x'],
+        ['calculates the total', ['<span class="k">const</span> total = calcTotal(cart)'], 'expect(total).toBeDefined()', 'asserts nothing'],
+        ['applies VAT', [], 'expect(calcTotal(cart)).toEqual(calcTotal(cart))', 'agrees with itself'],
         ['applies the discount', ['calcTotal(cart)'], 'expect(getRate).toHaveBeenCalled()', 'tests the mock'],
-        ['renders the receipt', [], 'expect(render(cart)).toMatchSnapshot()', 'pins whatever it printed'],
+        ['renders the receipt', [], 'expect(render(cart)).toMatchSnapshot()', 'snapshots the bug'],
       ];
       return [{
         slug: 'coverage', title: '100% coverage, 0% confidence', full: true, steps: TESTS.length + 2, cls: 'mut mut-cov',
