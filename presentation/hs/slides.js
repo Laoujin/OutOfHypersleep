@@ -702,7 +702,7 @@ import soCsv from '../data/stackoverflow-questions.csv?raw';
           const [c, t] = SNIP[(ln * 7 + r) % SNIP.length];
           h += `<div class="${c}"><i>${ln}</i>${c === 'a' ? '+' : c === 'd' ? '-' : ' '} ${esc(t)}</div>`;
         }
-        return h + '<div class="end">End of diff · 47 files</div>';
+        return h + '<div class="end">End of diff</div>';
       };
       const fmt = n => Math.round(n).toLocaleString('en');
       return [{
