@@ -62,10 +62,10 @@ clicks: 4
 
 <!--
 Fifty years of code review, one era per click. Meter top right: lines read per hour (all rates to verify).
-1976 Fagan inspection at IBM: printout, red pen, moderator, reader, checklist. ~150 lines/hour, max 2 hours.
-[click] 1992: a patch on the mailing list. Quote the diff, argue inline.
+1976 Fagan inspection at IBM: printout, red pen, moderator, reader, checklist. The printout is real: Unix V6 slp.c (1975), line 2238 as numbered in Lions' Commentary (1977).
+[click] 2000: the mailing list. Real LKML mail, Linus to Jamie Lokier, 25 Aug 2000 (typo "over" is in the original).
 [click] 2008: GitHub pull request. Review moves to the browser, still line by line. ~400 lines/hour.
-[click] 2026: one of forty PRs today. 4,012 lines nobody typed. Let it scroll all the way down.
+[click] 2026: first of 32 PRs today. The reviewer is the first to see the diff. Let it scroll all the way down.
 [click] LGTM. Be honest: who read all of it?
 Costs the audience this vote, alien +30.
 -->

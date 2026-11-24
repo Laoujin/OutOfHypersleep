@@ -710,25 +710,22 @@ import soCsv from '../data/stackoverflow-questions.csv?raw';
         body: () => `  <div class="era e0"><div class="scr s76">
     <div class="listing">
 <pre>
- 0010  IDENTIFICATION DIVISION.
- 0020  PROGRAM-ID. TALLY.
- 0030  DATA DIVISION.
- 0040  WORKING-STORAGE SECTION.
- 0050  01 WS-TOTAL    PIC 9(5) VALUE <span class="circ">ZERO</span>.
- 0060  01 WS-VOTE     PIC 9(3).
- 0070  PROCEDURE DIVISION.
- 0080      PERFORM READ-VOTE
- 0090          UNTIL WS-EOF = <span class="circ">'Y'</span>.
- 0100      ADD WS-VOTE TO WS-TOTAL.
- 0110      DISPLAY 'TOTAL ' WS-TOTAL.
- 0120      STOP RUN.
- 0130  READ-VOTE.
- 0140      READ VOTE-FILE
- 0150          AT END MOVE 'Y' TO WS-EOF.
- 0160 <span class="pen">                   ↑ WS-EOF never declared</span>
- 0170  ...
+2230 	/*
+2231 	 * If the new process paused because it was
+2232 	 * swapped out, set the stack level to the last call
+2233 	 * to savu(u_ssav).  This means that the return
+2234 	 * which is executed immediately after the call to aretu
+2235 	 * actually returns from the last routine which did
+2236 	 * the savu.
+2237 	 *
+2238 	 * <span class="circ">You are not expected to understand this.</span>
+2239 	 */
+2240 	if(rp->p_flag&SSWAP) {
+2241 		rp->p_flag <span class="circ">=&amp;</span> ~SSWAP;
+2242 		aretu(u.u_ssav);
+2243 	}
 </pre>
-      <div class="note" style="left: 380px; top: 268px;">off by one?</div>
+      <div class="note" style="left: 340px; top: 290px;">then explain it!</div>
       <div class="note" style="left: 330px; top: 440px; transform: rotate(4deg)">see me — R.H.</div>
     </div>
     <div class="room">
@@ -740,27 +737,25 @@ import soCsv from '../data/stackoverflow-questions.csv?raw';
   </div><div class="lbl"><span class="y">1976</span><span class="n">Fagan inspection</span><span class="q">Four people. One printout.<br>A red pen.</span></div></div>
 
   <div class="era e1"><div class="scr s92">
-    <div class="bar">  PINE 3.91   MESSAGE TEXT   Folder: INBOX   Message 214 of 1,187</div>
+    <div class="bar">  PINE 4.21   MESSAGE TEXT   Folder: INBOX   Message 214 of 1,187</div>
     <div class="body">
-<span class="hd">Date: Tue, 12 May 1992 14:02:11
-From: maintainer &lt;maint@kruuna&gt;
-To: linux-activists@joker.cs.hut.fi
-Subject: Re: [PATCH] tally: fix eof handling</span>
+<span class="hd">Date: Fri, 25 Aug 2000 13:09:12
+From: Linus Torvalds &lt;torvalds@transmeta.com&gt;
+Subject: Re: SCO: "thread creation is about a thousand times faster
+         than on native Linux"</span>
 
-<span class="q1">&gt; --- tally.c.orig</span>
-<span class="q1">&gt; +++ tally.c</span>
-<span class="q1">&gt; @@ -12,7 +12,8 @@</span>
-<span class="q1">&gt; </span><span class="del">-   while (!eof)</span>
-<span class="q1">&gt; </span><span class="add">+   while (!eof &amp;&amp; n &lt; MAX)</span>
-<span class="q1">&gt; </span><span class="add">+       total += v[n++];</span>
+<span class="q1">On Fri, 25 Aug 2000, Jamie Lokier wrote:</span>
+<span class="q1">&gt;</span>
+<span class="q1">&gt; Well well.  I think it's possible to over the best of user-space "fake"</span>
+<span class="q1">&gt; threads plus the advantages of "true" kernel threads in one blindingly</span>
+<span class="q1">&gt; fast combination, in less than 8kB per thread.</span>
 
-<span class="me">No. This is wrong in three ways and I'll explain
-all three of them. First ...</span>
+<span class="me">Talk is cheap. Show me the code.</span>
 
-<span class="q2">&gt;&gt; Acked-by: someone who read it</span>
+<span class="me">                Linus</span>
     </div>
     <div class="bar bot">? Help  &lt; MsgIndex  P PrevMsg  - PrevPage  R Reply  F Forward</div>
-  </div><div class="lbl"><span class="y">1992</span><span class="n">a patch, by mail</span><span class="q">Quote the diff.<br>Argue inline.</span></div></div>
+  </div><div class="lbl"><span class="y">2000</span><span class="n">the mailing list</span><span class="q">Quote the claim.<br>Demand the code.</span></div></div>
 
   <div class="era e2"><div class="scr s08">
     <div class="top">
@@ -786,7 +781,7 @@ all three of them. First ...</span>
     </div>
     <div class="view"><div class="code">${diff()}</div></div>
     <div class="sbar"><div class="thumb"></div></div>
-  </div><div class="lbl done-lbl"><span class="y">2026</span><span class="n">Code review · LGTM</span><span class="q">4,012 lines.<br>Nobody typed them.</span></div></div>
+  </div><div class="lbl done-lbl"><span class="y">2026</span><span class="q">The reviewer is the first<br>to see the diff.</span></div></div>
 
   <div class="cr-stamp">LGTM</div>
   
@@ -811,7 +806,7 @@ all three of them. First ...</span>
             return;
           }
           el._shown = 150;
-          rl.textContent = 'lines changed'; rs.textContent = 'PR #412 · one of 40 today'; rate.classList.add('hot');
+          rl.textContent = 'lines changed'; rs.textContent = 'PR #412 · first of 32 today'; rate.classList.add('hot');
           if (st === 3) { setScroll(0); anim(SCROLL_MS, k => setScroll(k < .5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2)); }
           else { setScroll(1); void el.offsetWidth; el.classList.add('cr-stamped'); }
         },
