@@ -62,10 +62,10 @@ clicks: 5
 <!--
 The agent wrote the tests. Four passed, every line covered.
 Look closer: read what each test really does.
-[click] It has a weak assertion: toBeDefined passes for any value.
-[click] It compares x with x: the expected value comes from the code under test.
+[click] It asserts nothing: toBeDefined passes for any value.
+[click] It agrees with itself: the expected value comes from the code under test.
 [click] It tests the mock: it checks a call happened, not what came out.
-[click] It pins whatever it printed: the snapshot was generated from the code, bugs included.
+[click] It snapshots the bug: the snapshot was generated from the code, bugs included.
 [click] Mutate the code: zero mutants die. 100% coverage, 0% confidence.
 -->
 
