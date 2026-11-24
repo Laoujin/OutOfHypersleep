@@ -629,7 +629,6 @@ div.absolute.bottom-0.left-0:has(> nav) { display: none !important; }
 .so-empire .tl { fill: var(--muted); font: 12px var(--mono); }
 .so-empire .core { fill: #2a1a08; stroke: var(--amber); stroke-width: 3; }
 .so-empire .cl { fill: var(--amber); font: 700 18px var(--head); text-transform: uppercase; }
-.so-empire .dead { fill: var(--faint); font: 14px var(--mono); text-decoration: line-through; }
 .so-rep { background: var(--panel); border: 1px solid var(--line); border-radius: 18px; padding: 34px 40px; display: flex; flex-direction: column; gap: 28px; max-width: 760px; }
 .so-rep small { display: block; font: 600 16px var(--mono); letter-spacing: .2em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
 .rep-top { display: flex; gap: 60px; align-items: flex-end; }

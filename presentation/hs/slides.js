@@ -955,7 +955,6 @@ Subject: Re: SCO: "thread creation is about a thousand times faster
     }
     const cx = 4 + 2 * SX, cy = 4 + 3 * SY;
     h += `<rect class="core" x="${cx}" y="${cy}" width="${SX + W}" height="${SY + H}" rx="10"/><text class="cl" x="${cx + (SX + W) / 2}" y="${cy + (SY + H) / 2 + 7}" text-anchor="middle">Stack Overflow</text>`;
-    h += `<text class="dead" x="265" y="360" text-anchor="middle">Experts Exchange · phpBB forums · mailing lists · Usenet</text>`;
     return `<svg viewBox="0 0 530 370" class="so-empire">${h}</svg>`;
   };
   const podFrame = {
