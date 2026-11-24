@@ -281,7 +281,7 @@ import soCsv from '../data/stackoverflow-questions.csv?raw';
         body: () => `<div class="wt-bars">${HS.marquee('⚠ ALL AGENTS · ONE COMPARTMENT ·')}</div>
           ${hull()}
           ${SECS.map(sec).join('')}
-          <div class="wt-cmd">$ git worktree add ../app-auth -b auth   <span># one per agent</span></div>`,
+          <div class="wt-cmd">$ git worktree add ../app-auth -b auth</div>`,
       }, {
         slug: 'core', title: 'One .git, a worktree per agent', full: true, steps: 1, cls: 'wt wt-core',
         body: () => `<div class="wt-plate" style="--plate-img: url('${import.meta.env.BASE_URL}plates/pod-worktrees.webp')"></div>
