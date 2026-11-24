@@ -132,7 +132,7 @@ import soCsv from '../data/stackoverflow-questions.csv?raw';
           <div class="kicker">crew member · ${deckOf(p)}</div>
           <h1>${p.name}</h1>
           <dl class="rv-dates"><dt>BORN</dt><dd>${p.born}</dd><dt class="died">DIED</dt><dd class="died">${p.died ?? '?'}</dd></dl>
-          <div class="rv-verdict ${p.dead ? 'dead' : pts < 0 ? 'alive traitor' : 'alive'}">${p.dead ? 'NO LIFE SIGNS' : `LIFE SIGNS: STABLE${pts < 0 ? '<span class="rv-sub">it works for the alien</span>' : ''}`}</div>
+          <div class="rv-verdict ${p.dead ? 'dead' : pts < 0 ? 'alive traitor' : 'alive'}">${p.dead ? 'NO LIFE SIGNS' : `LIFE SIGNS: STABLE`}</div>
           <button class="rv-open" data-act="open-slides">Open the slides ↗</button>
         </div>
         <canvas class="rv-ecg ${p.dead ? 'dead' : 'alive'}" width="1760" height="240"></canvas>
