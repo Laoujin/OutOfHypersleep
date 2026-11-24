@@ -659,7 +659,7 @@ import soCsv from '../data/stackoverflow-questions.csv?raw';
       body: (() => {
         const rows = soCsv.trim().split('\n').slice(1).map(l => l.split(',')).map(([m, v]) => [m, +v])
           .filter(([m]) => m >= '2008-08' && m < new Date().toISOString().slice(0, 7));
-        const n = rows.length, peak = rows.reduce((a, r) => (r[1] > a[1] ? r : a)), last = rows[n - 1], first = rows[0];
+        const n = rows.length, peak = rows.reduce((a, r) => (r[1] > a[1] ? r : a)), last = rows[n - 1];
         const idx = m => rows.findIndex(r => r[0] === m);
         const X = i => 80 + (i / (n - 1)) * 890, Y = v => 470 - (v / 220000) * 420;
         const seg = (a, b) => rows.slice(a, b + 1).map((r, k) => `${k ? 'L' : 'M'}${X(a + k).toFixed(1)} ${Y(r[1]).toFixed(1)}`).join('');
@@ -677,9 +677,7 @@ import soCsv from '../data/stackoverflow-questions.csv?raw';
           <g data-s="2"><path class="marker" d="M${X(gpt)} 60 V470"/><text class="mono" x="${X(gpt) - 8}" y="56" text-anchor="end">Nov 2022: ChatGPT</text>
             <path class="so-line bad" d="${seg(gpt, n - 1)}"/></g>
           <g data-s="3"><circle class="so-dot bad" cx="${X(n - 1)}" cy="${Y(last[1])}" r="7"/>
-            <text class="lbl red huge" x="760" y="360" text-anchor="end">−${drop}%</text>
-            <text class="mono" x="760" y="400" text-anchor="end">${fmtM(last[0])}: ${last[1].toLocaleString('en')} questions</text>
-            <text class="mono dim" x="760" y="430" text-anchor="end">first month, ${fmtM(first[0])}: ${first[1].toLocaleString('en')}</text></g>
+            <text class="lbl red huge" x="760" y="360" text-anchor="end">−${drop}%</text></g>
         </svg>`;
       })(),
       caps: ['2008–2014: the place every developer went.', 'Then a long, slow plateau.', 'Nov 2022: questions move <b>inside the agent</b>.', 'Fewer questions than in <b>its very first month</b>.'],
