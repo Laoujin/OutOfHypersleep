@@ -514,21 +514,22 @@ import soCsv from '../data/stackoverflow-questions.csv?raw';
         panel('show contained'); score(100);
       };
       const TESTS = [
-        ['calculates the total', ['<span class="k">const</span> total = calcTotal(cart)'], 'expect(total).toBeDefined()', 'asserts nothing'],
-        ['applies VAT', [], 'expect(calcTotal(cart)).toEqual(calcTotal(cart))', 'x equals x'],
+        ['calculates the total', ['<span class="k">const</span> total = calcTotal(cart)'], 'expect(total).toBeDefined()', 'has a weak assertion'],
+        ['applies VAT', [], 'expect(calcTotal(cart)).toEqual(calcTotal(cart))', 'compares x with x'],
         ['applies the discount', ['calcTotal(cart)'], 'expect(getRate).toHaveBeenCalled()', 'tests the mock'],
         ['renders the receipt', [], 'expect(render(cart)).toMatchSnapshot()', 'pins whatever it printed'],
       ];
       return [{
-        slug: 'coverage', title: '100% coverage, 0% confidence', full: true, steps: 3, cls: 'mut mut-cov',
+        slug: 'coverage', title: '100% coverage, 0% confidence', full: true, steps: TESTS.length + 2, cls: 'mut mut-cov',
         body: () => `<div class="mut-stage">
           <div class="card mut-code"><div class="card-h"><span>cart.test.ts <small>(written by the agent)</small></span><span class="green">${TESTS.length} passed ✓</span></div>
-            <pre>${TESTS.map(([name, pre, exp, tag]) => `<span class="k">it</span>(<span class="s">'${name}'</span>, () =&gt; {\n${pre.map(l => `  ${l}\n`).join('')}  <span class="hlx">${exp}</span><span class="tag" data-s="1">${tag}</span>\n})`).join('\n')}</pre></div>
+            <pre>${TESTS.map(([name, pre, exp, bad]) => `<span class="mut-t"><span class="k">it</span>(<span class="s was">'${name}'</span><span class="bad">'${bad}'</span>, () =&gt; {\n${pre.map(l => `  ${l}\n`).join('')}  <span class="hlx">${exp}</span>\n})</span>`).join('\n')}</pre></div>
           <div class="mut-bars">
             <div class="card mut-bar cov"><label>Line coverage</label><b>100%</b><div class="bar"><i></i></div></div>
-            <div class="card mut-bar kill" data-s="2"><label>Mutation score</label><b>0%</b><div class="bar"><i></i></div><div class="sub">0 of 6 mutants killed</div></div>
+            <div class="card mut-bar kill" data-s="${TESTS.length + 1}"><label>Mutation score</label><b>0%</b><div class="bar"><i></i></div><div class="sub">0 of 6 mutants killed</div></div>
           </div>
         </div>`,
+        step: (el, st) => el.querySelectorAll('.mut-t').forEach((t, i) => t.classList.toggle('on', st > i)),
       }, {
         slug: 'defect', title: '', full: true, steps: 1, cls: 'mut mut-q',
         body: () => `<div class="mut-qbox"><small>Defect insertion</small><p>Your test must be able to <b>fail</b><br>by changing the <em>production code</em>.</p></div>`,

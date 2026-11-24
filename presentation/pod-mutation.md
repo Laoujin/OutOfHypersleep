@@ -54,14 +54,18 @@ routeAlias: mutation-froze
 ---
 layout: hs
 routeAlias: mutation-coverage
-clicks: 2
+clicks: 5
 ---
 
 <Hs id="mutation-coverage" />
 
 <!--
 The agent wrote the tests. Four passed, every line covered.
-[click] Look closer: none of them can fail. toBeDefined asserts nothing, x equals x, it tests the mock, the snapshot pins whatever it printed.
+Look closer: read what each test really does.
+[click] It has a weak assertion: toBeDefined passes for any value.
+[click] It compares x with x: the expected value comes from the code under test.
+[click] It tests the mock: it checks a call happened, not what came out.
+[click] It pins whatever it printed: the snapshot was generated from the code, bugs included.
 [click] Mutate the code: zero mutants die. 100% coverage, 0% confidence.
 -->
 
