@@ -559,23 +559,35 @@ import soCsv from '../data/stackoverflow-questions.csv?raw';
       </svg>`,
       caps: ['Git hooks gate a commit. Agent hooks gate <b>every edit</b>.', 'After each edit: lint, types, and the language server the IDE used to keep to itself.', 'Errors go straight back to the agent. No human reading red squiggles.', 'A Stop hook: the agent can\'t say "done" until the tests pass.'],
     }],
-    spec: [{
-      slug: 'cascade', title: 'The waterfall, at agent speed',
-      body: (() => {
-        const ST = [['Requirements', 'requirements.md', '3 months', 'spec.md', '8 min'], ['Design', 'design.md', '2 months', 'plan.md', '4 min'], ['Implementation', '', '6 months', 'tasks.md', '2 min'], ['Verification', '', '3 months', 'implement', '25 min'], ['Maintenance', '', 'forever', 'review', '10 min']];
-        const X = i => 30 + i * 190, Y = i => 40 + i * 92;
-        return `<svg viewBox="0 0 1000 560">
-          ${ST.map(([w, , wt, a, at], i) => `<rect class="box" x="${X(i)}" y="${Y(i)}" width="170" height="64" rx="10"/>
-            ${i < 4 ? `<path class="arrow" d="M${X(i) + 170} ${Y(i) + 32} H${X(i) + 205} V${Y(i + 1) - 4}"/>` : ''}
-            <g data-o="2"><text class="lbl" x="${X(i) + 85}" y="${Y(i) + 40}" text-anchor="middle" style="font-size:20px">${w}</text><text class="mono dim" x="${X(i) + 85}" y="${Y(i) + 88}" text-anchor="middle">${wt}</text></g>
-            <g data-s="2"><text class="mono green" x="${X(i) + 85}" y="${Y(i) + 40}" text-anchor="middle">${a}</text><text class="mono dim" x="${X(i) + 85}" y="${Y(i) + 88}" text-anchor="middle">${at}</text></g>`).join('')}
-          <g data-s="1" data-o="2"><text class="lbl red" x="980" y="80" text-anchor="end">2001 · Agile Manifesto</text><text class="mono dim" x="980" y="112" text-anchor="end">working software over</text><text class="mono dim" x="980" y="138" text-anchor="end">comprehensive documentation</text></g>
-          <g data-s="2"><text class="lbl green" x="980" y="80" text-anchor="end">2025 · Spec Kit · Kiro · BMAD</text><text class="mono dim" x="980" y="112" text-anchor="end">the agent does exactly</text><text class="mono dim" x="980" y="138" text-anchor="end">what you wrote down</text></g>
-          <g data-s="3"><text class="lbl big" x="30" y="530">Total: 14 months → 49 minutes</text></g>
-        </svg>`;
-      })(),
-      caps: ['1970: Royce draws the waterfall.<small>Every phase signed off before the next one starts.</small>', '2001: we killed it.<small>Too slow. The requirements changed before the code shipped.</small>', 'Same cascade. Same documents. Different reader: <b>the agent</b>.', 'Big Design Up Front is back.<small>It just doesn\'t take a year anymore.</small>'],
-    }],
+    spec: (() => {
+      const cascade = (rows, cls) => `<svg viewBox="0 0 1000 520">${rows.map(([t, d], i) => {
+        const x = 30 + i * 190, y = 20 + i * 92;
+        return `<rect class="box" x="${x}" y="${y}" width="170" height="64" rx="10"/>
+          ${i < rows.length - 1 ? `<path class="arrow" d="M${x + 170} ${y + 32} H${x + 205} V${y + 88}"/>` : ''}
+          <text class="${cls}" x="${x + 85}" y="${y + 40}" text-anchor="middle">${t}</text><text class="mono dim" x="${x + 85}" y="${y + 88}" text-anchor="middle">${d}</text>`;
+      }).join('')}`;
+      const TOOLS = [['Spec Kit', 'GitHub', '/specify → /plan → /tasks → /implement'], ['Superpowers', 'obra', 'brainstorm → write plan → execute plan'], ['OpenSpec', 'Fission AI', 'proposal → specs → tasks → archive'], ['Plan Mode', 'Claude Code', 'read-only: plan first, approve, then code']];
+      return [{
+        slug: 'horror', title: 'The waterfall',
+        body: `<div class="spec-stage">${cascade([['Requirements', '3 months'], ['Design', '2 months'], ['Implementation', '6 months'], ['Verification', '3 months'], ['Maintenance', 'forever']], 'lbl spec-w')}
+          <text class="lbl big" x="30" y="505">Total: 14 months. Then the requirements changed.</text></svg>
+          <div class="spec-ov" data-s="1"><div class="mut-stamp">${A.alien()}<div>The horror</div></div></div></div>`,
+        caps: ['1970: Royce draws the waterfall.<small>Every phase signed off before the next one starts.</small>', 'Fifty years of projects late, over budget, or both.'],
+      }, {
+        slug: '2026', title: 'It\'s 2026',
+        body: `<div class="spec-tools">${TOOLS.map(([n, by, f], i) => `<div class="card" data-s="${i}"><div class="card-h">${by}</div><b>${n}</b><code>${f}</code></div>`).join('')}</div>`,
+        caps: ['GitHub Spec Kit.', 'Superpowers.', 'OpenSpec.', 'And Plan Mode, built into the agent.<small>Every one of them: write the spec first, then let the agent build it.</small>'],
+      }, {
+        slug: 'managers', title: 'Finally',
+        body: `<div class="stmt"><p>Finally, we're doing the waterfall our managers still love so much.<small>After 50 years of failures to show for it.</small></p></div>`,
+        caps: [],
+      }, {
+        slug: 'cascade', title: 'The waterfall, at agent speed',
+        body: `${cascade([['spec.md', '2 hours'], ['plan.md', '1 hour'], ['tasks.md', '1 hour'], ['implement', '4 hours'], ['review', '2 hours']], 'mono green')}
+          <g data-s="1"><text class="lbl big" x="30" y="505">Total: 14 months → 10 hours</text></g></svg>`,
+        caps: ['Same cascade. Same documents. Different reader: <b>the agent</b>.<small>It does exactly what you wrote down.</small>', 'Big Design Up Front is back.<small>It just doesn\'t take a year anymore.</small>'],
+      }];
+    })(),
     stackoverflow: [{
       slug: 'chart', title: 'New questions per month', cls: 'deadslide',
       body: (() => {

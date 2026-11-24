@@ -856,3 +856,12 @@ header .sub { font-size: 26px; color: var(--muted); margin-top: 6px; }
 .mut-stamp .crew { width: 220px; height: 220px; flex: none; filter: drop-shadow(0 0 30px rgba(69, 230, 160, .6)); }
 .mut-ov.red .mut-stamp { --c: var(--alien); --g: rgba(255, 59, 92, .45); }
 .mut-ov.green .mut-stamp { --c: var(--awake); --g: rgba(69, 230, 160, .4); font-size: 52px; }
+
+.spec-stage { position: relative; height: 100%; }
+svg .lbl.spec-w { font-size: 20px; }
+.spec-ov { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: rgba(5, 7, 10, .55); }
+.spec-ov .mut-stamp { --c: var(--alien); --g: rgba(255, 59, 92, .45); }
+.s1 .spec-ov .mut-stamp { animation: mut-thump .45s cubic-bezier(.3, 1.6, .5, 1) forwards; }
+.spec-tools { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+.spec-tools b { display: block; font: 700 44px var(--head); margin-bottom: 14px; }
+.spec-tools code { font-size: 20px; background: none; padding: 0; color: var(--muted); }

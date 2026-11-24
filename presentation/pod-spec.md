@@ -55,19 +55,48 @@ routeAlias: spec-froze
 
 ---
 layout: hs
-routeAlias: spec-cascade
+routeAlias: spec-horror
+clicks: 1
+---
+
+<Hs id="spec-horror" />
+
+<!--
+Background: Winston Royce, "Managing the Development of Large Software Systems", 1970. He actually warned against the pure cascade (to verify, good aside).
+[click] The horror. Alien stamp.
+-->
+
+---
+layout: hs
+routeAlias: spec-2026
 clicks: 3
+---
+
+<Hs id="spec-2026" />
+
+<!--
+GitHub Spec Kit, Superpowers (obra / Jesse Vincent), OpenSpec (Fission AI), Plan Mode (Claude Code, Shift+Tab).
+[click] [click] [click] one per click.
+-->
+
+---
+layout: hs
+routeAlias: spec-managers
+---
+
+<Hs id="spec-managers" />
+
+---
+layout: hs
+routeAlias: spec-cascade
+clicks: 1
 ---
 
 <Hs id="spec-cascade" />
 
 <!--
-Background: Winston Royce, "Managing the Development of Large Software Systems", 1970. He actually warned against the pure cascade (to verify, good aside).
-Spec-driven: GitHub Spec Kit (spec → plan → tasks → implement), AWS Kiro (requirements.md, design.md, tasks.md), BMAD. Durations are illustrative.
-
-[click] 2001: the Agile Manifesto. Waterfall becomes a swear word.
-[click] Same cascade, same documents. The difference: the reader is an agent, and it does exactly what's written.
-[click] 14 months → under an hour. Big Design Up Front is cheap now, and a vague prompt is the expensive part.
+Same cascade, same documents. The reader is an agent and does exactly what's written. Hours are illustrative.
+[click] 14 months → 10 hours. Big Design Up Front is cheap now; a vague prompt is the expensive part.
 -->
 
 ---
