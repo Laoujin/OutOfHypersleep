@@ -953,8 +953,8 @@ all three of them. First ...</span>
       const score = p.dead ? `alien +${Math.abs(p.score.dead)}` : p.score.alive < 0 ? `alien +${-p.score.alive}` : `crew +${p.score.alive}`;
       const red = p.dead || p.score.alive < 0;
       return `${bg(p)}${p.logTitle ? head(deckOf(p) + ' · ' + p.name, p.logTitle) : ''}<div class="log ${p.logTitle ? 'titled' : ''}">
-        <div class="log-h">Crew log · ${p.name}</div>
-        <div class="log-line">&gt; ${todo(p.takeaway)}</div>
+        <div class="log-h">Crew log</div>
+        <div class="log-line">${todo(p.takeaway)}</div>
         <div class="log-stamp ${red ? 'red' : ''}">${score}</div>
       </div>`;
     },
