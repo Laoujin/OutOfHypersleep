@@ -30,7 +30,7 @@ pod:
   score:
     alive: 50
     dead: -40
-  frozenBecause: One developer only ever needs one checkout. <code>git stash</code> was good enough.
+  frozenBecause: One developer only ever needs one checkout.<br><code>git stash</code> was good enough.
   wokenBecause: "N agents on one repo: each needs its own working directory and branch."
 layout: hs
 routeAlias: worktrees-thaw
