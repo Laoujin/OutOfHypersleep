@@ -641,6 +641,8 @@ div.absolute.bottom-0.left-0:has(> nav) { display: none !important; }
 .so-absorb svg .bit { fill: var(--cryo); animation: so-rise 1.6s linear infinite; transform-box: fill-box; }
 @keyframes so-rise { 0% { transform: translateY(0); opacity: 0; fill: var(--cryo); } 15% { opacity: 1; } 100% { transform: translateY(-150px); opacity: 0; fill: var(--alien); } }
 .so-absorb .alien-host { overflow: visible; }
+.so-absorb .pane { position: relative; z-index: 2; }
+.so-absorb .stage > svg { overflow: visible; }
 .so-absorb.s1 .so-ufo { animation: so-sweep 1.8s cubic-bezier(.3,.1,.25,1) both; }
 @keyframes so-sweep {
   0% { transform: translate(-760px, 260px) rotate(-25deg); }
