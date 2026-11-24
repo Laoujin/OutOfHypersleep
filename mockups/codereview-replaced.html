@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Code Review Replaced</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@600;700&family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;600&family=Special+Elite&display=swap">
+<style>
+:root {
+  --bg: #0b0d10; --panel: #15191f; --line: #2e3540; --ink: #d9dee6; --muted: #8a93a1; --faint: #565e6b;
+  --awake: #45e6a0; --alien: #ff3b5c; --amber: #ffb547; --clawd: #d97757;
+  --head: "Chakra Petch", "Eurostile", "Arial Narrow", sans-serif;
+  --sans: "IBM Plex Sans", system-ui, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: #05070a; color: var(--ink); font-family: var(--sans); }
+main { max-width: 1280px; margin: 0 auto; padding: 32px 16px 80px; }
+h1.page { font: 700 32px var(--head); margin: 0 0 6px; }
+p.lead { color: var(--muted); margin: 0 0 24px; line-height: 1.5; }
+.wrap { position: relative; width: 100%; aspect-ratio: 16 / 9; overflow: hidden; border-radius: 10px; border: 1px solid #222; cursor: pointer; }
+.slide { position: absolute; left: 0; top: 0; width: 1600px; height: 900px; transform-origin: 0 0; overflow: hidden; background: radial-gradient(1200px 800px at 50% 40%, #1c2530 0%, transparent 65%), var(--bg); }
+.ctl { display: flex; gap: 8px; align-items: center; margin-top: 8px; font: 600 13px var(--mono); color: var(--muted); flex-wrap: wrap; }
+.ctl button { font: 600 13px var(--mono); background: var(--panel); color: var(--ink); border: 1px solid var(--line); border-radius: 6px; padding: 6px 12px; cursor: pointer; }
+.ctl .cap { margin-left: 12px; }
+
+.ttl { position: absolute; left: 80px; top: 50px; font: 700 22px var(--mono); color: var(--muted); letter-spacing: .14em; text-transform: uppercase; transition: opacity .5s; }
+.ttl b { color: var(--clawd); }
+
+.loop { position: absolute; left: 450px; top: 110px; width: 700px; height: 700px; transition: transform 1s cubic-bezier(.5,0,.2,1), opacity .6s; transform-origin: 50% 50%; }
+.s1 .loop, .s2 .loop { transform: translate(-470px, 0) scale(.62); }
+.s2 .loop, .s2 .cards, .s2 .ttl, .s2 .human { opacity: .05; }
+.loop svg { position: absolute; inset: 0; overflow: visible; }
+.ring { fill: none; stroke: var(--line); stroke-width: 3; stroke-dasharray: 8 10; animation: dash 1.2s linear infinite; }
+@keyframes dash { to { stroke-dashoffset: -36; } }
+.node { position: absolute; width: 190px; margin: -50px 0 0 -95px; text-align: center; background: var(--panel); border: 2px solid var(--line); border-radius: 14px; padding: 12px 10px; transition: border-color .2s, box-shadow .2s; }
+.node .ic { font-size: 34px; line-height: 1; }
+.node b { display: block; font: 600 17px var(--mono); color: #fff; margin-top: 6px; }
+.node small { display: block; font: 500 13px var(--mono); color: var(--muted); }
+.node.hit { border-color: var(--clawd); box-shadow: 0 0 34px rgba(217,119,87,.45); }
+.node.merge.hit { border-color: var(--awake); box-shadow: 0 0 34px rgba(69,230,160,.45); }
+.core { position: absolute; left: 350px; top: 350px; transform: translate(-50%, -50%); text-align: center; }
+.core b { display: block; font: 700 88px/1 var(--head); color: #fff; font-variant-numeric: tabular-nums; }
+.core small { font: 600 15px var(--mono); color: var(--muted); letter-spacing: .12em; text-transform: uppercase; }
+.dot { fill: var(--clawd); filter: drop-shadow(0 0 10px var(--clawd)); }
+
+.human { position: absolute; right: 70px; bottom: 36px; display: flex; align-items: center; gap: 30px; transition: opacity .5s; }
+.bell { position: relative; font-size: 54px; }
+.bell i { font-style: normal; filter: grayscale(1) brightness(.7); }
+.badge { position: absolute; right: -16px; top: -6px; background: var(--alien); color: #fff; font: 700 17px var(--mono); border-radius: 14px; padding: 1px 8px; }
+.human span { font: 500 17px var(--mono); color: var(--faint); max-width: 170px; line-height: 1.35; }
+
+.cards { position: absolute; left: 560px; top: 110px; width: 980px; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; opacity: 0; transform: translateX(60px); transition: opacity .6s .4s, transform .8s .4s; pointer-events: none; }
+.s1 .cards { opacity: 1; transform: none; }
+.s2 .cards { transform: none; }
+.card { border-radius: 12px; padding: 22px 26px; height: 600px; position: relative; }
+.card h4 { margin: 0 0 4px; font-size: 15px; letter-spacing: .12em; }
+.card h3 { margin: 0 0 18px; font-size: 26px; }
+.paper { background: #ece5d1; color: #2a2620; font-family: "Special Elite", "Courier New", monospace; transform: rotate(-1.2deg); box-shadow: 0 20px 50px rgba(0,0,0,.5); }
+.paper h3 { border-bottom: 2px solid #2a2620; padding-bottom: 8px; }
+.md { background: #0d1117; border: 1px solid #30363d; font: 16px/1.55 var(--mono); color: #c9d1d9; box-shadow: 0 20px 50px rgba(0,0,0,.5); }
+.md h4 { color: #7d8590; font-family: var(--mono); letter-spacing: 0; font-weight: 500; }
+.md .fm { color: #7d8590; }
+.md .k { color: #ff7b72; } .md .h { color: #79c0ff; font-weight: 700; }
+.rows { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+.rows li { font-size: 18px; padding: 6px 10px; border-radius: 6px; transition: background .4s, color .4s; }
+.paper .rows li::before { content: "☐ "; }
+.md .rows li { font-size: 16px; }
+.md .rows li::before { content: "- [ ] "; color: #7d8590; }
+.rows li.m { background: rgba(255,181,71,.18); }
+.paper .rows li.m { background: rgba(195,38,27,.12); }
+.same { position: absolute; left: 50%; top: 575px; transform: translate(-50%, 0) rotate(-8deg); font: 700 30px var(--head); color: var(--amber); background: var(--bg); border: 3px solid var(--amber); border-radius: 10px; padding: 6px 16px; opacity: 0; transition: opacity .4s 1.6s; z-index: 2; white-space: nowrap; }
+.s1 .same { opacity: 1; }
+
+.take { position: absolute; left: 0; right: 0; top: 300px; text-align: center; opacity: 0; transform: scale(.96); transition: opacity .7s .3s, transform .9s .3s; pointer-events: none; }
+.s2 .take { opacity: 1; transform: none; }
+.take .l1 { font: 700 64px/1.1 var(--head); color: var(--muted); text-transform: uppercase; }
+.take .l1 s { text-decoration-color: var(--alien); text-decoration-thickness: 6px; }
+.take .l2 { font: 700 84px/1.1 var(--head); color: #fff; text-transform: uppercase; margin-top: 10px; }
+.take .l2 em { font-style: normal; color: var(--clawd); }
+.take .l3 { margin-top: 40px; font: 500 24px var(--mono); color: var(--faint); }
+.take .l3 b { color: var(--alien); }
+</style>
+</head>
+<body>
+<main>
+<h1 class="page">Code review · replaced by more agents</h1>
+<p class="lead">Step 0: agents write, review, fix and merge in a loop while the human is a muted bell. Click 1: a 1976 inspection checklist next to a 2026 review SKILL.md, the same list. Click 2: the takeaway.</p>
+<div class="wrap"><div class="slide" id="s">
+  <div class="ttl">The review never stopped. <b>It just isn't yours.</b></div>
+
+  <div class="loop">
+    <svg viewBox="0 0 700 700"><circle class="ring" cx="350" cy="350" r="280"/><circle class="dot" id="dot" r="12" cx="350" cy="70"/></svg>
+    <div class="node" data-a="270" style="left:350px;top:70px"><div class="ic">✻</div><b>writer agent</b><small>picks next ticket</small></div>
+    <div class="node" data-a="330" style="left:592px;top:210px"><div class="ic">⑂</div><b>opens PR</b><small>+3,412 −1,208</small></div>
+    <div class="node" data-a="30" style="left:592px;top:490px"><div class="ic">🛡 ⚡ 🧪</div><b>reviewer agents</b><small>/code-review · 3 skills</small></div>
+    <div class="node" data-a="90" style="left:350px;top:630px"><div class="ic">🔧</div><b>fixer agent</b><small>applies 14 findings</small></div>
+    <div class="node" data-a="150" style="left:108px;top:490px"><div class="ic">✅</div><b>CI + hooks</b><small>tests · types · lint</small></div>
+    <div class="node merge" data-a="210" style="left:108px;top:210px"><div class="ic">⛙</div><b>merge queue</b><small>auto-merge</small></div>
+    <div class="core"><b id="merged">0</b><small>merged today</small></div>
+  </div>
+
+  <div class="human"><div class="bell"><i>🔔</i><span class="badge" id="badge">0</span></div><span>you<br>(notifications muted)</span></div>
+
+  <div class="cards">
+    <div class="card paper">
+      <h4>IBM · 1976</h4>
+      <h3>Inspection checklist</h3>
+      <ul class="rows">
+        <li class="m">All variables declared and initialised</li>
+        <li class="m">Loops terminate, boundaries correct</li>
+        <li class="m">Error conditions handled</li>
+        <li class="m">Interfaces match the spec</li>
+        <li>Comments agree with the code</li>
+        <li>Moderator signs the report</li>
+      </ul>
+    </div>
+    <div class="card md">
+      <h4>.claude/skills/code-review/SKILL.md</h4>
+      <div class="fm">---<br><span class="k">name:</span> code-review<br><span class="k">description:</span> review the diff<br>---</div>
+      <div class="h" style="margin:10px 0 8px"># Checklist</div>
+      <ul class="rows">
+        <li class="m">No uninitialised or unused state</li>
+        <li class="m">Off-by-one and boundary values</li>
+        <li class="m">Errors handled, nothing swallowed</li>
+        <li class="m">Matches the spec / ticket</li>
+        <li>Tests cover the change</li>
+        <li>Report findings, most severe first</li>
+      </ul>
+    </div>
+    <div class="same">50 YEARS · SAME LIST</div>
+  </div>
+
+  <div class="take">
+    <div class="l1">You don't <s>review the code</s> anymore.</div>
+    <div class="l2">You review <em>the reviewer.</em></div>
+    <div class="l3"><b>2027:</b> the approver gets approved by an approver.</div>
+  </div>
+</div></div>
+<div class="ctl"><button data-act="prev">Prev</button><button data-act="next">Next</button><button data-act="reset">Reset</button><span class="cap"></span></div>
+</main>
+<script>
+const CAPS = ['Agents write, review, fix and merge. You get a notification.', 'Fagan 1976 vs SKILL.md 2026: the same checklist.', 'You review the reviewer.'];
+const MAX = CAPS.length - 1;
+const slide = document.getElementById('s'), wrap = slide.parentElement, cap = document.querySelector('.cap');
+const dot = document.getElementById('dot'), nodes = [...document.querySelectorAll('.node')], merged = document.getElementById('merged'), badge = document.getElementById('badge');
+let st = 0, laps = 0, last = -1;
+const LAP = 3200;
+const loop = t => {
+  const k = (t % LAP) / LAP, lap = Math.floor(t / LAP);
+  const a = (-90 + k * 360) * Math.PI / 180;
+  dot.setAttribute('cx', 350 + 280 * Math.cos(a)); dot.setAttribute('cy', 350 + 280 * Math.sin(a));
+  const deg = ((k * 360) - 90 + 360) % 360;
+  nodes.forEach(n => { const d = Math.abs(((+n.dataset.a - deg + 540) % 360) - 180); n.classList.toggle('hit', d < 16); });
+  if (lap !== last) { last = lap; laps++; merged.textContent = laps - 1; badge.textContent = laps - 1 > 99 ? '99+' : laps - 1; }
+  requestAnimationFrame(loop);
+};
+requestAnimationFrame(loop);
+const go = n => {
+  st = Math.max(0, Math.min(MAX, n));
+  slide.classList.remove('s1', 's2'); if (st) slide.classList.add('s' + st);
+  cap.textContent = `step ${st}/${MAX} · ${CAPS[st]}`;
+};
+window.go = go;
+wrap.addEventListener('click', () => go(st + 1));
+document.querySelector('.ctl').addEventListener('click', e => { const a = e.target.dataset.act; if (a === 'next') go(st + 1); if (a === 'prev') go(st - 1); if (a === 'reset') go(0); });
+go(0);
+const fit = () => { slide.style.transform = 'scale(' + (wrap.clientWidth / 1600) + ')'; };
+addEventListener('resize', fit); fit();
+</script>
+</body>
+</html>
