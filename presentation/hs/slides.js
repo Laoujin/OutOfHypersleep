@@ -443,10 +443,18 @@ import soCsv from '../data/stackoverflow-questions.csv?raw';
           <div class="mono">&nbsp;</div>
           <div class="mono">&nbsp;&nbsp;&nbsp;&nbsp;feat: let the audience vote on pods</div>
           <div class="mono">&nbsp;</div>
-          <div class="mono trailer">&nbsp;&nbsp;&nbsp;&nbsp;Co-Authored-By: Claude &lt;noreply@anthropic.com&gt;</div>
+          <div class="mono trailer">&nbsp;&nbsp;&nbsp;&nbsp;<span class="tr-t">Co-Authored-By: Claude &lt;noreply@anthropic.com&gt;</span></div>
         </div>
-        <div class="stamp" data-s="2">ALIEN MARK<br><span>alien +10</span></div>`,
+        <svg class="tr-arrow" data-s="2" aria-hidden="true"><defs><marker id="tr-head" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0 0 10 5 0 10z"/></marker></defs><path marker-end="url(#tr-head)"/></svg>
+        <div class="stamp" data-s="2">${A.alien()}ALIEN MARK<br><span>alien +10</span></div>`,
       steps: 3,
+      step: el => requestAnimationFrame(() => {
+        const commit = el.querySelector('.commit'), t = el.querySelector('.tr-t'), stamp = el.querySelector('.stamp');
+        if (!t.offsetWidth) return;
+        const x1 = commit.offsetLeft + t.offsetLeft + t.offsetWidth + 16, y1 = commit.offsetTop + t.offsetTop + t.offsetHeight / 2;
+        const x2 = stamp.offsetLeft - 12, y2 = stamp.offsetTop + stamp.offsetHeight * .7;
+        el.querySelector('.tr-arrow path:not(marker path)').setAttribute('d', `M${x1} ${y1} C ${x1 + 120} ${y1}, ${x2 - 120} ${y2}, ${x2} ${y2}`);
+      }),
     }],
     mutation: (() => {
       const SRC = [
