@@ -44,7 +44,7 @@ function render() {
     if (!list.length) return ''
     return `<div class="deck t-${type}"><b>${label}</b></div><div class="pods">${list.map(p => `
       <button class="pod ${voted.has(p.id) ? 'voted' : ''}" data-id="${p.id}" aria-pressed="${voted.has(p.id)}">
-        <span class="info"><span class="name">❄ ${esc(p.frozen)}</span><br><span class="power">${bars(p.power)}</span> <span class="pts"><span class="pos">${signed(p.score.alive)}</span> / <span class="neg">${signed(-Math.abs(p.score.dead))}</span></span></span>
+        <span class="info"><span class="name">❄ ${esc(p.frozen)}</span><br><span class="power">${bars(p.power)}</span> <span class="pts"><span class="pos">${signed(Math.abs(p.score.alive))}</span> / <span class="neg">${signed(-Math.abs(p.score.dead))}</span></span></span>
         <span class="count">${votes[p.id] || 0}</span>
         <span class="mark">${voted.has(p.id) ? '✓ voted' : 'vote'}</span>
       </button>`).join('')}</div>`
