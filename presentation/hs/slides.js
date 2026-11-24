@@ -340,7 +340,7 @@ import soCsv from '../data/stackoverflow-questions.csv?raw';
         body: () => {
           const port = cls => `<rect class="mq-port ${cls}" x="1180" y="400" width="140" height="160" rx="16"/><line class="mq-rail ${cls}" x1="1360" y1="480" x2="1560" y2="480"/>`;
           return `<svg class="mq-svg" viewBox="0 0 1600 900"><g class="mq-world">
-            <g data-o="1">${port('ok')}</g><g class="mq-redport" data-s="1" data-o="2">${port('bad')}</g><g data-s="2">${port('ok')}</g>
+            <g class="mq-portg">${port('ok')}</g>
             <text class="mq-locktag" x="1250" y="385" text-anchor="middle">port</text>
             <text class="mq-railtag" x="1460" y="520" text-anchor="middle">main</text>
             <g data-o="2">${LAND_PTS.map(([x, y, n], i) => `<g ${WEDGE.some(w => w[0] === i) ? 'data-o="1"' : ''}>${crawler(x - 42, y - 30, .8, 'ok')}</g><text class="mq-tag" x="${x - 55}" y="${y + 6}" text-anchor="end">${n}</text>`).join('')}</g>
@@ -356,6 +356,7 @@ import soCsv from '../data/stackoverflow-questions.csv?raw';
         },
         step: (el, st, c) => {
           clearInterval(el._sparks);
+          if (st !== 1) el.classList.remove('mq-pending');
           if (st !== 1 || !c.active || el._st === 1) { el._st = st; return; }
           el._st = st;
           const fx = el.querySelector('.mq-fx'), world = el.querySelector('.mq-world');
@@ -375,7 +376,7 @@ import soCsv from '../data/stackoverflow-questions.csv?raw';
             return [u ** 3 * x + 3 * u * u * t * (x + 400) + 3 * u * t * t * 1000 + t ** 3 * tx, u ** 3 * y + 3 * u * u * t * y + 3 * u * t * t * 480 + t ** 3 * ty];
           });
           const LAST = 3 * 180 + 1000;
-          el.querySelector('.mq-redport').animate([{ opacity: 0 }, { opacity: 0, offset: .99 }, { opacity: 1 }], { duration: 700 });
+          el.classList.add('mq-pending'); setTimeout(() => el.classList.remove('mq-pending'), 700);
           el.querySelector('.mq-crack').animate([{ strokeDasharray: '0 400' }, { strokeDasharray: '0 400', offset: LAST / (LAST + 500) }, { strokeDasharray: '400 0' }], { duration: LAST + 500 });
           el.querySelectorAll('.mq-beacon, .mq-beacon-glow').forEach(b => b.animate([{ visibility: 'hidden' }, { visibility: 'hidden', offset: .99 }, { visibility: 'visible' }], { duration: LAST }));
           el.querySelectorAll('.mq-wedge').forEach(g => {

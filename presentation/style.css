@@ -823,3 +823,6 @@ header .sub { font-size: 26px; color: var(--muted); margin-top: 6px; }
 @keyframes mq-blink { to { opacity: .15; } }
 @keyframes mq-rot { to { transform: rotate(360deg); } }
 .mq-spark { stroke: #ffd27a; stroke-width: 4; stroke-linecap: round; }
+.mq-portg .mq-port, .mq-portg .mq-rail { transition: fill .25s, stroke .25s, filter .25s; }
+.mq-landing.s1:not(.s2):not(.mq-pending) .mq-portg .mq-port { fill: rgba(255, 59, 92, .14); stroke: var(--alien); filter: drop-shadow(0 0 14px var(--alien)); }
+.mq-landing.s1:not(.s2):not(.mq-pending) .mq-portg .mq-rail { stroke: var(--alien); filter: drop-shadow(0 0 8px var(--alien)); }
