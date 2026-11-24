@@ -680,7 +680,6 @@ import soCsv from '../data/stackoverflow-questions.csv?raw';
             <text class="lbl red huge" x="760" y="360" text-anchor="end">−${drop}%</text>
             <text class="mono" x="760" y="400" text-anchor="end">${fmtM(last[0])}: ${last[1].toLocaleString('en')} questions</text>
             <text class="mono dim" x="760" y="430" text-anchor="end">first month, ${fmtM(first[0])}: ${first[1].toLocaleString('en')}</text></g>
-          <text class="mono dim" x="980" y="540" text-anchor="end">Stack Exchange Data Explorer · new questions per month · deleted posts excluded</text>
         </svg>`;
       })(),
       caps: ['2008–2014: the place every developer went.', 'Then a long, slow plateau.', 'Nov 2022: questions move <b>inside the agent</b>.', 'Fewer questions than in <b>its very first month</b>.'],
