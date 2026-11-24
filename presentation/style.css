@@ -300,7 +300,6 @@ svg .gate { fill: #0e1a2e; stroke: var(--cryo); stroke-width: 3; }
 .commit .y { color: var(--amber); }
 .commit .trailer { transition: background .4s, color .4s; border-radius: 6px; }
 .s1 .commit .trailer { background: rgba(255, 59, 92, .15); color: #ffd0d8; }
-.trailer-tag { font-size: 24px; color: var(--alien); margin-top: 10px; }
 .term-block { margin-top: 26px; background: #08090b; border: 1px solid var(--line); border-radius: 14px; padding: 20px 34px; }
 .term-block .mono { font-size: 20px; }
 .stamp { position: absolute; right: 30px; top: 170px; border: 5px solid var(--alien); color: var(--alien); font: 900 40px var(--mono); padding: 10px 24px; text-align: center; transform: rotate(-12deg) scale(1.4); border-radius: 12px; }

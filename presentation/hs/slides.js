@@ -329,7 +329,6 @@ import soCsv from '../data/stackoverflow-questions.csv?raw';
           <div class="mono">&nbsp;&nbsp;&nbsp;&nbsp;feat: let the audience vote on pods</div>
           <div class="mono">&nbsp;</div>
           <div class="mono trailer">&nbsp;&nbsp;&nbsp;&nbsp;Co-Authored-By: Claude &lt;noreply@anthropic.com&gt;</div>
-          <div class="trailer-tag">↑ a <b>commit trailer</b> · <code>git interpret-trailers</code>, 2014</div>
         </div>
         <div class="stamp" data-s="2">ALIEN MARK<br><span>alien +10</span></div>`,
       steps: 3,
