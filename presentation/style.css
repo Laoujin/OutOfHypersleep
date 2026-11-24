@@ -1122,7 +1122,6 @@ svg .lbl.spec-w { font-size: 20px; }
 .hk-lg h4 { margin: 0; display: flex; justify-content: space-between; font: 700 24px var(--head); color: #fff; text-transform: uppercase; letter-spacing: .04em; }
 .hk-lg h4 span { font: 700 18px var(--mono); color: var(--awake); }
 .hk-lg p { margin: 6px 0 0; font: 17px/1.4 var(--mono); color: var(--muted); }
-.hk-lg .n { position: absolute; right: 20px; bottom: 14px; font: 700 18px var(--mono); color: var(--awake); }
 .hk-lg.ci { border-color: var(--cryo); background: rgba(159, 216, 240, .04); opacity: .5; }
 .hk-lg.ci h4, .hk-lg.ci h4 span { color: var(--cryo); }
 .hk-tally { position: absolute; left: 1030px; top: 760px; width: 500px; font: 700 20px var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }

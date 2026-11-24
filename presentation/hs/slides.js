@@ -565,9 +565,8 @@ import soCsv from '../data/stackoverflow-questions.csv?raw';
       const arc = (r, a, span) => { const p = d => at(d, r).map(v => v.toFixed(1)).join(' '); return `M${p(a - span)} A${r} ${r} 0 0 1 ${p(a + span)}`; };
 
       const swarm = el => {
-        const g = el.querySelector('.hk-swarm'), counts = [0, 0, 0];
+        const g = el.querySelector('.hk-swarm');
         g.innerHTML = '';
-        el.querySelectorAll('.hk-lg .n').forEach(e => { e.textContent = ''; });
         el.querySelector('.hk-tally b').textContent = 0;
         let total = 0, angle = Math.random() * 6;
         const hit = (a, layer, name) => {
@@ -584,10 +583,8 @@ import soCsv from '../data/stackoverflow-questions.csv?raw';
           const t = g.appendChild(node('text', { class: 'hk-nit', x: tx.toFixed(1), y: (ty + 5).toFixed(1), 'text-anchor': Math.cos(a) < -.3 ? 'end' : Math.cos(a) > .3 ? 'start' : 'middle' }));
           t.textContent = name;
           t.animate([{ opacity: 0 }, { opacity: 1, offset: .12 }, { opacity: 1, offset: .7 }, { opacity: 0 }], { duration: 1800 }).onfinish = () => t.remove();
-          counts[layer]++; total++;
-          const card = el.querySelector(`.hk-lg[data-l="${layer}"]`);
-          card.querySelector('.n').textContent = `${counts[layer]} caught`;
-          card.animate([{ background: 'rgba(69, 230, 160, .24)' }, { background: 'rgba(69, 230, 160, .06)' }], { duration: 300 });
+          total++;
+          el.querySelector(`.hk-lg[data-l="${layer}"]`).animate([{ background: 'rgba(69, 230, 160, .24)' }, { background: 'rgba(69, 230, 160, .06)' }], { duration: 300 });
           el.querySelector('.hk-tally b').textContent = total;
         };
         const spawn = () => {
@@ -622,7 +619,7 @@ import soCsv from '../data/stackoverflow-questions.csv?raw';
             <g class="hk-swarm"></g>
           </svg>
           <div class="hk-legend">
-            ${LAYERS.map(([n, , lat, what], i) => `<div class="hk-lg" data-s="${i + 1}" data-l="${i}"><h4>${n} <span>${lat}</span></h4><p>${what}</p><span class="n"></span></div>`).join('')}
+            ${LAYERS.map(([n, , lat, what], i) => `<div class="hk-lg" data-s="${i + 1}" data-l="${i}"><h4>${n} <span>${lat}</span></h4><p>${what}</p></div>`).join('')}
             <div class="hk-lg ci"><h4>❄ CI <span>~10 min</span></h4><p>after the push · too late, too far</p></div>
           </div>
           <div class="hk-tally" data-s="4"><b>0</b>nitpicks caught · <span>0</span> reached CI</div>
