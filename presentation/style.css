@@ -1090,4 +1090,3 @@ svg .lbl.spec-w { font-size: 20px; }
   20% { transform: translate(-3px, 8px) rotate(calc(var(--r) / 6)); }
   100% { transform: translateY(1000px) rotate(var(--r)); opacity: .6; }
 }
-.cr-who .who-end { position: absolute; left: 0; right: 0; top: 420px; text-align: center; font: 700 72px var(--head); text-transform: uppercase; color: var(--alien); text-shadow: 0 0 40px rgba(255, 59, 92, .45); transition-delay: 1.2s; }
