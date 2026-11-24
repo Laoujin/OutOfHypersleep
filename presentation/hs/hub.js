@@ -4,7 +4,7 @@ import './slides.js'
 
 const HS = window.HS
 const KEY = 'hypersleep-state-v1'
-const fresh = () => ({ woken: [], events: {}, votes: {}, shown: { crew: 0, alien: 0 } })
+const fresh = () => ({ woken: [], events: {}, shown: { crew: 0, alien: 0 } })
 
 const DEBUG_RESET_ON_RELOAD = true
 const isReload = () => { try { return performance.getEntriesByType('navigation')[0]?.type === 'reload' } catch { return false } }
@@ -70,7 +70,7 @@ HS.go = (id, clicks = 0) => {
 HS.ctx = (active, refresh) => ({ state, score: HS.score(state), save: HS.save, active, go: HS.go, refresh })
 
 HS.live = {}
-HS.votesOf = id => (state.votes[id] || 0) + (HS.live[id] || 0)
+HS.votesOf = id => HS.live[id] || 0
 
 HS.leader = () => {
   let best = null, max = 0

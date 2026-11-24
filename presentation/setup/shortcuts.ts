@@ -52,6 +52,6 @@ export default defineShortcutsSetup((_ops, base) => {
     { name: 'hs_about', key: 'a', fn: () => HS.go('about') },
     { name: 'hs_replay', key: 'r', fn: replay },
     { name: 'hs_fullscreen', key: 'f', fn: () => (document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen()) },
-    { name: 'hs_reset', key: 'x', fn: () => { if (confirm('Reset the game (woken pods, events, votes, score)?')) { HS.reset(); HS.go('title') } } },
+    { name: 'hs_reset', key: 'x', fn: () => { if (confirm('Reset the game (woken pods, events, score)?')) { HS.reset(); HS.go('title') } } },
   ]
 })

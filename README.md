@@ -34,13 +34,13 @@ The talk is split into **separate Slidev decks**:
 | Intermezzo: the alien strikes back | `intermezzo.md` | `/OutOfHypersleep/intermezzo/` |
 | Finale: Schrödinger's developer, scoreboard, closing | `finale.md` | `/OutOfHypersleep/finale/` |
 
-1. **Ship map** (last slide of the intro). Pods are anonymous: freeze year, power and a score that flips between + (green) and − (red), because nobody knows whether the crew member survives. Votes come live from the voting app at **https://pods.sangu.be** (`voting/`, polled every 2s), + / − add a show of hands on top. The leader glows.
+1. **Ship map** (last slide of the intro). Pods are anonymous: freeze year, power and a score that flips between + (green) and − (red), because nobody knows whether the crew member survives. Votes come live from the voting app at **https://pods.sangu.be** (`voting/`, polled every 2s). The leader glows.
 2. Click a pod, or → for the vote leader: the pod opens **fullscreen** on top of the map.
    → venting · → the lid opens: name and born year · → it lives or dies (died year, score applied).
 3. **Open the slides ↗** (or → once more) opens that pod's deck in a **new tab**, closes the fullscreen pod and the map updates: score counts up, the pod shows revived or dead. At the end of the pod deck, → closes the tab.
 4. After the 3rd pod, → on the map goes to the intermezzo deck. E opens the finale.
 
-Game state (woken pods, votes, score) is in `localStorage`, shared by all decks on the same origin.
+Game state (woken pods, score) is in `localStorage`, shared by all decks on the same origin.
 
 ## Voting app (pods.sangu.be)
 
@@ -122,7 +122,7 @@ Everything below is a default; change pods in the `pod:` header of `presentation
 | Message map vs random order | Free vote. The map shows "N awake" per deck, and the intermezzo status report lists coverage per deck so the speaker can steer ("nobody wants to verify anything?"). |
 | Already awake | Shown in the medbay as open pods (on duty); not selectable, no points. |
 | Do voters know a pod is dead? | No hint on the pod itself: a dead pod shows a normal power and positive score, and its freeze year is the year it died (Stack Overflow ❄ 2023). They do sit in the cargo row. |
-| Voting | Local click-to-choose: **+ / −** on each pod (show of hands). `HS.setVotes({ podId: n, ... })` is the hook for a future QR/poll integration. |
+| Voting | Only in the deployed voting app; the map shows the live counts. |
 | Intermezzo | The alien strikes back (its turn on the scoreboard) + a status report. Auto after the 3rd pod, or press I. |
 | Crew manifest photo | Slide removed from the intro. The final pod shows a placeholder crowd for now. |
 | Surprising moment | Kept the source's main pick: the average age of the woken tooling, revealed on the scoreboard. |

@@ -66,7 +66,7 @@ clicks: 2
 <!--
 The twist: an evil alien AI has infiltrated the ship.
 [click] It scores with the problems of LLMs: hallucinations, bias, environmental cost. It is already ahead.
-This slide starts a fresh game: score, votes and woken pods reset to 0.
+This slide starts a fresh game: score and woken pods reset to 0.
 The scoreboard stays with us all talk.
 -->
 
@@ -91,7 +91,7 @@ routeAlias: map
 <Hs id="map" />
 
 <!--
-Run the vote: live counts from pods.sangu.be (+ / − adds a show of hands on top). Click a pod, or → for the vote leader: the pod opens fullscreen.
+Run the vote: live counts from pods.sangu.be. Click a pod, or → for the vote leader: the pod opens fullscreen.
 Fullscreen pod plays by itself (~5 s): venting · lid opens: name + born · it lives or dies (score applied). → or a click skips ahead. Then → or the button: opens the pod's slides in a new tab and returns here. ← steps back / closes the pod.
 Aim for 5–6 pods. Watch the "N awake" per deck: if a deck is still empty after 3 pods, nudge: "nobody wants to verify anything?"
 After the 3rd pod, → on the map goes to the intermezzo. Press E for the final pod (Schrödinger's developer).
