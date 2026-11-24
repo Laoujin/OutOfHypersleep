@@ -812,7 +812,6 @@ header .sub { font-size: 26px; color: var(--muted); margin-top: 6px; }
 .mq-ft .keep { color: var(--awake); }
 .s2 .mq-batch { stroke: var(--alien); fill: rgba(255, 59, 92, .06); }
 .mq-crawler.ok .bd { stroke: var(--awake); stroke-width: 3; }
-.mq-okdot { fill: var(--awake); filter: drop-shadow(0 0 6px var(--awake)); }
 .mq-path { fill: none; stroke: var(--alien); stroke-width: 3; stroke-dasharray: 10 8; opacity: .8; }
 .mq-port.ok { fill: rgba(179, 154, 224, .06); stroke: var(--int); stroke-width: 4; }
 .mq-port.bad { fill: rgba(255, 59, 92, .14); stroke: var(--alien); stroke-width: 4; filter: drop-shadow(0 0 14px var(--alien)); }
