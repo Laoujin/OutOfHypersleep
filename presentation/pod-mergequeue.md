@@ -30,7 +30,7 @@ pod:
   score:
     alive: 30
     dead: -40
-  frozenBecause: '"Only Google-scale needs this."'
+  frozenBecause: '"Only Google-scale needed this."'
   wokenBecause: 20 green branches at once. Each is green alone; together they break main.
 layout: hs
 routeAlias: mergequeue-thaw
@@ -59,7 +59,7 @@ clicks: 4
 
 <!--
 Background: bors (Rust, 2013) after Graydon Hoare's "not rocket science rule": keep main always green. Zuul (OpenStack) around the same time. GitHub merge queue GA: 2023. All to verify.
-"Only Google-scale needs this." Google-scale used to mean 1000 engineers. Now it means you plus 20 agents.
+"Only Google-scale needed this." Google-scale used to mean 1000 engineers. Now it means you plus 20 agents.
 
 The agent is green and wants to land.
 [click] Fast-forward fails: another agent landed fix/i18n.
