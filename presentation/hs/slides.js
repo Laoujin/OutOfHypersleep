@@ -671,6 +671,7 @@ decode(encode("123"))   <span class="green">✓</span></pre></div>
     trailers: { woke: [] },
     mergequeue: { woke: [] },
     worktrees: { woke: [] },
+    mutation: { woke: [] },
     stackoverflow: {
       froze: [{
         slug: 'empire', title: 'The empire', cls: 'beat',

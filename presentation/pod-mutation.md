@@ -32,6 +32,8 @@ pod:
     dead: -40
   frozenBecause: Too slow and too expensive<br>it ran the whole suite for each mutant
   wokenBecause: Compute is cheap and agents write the tests. Who tests the tests?
+  logTitle: Who tests the tests?
+  takeaway: Agents write the tests. We need deterministic guardrails to ensure they are qualitative.
 layout: hs
 routeAlias: mutation-thaw
 ---
@@ -67,13 +69,6 @@ Mutation testing: 1970s. Frozen because you run the whole suite once per mutant:
 [click] Feed survivors back to the agent: it writes the missing test.
 [click] Compute is cheap now, and the agent does the boring part. Spin-off: "Who Goes There?".
 -->
-
----
-layout: hs
-routeAlias: mutation-woke
----
-
-<Hs id="mutation-woke" />
 
 ---
 layout: hs
