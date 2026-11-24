@@ -573,13 +573,13 @@ import soCsv from '../data/stackoverflow-questions.csv?raw';
         <rect class="box" x="40" y="200" width="200" height="110" rx="12"/><text class="lbl" x="140" y="248" text-anchor="middle">agent</text><text class="mono dim" x="140" y="282" text-anchor="middle">Edit vote.ts</text>
         <path class="arrow" d="M240 255 H380"/>
         <g data-s="1"><rect class="gate" x="380" y="170" width="250" height="170" rx="12"/><text class="lbl" x="505" y="212" text-anchor="middle">PostToolUse</text>
-          ${['eslint --fix', 'tsc --noEmit', 'LSP diagnostics'].map((t, i) => `<text class="mono dim" x="505" y="${250 + i * 28}" text-anchor="middle">${t}</text>`).join('')}</g>
+          ${['prettier --write', 'eslint --fix', 'tsc --noEmit'].map((t, i) => `<text class="mono dim" x="505" y="${250 + i * 28}" text-anchor="middle">${t}</text>`).join('')}</g>
         <g data-s="2"><path class="arrow bad" d="M505 340 C 505 450, 140 450, 140 314"/><rect class="term" x="300" y="440" width="560" height="80" rx="10"/>
           <text class="mono red" x="320" y="474">vote.ts:12 'total' is possibly undefined</text><text class="mono dim" x="320" y="504">fed straight back into the agent's context</text></g>
         <g data-s="3"><path class="arrow" d="M630 255 H720"/><rect class="gate" x="720" y="170" width="250" height="170" rx="12"/><text class="lbl" x="845" y="212" text-anchor="middle">Stop</text>
           <text class="mono dim" x="845" y="250" text-anchor="middle">npm test</text><text class="mono red" x="845" y="290" text-anchor="middle">✗ not done yet</text></g>
       </svg>`,
-      caps: ['Git hooks gate a commit. Agent hooks gate <b>every edit</b>.', 'After each edit: lint, types, and the language server the IDE used to keep to itself.', 'Errors go straight back to the agent. No human reading red squiggles.', 'A Stop hook: the agent can\'t say "done" until the tests pass.'],
+      caps: ['Git hooks gate a commit. Agent hooks gate <b>every edit</b>.', 'After each edit: format, lint, types.', 'Errors go straight back to the agent. No human reading a CI log.', 'A Stop hook: the agent can\'t say "done" until the tests pass.'],
     }],
     spec: (() => {
       const cascade = (rows, cls) => `<svg viewBox="0 0 1000 520">${rows.map(([t, d], i) => {

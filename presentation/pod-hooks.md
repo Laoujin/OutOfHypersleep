@@ -19,10 +19,9 @@ fonts:
   mono: IBM Plex Mono
   weights: '400,500,600,700'
 pod:
-  wip: true
   id: hooks
   name: Hooks
-  sub: git hooks · agent hooks · LSP
+  sub: git hooks · agent hooks
   deck: verification
   order: 2
   frozen: 2005
@@ -33,7 +32,8 @@ pod:
     alive: 40
     dead: -40
   frozenBecause: Everyone bypassed them with <code>--no-verify</code>.
-  wokenBecause: Agent hooks run the checks on every edit, and LSP diagnostics go straight back to the agent.
+  frozenSub: Backpressure moved to CI.
+  wokenBecause: Agent hooks run the checks on every edit and feed the errors straight back to the agent.
 layout: hs
 routeAlias: hooks-thaw
 ---
@@ -79,7 +79,7 @@ clicks: 3
 
 <!--
 Claude Code hooks: PreToolUse, PostToolUse, Stop. Same idea as git hooks, one level up.
-[click] PostToolUse on Edit/Write: lint, typecheck, LSP diagnostics. The language server used to only feed red squiggles to a human.
+[click] PostToolUse on Edit/Write: format, lint, typecheck.
 [click] Exit code 2 / JSON output goes straight back into the agent's context. It fixes it before you see it.
 [click] Stop hook: run the tests; block "done" until green.
 -->
