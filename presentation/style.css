@@ -637,8 +637,10 @@ div.absolute.bottom-0.left-0:has(> nav) { display: none !important; }
 .so-absorb svg .ghost { fill: none; stroke: var(--faint); stroke-width: 2; stroke-dasharray: 8 8; }
 .so-absorb svg .lvl { fill: rgba(159,216,240,.3); transform-box: fill-box; transform-origin: bottom; transition: transform 2.4s ease-in, fill 1s; }
 .so-absorb.s2 svg .lvl { transform: scaleY(0); fill: rgba(255,59,92,.35); }
-.so-absorb svg .git, .so-absorb svg .git-top { transition: opacity 2.4s ease-in; }
-.so-absorb.s2 svg .git, .so-absorb.s2 svg .git-top { opacity: 0; }
+.so-absorb svg .git, .so-absorb svg .git-top, .so-absorb svg .so-txt { transition: opacity 2.4s ease-in; }
+.so-absorb.s2 svg .git, .so-absorb.s2 svg .git-top, .so-absorb.s2 svg .so-txt { opacity: 0; }
+.so-absorb.s2 .so-beam { animation: so-beam-off 2.9s forwards; }
+@keyframes so-beam-off { 0%, 83% { opacity: 1; } 100% { opacity: 0; } }
 .so-absorb .so-ghost { transition: opacity 2.4s ease-in; }
 .so-absorb svg .beam { fill: rgba(255,59,92,.16); stroke: rgba(255,59,92,.5); stroke-width: 1.5; }
 .so-absorb svg .bit { fill: var(--cryo); animation: so-rise 1.6s linear infinite; transform-box: fill-box; }

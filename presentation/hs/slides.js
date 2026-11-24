@@ -689,12 +689,12 @@ import soCsv from '../data/stackoverflow-questions.csv?raw';
         const bits = Array.from({ length: 14 }, (_, i) => `<rect class="bit" x="${cx - 90 + (i * 37) % 180}" y="${top - 10}" width="12" height="12" rx="2" style="animation-delay:${(i * 0.17).toFixed(2)}s"/>`).join('');
         return `<svg viewBox="0 0 1000 560">
           <defs><clipPath id="so-db-clip"><path d="${body} a${rx} ${ry} 0 0 0 -${rx * 2} 0z"/></clipPath></defs>
-          <g data-s="2" data-o="3"><path class="beam" d="M${cx - 40} 150 L${cx + 40} 150 L${cx + rx} ${top} L${cx - rx} ${top}Z"/><g class="bits">${bits}</g></g>
+          <g class="so-beam" data-s="2" data-o="3"><path class="beam" d="M${cx - 40} 150 L${cx + 40} 150 L${cx + rx} ${top} L${cx - rx} ${top}Z"/><g class="bits">${bits}</g></g>
           <g data-o="3">
             <ellipse class="git" cx="${cx}" cy="${top}" rx="${rx}" ry="${ry}"/><path class="git" d="${body}"/>
             <g clip-path="url(#so-db-clip)"><rect class="lvl" x="${cx - rx - 5}" y="${top - ry}" width="${rx * 2 + 10}" height="${h + ry * 2 + 5}"/></g>
             <ellipse class="git-top" cx="${cx}" cy="${top}" rx="${rx}" ry="${ry}"/>
-            <text class="mono dim" x="${cx}" y="${top + 120}" text-anchor="middle"><tspan x="${cx}">~24M questions</tspan><tspan x="${cx}" dy="1.3em">15 years of answers</tspan></text>
+            <text class="mono dim so-txt" x="${cx}" y="${top + 120}" text-anchor="middle"><tspan x="${cx}">~24M questions</tspan><tspan x="${cx}" dy="1.3em">15 years of answers</tspan></text>
           </g>
           <g class="so-ghost" data-s="2"><path class="ghost" d="${body}"/><ellipse class="ghost" cx="${cx}" cy="${top}" rx="${rx}" ry="${ry}"/></g>
           <g data-s="1"><g class="so-ufo"><svg class="alien-host alien" x="${cx - 100}" y="0" width="200" height="200" viewBox="-100 -100 200 200">${A.alien().replace(/^<svg[^>]*>|<\/svg>$/g, '')}</svg></g>
