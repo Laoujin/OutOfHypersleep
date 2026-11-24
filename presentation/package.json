@@ -4,6 +4,7 @@
   "type": "module",
   "scripts": {
     "dev": "slidev --open",
+    "dev:all": "bun dev.mjs",
     "build": "bun build.mjs",
     "preview": "bun run build && bunx vite preview --outDir dist --base /OutOfHypersleep/ --port 4173 --open /OutOfHypersleep/",
     "export": "slidev export --with-clicks=false"
