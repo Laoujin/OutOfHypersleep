@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Code Review LGTM</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@600;700&family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;600&display=swap">
+<style>
+:root {
+  --bg: #0b0d10; --panel: #15191f; --line: #2e3540; --ink: #d9dee6; --muted: #8a93a1; --faint: #565e6b;
+  --awake: #45e6a0; --alien: #ff3b5c; --amber: #ffb547; --clawd: #d97757;
+  --head: "Chakra Petch", "Eurostile", "Arial Narrow", sans-serif;
+  --sans: "IBM Plex Sans", system-ui, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: #05070a; color: var(--ink); font-family: var(--sans); }
+main { max-width: 1280px; margin: 0 auto; padding: 32px 16px 80px; }
+h1.page { font: 700 32px var(--head); margin: 0 0 6px; }
+p.lead { color: var(--muted); margin: 0 0 24px; line-height: 1.5; }
+.wrap { position: relative; width: 100%; aspect-ratio: 16 / 9; overflow: hidden; border-radius: 10px; border: 1px solid #222; cursor: pointer; }
+.slide { position: absolute; left: 0; top: 0; width: 1600px; height: 900px; transform-origin: 0 0; overflow: hidden; background: radial-gradient(1200px 800px at 50% 40%, #1c2530 0%, transparent 65%), var(--bg); }
+.ctl { display: flex; gap: 8px; align-items: center; margin-top: 8px; font: 600 13px var(--mono); color: var(--muted); flex-wrap: wrap; }
+.ctl button { font: 600 13px var(--mono); background: var(--panel); color: var(--ink); border: 1px solid var(--line); border-radius: 6px; padding: 6px 12px; cursor: pointer; }
+.ctl .cap { margin-left: 12px; }
+
+.ttl { position: absolute; left: 80px; top: 50px; font: 700 22px var(--mono); color: var(--muted); letter-spacing: .14em; text-transform: uppercase; }
+.ttl b { color: var(--alien); }
+
+.queue { position: absolute; left: 80px; top: 110px; width: 380px; display: flex; flex-direction: column; gap: 8px; }
+.qi { display: flex; justify-content: space-between; align-items: center; background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 10px 14px; font: 500 17px var(--mono); transition: border-color .3s, opacity .3s; }
+.qi small { color: var(--muted); }
+.qi .p { color: var(--awake); } .qi .m { color: var(--alien); }
+.qi.cur { border-color: var(--amber); box-shadow: 0 0 0 1px var(--amber), 0 0 30px rgba(255,181,71,.25); }
+.qi.ok { opacity: .45; }
+.qi.ok::after { content: "✓"; color: var(--awake); margin-left: 8px; }
+.qmore { font: 500 17px var(--mono); color: var(--faint); padding: 4px 14px; }
+.qcount { margin-top: 10px; font: 700 64px/1 var(--head); color: #fff; }
+.qcount small { display: block; font: 600 15px var(--mono); color: var(--muted); letter-spacing: .1em; text-transform: uppercase; margin-top: 6px; }
+
+.pr { position: absolute; left: 520px; top: 110px; width: 700px; height: 700px; background: #0d1117; border: 1px solid #30363d; border-radius: 12px; overflow: hidden; opacity: 0; transform: translateX(40px); transition: opacity .5s, transform .6s; }
+.s1 .pr, .s2 .pr { opacity: 1; transform: none; }
+.pr .h { padding: 14px 18px; border-bottom: 1px solid #30363d; font: 600 18px var(--sans); color: #e6edf3; }
+.pr .h small { display: block; font: 500 14px var(--mono); color: #7d8590; margin-top: 4px; }
+.pr .h .p { color: #3fb950; } .pr .h .m { color: #f85149; }
+.view { position: absolute; left: 0; right: 18px; top: 74px; bottom: 0; overflow: hidden; }
+.code { font: 13px/19px var(--mono); white-space: pre; will-change: transform; }
+.code div { padding-left: 54px; position: relative; color: #c9d1d9; }
+.code div i { position: absolute; left: 0; width: 44px; text-align: right; color: #484f58; font-style: normal; }
+.code .a { background: rgba(46,160,67,.15); } .code .d { background: rgba(248,81,73,.15); }
+.code .f { background: #161b22; color: #e6edf3; font-weight: 600; padding: 6px 12px; border-top: 1px solid #30363d; border-bottom: 1px solid #30363d; }
+.sbar { position: absolute; right: 4px; top: 78px; bottom: 4px; width: 10px; background: #161b22; border-radius: 5px; }
+.thumb { position: absolute; left: 1px; right: 1px; height: 4px; border-radius: 3px; background: #8b949e; top: 0; }
+
+.meters { position: absolute; left: 1260px; top: 110px; width: 280px; display: flex; flex-direction: column; gap: 30px; opacity: 0; transition: opacity .5s .3s; }
+.s1 .meters, .s2 .meters { opacity: 1; }
+.mt label { font: 600 15px var(--mono); color: var(--muted); letter-spacing: .1em; text-transform: uppercase; }
+.mt b { display: block; font: 700 72px/1.05 var(--head); color: #fff; font-variant-numeric: tabular-nums; }
+.mt.bad b { color: var(--alien); }
+.mt.time b { color: var(--amber); }
+.pct { font: 600 17px var(--mono); color: var(--alien); }
+
+.stamp { position: absolute; left: 600px; top: 330px; width: 560px; padding: 22px 0; text-align: center; font: 700 96px/1 var(--head); letter-spacing: .06em; color: var(--awake); border: 10px solid var(--awake); border-radius: 18px; transform: rotate(-10deg) scale(3); opacity: 0; mix-blend-mode: screen; text-shadow: 0 0 30px rgba(69,230,160,.5); pointer-events: none; }
+.stamp small { display: block; font: 600 24px var(--mono); letter-spacing: .2em; margin-top: 10px; }
+.s2 .stamp { animation: slam .35s cubic-bezier(.3,1.6,.5,1) .2s forwards; }
+@keyframes slam { to { transform: rotate(-10deg) scale(1); opacity: .95; } }
+.s2 .pr { animation: shake .3s .45s; }
+@keyframes shake { 25% { transform: translate(-6px, 4px); } 50% { transform: translate(5px, -3px); } 75% { transform: translate(-3px, 2px); } }
+
+.q { position: absolute; left: 0; right: 0; bottom: 34px; text-align: center; font: 600 30px var(--sans); color: #fff; opacity: 0; transition: opacity .6s 1s; }
+.q em { font-style: normal; color: var(--amber); }
+.s2 .q { opacity: 1; }
+</style>
+</head>
+<body>
+<main>
+<h1 class="page">Code review · LGTM</h1>
+<p class="lead">Click 1: the diff auto-scrolls far too fast, with a sliver of a scrollbar, while the counters run. Click 2: the APPROVED stamp slams down after 11 seconds.</p>
+<div class="wrap"><div class="slide" id="s">
+  <div class="ttl">Review requested · <b>10 agents</b></div>
+
+  <div class="queue">
+    <div class="qi ok"><code>#409</code><small><span class="p">+812</span> <span class="m">−97</span></small></div>
+    <div class="qi ok"><code>#410</code><small><span class="p">+1,904</span> <span class="m">−340</span></small></div>
+    <div class="qi ok"><code>#411</code><small><span class="p">+455</span> <span class="m">−1,022</span></small></div>
+    <div class="qi cur" id="cur"><code>#412</code><small><span class="p">+3,412</span> <span class="m">−1,208</span></small></div>
+    <div class="qi"><code>#413</code><small><span class="p">+2,766</span> <span class="m">−51</span></small></div>
+    <div class="qi"><code>#414</code><small><span class="p">+1,330</span> <span class="m">−604</span></small></div>
+    <div class="qmore">… 34 more</div>
+    <div class="qcount">40<small>PRs today</small></div>
+  </div>
+
+  <div class="pr">
+    <div class="h">feat: rewrite billing reconciliation<small>#412 · claude[bot] · 47 files · <span class="p">+3,412</span> <span class="m">−1,208</span></small></div>
+    <div class="view"><div class="code" id="code"></div></div>
+    <div class="sbar"><div class="thumb" id="thumb"></div></div>
+  </div>
+
+  <div class="meters">
+    <div class="mt"><label>lines changed today</label><b id="mChanged">0</b></div>
+    <div class="mt bad"><label>lines actually read</label><b id="mRead">0</b><span class="pct" id="mPct"></span></div>
+    <div class="mt time"><label>time on #412</label><b id="mTime">0:00</b></div>
+  </div>
+
+  <div class="stamp">APPROVED<small>LOOKS GOOD TO ME</small></div>
+  <div class="q">Be honest. <em>Who read all of it?</em></div>
+</div></div>
+<div class="ctl"><button data-act="prev">Prev</button><button data-act="next">Next</button><button data-act="reset">Reset</button><span class="cap"></span></div>
+</main>
+<script>
+const CAPS = ['Ten agents. Forty PRs a day.', 'Hundreds of lines nobody typed. Scroll, scroll, scroll.', 'Approved in eleven seconds.'];
+const MAX = CAPS.length - 1;
+const FILES = ['src/billing/reconcile.ts', 'src/billing/ledger.ts', 'src/billing/invoice.repo.ts', 'src/billing/currency.ts', 'src/billing/__tests__/reconcile.spec.ts', 'src/db/migrations/0147_reconcile.sql', 'src/billing/events.ts', 'src/billing/retry.ts'];
+const SNIP = [
+  ['a', 'export async function reconcile(batch: Invoice[], opts: ReconcileOpts) {'],
+  ['a', '  const ledger = await loadLedger(opts.accountId, { since: opts.since })'],
+  ['d', '  const ledger = await db.ledger.find(opts.accountId)'],
+  ['a', '  for (const inv of batch) {'],
+  ['a', '    const match = ledger.entries.find(e => e.ref === inv.ref && e.amount.eq(inv.total))'],
+  ['a', '    if (!match) { await queueRetry(inv, RetryReason.NoMatch); continue }'],
+  ['', '    // TODO: handle partial payments'],
+  ['a', '    await markReconciled(inv.id, match.id, { tx })'],
+  ['d', '    await markReconciled(inv.id, match.id)'],
+  ['a', '  }'],
+  ['a', '  return summarize(batch, ledger)'],
+  ['', '}'],
+  ['a', "const rate = await fx.rate(inv.currency, 'EUR', { at: inv.issuedAt })"],
+  ['a', 'const total = inv.lines.reduce((s, l) => s.plus(l.amount.times(rate)), Big(0))'],
+  ['d', 'let total = 0; for (const l of inv.lines) total += l.amount * rate'],
+  ['a', "  it('reconciles a matching invoice', async () => {"],
+  ['a', '    expect(await reconcile([inv], opts)).toMatchSnapshot()'],
+  ['a', "ALTER TABLE ledger_entries ADD COLUMN reconciled_at timestamptz;"],
+  ['a', 'CREATE INDEX CONCURRENTLY ix_ledger_ref ON ledger_entries (ref);'],
+  ['a', 'export const backoff = (n: number) => Math.min(30_000, 2 ** n * 250)'],
+];
+let html = '', ln = 1, total = 0;
+for (let r = 0; r < 34; r++) {
+  html += `<div class="f">${FILES[r % FILES.length]}</div>`;
+  for (let k = 0; k < 90; k++) { const [c, t] = SNIP[(r * 7 + k) % SNIP.length]; html += `<div class="${c}"><i>${ln++}</i>${c === 'a' ? '+' : c === 'd' ? '-' : ' '} ${t.replace(/</g, '&lt;')}</div>`; total++; }
+}
+const code = document.getElementById('code'); code.innerHTML = html;
+const thumb = document.getElementById('thumb');
+const mChanged = document.getElementById('mChanged'), mRead = document.getElementById('mRead'), mPct = document.getElementById('mPct'), mTime = document.getElementById('mTime');
+const slide = document.getElementById('s'), wrap = slide.parentElement, cap = document.querySelector('.cap');
+let st = 0, raf, t0;
+const fmt = n => Math.round(n).toLocaleString('en');
+const reset = () => { code.style.transform = ''; thumb.style.top = '0px'; mChanged.textContent = '0'; mRead.textContent = '0'; mPct.textContent = ''; mTime.textContent = '0:00'; };
+const run = finalT => {
+  cancelAnimationFrame(raf);
+  const H = code.scrollHeight - 600, D = 11000;
+  t0 = performance.now() - (finalT ?? 0);
+  const tick = t => {
+    const el = Math.min(D, t - t0), k = el / D;
+    code.style.transform = `translateY(${-H * k}px)`;
+    thumb.style.top = `${k * (thumb.parentElement.clientHeight - 4)}px`;
+    mChanged.textContent = fmt(4012 * Math.min(1, k * 1.4));
+    mRead.textContent = fmt(37 * Math.min(1, k * 1.2));
+    mPct.textContent = k > .05 ? `${(37 * Math.min(1, k * 1.2) / Math.max(1, 4012 * Math.min(1, k * 1.4)) * 100).toFixed(1)}%` : '';
+    mTime.textContent = `0:${String(Math.floor(el / 1000)).padStart(2, '0')}`;
+    if (el < D && st === 1) raf = requestAnimationFrame(tick);
+  };
+  raf = requestAnimationFrame(tick);
+};
+const go = n => {
+  st = Math.max(0, Math.min(MAX, n));
+  slide.classList.remove('s1', 's2');
+  if (st) { void slide.offsetWidth; slide.classList.add('s' + st); }
+  cancelAnimationFrame(raf);
+  if (st === 0) reset();
+  if (st === 1) run(0);
+  if (st === 2) { run(11000); document.getElementById('cur').classList.add('ok'); } else document.getElementById('cur').classList.remove('ok');
+  cap.textContent = `step ${st}/${MAX} · ${CAPS[st]}`;
+};
+window.go = go;
+wrap.addEventListener('click', () => go(st + 1));
+document.querySelector('.ctl').addEventListener('click', e => { const a = e.target.dataset.act; if (a === 'next') go(st + 1); if (a === 'prev') go(st - 1); if (a === 'reset') go(0); });
+go(0);
+const fit = () => { slide.style.transform = 'scale(' + (wrap.clientWidth / 1600) + ')'; };
+addEventListener('resize', fit); fit();
+</script>
+</body>
+</html>
