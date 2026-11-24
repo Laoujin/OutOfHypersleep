@@ -452,19 +452,6 @@ pre.code { margin: 0; font: 21px/1.6 var(--mono); color: var(--ink); white-space
 @keyframes cryo-breathe { 50% { opacity: .35; } }
 @keyframes cryo-blink { 50% { opacity: .2; } }
 
-/* flipping score */
-.flip { position: relative; display: inline-block; min-width: 72px; height: 30px; font: 800 26px/30px var(--mono); }
-.flip .fv { position: absolute; left: 0; top: 0; animation: flipA 3s steps(1) infinite; }
-.flip .fv.alt { animation-name: flipB; }
-.flip .fv.pos { color: var(--phos); }
-.flip .fv.neg { color: var(--cred); }
-@keyframes flipA { 0% { opacity: 1; } 50% { opacity: 0; } }
-@keyframes flipB { 0% { opacity: 0; } 50% { opacity: 1; } }
-.flip.settled .fv { animation: none; }
-.flip.show-pos .fv.alt { opacity: 0; }
-.flip.show-neg .fv:not(.alt) { opacity: 0; }
-.flip.show-neg .fv.alt { opacity: 1; }
-
 /* map cards v3 */
 .map .pod { width: 300px; height: 150px; display: block; padding: 10px 12px; background: linear-gradient(180deg, #0d141a, #080c10); }
 .map .pod .pod-art { width: 196px; }

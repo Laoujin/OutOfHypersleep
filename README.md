@@ -34,7 +34,7 @@ The talk is split into **separate Slidev decks**:
 | Intermezzo: the alien strikes back | `intermezzo.md` | `/OutOfHypersleep/intermezzo/` |
 | Finale: Schrödinger's developer, scoreboard, closing | `finale.md` | `/OutOfHypersleep/finale/` |
 
-1. **Ship map** (last slide of the intro). Pods are anonymous: freeze year, power and a score that flips between + (green) and − (red), because nobody knows whether the crew member survives. Votes come live from the voting app at **https://pods.sangu.be** (`voting/`, polled every 2s). The leader glows.
+1. **Ship map** (last slide of the intro). Pods are anonymous: freeze year and power. Votes come live from the voting app at **https://pods.sangu.be** (`voting/`, polled every 2s). The leader glows.
 2. Click a pod, or → for the vote leader: the pod opens **fullscreen** on top of the map.
    → venting · → the lid opens: name and born year · → it lives or dies (died year, score applied).
 3. **Open the slides ↗** (or → once more) opens that pod's deck in a **new tab**, closes the fullscreen pod and the map updates: score counts up, the pod shows revived or dead. At the end of the pod deck, → closes the tab.

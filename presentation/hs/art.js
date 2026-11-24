@@ -15,7 +15,6 @@ HS.art = {
     <rect class="readout" x="300" y="146" width="104" height="24" rx="4"/><text class="readout-t" x="352" y="162" text-anchor="middle">${label}</text>
   </svg>`,
 
-  flip: (pos, neg, settled) => `<span class="flip ${settled ? 'settled ' + settled : ''}"><span class="fv ${pos < 0 ? 'neg' : 'pos'}">${pos > 0 ? '+' : pos < 0 ? '−' : ''}${Math.abs(pos)}</span><span class="fv neg alt">−${neg}</span></span>`,
 
   pod: (cls = '') => `<svg class="podsvg ${cls}" viewBox="0 0 120 200" aria-hidden="true">
     <rect class="shell" x="8" y="4" width="104" height="192" rx="52"/>
