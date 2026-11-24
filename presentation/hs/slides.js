@@ -811,7 +811,7 @@ all three of them. First ...</span>
       }];
     })(),
     ide: [{
-      slug: 'fullcircle', title: '', full: true, steps: 6, cls: 'ide-fc',
+      slug: 'fullcircle', title: 'Full circle', sub: 'A text screen and a blinking cursor', full: true, steps: 6, cls: 'ide-fc',
       body: () => `<div class="era e0"><div class="mon m83">
     <div class="mb"><span><b>F</b>ile</span><span><b>E</b>dit</span><span><b>R</b>un</span><span><b>C</b>ompile</span><span><b>O</b>ptions</span></div>
     <div class="bx"><span class="t">VOTE.PAS</span><span class="kw">program</span> Vote;<br><span class="kw">var</span> total: Integer;<br><span class="kw">begin</span><br>&nbsp;&nbsp;total := 0;<br>&nbsp;&nbsp;WriteLn('Votes: ', total);<br><span class="kw">end</span>.<span class="cur-b"></span></div>
@@ -873,8 +873,7 @@ all three of them. First ...</span>
     <div class="prompt"><span class="d">&gt;</span> y<span class="cur-b"></span></div>
   </div><div class="lbl"><span class="y">2025</span><span class="n">a terminal</span><span class="q">The agent edits.<br>You press Enter.</span></div></div>
 
-  <svg class="arc" viewBox="0 0 1600 900"><path d="M500 312 C 640 160, 960 160, 1100 312"/></svg>
-  <div class="fc">Full circle: <em>a text screen and a blinking cursor.</em></div>`,
+  <svg class="arc" viewBox="0 0 1600 900"><path d="M500 312 C 640 200, 960 200, 1100 312"/><path class="lo" d="M1100 728 C 960 840, 640 840, 500 728"/></svg>`,
       step: (el, st) => {
         el.querySelectorAll('.era').forEach((e, i) => e.classList.toggle('show', i === st));
         el.classList.toggle('done', st === 5);

@@ -904,10 +904,10 @@ svg .lbl.spec-w { font-size: 20px; }
 .ide-fc.done .lbl .q { opacity: 0; }
 .ide-fc .arc { position: absolute; left: 0; top: 0; width: 1600px; height: 900px; pointer-events: none; }
 .ide-fc .arc path { fill: none; stroke: var(--awake); stroke-width: 5; stroke-linecap: round; stroke-dasharray: 1300; stroke-dashoffset: 1300; transition: stroke-dashoffset 1.6s ease .6s; }
+.ide-fc .arc path.lo { transition-delay: 2.2s; }
 .ide-fc.done .arc path { stroke-dashoffset: 0; }
-.ide-fc .fc { position: absolute; left: 0; right: 0; top: 775px; text-align: center; font: 700 52px var(--head); text-transform: uppercase; color: #fff; opacity: 0; transition: opacity .6s 1.6s; }
-.ide-fc .fc em { font-style: normal; color: var(--awake); }
-.ide-fc.done .fc { opacity: 1; }
+.ide-fc header h2, .ide-fc header .sub { opacity: 0; transition: opacity .6s 2.2s; }
+.ide-fc.done header h2, .ide-fc.done header .sub { opacity: 1; }
 .ide-fc .cur-b { display: inline-block; width: .55em; height: 1em; background: currentColor; vertical-align: -.15em; animation: fc-blink 1s steps(1) infinite; }
 @keyframes fc-blink { 50% { opacity: 0; } }
 
