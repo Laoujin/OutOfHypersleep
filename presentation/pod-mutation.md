@@ -64,10 +64,10 @@ Background: Lipton 1971; DeMillo, Lipton & Sayward 1978. PIT (Java) and Stryker 
 Agents write tests that confirm their own code. A surviving mutant proves the test asserts nothing.
 Spin-off lightning talk: "Who Goes There?" (itenium-be/UnitTesting#4).
 
-Mutation testing: 1970s. Frozen because you run the whole suite once per mutant: too slow.
-[click] A surviving mutant proves the tests do not check that line.
-[click] Feed survivors back to the agent: it writes the missing test.
-[click] Compute is cheap now, and the agent does the boring part. Spin-off: "Who Goes There?".
+Six mutants planted in cart.ts: each one a small, deliberate bug.
+[click] The suite sweeps. Two die, four survive: those lines are not really tested. Mutation score 33%.
+[click] Hand the survivors to the agent: it writes the missing tests.
+[click] Sweep again. All contained, 100%. Compute is cheap now: run it on every PR.
 -->
 
 ---

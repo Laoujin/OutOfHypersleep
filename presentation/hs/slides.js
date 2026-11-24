@@ -461,20 +461,77 @@ import soCsv from '../data/stackoverflow-questions.csv?raw';
         <div class="stamp" data-s="2">ALIEN MARK<br><span>alien +10</span></div>`,
       steps: 3,
     }],
-    mutation: [{
-      slug: 'why', title: 'Who tests the tests?',
-      body: `<div class="two">
-        <div class="card"><div class="card-h">canVote.ts</div><pre class="code">function canVote(age) {
-  return age <span class="op"><span class="orig" data-o="1">&gt;=</span><span class="mut" data-s="1">&gt;</span></span> 18;
-}</pre><div class="mut-tag" data-s="1">mutant #7: <code>&gt;=</code> → <code>&gt;</code></div></div>
-        <div class="card"><div class="card-h">canVote.test.ts <small>(written by the agent)</small></div><pre class="code">expect(canVote(30)).toBe(true)   <span class="green">✓</span>
-expect(canVote(5)).toBe(false)   <span class="green">✓</span>
-<span data-s="2">expect(canVote(18)).toBe(true)   <span class="red">✗ on mutant</span></span></pre>
-          <div class="banner bad" data-s="1" data-o="2">MUTANT SURVIVED</div><div class="banner ok" data-s="2">MUTANT KILLED</div></div>
-        </div>
-        <div class="meter" data-s="3"><label>mutation score</label><div class="bar"><i></i></div><b><span class="from">61%</span> → <span class="to">94%</span></b></div>`,
-      caps: ['Agent-written code. Agent-written tests. All green.', 'Flip one operator. <b>The tests stay green.</b> They assert nothing about the boundary.', 'The agent adds the boundary test. Mutant killed.', 'Compute is cheap: run thousands of mutants on every PR.'],
-    }],
+    mutation: (() => {
+      const SRC = [
+        ['export function calcTotal(items, code) {'],
+        ['  let sum = 0'],
+        ['  for (const i of items) sum += i.price * i.qty', '+= → -=', true],
+        ['  if (sum >= 100) sum *= 0.9', '>= → >'],
+        ['  if (code === "CREW") sum -= 5', '=== → !=='],
+        ['  const vat = sum * 0.21', '0.21 → 0', true],
+        ['  return round(sum + vat, 2)', 'round → id'],
+        ['}'],
+        [''],
+        ['function round(n, d) {'],
+        ['  return Math.round(n * 10 ** d) / 10 ** d', '* → /'],
+        ['}'],
+      ];
+      const esc = t => t.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+      const LH = 40, SWEEP = 2600;
+      const SURV = SRC.map((l, i) => [l, i]).filter(([l]) => l[1] && !l[2]);
+      const spec = `<svg viewBox="-20 -20 40 40"><g class="lg">${[[-8, -4, -17, -11], [-9, 2, -18, 3], [-7, 7, -14, 15], [8, -4, 17, -11], [9, 2, 18, 3], [7, 7, 14, 15]].map(([a, b, c, d]) => `<line x1="${a}" y1="${b}" x2="${c}" y2="${d}"/>`).join('')}</g><ellipse class="bd" rx="10" ry="12"/><circle class="ey" cx="-3.5" cy="-4" r="2"/><circle class="ey" cx="3.5" cy="-4" r="2"/></svg>`;
+      const sleep = ms => new Promise(r => setTimeout(r, ms));
+      const render = async (el, st, live) => {
+        const tok = el._tok = (el._tok || 0) + 1, ok = () => el._tok === tok && el.isConnected;
+        const q = s => el.querySelector(s);
+        const specs = [...el.querySelectorAll('.mut-spec')], scan = q('.mut-scan'), surv = q('.mut-surv pre'), sn = q('.mut-sn');
+        const gauge = q('.mut-gauge'), ovR = q('.mut-ov.red'), ovG = q('.mut-ov.green');
+        const set = (s, cls) => { s.className = 'mut-spec ' + cls; s.closest('.mut-line').classList.toggle('hit', cls === 'alive'); };
+        const score = p => { gauge.style.setProperty('--w', p + '%'); gauge.querySelector('b').textContent = p == null ? '–' : p + '%'; gauge.classList.toggle('ok', p === 100); };
+        const list = () => { surv.innerHTML = SURV.map(([l, i]) => `<span class="red">cart.ts:${i + 1}</span>  ${esc(l[1])}`).join('\n'); sn.textContent = SURV.length + ' mutants'; };
+        const clear = () => { surv.innerHTML = '<span class="green">none</span>'; sn.textContent = ''; };
+        const flash = async ov => { ov.classList.add('show'); await sleep(2600); if (ok()) ov.classList.remove('show'); };
+        const sweep = async fn => {
+          scan.animate([{ transform: 'translateY(-60px)', opacity: 1 }, { transform: `translateY(${SRC.length * LH}px)`, opacity: 1 }], { duration: SWEEP, easing: 'linear' });
+          specs.forEach(s => { const i = +s.dataset.i; setTimeout(() => ok() && fn(s, SRC[i]), (i + 1) / SRC.length * SWEEP); });
+          await sleep(SWEEP + 100);
+        };
+        ovR.classList.remove('show'); ovG.classList.remove('show');
+        scan.getAnimations().forEach(a => a.cancel());
+        specs.forEach(s => set(s, ''));
+        surv.innerHTML = ''; sn.textContent = ''; score(null);
+        const after1 = () => { specs.forEach(s => set(s, SRC[s.dataset.i][2] ? 'dead' : 'alive')); list(); score(33); };
+        if (st === 0) return;
+        if (st === 1) {
+          if (!live) return after1();
+          await sweep((s, l) => set(s, l[2] ? 'dead' : 'alive')); if (!ok()) return;
+          list(); score(33); await sleep(500); if (ok()) flash(ovR);
+          return;
+        }
+        after1();
+        if (st === 2) { if (live) flash(ovG); return; }
+        if (!live) { specs.forEach(s => set(s, 'dead')); clear(); return score(100); }
+        await sweep((s, l) => { if (!l[2]) set(s, 'dead'); }); if (!ok()) return;
+        clear(); score(100);
+      };
+      return [{
+        slug: 'why', title: 'Who tests the tests?', full: true, steps: 4, cls: 'mut',
+        body: () => `<div class="mut-stage">
+          <div class="card mut-hull"><div class="card-h"><span>cart.ts</span><span>${SRC.filter(l => l[1]).length} mutants planted</span></div>
+            <pre>${SRC.map((l, i) => `<div class="mut-line"><span class="ln">${i + 1}</span>${esc(l[0]) || ' '}${l[1] ? `<div class="mut-spec" data-i="${i}"><span class="mt">${esc(l[1])}</span>${spec}</div>` : ''}</div>`).join('')}<div class="mut-scan"></div></pre></div>
+          <div class="mut-side">
+            <div class="card mut-gauge"><label>mutation score</label><div class="row"><div class="bar"><i></i></div><b>–</b></div></div>
+            <div class="card mut-surv"><div class="card-h"><span>survivors</span><span class="red mut-sn"></span></div><pre></pre></div>
+          </div>
+          <div class="mut-ov red"><div class="mut-stamp">${A.alien()}<div>${SURV.length} mutants<br>survived</div></div></div>
+          <div class="mut-ov green"><div class="mut-stamp">${A.crew()}<div>Implementing additional tests<small>to contain the mutants</small></div></div></div>
+        </div>`,
+        step: (el, st, c) => {
+          const prev = el._st; el._st = st;
+          render(el, st, c.active && prev !== undefined && st === prev + 1);
+        },
+      }];
+    })(),
     hooks: [{
       slug: 'why', title: 'The gate everyone walked around',
       body: `<svg viewBox="0 0 1000 560">
