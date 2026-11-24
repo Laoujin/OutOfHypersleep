@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>IDE Full Circle</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@600;700&family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;600&family=VT323&display=swap">
+<style>
+:root {
+  --bg: #0b0d10; --panel: #15191f; --line: #2e3540; --ink: #d9dee6; --muted: #8a93a1; --faint: #565e6b;
+  --awake: #45e6a0; --alien: #ff3b5c; --amber: #ffb547; --iso: #7fb8ff;
+  --head: "Chakra Petch", "Eurostile", "Arial Narrow", sans-serif;
+  --sans: "IBM Plex Sans", system-ui, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+  --crt: "VT323", "IBM Plex Mono", monospace;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: #05070a; color: var(--ink); font-family: var(--sans); }
+main { max-width: 1280px; margin: 0 auto; padding: 32px 16px 80px; }
+h1.page { font: 700 32px var(--head); margin: 0 0 6px; }
+p.lead { color: var(--muted); margin: 0 0 24px; line-height: 1.5; }
+.wrap { position: relative; width: 100%; aspect-ratio: 16 / 9; overflow: hidden; border-radius: 10px; border: 1px solid #222; cursor: pointer; }
+.slide { position: absolute; left: 0; top: 0; width: 1600px; height: 900px; transform-origin: 0 0; overflow: hidden; background: radial-gradient(1200px 800px at 85% 40%, #1c2530 0%, transparent 65%), var(--bg); }
+.ctl { display: flex; gap: 8px; align-items: center; margin-top: 8px; font: 600 13px var(--mono); color: var(--muted); flex-wrap: wrap; }
+.ctl button { font: 600 13px var(--mono); background: var(--panel); color: var(--ink); border: 1px solid var(--line); border-radius: 6px; padding: 6px 12px; cursor: pointer; }
+.ctl .cap { margin-left: 12px; }
+.hd { position: absolute; left: 72px; top: 56px; }
+.hd small { display: block; font: 600 18px var(--mono); letter-spacing: .2em; text-transform: uppercase; color: var(--alien); }
+.hd h3 { margin: 6px 0 0; font: 700 54px/1.05 var(--head); color: #fff; text-transform: uppercase; }
+
+.tl { position: absolute; left: 60px; right: 60px; top: 250px; display: grid; grid-template-columns: repeat(5, 1fr); gap: 28px; }
+.scr { display: grid; gap: 10px; justify-items: center; opacity: 0; transform: translateY(30px) scale(.92); transition: opacity .6s, transform .6s cubic-bezier(.3,1.4,.5,1), filter .6s; }
+.scr.in { opacity: 1; transform: none; }
+.scr.cur .mon { border-color: var(--amber); box-shadow: 0 0 40px rgba(255,181,71,.3); }
+.scr.past { filter: saturate(.5) brightness(.75); }
+.scr .mon { width: 100%; aspect-ratio: 4 / 3; border-radius: 10px; border: 6px solid #2a3039; overflow: hidden; position: relative; box-shadow: 0 10px 30px rgba(0,0,0,.5); transition: border-color .5s, box-shadow .5s; }
+.scr .y { font: 700 34px var(--head); color: #fff; }
+.scr .n { font: 500 16px var(--mono); color: var(--muted); text-align: center; }
+.scr .q { font: 400 15px/1.4 var(--sans); color: var(--muted); text-align: center; min-height: 42px; font-style: italic; }
+
+.chart { position: absolute; left: 60px; right: 60px; top: 640px; height: 120px; display: grid; grid-template-columns: repeat(5, 1fr); gap: 28px; align-items: end; }
+.chart .b { justify-self: center; width: 60%; height: 0; border-radius: 6px 6px 0 0; background: linear-gradient(var(--amber), #7a4d12); position: relative; transition: height .9s cubic-bezier(.3,1.2,.5,1); }
+.chart .b span { position: absolute; left: 0; right: 0; top: -28px; text-align: center; font: 600 16px var(--mono); color: var(--amber); opacity: 0; transition: opacity .4s .5s; }
+.chart .b.in span { opacity: 1; }
+.chart .b.g { background: linear-gradient(var(--awake), #0e5a3a); } .chart .b.g span { color: var(--awake); }
+.axis { position: absolute; left: 60px; right: 60px; top: 760px; border-top: 2px solid var(--line); }
+.axis small { position: absolute; right: 0; top: 8px; font: 600 13px var(--mono); letter-spacing: .16em; text-transform: uppercase; color: var(--faint); }
+
+.m83 { background: #0000aa; font: 17px/1.15 var(--crt); color: #ffff55; }
+.m83 .mb { background: #aaaaaa; color: #000; padding: 1px 6px; }
+.m83 .bx { margin: 8px; border: 2px double #ffff55; height: 70%; padding: 6px; color: #fff; }
+.m83 .st { position: absolute; bottom: 0; left: 0; right: 0; background: #00aaaa; color: #000; padding: 0 6px; font-size: 14px; }
+.mvs { background: #c0c0c0; }
+.mvs .tb { height: 16%; background: linear-gradient(#e0e0e0,#b0b0b0); border-bottom: 1px solid #808080; display: flex; flex-wrap: wrap; gap: 3px; padding: 3px; }
+.mvs .tb i { width: 11px; height: 11px; background: #8090a0; }
+.mvs .bd { position: absolute; inset: 16% 0 0 0; display: grid; grid-template-columns: 28% 1fr 22%; grid-template-rows: 1fr 26%; gap: 3px; padding: 3px; }
+.mvs .bd div { background: #fff; border: 1px inset #999; } .mvs .bd .o { grid-column: 1 / -1; }
+.mec { background: #e8e4dc; }
+.mec .bd { position: absolute; inset: 6px; display: grid; grid-template-columns: 22% 1fr 22%; grid-template-rows: 9% 1fr 1fr 28%; gap: 3px; }
+.mec .bd div { background: #fff; border: 1px solid #b8b0a0; } .mec .bd .t { grid-column: 1 / -1; background: #d8d0c0; }
+.mec .bd .b { grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 3px; background: none; border: 0; }
+.mvc { background: #1e1e1e; }
+.mvc .bd { position: absolute; inset: 0; display: grid; grid-template-columns: 9% 24% 1fr; grid-template-rows: 1fr 26% 7%; }
+.mvc .bd .ab { background: #333; grid-row: 1 / 3; display: grid; align-content: start; gap: 8px; padding: 8px 0; justify-items: center; }
+.mvc .bd .ab i { width: 12px; height: 12px; border-radius: 2px; background: #858585; }
+.mvc .bd .sb { background: #252526; grid-row: 1 / 3; }
+.mvc .bd .ed { background: #1e1e1e; padding: 10px; } .mvc .bd .ed i { display: block; height: 6px; margin: 6px 0; border-radius: 3px; background: #569cd6; opacity: .7; }
+.mvc .bd .ed i:nth-child(2n) { width: 70%; background: #ce9178; } .mvc .bd .ed i:nth-child(3n) { width: 50%; background: #6a9955; }
+.mvc .bd .tm { background: #181818; border-top: 1px solid #333; } .mvc .bd .st { grid-column: 1 / -1; background: #007acc; }
+.m25 { background: #050607; padding: 12px; font: 17px/1.4 var(--mono); color: var(--awake); }
+.m25 .d { color: var(--muted); }
+.cur-b { display: inline-block; width: 9px; height: 17px; background: currentColor; vertical-align: -3px; animation: blink 1s steps(1) infinite; }
+@keyframes blink { 50% { opacity: 0; } }
+
+.arc { position: absolute; left: 0; top: 0; width: 1600px; height: 900px; pointer-events: none; }
+.arc path { fill: none; stroke: var(--awake); stroke-width: 4; stroke-dasharray: 1500; stroke-dashoffset: 1500; transition: stroke-dashoffset 1.6s ease; }
+.done .arc path { stroke-dashoffset: 0; }
+.done .scr:not(.s0):not(.s4) { opacity: .25; }
+.done .s0 .mon, .done .s4 .mon { border-color: var(--awake); box-shadow: 0 0 40px rgba(69,230,160,.35); }
+.done .s0, .done .s4 { filter: none; }
+.done .chart, .done .axis { opacity: 0; }
+.chart, .axis { transition: opacity .6s; }
+.fc { position: absolute; left: 0; right: 0; top: 790px; text-align: center; font: 700 40px var(--head); text-transform: uppercase; color: #fff; opacity: 0; transition: opacity .6s 1s; }
+.fc em { font-style: normal; color: var(--awake); }
+.done .fc { opacity: 1; }
+</style>
+</head>
+<body>
+<main>
+<h1 class="page">The IDE · full circle</h1>
+<p class="lead">One click per era. The panel count grows each decade, then 2025 drops back to a single text window, like 1983. Last click draws the circle.</p>
+<div class="wrap"><div class="slide" id="s">
+  <div class="hd"><small>Cargo deck · The IDE</small><h3>Forty years of panels</h3></div>
+  <svg class="arc" viewBox="0 0 1600 900"><path d="M190 640 C 400 800, 1200 800, 1410 640"/></svg>
+  <div class="tl">
+    <div class="scr s0"><div class="mon m83"><div class="mb"> File  Edit  Run  Compile  Options</div><div class="bx">program Vote;<br>begin<br>&nbsp;&nbsp;WriteLn('hi');<br>end.<span class="cur-b"></span></div><div class="st">F1 Help  F2 Save  F9 Make</div></div><div class="y">1983</div><div class="n">Turbo Pascal</div><div class="q">Edit, compile, run.<br>One blue screen.</div></div>
+    <div class="scr s1"><div class="mon mvs"><div class="tb"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><div class="bd"><div></div><div></div><div></div><div class="o"></div></div></div><div class="y">1997</div><div class="n">Visual Studio</div><div class="q">Toolbars.<br>So many toolbars.</div></div>
+    <div class="scr s2"><div class="mon mec"><div class="bd"><div class="t"></div><div></div><div></div><div></div><div></div><div></div><div></div><div class="b"><div></div><div></div><div></div><div></div></div></div></div><div class="y">2004</div><div class="n">Eclipse</div><div class="q">Perspectives, views,<br>and a 4-minute startup.</div></div>
+    <div class="scr s3"><div class="mon mvc"><div class="bd"><div class="ab"><i></i><i></i><i></i><i></i><i></i></div><div class="sb"></div><div class="ed"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><div class="tm"></div><div class="st"></div></div></div><div class="y">2015</div><div class="n">VS Code</div><div class="q">Lighter. Plus<br>60,000 extensions.</div></div>
+    <div class="scr s4"><div class="mon m25"><span class="d">❯</span> claude<br><span class="d">✻ Edit vote.ts (+2 −1)</span><br><span class="d">✻ 118 tests passed</span><br>Commit? y<br><span class="cur-b"></span></div><div class="y">2025</div><div class="n">a terminal</div><div class="q">The agent edits.<br>You press Enter.</div></div>
+  </div>
+  <div class="chart"><div class="b" data-h="12"><span>1 window</span></div><div class="b" data-h="55"><span>22 buttons</span></div><div class="b" data-h="100"><span>11 views</span></div><div class="b" data-h="80"><span>60k extensions</span></div><div class="b g" data-h="12"><span>1 window</span></div></div>
+  <div class="axis"><small>stuff on screen</small></div>
+  <div class="fc">Full circle: <em>a text screen and a blinking cursor.</em></div>
+</div></div>
+<div class="ctl"><button data-act="prev">Prev</button><button data-act="next">Next</button><button data-act="reset">Reset</button><span class="cap"></span></div>
+</main>
+<script>
+const CAPS = ['1983: Turbo Pascal. Edit, compile, run, one blue screen.', '1997: Visual Studio. Toolbars.', '2004: Eclipse. Perspectives and views.', '2015: VS Code. Lighter, plus 60,000 extensions.', '2025: a terminal. The agent edits, you press Enter.', 'Full circle: a text screen and a blinking cursor.'];
+const MAX = CAPS.length - 1;
+const slide = document.getElementById('s'), wrap = slide.parentElement, cap = document.querySelector('.cap');
+const scrs = [...slide.querySelectorAll('.scr')], bars = [...slide.querySelectorAll('.chart .b')];
+let st = 0;
+const go = n => {
+  st = Math.max(0, Math.min(MAX, n));
+  scrs.forEach((s, i) => { s.classList.toggle('in', i <= st); s.classList.toggle('cur', i === st && st < 5); s.classList.toggle('past', i < st && st < 5); });
+  bars.forEach((b, i) => { const on = i <= st; b.classList.toggle('in', on); b.style.height = on ? b.dataset.h + 'px' : '0px'; });
+  slide.classList.toggle('done', st === 5);
+  cap.textContent = `step ${st}/${MAX} · ${CAPS[st]}`;
+};
+window.go = go;
+wrap.addEventListener('click', () => go(st + 1));
+document.querySelector('.ctl').addEventListener('click', e => { const a = e.target.dataset.act; if (a === 'next') go(st + 1); if (a === 'prev') go(st - 1); if (a === 'reset') go(0); });
+go(0);
+const fit = () => { slide.style.transform = 'scale(' + (wrap.clientWidth / 1600) + ')'; };
+addEventListener('resize', fit); fit();
+</script>
+</body>
+</html>
