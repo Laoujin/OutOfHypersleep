@@ -677,6 +677,11 @@ div.absolute.bottom-0.left-0:has(> nav) { display: none !important; }
 .so-absorb.s1 .so-huh.h1 { animation-delay: 1.8s; }
 .so-absorb.s1 .so-huh.h2 { animation-delay: 2.1s; }
 .so-absorb.s2 .so-huh { visibility: hidden; }
+.so-absorb .so-burp { font: italic 700 56px var(--head); fill: var(--alien); opacity: 0; transform-box: fill-box; transform-origin: left bottom; }
+.so-absorb.s4 .so-burp { animation: so-burp 1.4s ease-out both; }
+.so-absorb.s4 .so-ufo { animation: so-leave 1.1s cubic-bezier(.6,0,.9,.4) .8s both; }
+@keyframes so-burp { 0% { opacity: 0; transform: scale(.3) rotate(-10deg); } 20% { opacity: 1; transform: scale(1.15) rotate(4deg); } 35% { transform: none; } 75% { opacity: 1; } 100% { opacity: 0; transform: translateY(-20px); } }
+@keyframes so-leave { 0% { transform: none; } 20% { transform: translate(-30px, 15px) rotate(-6deg); } 100% { transform: translate(900px, -420px) rotate(25deg) scale(.4); } }
 @keyframes so-pop { from { opacity: 0; transform: scale(.2); } to { opacity: 1; transform: none; } }
 .so-absorb .alien-host circle { fill: none; stroke: var(--alien); }
 .so-absorb.s2 .alien-host, .so-absorb.s3 .alien-host { filter: drop-shadow(0 0 24px rgba(255,59,92,.7)); }

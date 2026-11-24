@@ -682,7 +682,7 @@ import soCsv from '../data/stackoverflow-questions.csv?raw';
       })(),
       caps: ['2008–2014: the place every developer went.', 'Then a long, slow plateau.', 'Nov 2022: questions move <b>inside the agent</b>.', 'Fewer questions than in <b>its very first month</b>.'],
     }, {
-      slug: 'irony', title: 'It absorbed all the knowledge of the crew', cls: 'deadslide so-absorb', steps: 4,
+      slug: 'irony', title: 'It absorbed all the knowledge of the crew', cls: 'deadslide so-absorb', steps: 5,
       body: (() => {
         const cx = 500, top = 280, rx = 250, ry = 50, h = 210;
         const body = `M${cx - rx} ${top} v${h} a${rx} ${ry} 0 0 0 ${rx * 2} 0 v-${h}`;
@@ -698,7 +698,8 @@ import soCsv from '../data/stackoverflow-questions.csv?raw';
           </g>
           <g data-s="3"><path class="ghost" d="${body}"/><ellipse class="ghost" cx="${cx}" cy="${top}" rx="${rx}" ry="${ry}"/></g>
           <g data-s="1"><g class="so-ufo"><svg class="alien-host alien" x="${cx - 100}" y="0" width="200" height="200" viewBox="-100 -100 200 200">${A.alien().replace(/^<svg[^>]*>|<\/svg>$/g, '')}</svg></g>
-            <text class="so-huh h1" x="${cx + 110}" y="60">!</text><text class="so-huh h2" x="${cx + 140}" y="50">?</text></g>
+            <text class="so-huh h1" x="${cx + 110}" y="60">!</text><text class="so-huh h2" x="${cx + 140}" y="50">?</text>
+            <text class="so-burp" x="${cx + 120}" y="130">burp</text></g>
         </svg>`;
       })(),
     }],
