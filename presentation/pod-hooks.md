@@ -35,7 +35,7 @@ pod:
   frozenSub: The checks were executed on the CI only.
   wokenBecause: Agent hooks run the checks on every edit and feed the errors straight back to the agent.
   logTitle: Shift left, all the way
-  takeaway: "Every nitpick you ever wanted to enforce. Nobody's around to <code>--no-verify</code> it."
+  takeaway: "Every nitpick you ever wanted to enforce.<br>Nobody's around to <code>--no-verify</code> it."
 layout: hs
 routeAlias: hooks-thaw
 ---
