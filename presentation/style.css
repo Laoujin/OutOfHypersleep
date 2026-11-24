@@ -1002,7 +1002,7 @@ svg .lbl.spec-w { font-size: 20px; }
 .cr-er .s76 .circ { outline: 3px solid #c3261b; border-radius: 40%; outline-offset: 2px; }
 .cr-er .s76 .note { position: absolute; font: 700 22px "Segoe Print", "Comic Sans MS", cursive; color: #c3261b; transform: rotate(-6deg); }
 .cr-er .s76 .room { padding: 28px 30px; display: flex; flex-direction: column; gap: 18px; background: #f2ecdc; }
-.cr-er .s76 h4 { margin: 0; font-size: 20px; letter-spacing: .1em; border-bottom: 2px solid #2a2620; padding-bottom: 6px; }
+.cr-er .s76 h4 { margin: 0; white-space: nowrap; font-size: 20px; letter-spacing: .1em; border-bottom: 2px solid #2a2620; padding-bottom: 6px; }
 .cr-er .s76 .roles { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; font-size: 17px; }
 .cr-er .s76 .roles div { border: 2px solid #2a2620; padding: 8px 10px; }
 .cr-er .s76 .roles b { display: block; font-size: 13px; letter-spacing: .1em; }
