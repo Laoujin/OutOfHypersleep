@@ -982,10 +982,10 @@ svg .lbl.spec-w { font-size: 20px; }
 .cr-er .era { position: absolute; left: 300px; top: 130px; width: 1000px; opacity: 0; transform: scale(.94); transition: opacity .6s, transform .9s cubic-bezier(.5,0,.2,1); pointer-events: none; }
 .cr-er .era.show { opacity: 1; transform: none; }
 .cr-er .scr { text-align: left; line-height: normal;  width: 1000px; height: 590px; border-radius: 14px; overflow: hidden; position: relative; box-shadow: 0 20px 60px rgba(0,0,0,.6); }
-.cr-er .lbl { display: flex; align-items: baseline; gap: 22px; margin-top: 22px; padding-left: 6px; }
+.cr-er .lbl { display: grid; grid-template-columns: 1fr auto 1fr; align-items: start; gap: 22px; margin-top: 22px; padding-left: 6px; }
 .cr-er .lbl .y { font: 700 64px/1 var(--head); color: #fff; }
-.cr-er .lbl .n { font: 600 24px var(--mono); color: var(--amber); }
-.cr-er .lbl .q { margin-left: auto; font: 400 22px var(--sans); color: var(--muted); font-style: italic; text-align: right; }
+.cr-er .lbl .n { grid-column: 2; align-self: center; font: 600 24px var(--mono); color: var(--amber); }
+.cr-er .lbl .q { grid-column: 3; justify-self: end; font: italic 400 22px/1.2 var(--sans); color: var(--muted); text-align: right; }
 
 .cr-er .rate { position: absolute; right: 40px; top: 140px; width: 260px; text-align: right; font: 600 15px var(--mono); color: var(--muted); text-transform: uppercase; letter-spacing: .08em; }
 .cr-er .rate b { display: block; font: 700 52px/1 var(--head); color: #fff; letter-spacing: 0; transition: color .4s; }
