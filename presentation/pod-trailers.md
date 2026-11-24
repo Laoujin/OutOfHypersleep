@@ -71,13 +71,6 @@ Git can add one for you: git commit --trailer (Git 2.32, 2021, to verify).
 
 ---
 layout: hs
-routeAlias: trailers-woke
----
-
-<Hs id="trailers-woke" />
-
----
-layout: hs
 routeAlias: trailers-log
 ---
 

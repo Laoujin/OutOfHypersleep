@@ -509,6 +509,7 @@ decode(encode("123"))   <span class="green">✓</span></pre></div>
     return `<svg viewBox="0 0 530 370" class="so-empire">${h}</svg>`;
   };
   const podFrame = {
+    trailers: { woke: [] },
     stackoverflow: {
       froze: [{
         slug: 'empire', title: 'The empire', cls: 'beat',
@@ -566,12 +567,13 @@ decode(encode("123"))   <span class="green">✓</span></pre></div>
   HS.FRAME_AFTER = ['woke', 'log'];
 
   for (const p of HS.pods) {
-    for (const k of HS.FRAME_BEFORE) {
+    const put = k => {
       if (podFrame[p.id]?.[k]) podFrame[p.id][k].forEach(d => add(custom(p.id, d)));
       else add(frame(p, k, FRAME[k]));
-    }
+    };
+    HS.FRAME_BEFORE.forEach(put);
     for (const d of podSlides[p.id] || []) add(custom(p.id, d));
-    for (const k of HS.FRAME_AFTER) if (!(p.dead && k === 'woke')) add(frame(p, k, FRAME[k]));
+    HS.FRAME_AFTER.filter(k => !(p.dead && k === 'woke')).forEach(put);
   }
 
   // ───────────────────────── INTERMEZZO ─────────────────────────
