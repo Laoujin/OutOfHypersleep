@@ -243,7 +243,7 @@ import soCsv from '../data/stackoverflow-questions.csv?raw';
   const custom = (podId, def) => ({
     id: `${podId}-${def.slug}`, seq: 'pod:' + podId, steps: def.caps.length,
     cls: `custom t-${HS.podById(podId).deck} ${def.cls || ''}`,
-    html: () => `${head(deckOf(HS.podById(podId)) + ' · ' + HS.podById(podId).name, def.title)}
+    html: () => `${head(deckOf(HS.podById(podId)) + ' · ' + HS.podById(podId).name, def.title, def.sub ? `<div class="sub">${def.sub}</div>` : '')}
       <div class="pane"><div class="stage">${def.body}</div><aside>${HS.caps(def.caps)}</aside></div>`,
     init: def.init,
     step: (el, st, c) => { HS.capStep(el, st); if (def.step) def.step(el, st, c); },
@@ -320,20 +320,21 @@ import soCsv from '../data/stackoverflow-questions.csv?raw';
       caps: ['main is green.', 'Five agents, five green branches.', 'Each green alone. Merged together: <b>main is red</b>.', 'A merge queue tests each PR <b>on top of the ones before it</b>. main never breaks.'],
     }],
     trailers: [{
-      slug: 'why', title: 'You\'ve been looking at one for two years',
-      body: `<div class="commit">
+      slug: 'why', title: 'We all hate them', sub: 'Since our agent made its first commit',
+      body: `<div class="term-block cmd"><div class="mono">$ git commit -m "feat: let the audience vote on pods" \\</div><div class="mono">    <span class="trailer-hl">--trailer "Co-Authored-By: Claude &lt;noreply@anthropic.com&gt;"</span></div></div>
+        <div class="commit" data-s="1">
           <div class="mono"><span class="y">commit 3f9c2e1</span></div>
           <div class="mono">Author: you &lt;you@example.com&gt;</div>
           <div class="mono">&nbsp;</div>
           <div class="mono">&nbsp;&nbsp;&nbsp;&nbsp;feat: let the audience vote on pods</div>
           <div class="mono">&nbsp;</div>
           <div class="mono trailer">&nbsp;&nbsp;&nbsp;&nbsp;Co-Authored-By: Claude &lt;noreply@anthropic.com&gt;</div>
-          <div class="trailer-tag" data-s="1">↑ a <b>commit trailer</b> · <code>git interpret-trailers</code>, 2014</div>
+          <div class="trailer-tag">↑ a <b>commit trailer</b> · <code>git interpret-trailers</code>, 2014</div>
         </div>
         <div class="term-block" data-s="2"><div class="mono">$ git log --format='%(trailers:key=Co-Authored-By,valueonly)' | sort | uniq -c</div>
           <div class="mono green">&nbsp;&nbsp;&nbsp;&nbsp;45 Claude &lt;noreply@anthropic.com&gt;</div><div class="mono dim">&nbsp;&nbsp;&nbsp;&nbsp;# this talk's repo: 48 commits. 3 are mine.</div></div>
         <div class="stamp" data-s="3">ALIEN MARK<br><span>alien +10</span></div>`,
-      caps: ['Recognise the last line?', 'It has a name: a <b>commit trailer</b>. Key: value, at the end of the message.', 'Trailers are queryable. Who wrote <b>this talk</b>?', 'The twist: every one is <b>the alien\'s mark</b>. Revived, but it scores <b>for the alien</b>.'],
+      caps: ['A <b>commit trailer</b>: <code>key: value</code> at the end of the message.', 'On every commit the agent makes.', 'Trailers are queryable. Who wrote <b>this talk</b>?', 'The twist: every one is <b>the alien\'s mark</b>. Revived, but it scores <b>for the alien</b>.'],
     }],
     bisect: [{
       slug: 'why', title: '64 commits, nobody watching',
@@ -554,7 +555,7 @@ decode(encode("123"))   <span class="green">✓</span></pre></div>
     </div>`,
     froze: p => p.dead
       ? statement(p, 'What it was', p.was)
-      : statement(p, 'Why it froze', p.frozenBecause, A.cryo('closed', `FROZEN ${p.frozen}`)),
+      : statement(p, 'Why it froze', p.frozenBecause),
     woke: p => p.dead
       ? statement(p, 'What killed it', p.diesBecause, A.cryo('dead', 'NO SIGNS'))
       : statement(p, 'What woke it', p.wokenBecause, A.cryo('awake', 'REVIVED')),
