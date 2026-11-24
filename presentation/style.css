@@ -76,7 +76,7 @@ svg [data-s] { transform: none; }
 @keyframes flicker { 0%, 100% { opacity: 1; } 8% { opacity: .2; } 12% { opacity: 1; } 47% { opacity: .9; } 50% { opacity: .1; } 53% { opacity: 1; } 80% { opacity: .4; } }
 
 /* alien eye */
-.alien { display: block; overflow: visible; }
+svg.alien { display: block; overflow: visible; }
 .alien .a-r1, .alien .a-r2 { transform-box: fill-box; }
 .alien circle { fill: none; stroke: var(--alien); }
 .alien .a-r1 { stroke-width: 2; opacity: .5; stroke-dasharray: 6 10; animation: spin 18s linear infinite; transform-origin: center; }
@@ -803,7 +803,7 @@ header .sub { font-size: 26px; color: var(--muted); margin-top: 6px; }
 .mq-landing.s1:not(.s2):not(.mq-pending) .mq-portg .mq-rail { stroke: var(--alien); filter: drop-shadow(0 0 8px var(--alien)); }
 
 /* crew agent (visor), the alien's counterpart */
-.crew { display: block; overflow: visible; }
+svg.crew { display: block; overflow: visible; }
 .crew .c-r1, .crew .c-r2 { transform-box: fill-box; transform-origin: center; }
 .crew circle { fill: none; stroke: var(--awake); }
 .crew .c-r1 { stroke-width: 2; opacity: .5; stroke-dasharray: 6 10; animation: spin 30s linear infinite; }
