@@ -348,7 +348,7 @@ import soCsv from '../data/stackoverflow-questions.csv?raw';
             <g data-o="2">${pts.map(([x, y, n]) => `${crawler(x - 42, y - 30, .8, 'ok')}<text class="mq-tag" x="${x - 55}" y="${y + 6}" text-anchor="end">${n}</text>`).join('')}</g>
             <g data-s="1" data-o="2">${pts.map(([x, y]) => `<path class="mq-path" d="M${x + 45} ${y} C ${x + 400} ${y}, 1000 480, 1175 480"/>`).join('')}
               ${[0, 1, 2, 3].map(i => `<g transform="rotate(${i % 2 ? 12 : -14} ${1090 - i * 24} ${450 + (i % 2 ? 40 : -10)})">${crawler(1048 - i * 24, 420 + (i % 2 ? 40 : -10), .8, 'bad')}</g>`).join('')}</g>
-            <g data-s="2"><path class="mq-beam" d="M60 420 H1175 V540 H60 Z"/>${AG.map((n, i) => `${crawler(1068 - i * 108, 450, .8, 'ok')}<text class="mq-tag ${i ? '' : 'in'}" x="${1110 - i * 108}" y="${i % 2 ? 405 : 380}" text-anchor="middle">${n}</text>`).join('')}</g>
+            <g data-s="2"><path class="mq-beam" d="M60 420 H1175 V540 H60 Z"/>${AG.map((n, i) => `${crawler(1068 - i * 108, 450, .8, 'ok')}<text class="mq-tag ${i ? '' : 'in'}" x="${1110 - i * 108}" y="${i % 2 ? 568 : 404}" text-anchor="middle">${n}</text>`).join('')}</g>
           </svg>`;
         },
       }, {
