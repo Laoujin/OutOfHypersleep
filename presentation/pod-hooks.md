@@ -34,6 +34,8 @@ pod:
   frozenBecause: Everyone bypassed them with <code>--no-verify</code>.<br>Ain't nobody got time for that
   frozenSub: The checks were executed on the CI only.
   wokenBecause: Agent hooks run the checks on every edit and feed the errors straight back to the agent.
+  logTitle: Shift left, all the way
+  takeaway: "Every nitpick you ever wanted to enforce. Nobody's around to <code>--no-verify</code> it."
 layout: hs
 routeAlias: hooks-thaw
 ---
