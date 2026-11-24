@@ -66,6 +66,13 @@ p.note { color: var(--muted); margin: 0 0 12px; }
 .c .hud { position: absolute; left: 72px; bottom: 76px; z-index: 2; display: flex; gap: 22px; align-items: center; font: 600 14px var(--mono); letter-spacing: .14em; color: var(--muted); }
 .c .hud div { display: flex; flex-direction: column; } .c .hud b { font-size: 40px; line-height: 1; } .c .hud .cr { color: var(--crew); } .c .hud .al { color: var(--alien); }
 .c .eye { position: absolute; right: 60px; bottom: 70px; width: 130px; filter: drop-shadow(0 0 24px rgba(255,59,92,.6)); }
+
+/* D: chosen direction */
+.d .eye { position: absolute; left: 50%; top: 470px; width: 420px; translate: -50% -50%; filter: drop-shadow(0 0 50px rgba(255,59,92,.75)); }
+.d .log { position: absolute; right: 48px; bottom: 76px; width: 300px; white-space: nowrap; z-index: 2; background: rgba(8, 2, 4, .74); border: 1px solid rgba(255,59,92,.45); border-radius: 8px; padding: 10px 14px; font: 600 15px/1.65 var(--mono); letter-spacing: .08em; color: var(--alien); text-shadow: 0 0 6px rgba(255,59,92,.6); }
+.d .log .row { display: flex; gap: 8px; } .d .log i { flex: 1; border-bottom: 1px dotted rgba(255,59,92,.45); margin-bottom: 7px; }
+.d .log .tot { display: flex; justify-content: space-between; margin-top: 6px; padding-top: 6px; border-top: 1px solid rgba(255,59,92,.35); font-size: 12px; }
+.d .log .tot b { color: var(--crew); } .d .log .tot em { font-style: normal; color: var(--alien); }
 </style>
 </head>
 <body>
@@ -73,6 +80,18 @@ p.note { color: var(--muted); margin: 0 0 12px; }
 <main>
   <h1 class="page">"But…" slide mockups</h1>
   <p class="lead">Final frame of the slide (all clicks). The title moves to the top-left corner, the alien's +20 log gets small and moves out of the middle, so the corridor stays open.</p>
+
+
+  <h2>D · Title top-left, big eye in the middle, small box bottom-right</h2>
+  <p class="note">"Env. cost" keeps the box narrow. Score lives in the box footer.</p>
+  <div class="wrap"><div class="slide d">
+    <div class="bar top">%BAR%</div>
+    <div class="title"><h3>But…</h3><p>An evil <b>alien AI</b> has infiltrated the ship.</p></div>
+    <div class="eye">%EYE%</div>
+    <div class="log"><div class="row">&gt; HALLUCINATIONS <i></i> +20</div><div class="row">&gt; BIAS <i></i> +20</div><div class="row">&gt; ENV. COST <i></i> +20</div>
+      <div class="tot"><span>CREW <b>0</b></span><span>ALIEN <em>60</em></span></div></div>
+    <div class="bar bottom">%BAR%</div>
+  </div></div>
 
   <h2>A · Corner terminal</h2>
   <p class="note">Compact intrusion log bottom-right, with the score in its footer (no separate score box). Small eye top-right.</p>
