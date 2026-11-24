@@ -54,16 +54,18 @@ routeAlias: hooks-froze
 ---
 layout: hs
 routeAlias: hooks-loop
-clicks: 3
+clicks: 4
 ---
 
 <Hs id="hooks-loop" />
 
 <!--
-Claude Code hooks: PreToolUse, PostToolUse, Stop. Same idea as git hooks, one level up.
-[click] PostToolUse on Edit/Write: format, lint, typecheck.
-[click] Exit code 2 / JSON output goes straight back into the agent's context. It fixes it before you see it.
-[click] Stop hook: run the tests; block "done" until green.
+The agent is a machine: it performs every check you tell it to. No detail is too small, not even the tiniest nitpicking rule.
+What we want is a fast feedback loop. CI is out there: minutes away.
+[click] LSP: every keystroke, milliseconds.
+[click] Agent hooks (PostToolUse): every edit, seconds. Format, lint, typecheck; errors go straight back into the agent's context.
+[click] Git hooks: every commit. Tests, commit message.
+[click] Nothing gets through. Not even the tiniest nitpick.
 -->
 
 ---

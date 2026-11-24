@@ -1079,3 +1079,47 @@ svg .lbl.spec-w { font-size: 20px; }
 .cr-who .wc { background: var(--panel); border: 1px solid var(--line); border-top: 4px solid var(--awake); border-radius: 16px; padding: 30px 34px; min-height: 230px; display: flex; flex-direction: column; gap: 14px; }
 .cr-who .wc h3 { font-size: 40px; line-height: 1.1; color: #fff; }
 .cr-who .wc p { margin: 0; font-size: 28px; line-height: 1.4; color: var(--ink); }
+
+/* hooks: defence rings */
+.hk-stage { position: absolute; inset: 0; background: radial-gradient(700px 600px at 520px 520px, rgba(69, 230, 160, .06) 0%, transparent 60%); }
+.hk-field { position: absolute; inset: 0; }
+.hk-field text { font-family: var(--mono); }
+.hk-guide { fill: none; stroke: var(--line); stroke-width: 2; stroke-dasharray: 4 10; }
+.hk-shield { opacity: 0; transition: opacity .3s; }
+.hk-shield .draw { fill: none; stroke: var(--awake); stroke-width: 4; stroke-dasharray: var(--c); stroke-dashoffset: var(--c); filter: drop-shadow(0 0 10px rgba(69, 230, 160, .8)); }
+.hk-shield .hum { fill: none; stroke: var(--awake); stroke-width: 10; opacity: .18; stroke-dasharray: 40 22; transform-origin: 520px 520px; animation: hk-spin 24s linear infinite; }
+.hk-shield .hum.rev { stroke-width: 2; opacity: .55; stroke-dasharray: 2 16; animation-duration: 40s; animation-direction: reverse; }
+.hk-shield .flare { fill: none; stroke: #fff; stroke-width: 10; opacity: 0; filter: blur(4px); }
+.s1 .hk-sh1, .s2 .hk-sh2, .s3 .hk-sh3 { opacity: 1; }
+.s1 .hk-sh1 .draw, .s2 .hk-sh2 .draw, .s3 .hk-sh3 .draw { transition: stroke-dashoffset 1.1s cubic-bezier(.6, 0, .2, 1); stroke-dashoffset: 0; }
+.s1:not(.s2) .hk-sh1 .flare, .s2:not(.s3) .hk-sh2 .flare, .s3:not(.s4) .hk-sh3 .flare { animation: hk-flare 1s ease-out 1s both; }
+@keyframes hk-flare { from { opacity: .9; stroke-width: 14; } to { opacity: 0; stroke-width: 40; } }
+@keyframes hk-spin { to { transform: rotate(360deg); } }
+.hk-ci { fill: none; stroke: var(--cryo); stroke-width: 2; stroke-dasharray: 2 12; opacity: .4; transform-origin: 520px 520px; animation: hk-spin 180s linear infinite; }
+.hk-ci-frost { fill: none; stroke: var(--cryo); stroke-width: 14; opacity: .05; }
+.hk-ci-t { fill: var(--cryo); opacity: .6; font: 700 18px var(--mono); letter-spacing: .14em; }
+.hk-rl { fill: var(--muted); font: 700 18px var(--mono); letter-spacing: .1em; paint-order: stroke; stroke: var(--bg); stroke-width: 6px; }
+.hk-rl tspan { fill: var(--awake); }
+.hk-core { fill: #0f1a15; stroke: var(--awake); stroke-width: 3; }
+.hk-glow { fill: var(--awake); transform-origin: 520px 520px; animation: hk-beat 1.6s ease-in-out infinite; }
+@keyframes hk-beat { 0%, 100% { transform: scale(1); opacity: .12; } 15% { transform: scale(1.18); opacity: .3; } 30% { transform: scale(1.04); opacity: .16; } }
+.hk-sweep { transform-origin: 520px 520px; animation: hk-spin 5s linear infinite; }
+.hk-field .hk-core-t { fill: #fff; font: 700 26px var(--head); letter-spacing: .1em; }
+.hk-mut { filter: drop-shadow(0 0 6px rgba(255, 59, 92, .8)); }
+.hk-mut .lg line { stroke: var(--alien); stroke-width: 2.4; stroke-linecap: round; }
+.hk-mut .bd { fill: #2a0610; stroke: var(--alien); stroke-width: 2.4; }
+.hk-mut .ey { fill: var(--alien); }
+.hk-hit { fill: none; stroke: #fff; stroke-width: 6; stroke-linecap: round; filter: drop-shadow(0 0 8px var(--awake)); }
+.hk-spark { stroke: var(--awake); stroke-width: 3; stroke-linecap: round; }
+.hk-nit { fill: #fff; font: 600 16px var(--mono); paint-order: stroke; stroke: var(--bg); stroke-width: 6px; }
+.hk-legend { position: absolute; left: 1030px; top: 200px; width: 500px; display: flex; flex-direction: column; gap: 16px; }
+.hk-lg { position: relative; padding: 16px 20px; border-left: 4px solid var(--awake); background: rgba(69, 230, 160, .06); border-radius: 0 10px 10px 0; }
+.hk-lg h4 { margin: 0; display: flex; justify-content: space-between; font: 700 24px var(--head); color: #fff; text-transform: uppercase; letter-spacing: .04em; }
+.hk-lg h4 span { font: 700 18px var(--mono); color: var(--awake); }
+.hk-lg p { margin: 6px 0 0; font: 17px/1.4 var(--mono); color: var(--muted); }
+.hk-lg .n { position: absolute; right: 20px; bottom: 14px; font: 700 18px var(--mono); color: var(--awake); }
+.hk-lg.ci { border-color: var(--cryo); background: rgba(159, 216, 240, .04); opacity: .5; }
+.hk-lg.ci h4, .hk-lg.ci h4 span { color: var(--cryo); }
+.hk-tally { position: absolute; left: 1030px; top: 760px; width: 500px; font: 700 20px var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+.hk-tally b { color: var(--awake); font-size: 30px; margin-right: 8px; }
+.hk-tally span { color: var(--alien); }

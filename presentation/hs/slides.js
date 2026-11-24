@@ -549,20 +549,90 @@ import soCsv from '../data/stackoverflow-questions.csv?raw';
         },
       }];
     })(),
-    hooks: [{
-      slug: 'loop', title: 'A gate on every edit',
-      body: `<svg viewBox="0 0 1000 560">
-        <rect class="box" x="40" y="200" width="200" height="110" rx="12"/><text class="lbl" x="140" y="248" text-anchor="middle">agent</text><text class="mono dim" x="140" y="282" text-anchor="middle">Edit vote.ts</text>
-        <path class="arrow" d="M240 255 H380"/>
-        <g data-s="1"><rect class="gate" x="380" y="170" width="250" height="170" rx="12"/><text class="lbl" x="505" y="212" text-anchor="middle">PostToolUse</text>
-          ${['prettier --write', 'eslint --fix', 'tsc --noEmit'].map((t, i) => `<text class="mono dim" x="505" y="${250 + i * 28}" text-anchor="middle">${t}</text>`).join('')}</g>
-        <g data-s="2"><path class="arrow bad" d="M505 340 C 505 450, 140 450, 140 314"/><rect class="term" x="300" y="440" width="560" height="80" rx="10"/>
-          <text class="mono red" x="320" y="474">vote.ts:12 'total' is possibly undefined</text><text class="mono dim" x="320" y="504">fed straight back into the agent's context</text></g>
-        <g data-s="3"><path class="arrow" d="M630 255 H720"/><rect class="gate" x="720" y="170" width="250" height="170" rx="12"/><text class="lbl" x="845" y="212" text-anchor="middle">Stop</text>
-          <text class="mono dim" x="845" y="250" text-anchor="middle">npm test</text><text class="mono red" x="845" y="290" text-anchor="middle">✗ not done yet</text></g>
-      </svg>`,
-      caps: ['Git hooks gate a commit. Agent hooks gate <b>every edit</b>.', 'After each edit: format, lint, types.', 'Errors go straight back to the agent. No human reading a CI log.', 'A Stop hook: the agent can\'t say "done" until the tests pass.'],
-    }],
+    hooks: (() => {
+      const CX = 520, CY = 520, R = [118, 190, 265];
+      const LAYERS = [['LSP', 'ms', '~50 ms', 'every keystroke · types, unknown symbols'], ['Agent hooks', 's', '~2 s', 'every edit · format, lint, typecheck'], ['Git hooks', 'commit', 'commit', 'every commit · tests, commit message']];
+      // the ring that catches each nitpick: 0 = LSP, 1 = agent hooks, 2 = git hooks
+      const NITS = [
+        ['unused import', 0], ['missing await', 0], ['unknown symbol', 0], ['implicit any', 0], ['unreachable code', 0], ['wrong arg type', 0],
+        ['import order', 1], ['prefer const', 1], ['trailing space', 1], ['no console.log', 1], ['max 1 blank line', 1], ['no any', 1], ['prettier', 1], ['kebab-case file', 1],
+        ['failing test', 2], ['commit msg > 72', 2], ['secret in diff', 2], ['TODO w/o ticket', 2],
+      ];
+      const SPIDER = `<g class="lg">${[[-8, -4, -17, -11], [-9, 2, -18, 3], [-7, 7, -14, 15], [8, -4, 17, -11], [9, 2, 18, 3], [7, 7, 14, 15]].map(([a, b, c, d]) => `<line x1="${a}" y1="${b}" x2="${c}" y2="${d}"/>`).join('')}</g><ellipse class="bd" rx="10" ry="12"/><circle class="ey" cx="-3.5" cy="-4" r="2"/><circle class="ey" cx="3.5" cy="-4" r="2"/>`;
+      const NS = 'http://www.w3.org/2000/svg';
+      const node = (tag, attrs, html) => { const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); if (html) e.innerHTML = html; return e; };
+      const at = (a, r) => [CX + Math.cos(a) * r, CY + Math.sin(a) * r];
+      const arc = (r, a, span) => { const p = d => at(d, r).map(v => v.toFixed(1)).join(' '); return `M${p(a - span)} A${r} ${r} 0 0 1 ${p(a + span)}`; };
+
+      const swarm = el => {
+        const g = el.querySelector('.hk-swarm'), counts = [0, 0, 0];
+        g.innerHTML = '';
+        el.querySelectorAll('.hk-lg .n').forEach(e => { e.textContent = ''; });
+        el.querySelector('.hk-tally b').textContent = 0;
+        let total = 0, angle = Math.random() * 6;
+        const hit = (a, layer, name) => {
+          const r = R[layer];
+          const h = g.appendChild(node('path', { class: 'hk-hit', d: arc(r, a, .14) }));
+          h.animate([{ opacity: 1, strokeWidth: 8 }, { opacity: 0, strokeWidth: 2 }], { duration: 700, easing: 'ease-out' }).onfinish = () => h.remove();
+          const [x, y] = at(a, r + 6);
+          for (let i = 0; i < 7; i++) {
+            const d = a + (Math.random() - .5) * 1.6, len = 22 + Math.random() * 30;
+            const s = g.appendChild(node('line', { class: 'hk-spark', x1: x, y1: y, x2: x + Math.cos(d) * 8, y2: y + Math.sin(d) * 8 }));
+            s.animate([{ transform: 'translate(0, 0)', opacity: 1 }, { transform: `translate(${Math.cos(d) * len}px, ${Math.sin(d) * len}px)`, opacity: 0 }], { duration: 500 + Math.random() * 300, easing: 'ease-out' }).onfinish = () => s.remove();
+          }
+          const [tx, ty] = at(a, r + 34);
+          const t = g.appendChild(node('text', { class: 'hk-nit', x: tx.toFixed(1), y: (ty + 5).toFixed(1), 'text-anchor': Math.cos(a) < -.3 ? 'end' : Math.cos(a) > .3 ? 'start' : 'middle' }));
+          t.textContent = name;
+          t.animate([{ opacity: 0 }, { opacity: 1, offset: .12 }, { opacity: 1, offset: .7 }, { opacity: 0 }], { duration: 1800 }).onfinish = () => t.remove();
+          counts[layer]++; total++;
+          const card = el.querySelector(`.hk-lg[data-l="${layer}"]`);
+          card.querySelector('.n').textContent = `${counts[layer]} caught`;
+          card.animate([{ background: 'rgba(69, 230, 160, .24)' }, { background: 'rgba(69, 230, 160, .06)' }], { duration: 300 });
+          el.querySelector('.hk-tally b').textContent = total;
+        };
+        const spawn = () => {
+          const [name, layer] = NITS[Math.random() * NITS.length | 0];
+          angle += 1.3 + Math.random() * 2.2;
+          const a = angle % (2 * Math.PI), r = R[layer], from = 480 + Math.random() * 60;
+          const m = g.appendChild(node('g', { class: 'hk-mut' }, `<g transform="rotate(${(a * 180 / Math.PI + 270).toFixed(1)}) scale(.95)">${SPIDER}</g>`));
+          const pos = d => { const [x, y] = at(a, d); return `translate(${x.toFixed(1)}px, ${y.toFixed(1)}px)`; };
+          m.animate([{ transform: pos(from), opacity: 0 }, { transform: pos(from - 40), opacity: 1, offset: .12 }, { transform: `${pos((from + r) / 2)} translateX(${Math.sin(a * 7) * 6}px)` }, { transform: pos(r + 14), opacity: 1 }], { duration: 1400 + Math.random() * 900, easing: 'cubic-bezier(.3, 0, .8, .7)' })
+            .onfinish = () => { m.remove(); if (el.isConnected) hit(a, layer, name); };
+        };
+        spawn();
+        const timer = setInterval(() => (el.isConnected && el._st === 4 ? spawn() : clearInterval(timer)), 260);
+      };
+
+      return [{
+        slug: 'loop', title: 'Tighten the loop', full: true, steps: 4, cls: 'hk',
+        body: () => `<div class="hk-stage">
+          <svg class="hk-field" viewBox="0 0 1600 900">
+            <defs><radialGradient id="hkSweep" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(${CX} ${CY}) scale(300)"><stop offset="0" stop-color="#45e6a0" stop-opacity=".35"/><stop offset="1" stop-color="#45e6a0" stop-opacity="0"/></radialGradient></defs>
+            <circle class="hk-ci-frost" cx="${CX}" cy="${CY}" r="350"/><circle class="hk-ci" cx="${CX}" cy="${CY}" r="350"/>
+            <text class="hk-ci-t" x="${CX}" y="158" text-anchor="middle">❄ CI · 10 MIN · FROZEN</text>
+            ${R.map((r, i) => `<circle class="hk-guide" cx="${CX}" cy="${CY}" r="${r}"/>
+              <g class="hk-shield hk-sh${i + 1}" style="--c:${(2 * Math.PI * r).toFixed(1)}">
+                <circle class="hum" cx="${CX}" cy="${CY}" r="${r}"/><circle class="hum rev" cx="${CX}" cy="${CY}" r="${r + 9}"/>
+                <circle class="draw" cx="${CX}" cy="${CY}" r="${r}" transform="rotate(-90 ${CX} ${CY})"/><circle class="flare" cx="${CX}" cy="${CY}" r="${r}"/>
+              </g>
+              <text class="hk-rl" data-s="${i + 1}" x="${CX}" y="${CY - r - 12}" text-anchor="middle">${LAYERS[i][0].toUpperCase()} · <tspan>${LAYERS[i][1]}</tspan></text>`).join('')}
+            <path class="hk-sweep" data-s="1" d="M${CX} ${CY} L${CX + 300} ${CY} A300 300 0 0 0 ${CX + 259.8} ${CY - 150} Z" fill="url(#hkSweep)"/>
+            <circle class="hk-glow" cx="${CX}" cy="${CY}" r="80"/><circle class="hk-core" cx="${CX}" cy="${CY}" r="62"/>
+            <text class="hk-core-t" x="${CX}" y="${CY + 9}" text-anchor="middle">AGENT</text>
+            <g class="hk-swarm"></g>
+          </svg>
+          <div class="hk-legend">
+            ${LAYERS.map(([n, , lat, what], i) => `<div class="hk-lg" data-s="${i + 1}" data-l="${i}"><h4>${n} <span>${lat}</span></h4><p>${what}</p><span class="n"></span></div>`).join('')}
+            <div class="hk-lg ci"><h4>❄ CI <span>~10 min</span></h4><p>after the push · too late, too far</p></div>
+          </div>
+          <div class="hk-tally" data-s="4"><b>0</b>nitpicks caught · <span>0</span> reached CI</div>
+        </div>`,
+        step: (el, st, c) => {
+          const prev = el._st; el._st = st;
+          if (st === 4 && prev !== 4 && c.active) swarm(el);
+        },
+      }];
+    })(),
     spec: (() => {
       const cascade = (rows, cls) => `<svg viewBox="0 0 1000 520">${rows.map(([t, d], i) => {
         const x = 30 + i * 190, y = 20 + i * 92;
