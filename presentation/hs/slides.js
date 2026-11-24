@@ -670,7 +670,7 @@ import soCsv from '../data/stackoverflow-questions.csv?raw';
     }],
     codereview: (() => {
       const LINES = 4012, SCROLL_MS = 9000;
-      const RATES = [[150, 'Fagan, 1976 (to verify)'], [300, 'mailing list (guess)'], [400, 'SmartBear/Cisco study (to verify)']];
+      const RATES = [[150, ''], [300, 'mailing list (guess)'], [400, 'SmartBear/Cisco study (to verify)']];
       const FILES = ['src/billing/reconcile.ts', 'src/billing/ledger.ts', 'src/billing/invoice.repo.ts', 'src/billing/currency.ts', 'src/billing/__tests__/reconcile.spec.ts', 'src/db/migrations/0147_reconcile.sql', 'src/billing/events.ts', 'src/billing/retry.ts'];
       const SNIP = [
         ['a', 'export async function reconcile(batch: Invoice[], opts: ReconcileOpts) {'],
@@ -791,7 +791,7 @@ all three of them. First ...</span>
 
   <div class="cr-stamp">LGTM</div>
   
-  <div class="rate"><span class="rl">lines read / hour</span><b>150</b><small>Fagan, 1976 (to verify)</small></div>`,
+  <div class="rate"><span class="rl">lines read / hour</span><b>150</b><small></small></div>`,
         step: (el, st) => {
           const q = s => el.querySelector(s);
           const code = q('.code'), view = q('.view'), thumb = q('.thumb'), rate = q('.rate'), rv = q('.rate b'), rs = q('.rate small'), rl = q('.rl');
