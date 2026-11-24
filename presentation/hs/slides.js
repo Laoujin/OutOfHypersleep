@@ -82,7 +82,7 @@ import soCsv from '../data/stackoverflow-questions.csv?raw';
       ${p.wip ? '<div class="wip-tag">WIP</div>' : ''}
       <div class="pod-art">${A.cryo(state, label)}</div>
       ${woken ? '' : `<div class="votes"><span class="vn">${votes}</span><small>votes</small></div>`}
-      <div class="pod-info"><span class="yr">❄ ${p.frozen}</span>${A.rel(p.power)}</div>
+      <div class="pod-info"><span class="yr">❄ ${p.frozen}</span><span class="pwr"><svg viewBox="0 0 12 18" aria-hidden="true"><path d="M7 0 0 10h5l-1 8 7-10H6z"/></svg>${A.rel(p.power)}</span></div>
     </div>`;
   };
 

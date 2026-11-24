@@ -457,6 +457,8 @@ pre.code { margin: 0; font: 21px/1.6 var(--mono); color: var(--ink); white-space
 .map .pod .pod-art { width: 196px; }
 .map .pod .pod-info { position: absolute; left: 14px; right: 12px; bottom: 10px; display: flex; align-items: center; gap: 12px; }
 .map .pod .pod-info .yr { font: 700 20px var(--mono); color: var(--cryo); }
+.map .pod .pod-info .pwr { margin-left: auto; display: flex; align-items: center; gap: 6px; }
+.map .pod .pod-info .pwr svg { width: 12px; height: 18px; fill: var(--phos); }
 .map .pod .pod-info .rel i { width: 9px; height: 16px; }
 .map .pod .pod-info .rel i.on { background: var(--phos); box-shadow: 0 0 6px rgba(125, 255, 176, .45); }
 .map .pod .votes { top: 6px; bottom: auto; right: 10px; }
