@@ -55,19 +55,20 @@ routeAlias: ide-froze
 
 ---
 layout: hs
-routeAlias: ide-features
-clicks: 2
+routeAlias: ide-fullcircle
+clicks: 5
 ---
 
-<Hs id="ide-features" />
+<Hs id="ide-fullcircle" />
 
 <!--
-Background: Turbo Pascal, 1983, as the first popular IDE (to verify). Death year placeholder.
-Costs the audience this vote, alien +30.
-
-Forty years of features, all built for a human at a keyboard.
-[click] The agent does all of that itself.
-[click] What's left: a terminal and a diff. One survivor: the language server now feeds the agent (see the Hooks pod).
+Forty years of IDEs, one click each. All dates to verify.
+1983 Turbo Pascal: edit, compile, run. One blue screen.
+[click] 1997 Visual Studio: toolbars. So many toolbars.
+[click] 2004 Eclipse: perspectives, views, and a 4-minute startup.
+[click] 2015 VS Code: lighter, plus 60,000 extensions.
+[click] 2025: a terminal. The agent edits, you press Enter.
+[click] Full circle: a text screen and a blinking cursor.
 -->
 
 ---

@@ -675,12 +675,74 @@ import soCsv from '../data/stackoverflow-questions.csv?raw';
       caps: ['Ten agents. <b>Forty PRs a day.</b>', 'Every one of them hundreds of lines nobody typed.', 'Approved in eleven seconds.<small>The real review moved into the gates: tests, types, hooks.</small>'],
     }],
     ide: [{
-      slug: 'features', title: 'Built for a human at a keyboard', cls: 'deadslide',
-      body: `<div class="two">
-        <div class="card"><div class="card-h">the IDE · 40 years of features</div><ul class="check">${['autocomplete', 'refactor › rename', 'go to definition', 'debugger', 'file tree', 'find usages'].map(t => `<li>${t}</li>`).join('')}</ul><div class="stamp" data-s="1">AGENT<br><span>does this now</span></div></div>
-        <div class="card" data-s="2"><div class="card-h">what's left</div><ul class="check ok"><li>a terminal</li><li>git diff</li><li>LSP <small>→ feeds the agent</small></li></ul></div>
-      </div>`,
-      caps: ['Forty years of features. All for a human typing code.', 'The agent does all of it itself.', 'What\'s left: a terminal and a diff.<small>One survivor: the language server got a new job.</small>'],
+      slug: 'fullcircle', title: '', full: true, steps: 6, cls: 'ide-fc',
+      body: () => `<div class="era e0"><div class="mon m83">
+    <div class="mb"><span><b>F</b>ile</span><span><b>E</b>dit</span><span><b>R</b>un</span><span><b>C</b>ompile</span><span><b>O</b>ptions</span></div>
+    <div class="bx"><span class="t">VOTE.PAS</span><span class="kw">program</span> Vote;<br><span class="kw">var</span> total: Integer;<br><span class="kw">begin</span><br>&nbsp;&nbsp;total := 0;<br>&nbsp;&nbsp;WriteLn('Votes: ', total);<br><span class="kw">end</span>.<span class="cur-b"></span></div>
+    <div class="st"><span>F1 Help</span><span>F2 Save</span><span>F3 Load</span><span>F9 Make</span><span>F10 Menu</span></div>
+  </div><div class="lbl"><span class="y">1983</span><span class="n">Turbo Pascal</span><span class="q">Edit, compile, run.<br>One blue screen.</span></div></div>
+
+  <div class="era e1"><div class="mon mvs">
+    <div class="tt">Microsoft Developer Studio - Vote - [vote.cpp]</div>
+    <div class="mn"><span>File</span><span>Edit</span><span>View</span><span>Insert</span><span>Project</span><span>Build</span><span>Tools</span><span>Window</span><span>Help</span></div>
+    <div class="tb"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    <div class="bd">
+      <div class="p"><h5>Workspace</h5>📁 Vote files<br>&nbsp;&nbsp;📁 Source Files<br>&nbsp;&nbsp;&nbsp;&nbsp;📄 vote.cpp<br>&nbsp;&nbsp;&nbsp;&nbsp;📄 tally.cpp<br>&nbsp;&nbsp;📁 Header Files<br>&nbsp;&nbsp;📁 Resource Files</div>
+      <div class="p code"><span class="k">#include</span> &lt;stdio.h&gt;<br><br><span class="k">int</span> tally(<span class="k">int</span>* v, <span class="k">int</span> n) {<br>&nbsp;&nbsp;<span class="k">int</span> total = 0;<br>&nbsp;&nbsp;<span class="k">for</span> (<span class="k">int</span> i = 0; i &lt; n; i++)<br>&nbsp;&nbsp;&nbsp;&nbsp;total += v[i];<br>&nbsp;&nbsp;<span class="k">return</span> total; <span class="c">// TODO</span><br>}</div>
+      <div class="p"><h5>Properties</h5>Name: tally<br>Type: int<br>Calling: __cdecl<br>Inline: No<br>Debug: Yes</div>
+      <div class="p o"><h5>Output</h5>--------------------Configuration: Vote - Win32 Debug--------------------<br>Compiling...<br>vote.cpp<br>Vote.exe - 0 error(s), 3 warning(s)</div>
+    </div>
+    <div class="sb">Ready</div>
+  </div><div class="lbl"><span class="y">1997</span><span class="n">Visual Studio</span><span class="q">Toolbars.<br>So many toolbars.</span></div></div>
+
+  <div class="era e2"><div class="mon mec">
+    <div class="mn"><span>File</span><span>Edit</span><span>Source</span><span>Refactor</span><span>Navigate</span><span>Search</span><span>Project</span><span>Run</span><span>Window</span><span>Help</span></div>
+    <div class="tb"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    <div class="persp"><span>Java</span><span>Debug</span><span>CVS</span><span>Team Sync</span></div>
+    <div class="bd">
+      <div class="v tree"><div class="tabs"><span class="a">Package Explorer</span><span>Hierarchy</span></div><div class="c">▾ vote<br>&nbsp;&nbsp;▾ src<br>&nbsp;&nbsp;&nbsp;&nbsp;▾ be.vote<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Vote.java<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tally.java<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TallyFactory.java<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TallyFactoryImpl.java<br>&nbsp;&nbsp;▸ JRE System Library<br>&nbsp;&nbsp;▸ lib</div></div>
+      <div class="v ed"><div class="tabs"><span class="a">Tally.java</span><span>Vote.java</span><span>TallyFactoryImpl.java</span></div><div class="c"><span class="k">public class</span> Tally {<br>&nbsp;&nbsp;<span class="k">private final</span> List&lt;Vote&gt; votes;<br><br>&nbsp;&nbsp;<span class="k">public int</span> total() {<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="k">int</span> t = 0;<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="k">for</span> (Vote v : votes) t += v.n();<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="k">return</span> t;<br>&nbsp;&nbsp;}<br>}</div></div>
+      <div class="v"><div class="tabs"><span class="a">Outline</span></div><div class="c">◆ Tally<br>&nbsp;&nbsp;▫ votes<br>&nbsp;&nbsp;● total()</div></div>
+      <div class="v"><div class="tabs"><span class="a">Ant</span><span>Tasks</span></div><div class="c">▸ build.xml<br>&nbsp;&nbsp;compile<br>&nbsp;&nbsp;jar</div></div>
+      <div class="v bot"><div class="tabs"><span class="a">Problems</span><span>Javadoc</span><span>Declaration</span><span>Console</span><span>Search</span><span>Progress</span></div><div class="c">⚠ 47 warnings<br>⚠ The import java.util.Date is never used<br>⚠ Serializable class Tally does not declare a serialVersionUID</div></div>
+    </div>
+    <div class="sb">Building workspace (63%)</div>
+  </div><div class="lbl"><span class="y">2004</span><span class="n">Eclipse</span><span class="q">Perspectives, views,<br>and a 4-minute startup.</span></div></div>
+
+  <div class="era e3"><div class="mon mvc">
+    <div class="bd">
+      <div class="ab"><i></i><i></i><i></i><i></i><i></i></div>
+      <div class="side"><h5>EXPLORER</h5>▾ VOTE<br>&nbsp;&nbsp;▾ src<br>&nbsp;&nbsp;&nbsp;&nbsp;vote.ts<br>&nbsp;&nbsp;&nbsp;&nbsp;tally.ts<br>&nbsp;&nbsp;▸ node_modules<br>&nbsp;&nbsp;package.json<br>&nbsp;&nbsp;tsconfig.json<br><br><h5>EXTENSIONS · 47 INSTALLED</h5>Prettier<br>ESLint<br>GitLens<br>Copilot</div>
+      <div class="tabs"><span class="a">tally.ts</span><span>vote.ts</span><span>package.json</span></div>
+      <div class="ed"><span class="k">export function</span> <span class="f">tally</span>(votes: <span class="t">Vote</span>[]) {
+  <span class="k">const</span> total = votes.<span class="f">reduce</span>((a, v) =&gt; a + v.n, 0)
+  <span class="k">return</span> votes.<span class="f">ma</span><span class="cur-b"></span>
+}
+<span class="c">// TODO: handle empty votes</span></div>
+      <div class="term"><div class="h"><b>TERMINAL</b><span>PROBLEMS 1</span><span>OUTPUT</span><span>DEBUG CONSOLE</span></div>$ npm run dev<br>ready on :5173</div>
+    </div>
+    <div class="pop"><div class="a">⬡ map</div><div>⬡ filter</div><div>⬡ flatMap</div><div>⬡ find</div></div>
+    <div class="st"><span>⎇ main</span><span>⊗ 0 ⚠ 1</span><span style="margin-left:auto">Ln 3, Col 22</span><span>TypeScript</span><span>Prettier ✓</span></div>
+  </div><div class="lbl"><span class="y">2015</span><span class="n">VS Code</span><span class="q">Lighter. Plus<br>60,000 extensions.</span></div></div>
+
+  <div class="era e4"><div class="mon m25">
+    <div class="box">
+      <svg viewBox="0 0 18 10" shape-rendering="crispEdges" aria-label="Claude Code mascot"><g fill="#d97757"><rect x="3" y="0" width="1" height="2"/><rect x="4" y="0" width="1" height="2"/><rect x="5" y="0" width="1" height="2"/><rect x="6" y="0" width="1" height="2"/><rect x="7" y="0" width="1" height="2"/><rect x="8" y="0" width="1" height="2"/><rect x="9" y="0" width="1" height="2"/><rect x="10" y="0" width="1" height="2"/><rect x="11" y="0" width="1" height="2"/><rect x="12" y="0" width="1" height="2"/><rect x="13" y="0" width="1" height="2"/><rect x="14" y="0" width="1" height="2"/><rect x="3" y="2" width="1" height="2"/><rect x="4" y="2" width="1" height="2"/><rect x="6" y="2" width="1" height="2"/><rect x="7" y="2" width="1" height="2"/><rect x="8" y="2" width="1" height="2"/><rect x="9" y="2" width="1" height="2"/><rect x="10" y="2" width="1" height="2"/><rect x="11" y="2" width="1" height="2"/><rect x="13" y="2" width="1" height="2"/><rect x="14" y="2" width="1" height="2"/><rect x="1" y="4" width="1" height="2"/><rect x="2" y="4" width="1" height="2"/><rect x="3" y="4" width="1" height="2"/><rect x="4" y="4" width="1" height="2"/><rect x="5" y="4" width="1" height="2"/><rect x="6" y="4" width="1" height="2"/><rect x="7" y="4" width="1" height="2"/><rect x="8" y="4" width="1" height="2"/><rect x="9" y="4" width="1" height="2"/><rect x="10" y="4" width="1" height="2"/><rect x="11" y="4" width="1" height="2"/><rect x="12" y="4" width="1" height="2"/><rect x="13" y="4" width="1" height="2"/><rect x="14" y="4" width="1" height="2"/><rect x="15" y="4" width="1" height="2"/><rect x="16" y="4" width="1" height="2"/><rect x="3" y="6" width="1" height="2"/><rect x="4" y="6" width="1" height="2"/><rect x="5" y="6" width="1" height="2"/><rect x="6" y="6" width="1" height="2"/><rect x="7" y="6" width="1" height="2"/><rect x="8" y="6" width="1" height="2"/><rect x="9" y="6" width="1" height="2"/><rect x="10" y="6" width="1" height="2"/><rect x="11" y="6" width="1" height="2"/><rect x="12" y="6" width="1" height="2"/><rect x="13" y="6" width="1" height="2"/><rect x="14" y="6" width="1" height="2"/><rect x="4" y="8" width="1" height="2"/><rect x="6" y="8" width="1" height="2"/><rect x="11" y="8" width="1" height="2"/><rect x="13" y="8" width="1" height="2"/></g></svg>
+      <div><b><span class="o">✻</span> Welcome to Claude Code</b><small>~/vote</small></div>
+    </div>
+    <div><span class="d">&gt;</span> handle empty votes in tally</div>
+    <div class="d"><span class="o">✻</span> Edit src/tally.ts <span class="g">(+2 −1)</span></div>
+    <div class="d"><span class="o">✻</span> Bash npm test <span class="g">· 118 passed</span></div>
+    <div><span class="g">●</span> Done. Commit?</div>
+    <div class="prompt"><span class="d">&gt;</span> y<span class="cur-b"></span></div>
+  </div><div class="lbl"><span class="y">2025</span><span class="n">a terminal</span><span class="q">The agent edits.<br>You press Enter.</span></div></div>
+
+  <svg class="arc" viewBox="0 0 1600 900"><path d="M500 312 C 640 160, 960 160, 1100 312"/></svg>
+  <div class="fc">Full circle: <em>a text screen and a blinking cursor.</em></div>`,
+      step: (el, st) => {
+        el.querySelectorAll('.era').forEach((e, i) => e.classList.toggle('show', i === st));
+        el.classList.toggle('done', st === 5);
+      },
     }],
   };
 
