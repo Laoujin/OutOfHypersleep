@@ -96,7 +96,7 @@ Let the chart do the talking.
 ---
 layout: hs
 routeAlias: stackoverflow-irony
-clicks: 4
+clicks: 3
 ---
 
 <Hs id="stackoverflow-irony" />
@@ -105,8 +105,7 @@ clicks: 4
 Fifteen years of crew knowledge in one database: ~24M questions (to verify).
 [click] The alien sweeps in and finds it. !?
 [click] Tractor beam: it absorbs everything. The answers went into the training sets.
-[click] And Stack Overflow sold it the meal: 2024 OverflowAPI deals with Google (Feb) and OpenAI (May). To verify.
-[click] Burp. And off it goes.
+[click] And Stack Overflow sold it the meal: 2024 OverflowAPI deals with Google (Feb) and OpenAI (May). To verify. Burp. And off it goes.
 -->
 
 ---
