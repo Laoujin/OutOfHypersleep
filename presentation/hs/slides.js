@@ -736,7 +736,6 @@ import soCsv from '../data/stackoverflow-questions.csv?raw';
       <div class="roles"><div><b>MODERATOR</b>R. Hale</div><div><b>READER</b>J. Smith</div><div><b>AUTHOR</b>you</div><div><b>INSPECTOR</b>K. Jones</div></div>
       <h4>CHECKLIST</h4>
       <ul><li class="x">All data items declared</li><li class="x">Loop terminates</li><li>Boundary values handled</li><li>Error paths covered</li><li>Comments match code</li></ul>
-      <h4>MAX 2 HOURS · 150 LINES/HR</h4>
     </div>
   </div><div class="lbl"><span class="y">1976</span><span class="n">Fagan inspection</span><span class="q">Four people. One printout.<br>A red pen.</span></div></div>
 
