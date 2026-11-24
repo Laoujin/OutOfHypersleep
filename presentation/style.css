@@ -291,9 +291,6 @@ svg .gate { fill: #0e1a2e; stroke: var(--cryo); stroke-width: 3; }
 .crumble { animation: none; }
 .s2 .crumble { animation: shake .4s 3; }
 
-.bisect .c { fill: var(--cryo); opacity: .85; transition: opacity .4s, fill .4s; }
-.bisect .c.out { opacity: .12; }
-.bisect .c.culprit { fill: var(--alien); opacity: 1; }
 
 .commit { background: #08090b; border: 1px solid var(--line); border-radius: 14px; padding: 28px 34px; position: relative; }
 .commit .mono, .term-block .mono { font: 24px/1.6 var(--mono); white-space: pre; }

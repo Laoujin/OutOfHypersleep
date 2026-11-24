@@ -113,7 +113,7 @@ Everything below is a default; change pods in the `pod:` header of `presentation
 
 | Open question | Choice |
 |---|---|
-| Crew size | 11 live pods, max 4 per deck: Isolation (git worktree, throwaway boxes, tmux), Integration (merge queue, commit trailers, `git bisect run`, git notes), Verification (mutation testing, property-based testing, formal methods, git hooks). ArchUnit left for the architecture spin-off, as the source suggests. |
+| Crew size | 5 live pods: Isolation (git worktree), Integration (merge queue, commit trailers), Verification (mutation testing, hooks: git hooks · agent hooks · LSP). Parked candidates are GitHub issues labelled `parked pod`. ArchUnit left for the architecture spin-off, as the source suggests. |
 | Dead pods | 3: Stack Overflow ⭐, small SaaS tools, story points. |
 | Dying pods | 3 flickering, not selectable: pair programming (human with human), sprints & ceremonies, docs for humans. They die on stage at the intermezzo: nobody can save them. |
 | Context column | Left out (goes to the Memento talk). |
@@ -131,7 +131,7 @@ Everything below is a default; change pods in the `pod:` header of `presentation
 
 ## Still to check before giving it
 
-- **Dates**: every freeze year is approximate (marked "to verify" in the speaker notes): worktrees (Git 2.5, 2015), merge queues (bors 2013), trailers (2014), bisect run (2007), notes (2010), mutation testing (1978), QuickCheck (1999), TLA+ (1999), hooks (2005), throwaway boxes (2008), tmux (2007).
+- **Dates**: every freeze year is approximate (marked "to verify" in the speaker notes): worktrees (Git 2.5, 2015), merge queues (bors 2013), trailers (2014), mutation testing (1978), hooks (2005).
 - **Stack Overflow chart**: the figures are **placeholders**. Replace with a Stack Exchange Data Explorer query (`stackoverflow` pod in `presentation/hs/slides.js`).
 - **Death years / sleep years** for the dead pods (TBD in the source).
 - Commit trailer count (1284) on the trailers slide is illustrative.
