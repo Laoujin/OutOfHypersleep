@@ -66,6 +66,17 @@ svg.hullsvg { position: absolute; left: 0; top: -40px; }
 .cmd { position: absolute; left: 50%; transform: translateX(-50%); bottom: 34px; z-index: 2; background: #06080b; border: 1px solid var(--line); border-radius: 10px; padding: 14px 24px; font: 500 24px var(--mono); color: var(--ink); white-space: nowrap; }
 .cmd span { color: var(--muted); }
 .keeltag { position: absolute; left: 0; right: 0; top: 750px; text-align: center; font: 500 19px var(--mono); color: var(--awake); z-index: 2; }
+
+.slide.plate { background: url('../presentation/public/plates/pod-worktrees.webp') center / cover no-repeat; }
+.slide.plate::before { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,.6), rgba(0,0,0,.05) 35%, rgba(0,0,0,.05) 65%, rgba(0,0,0,.45)); }
+.glow { fill: none; stroke: var(--awake); stroke-width: 10; stroke-linecap: round; filter: drop-shadow(0 0 10px var(--awake)) drop-shadow(0 0 24px var(--awake)); opacity: .85; }
+.hubring { fill: none; stroke: var(--awake); stroke-width: 3; stroke-dasharray: 10 8; filter: drop-shadow(0 0 10px var(--awake)); }
+.hubtag { position: absolute; z-index: 2; left: 700px; top: 258px; width: 200px; text-align: center; font: 700 40px var(--mono); color: #fff; text-shadow: 0 0 20px #000, 0 0 6px #000; }
+.wt { position: absolute; z-index: 2; display: flex; align-items: center; gap: 8px; padding: 6px 14px 6px 10px; border-radius: 999px; background: rgba(4, 14, 10, .86); border: 1.5px solid var(--awake); box-shadow: 0 0 16px rgba(69,230,160,.35); font: 600 20px var(--mono); color: #fff; white-space: nowrap; }
+.wt b { width: 22px; height: 22px; border-radius: 50%; border: 2px solid #fff; flex: none; }
+.wt small { font: 500 15px var(--mono); color: var(--awake); }
+.ptitle { position: absolute; left: 72px; top: 64px; z-index: 2; }
+.ptitle h3 { margin: 6px 0 0; font: 700 54px/1.05 var(--head); text-transform: uppercase; color: #fff; text-shadow: 0 0 30px #000; }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
 </style>
 </head>
@@ -120,6 +131,17 @@ svg.hullsvg { position: absolute; left: 0; top: -40px; }
   <div class="sec" data-z="3" style="left:830px;width:320px"><div class="t"><i></i><span>Reactor stable<small>dev server</small></span></div><div class="d">Own port.<br>Hardlinked <code>node_modules</code> (pnpm, bun).</div></div>
   <div class="sec" data-z="4" style="left:1200px;width:270px"><div class="t"><i></i><span>Life support<small>test run</small></span></div><div class="d">Own code only.<br>Own testcontainer.</div></div>
   <div class="cmd" data-s="5">$ git worktree add ../app-auth -b auth   <span># one per agent</span></div>
+</div></div>
+<div class="ctl"><button data-act="prev">←</button><button data-act="next">→</button><button data-act="reset">reset</button><span class="st"></span></div>
+
+<h2 class="opt">3 · One core, a line per agent</h2>
+<div class="wrap" data-steps="6"><div class="slide plate">
+  <div class="ptitle"><div class="kicker">Deck 1 · Isolation · git worktree</div><h3>One .git, a worktree per agent</h3></div>
+  <svg viewBox="0 0 1600 900" width="1600" height="900" style="position:absolute;inset:0;z-index:1">
+    <ellipse class="hubring" cx="782" cy="355" rx="215" ry="62"/><path class="glow" data-s="1" d="M600 420 C 420 470, 220 520, 0 580"/><path class="glow" data-s="2" d="M965 420 C 1150 470, 1350 520, 1600 560"/><path class="glow" data-s="3" d="M720 450 C 650 560, 560 700, 480 900"/><path class="glow" data-s="4" d="M840 450 C 900 560, 980 700, 1060 900"/><path class="glow" data-s="5" d="M600 385 C 430 385, 230 400, 0 440"/><path class="glow" data-s="6" d="M965 385 C 1130 385, 1340 395, 1600 420"/>
+  </svg>
+  <div class="hubtag">.git</div>
+  <div class="wt" data-s="1" style="left:70px;top:540px"><b style="background:#ff9d5c"></b>auth <small>../app-auth</small></div><div class="wt" data-s="2" style="right:30px;top:500px"><b style="background:#2dd4bf"></b>pdf-export <small>../app-pdf-export</small></div><div class="wt" data-s="3" style="left:330px;top:770px"><b style="background:#a78bfa"></b>user-prefs <small>../app-user-prefs</small></div><div class="wt" data-s="4" style="left:1000px;top:770px"><b style="background:#f472b6"></b>search-filters <small>../app-search-filters</small></div><div class="wt" data-s="5" style="left:70px;top:372px"><b style="background:#facc15"></b>dark-mode <small>../app-dark-mode</small></div><div class="wt" data-s="6" style="right:30px;top:330px"><b style="background:#60a5fa"></b>fix-i18n <small>../app-fix-i18n</small></div>
 </div></div>
 <div class="ctl"><button data-act="prev">←</button><button data-act="next">→</button><button data-act="reset">reset</button><span class="st"></span></div>
 </main>
