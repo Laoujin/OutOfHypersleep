@@ -26,7 +26,7 @@ pod:
   order: 2
   frozen: 1983
   born: 1983
-  died: 2025
+  died: 2026
   power: 5
   fate: dead
   score:
