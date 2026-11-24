@@ -32,8 +32,8 @@ pod:
     dead: -40
   frozenBecause: Too slow and too expensive<br>it ran the whole suite for each mutant
   wokenBecause: Compute is cheap and agents write the tests. Who tests the tests?
-  logTitle: Who tests the tests?
-  takeaway: Agents write the tests. Deterministic guardrails make sure they actually test something.
+  logTitle: Agents write the tests
+  takeaway: Deterministic guardrails make sure they actually test something.
 layout: hs
 routeAlias: mutation-thaw
 ---
