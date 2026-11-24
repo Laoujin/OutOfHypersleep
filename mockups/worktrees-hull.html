@@ -44,12 +44,12 @@ svg.hullsvg { position: absolute; left: 0; top: -40px; }
 .spark { stroke: var(--alien); stroke-width: 3; fill: none; }
 .mono { font: 500 20px var(--mono); }
 
-.sec { position: absolute; top: 290px; z-index: 2; }
-.sec .t { font: 700 20px/1.25 var(--mono); letter-spacing: .1em; text-transform: uppercase; display: flex; gap: 12px; }
-.sec .t i { width: 12px; height: 12px; border-radius: 50%; flex: none; margin-top: 6px; }
-.sec .t small { display: block; font-size: 15px; letter-spacing: .16em; opacity: .75; }
-.sec .d { font: 400 21px/1.4 var(--sans); color: var(--ink); margin: 10px 0 0 24px; }
-.sec .d code { font: 500 .88em var(--mono); color: var(--frost); background: rgba(159,216,240,.08); padding: 0 .25em; border-radius: 4px; }
+.sec { position: absolute; top: 262px; z-index: 2; }
+.sec .t { font: 700 30px/1.2 var(--mono); letter-spacing: .06em; text-transform: uppercase; display: flex; gap: 12px; }
+.sec .t i { width: 16px; height: 16px; border-radius: 50%; flex: none; margin-top: 11px; }
+.sec .t small { display: block; font-size: 20px; letter-spacing: .14em; opacity: .75; margin-top: 4px; }
+.sec .d { font: 400 31px/1.35 var(--sans); color: var(--ink); margin: 22px 0 0 28px; }
+.sec .d code { font: 500 .78em var(--mono); color: var(--frost); background: rgba(159,216,240,.08); padding: 0 .25em; border-radius: 4px; }
 .sec .was { font: 400 17px/1.35 var(--sans); color: var(--muted); margin: 8px 0 0 24px; text-decoration: line-through; text-decoration-color: rgba(255,59,92,.6); }
 .bad .sec .t { color: var(--alien); } .bad .sec .t i { background: var(--alien); box-shadow: 0 0 10px var(--alien); animation: blink 1s steps(2) infinite; }
 .good .sec .t { color: var(--alien); transition: color .45s; } .good .sec .t i { background: var(--alien); transition: background .45s, box-shadow .45s; }
@@ -99,13 +99,13 @@ svg.hullsvg { position: absolute; left: 0; top: -40px; }
     </g>
     <path class="hull" d="M70 500 C 70 340, 190 250, 340 250 H 1260 C 1410 250, 1530 340, 1530 500 C 1530 660, 1410 750, 1260 750 H 340 C 190 750, 70 660, 70 500 Z"/>
     <line class="open" x1="430" y1="256" x2="430" y2="744"/><line class="open" x1="800" y1="256" x2="800" y2="744"/><line class="open" x1="1170" y1="256" x2="1170" y2="744"/>
-    <circle class="ag ag1" cx="400" cy="640" r="24"/><circle class="ag ag2" cx="790" cy="660" r="24"/><circle class="ag ag3" cx="1180" cy="630" r="24"/>
-    <g data-s="1"><path class="spark" d="M450 630 l14 8 l-4 -18 l14 14 l2 -16 l8 18"/><path class="spark" d="M840 650 l12 8 l-2 -16 l12 12 l4 -14 l4 16"/></g>
+    <circle class="ag ag1" cx="400" cy="700" r="24"/><circle class="ag ag2" cx="800" cy="712" r="24"/><circle class="ag ag3" cx="1180" cy="698" r="24"/>
+    <g data-s="1"><path class="spark" d="M450 690 l14 8 l-4 -18 l14 14 l2 -16 l8 18"/><path class="spark" d="M850 702 l12 8 l-2 -16 l12 12 l4 -14 l4 16"/></g>
   </svg>
-  <div class="sec" data-s="1" style="left:150px;width:260px"><div class="t"><i></i><span>Hull breach<small>working tree</small></span></div><div class="d">Two agents, one file. Last write wins.</div></div>
-  <div class="sec" data-s="2" style="left:460px;width:320px"><div class="t"><i></i><span>Nav failure<small>git state</small></span></div><div class="d">Checkout moves. Commit steals. Stash vanishes.</div></div>
-  <div class="sec" data-s="3" style="left:830px;width:320px"><div class="t"><i></i><span>Reactor unstable<small>dev server</small></span></div><div class="d">It rebuilds &amp; reloads all the time.</div></div>
-  <div class="sec" data-s="4" style="left:1200px;width:270px"><div class="t"><i></i><span>Life support<small>test run</small></span></div><div class="d">Red, from the other agent's in-progress work.</div></div>
+  <div class="sec" data-s="1" style="left:118px;width:300px"><div class="t"><i></i><span>Hull breach<small>working tree</small></span></div><div class="d">Two agents, one file. Last write wins.</div></div>
+  <div class="sec" data-s="2" style="left:452px;width:335px"><div class="t"><i></i><span>Nav failure<small>git state</small></span></div><div class="d">Checkout moves. Commit steals. Stash vanishes.</div></div>
+  <div class="sec" data-s="3" style="left:822px;width:335px"><div class="t"><i></i><span>Reactor unstable<small>dev server</small></span></div><div class="d">It rebuilds &amp; reloads all the time.</div></div>
+  <div class="sec" data-s="4" style="left:1186px;width:300px"><div class="t"><i></i><span>Life support<small>test run</small></span></div><div class="d">Red, from the other agent's in-progress work.</div></div>
   <div class="bar bottom" data-s="5"><span>⚠ ALL AGENTS · ONE COMPARTMENT</span><span>⚠ ALL AGENTS · ONE COMPARTMENT</span><span>⚠ ALL AGENTS · ONE COMPARTMENT</span></div>
 </div></div>
 <div class="ctl"><button data-act="prev">←</button><button data-act="next">→</button><button data-act="reset">reset</button><span class="st"></span></div>
@@ -126,10 +126,10 @@ svg.hullsvg { position: absolute; left: 0; top: -40px; }
     <g data-s="2"><line class="keel" x1="300" y1="772" x2="1300" y2="772"/></g>
   </svg>
   <div class="keeltag" data-s="2">.git · one object store · the keel</div>
-  <div class="sec" data-z="1" style="left:150px;width:260px"><div class="t"><i></i><span>Hull sealed<small>working tree</small></span></div><div class="d">Separate directories.<br><code>.worktreeinclude</code> for <code>.env</code></div></div>
-  <div class="sec" data-z="2" style="left:460px;width:320px"><div class="t"><i></i><span>Nav restored<small>git state</small></span></div><div class="d">One shared <code>.git</code>.<br>Since v2.5, 2015.</div></div>
-  <div class="sec" data-z="3" style="left:830px;width:320px"><div class="t"><i></i><span>Reactor stable<small>dev server</small></span></div><div class="d">Own port.<br>Hardlinked <code>node_modules</code> (pnpm, bun).</div></div>
-  <div class="sec" data-z="4" style="left:1200px;width:270px"><div class="t"><i></i><span>Life support<small>test run</small></span></div><div class="d">Own code only.<br>Own testcontainer.</div></div>
+  <div class="sec" data-z="1" style="left:118px;width:300px"><div class="t"><i></i><span>Hull sealed<small>working tree</small></span></div><div class="d">Separate directories.<br><code>.worktreeinclude</code> for <code>.env</code></div></div>
+  <div class="sec" data-z="2" style="left:452px;width:335px"><div class="t"><i></i><span>Nav restored<small>git state</small></span></div><div class="d">One shared <code>.git</code>.<br>Since v2.5, 2015.</div></div>
+  <div class="sec" data-z="3" style="left:822px;width:335px"><div class="t"><i></i><span>Reactor stable<small>dev server</small></span></div><div class="d">Own port.<br>Hardlinked <code>node_modules</code> (pnpm, bun).</div></div>
+  <div class="sec" data-z="4" style="left:1186px;width:300px"><div class="t"><i></i><span>Life support<small>test run</small></span></div><div class="d">Own code only.<br>Own testcontainer.</div></div>
   <div class="cmd" data-s="5">$ git worktree add ../app-auth -b auth   <span># one per agent</span></div>
 </div></div>
 <div class="ctl"><button data-act="prev">←</button><button data-act="next">→</button><button data-act="reset">reset</button><span class="st"></span></div>
