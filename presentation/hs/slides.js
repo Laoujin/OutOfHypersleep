@@ -549,6 +549,31 @@ import soCsv from '../data/stackoverflow-questions.csv?raw';
         },
       }];
     })(),
+    markdown: (() => {
+      const CLAUDE_MD = `# React
+
+React is a JavaScript library for building user interfaces.
+
+## Monorepo Overview
+
+- **React**: All files outside \`/compiler/\`
+- **React Compiler**: \`/compiler/\` directory (has its own instructions)
+
+## Current Active Work
+
+- **Rust Compiler Port**: Plans in \`compiler/docs/rust-port/\`, implementation in \`compiler/crates/\`
+- Branch: \`rust-research\``;
+      const esc = t => t.replace(/&/g, '&amp;').replace(/</g, '&lt;');
+      return [{
+        slug: 'announce', title: 'Introducing Markdown', full: true, steps: 2, cls: 'md md-announce',
+        body: () => `<div class="md-quote"><p>Markdown allows <span class="md-who"><s>web writers</s><em>agents</em></span> to compose text using a simple, readable, plain text formatting syntax</p></div>`,
+        step: (el, st) => el.classList.toggle('md-s1', st >= 1),
+      }, {
+        slug: 'readme', title: 'A README for agents', full: true, steps: 2, cls: 'md md-readme',
+        body: () => `<div class="card md-file"><div class="card-h">CLAUDE.md</div><pre>${esc(CLAUDE_MD)}</pre></div>
+          <div class="md-count" data-s="1"><b>60k+</b><small>AGENTS.md on GitHub</small></div>`,
+      }];
+    })(),
     hooks: (() => {
       const CX = 520, CY = 520, R = [118, 190, 265];
       const LAYERS = [['LSP', 'ms', '~50 ms', 'every keystroke · types, unknown symbols'], ['Agent hooks', 's', '~2 s', 'every edit · format, lint, typecheck'], ['Git hooks', 'commit', 'commit', 'every commit · tests, commit message']];
@@ -949,6 +974,7 @@ Subject: Re: SCO: "thread creation is about a thousand times faster
     mutation: { woke: [] },
     spec: { woke: [] },
     hooks: { woke: [] },
+    markdown: { woke: [] },
     stackoverflow: {
       froze: [{
         slug: 'empire', title: 'The empire', cls: 'beat',

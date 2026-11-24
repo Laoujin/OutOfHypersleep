@@ -112,12 +112,12 @@ Everything below is a default; change pods in the `pod:` header of `presentation
 
 | Open question | Choice |
 |---|---|
-| Crew size | 6 live pods: Isolation (git worktree), Integration (merge queue, commit trailers), Verification (mutation testing, hooks: git hooks · agent hooks · LSP, Waterfall: spec-driven development). Parked candidates are GitHub issues labelled `parked pod`. ArchUnit left for the architecture spin-off, as the source suggests. |
+| Crew size | 7 live pods: Isolation (git worktree), Integration (merge queue, commit trailers), Verification (mutation testing, hooks: git hooks · agent hooks · LSP, Waterfall: spec-driven development, Markdown). Parked candidates are GitHub issues labelled `parked pod`. ArchUnit left for the architecture spin-off, as the source suggests. |
 | Dead pods | 4: Stack Overflow ⭐, small SaaS tools (cargo row), code review (integration row), the IDE (isolation row). |
-| Context column | Left out (goes to the Memento talk). |
+| Context column | Left out (goes to the Memento talk). Markdown sits in Verification, next to spec-driven development. |
 | Crew score | `relevance today × 10` (30–50 per pod). Commit trailers: **−10** (the alien's mark). TDD + unit testing are already awake (on duty, no points): the crew starts at 0. |
 | Alien score | Fixed event: the twist (lethal trifecta 20, hallucinations 15, slop at scale 10, bias 10, environmental cost 5: +60). +30–40 per dead pod opened. |
-| Rigged? | Crew-leaning. Five live pods + one dead pod: crew ≈ 170–210 vs alien ≈ 90–110. The alien only wins with several dead pods or few pods opened. The speaker notes have a closing line for both outcomes. |
+| Rigged? | Crew-leaning. Four live pods + two dead pods: crew ≈ 150–190 vs alien ≈ 120–140. The alien only wins with three or more dead pods or few live pods opened. The speaker notes have a closing line for both outcomes. |
 | Message map vs random order | Free vote. The map shows "N awake" per deck so the speaker can steer ("nobody wants to verify anything?"). |
 | Already awake | Shown in the medbay as open pods (on duty); not selectable, no points. |
 | Do voters know a pod is dead? | No hint on the pod itself: a dead pod shows a normal power and positive score, and its freeze year is the year it died (Stack Overflow ❄ 2023). They do sit in the cargo row. |

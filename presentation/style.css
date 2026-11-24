@@ -1123,3 +1123,17 @@ svg .lbl.spec-w { font-size: 20px; }
 .hk-tally { position: absolute; left: 1030px; top: 760px; width: 500px; font: 700 20px var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
 .hk-tally b { color: var(--awake); font-size: 30px; margin-right: 8px; }
 .hk-tally span { color: var(--alien); }
+
+.md-quote { position: absolute; left: 180px; right: 180px; top: 50%; translate: 0 -50%; }
+.md-quote p { font: 500 54px/1.35 var(--sans); }
+.md-who { position: relative; white-space: nowrap; }
+.md-who s { text-decoration: none; background: linear-gradient(var(--alien), var(--alien)) left 55% / 0 4px no-repeat; transition: background-size .5s ease, opacity .5s ease .4s; }
+.md-who em { position: absolute; left: 0; top: -.9em; font-style: normal; color: var(--awake); opacity: 0; transform: translateY(10px); transition: opacity .45s ease .6s, transform .45s ease .6s; }
+.md-s1 .md-who s { background-size: 100% 4px; opacity: .45; }
+.md-s1 .md-who em { opacity: 1; transform: none; }
+.md-file { position: absolute; left: 140px; top: 200px; width: 860px; padding: 0; }
+.md-file .card-h { padding: 14px 20px; margin: 0; border-bottom: 1px solid var(--line); }
+.md-file pre { margin: 0; padding: 20px 24px; font: 400 21px/1.5 var(--mono); white-space: pre-wrap; color: var(--ink); }
+.md-count { position: absolute; right: 140px; top: 50%; translate: 0 -50%; text-align: right; }
+.md-count b { display: block; font: 800 150px/1 var(--mono); color: var(--awake); }
+.md-count small { font: 600 26px var(--mono); color: var(--muted); }
