@@ -705,6 +705,7 @@ import soCsv from '../data/stackoverflow-questions.csv?raw';
         return h + '<div class="end">End of diff</div>';
       };
       const fmt = n => Math.round(n).toLocaleString('en');
+      const PR_ICON = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M1.5 3.25a2.25 2.25 0 1 1 3 2.122v5.256a2.251 2.251 0 1 1-1.5 0V5.372A2.25 2.25 0 0 1 1.5 3.25Zm5.677-.177L9.573.677A.25.25 0 0 1 10 .854V2.5h1A2.5 2.5 0 0 1 13.5 5v5.628a2.251 2.251 0 1 1-1.5 0V5a1 1 0 0 0-1-1h-1v1.646a.25.25 0 0 1-.427.177L7.177 3.427a.25.25 0 0 1 0-.354ZM3.75 2.5a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5Zm0 9.5a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5Zm8.25.75a.75.75 0 1 0 1.5 0 .75.75 0 0 0-1.5 0Z"/></svg>';
       return [{
         slug: 'eras', title: '', full: true, steps: 5, cls: 'cr-er',
         body: () => `  <div class="era e0"><div class="scr s76">
@@ -760,7 +761,7 @@ Subject: Re: SCO: "thread creation is about a thousand times faster
   <div class="era e2"><div class="scr s08">
     <div class="top">
       <h2>Fix EOF handling in tally <span>#42</span></h2>
-      <div class="meta"><span class="pill">⑂ Open</span><b>you</b> wants to merge 1 commit into <code>master</code></div>
+      <div class="meta"><span class="pill">${PR_ICON}Open</span><b>you</b> wants to merge 1 commit into <code>master</code></div>
     </div>
     <div class="tabs"><span>Discussion</span><span>Commits 1</span><span class="a">Files changed 1</span></div>
     <div class="file">
@@ -777,7 +778,7 @@ Subject: Re: SCO: "thread creation is about a thousand times faster
   <div class="era e3"><div class="scr s26">
     <div class="top">
       <h2>feat: rewrite billing reconciliation <span>#412</span></h2>
-      <div class="meta"><span class="pill">⑂ Open</span><b>claude[bot]</b> wants to merge 23 commits · <span class="p">+2,804</span> <span class="m">−1,208</span> · 47 files</div>
+      <div class="meta"><span class="pill">${PR_ICON}Open</span><b>claude[bot]</b> wants to merge 23 commits · <span class="p">+2,804</span> <span class="m">−1,208</span> · 47 files</div>
     </div>
     <div class="view"><div class="code">${diff()}</div></div>
     <div class="sbar"><div class="thumb"></div></div>
