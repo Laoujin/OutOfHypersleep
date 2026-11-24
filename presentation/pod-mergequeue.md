@@ -82,22 +82,6 @@ A red one would bounce back to its agent and the next one rolls in.
 
 ---
 layout: hs
-routeAlias: mergequeue-jam
-clicks: 3
----
-
-<Hs id="mergequeue-jam" />
-
-<!--
-The queue itself becomes the bottleneck. 20 agents, 10 minute pipeline: the last one lands after 3h20.
-
-[click] Batch: test main + A + B + C + D in one run (bors, GitHub merge queue). Green: all four land.
-[click] Red: bisect the batch, bounce the culprit. Buys time, doesn't remove the wall.
-[click] Where I ended up: stop running the full suite on every merge. main is red a lot. A dedicated agent fixes forward.
--->
-
----
-layout: hs
 routeAlias: mergequeue-woke
 ---
 

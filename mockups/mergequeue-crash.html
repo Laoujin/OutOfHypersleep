@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Merge Queue Crash</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@600;700&family=IBM+Plex+Mono:wght@500;600;700&family=IBM+Plex+Sans:wght@400;600&display=swap">
+<style>
+:root {
+  --bg: #0b0d10; --ink: #d9dee6; --muted: #8a93a1; --line: #2e3540; --panel: #15191f;
+  --cryo: #9fd8f0; --awake: #45e6a0; --alien: #ff3b5c; --amber: #ffb547; --int: #b39ae0;
+  --head: "Chakra Petch", "Eurostile", "Arial Narrow", sans-serif;
+  --sans: "IBM Plex Sans", system-ui, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: #05070a; color: var(--ink); font-family: var(--sans); }
+main { max-width: 1280px; margin: 0 auto; padding-block: 32px 80px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+h1.page { font: 700 32px var(--head); margin: 0 0 6px; }
+p.lead { color: var(--muted); margin: 0 0 24px; line-height: 1.5; }
+h2.opt { font: 700 20px var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--amber); margin: 40px 0 6px; }
+p.what { color: var(--muted); margin: 0 0 12px; line-height: 1.5; }
+.ctl { display: flex; gap: 8px; align-items: center; margin: 10px 0 24px; font: 600 14px var(--mono); color: var(--muted); }
+.ctl button { font: 600 14px var(--mono); background: var(--panel); color: var(--ink); border: 1px solid var(--line); border-radius: 6px; padding: 6px 14px; cursor: pointer; }
+.wrap { position: relative; width: 100%; aspect-ratio: 16 / 9; overflow: hidden; border-radius: 10px; border: 1px solid #222; cursor: pointer; }
+.slide { position: absolute; left: 0; top: 0; width: 1600px; height: 900px; transform-origin: 0 0; overflow: hidden;
+  background: radial-gradient(1100px 700px at 80% -20%, #1b2027 0%, transparent 60%), radial-gradient(900px 600px at -10% 120%, #171a1f 0%, transparent 55%), var(--bg); }
+.slide > svg { position: absolute; inset: 0; overflow: visible; }
+header.h { position: absolute; left: 72px; top: 64px; z-index: 2; }
+.kicker { font: 600 18px var(--mono); letter-spacing: .2em; text-transform: uppercase; color: var(--int); }
+header.h h3 { margin: 6px 0 0; font: 700 54px/1.05 var(--head); text-transform: uppercase; color: #fff; }
+.flashbg { position: absolute; inset: 0; background: var(--alien); opacity: 0; pointer-events: none; z-index: 5; }
+
+.sh .tr { fill: #1c2228; stroke: #0c0f12; stroke-width: 2; }
+.sh .bd { fill: #46525e; stroke: var(--awake); stroke-width: 3; transition: stroke .2s; }
+.sh .wn { fill: #ffcf7a; opacity: .55; }
+.sh .st { fill: #d9822b; transition: fill .2s; }
+.sh .lp { fill: var(--amber); }
+.sh.bad .bd { stroke: var(--alien); } .sh.bad .st, .sh.bad .lp { fill: var(--alien); }
+.sh.burnt .bd { fill: #2a2422; stroke: var(--alien); } .sh.burnt .wn { opacity: .1; }
+.tag { font: 500 17px var(--mono); fill: var(--ink); }
+.port { fill: rgba(179, 154, 224, .06); stroke: var(--int); stroke-width: 4; transition: fill .2s, stroke .2s, filter .2s; }
+.port.bad { fill: rgba(255, 59, 92, .14); stroke: var(--alien); filter: drop-shadow(0 0 14px var(--alien)); }
+.rail { stroke: var(--awake); stroke-width: 6; stroke-linecap: round; filter: drop-shadow(0 0 6px var(--awake)); transition: stroke .3s; }
+.rail.bad { stroke: var(--alien); filter: drop-shadow(0 0 8px var(--alien)); }
+.locktag { font: 700 20px var(--mono); fill: var(--int); letter-spacing: .14em; text-transform: uppercase; }
+.railtag { font: 700 20px var(--mono); fill: var(--muted); letter-spacing: .1em; text-transform: uppercase; }
+.path { fill: none; stroke: var(--alien); stroke-width: 3; stroke-dasharray: 10 8; opacity: 0; transition: opacity .3s; }
+.path.on { opacity: .8; }
+.spark { stroke: #ffd27a; stroke-width: 4; stroke-linecap: round; }
+.debris { fill: #46525e; stroke: var(--alien); stroke-width: 2; }
+.debris.o { fill: #d9822b; stroke: none; }
+.smoke { fill: #2a2f36; }
+.smoke, .debris, .fire, .spark { transform-box: fill-box; transform-origin: center; }
+.ring { fill: none; stroke: #ffd27a; stroke-width: 6; }
+.fire { fill: var(--amber); filter: drop-shadow(0 0 10px var(--alien)); }
+.crack { fill: none; stroke: var(--alien); stroke-width: 3; }
+.beacon { fill: var(--alien); filter: drop-shadow(0 0 16px var(--alien)); }
+.alien circle { fill: none; stroke: var(--alien); }
+.alien .a-r1 { stroke-width: 2; opacity: .5; stroke-dasharray: 6 10; }
+.alien .a-r2 { stroke-width: 3; opacity: .7; stroke-dasharray: 40 14; }
+.alien .a-eye { fill: #2a0610; stroke: var(--alien); stroke-width: 3; }
+.alien .a-pupil { fill: var(--alien); filter: drop-shadow(0 0 10px var(--alien)); }
+</style>
+</head>
+<body>
+<main>
+<h1 class="page">Merge queue · the crash</h1>
+<p class="lead">Click 1 on “Ten agents, one main”: four shuttles hit the port at once. Click a slide (or play) to run the crash, reset to go back.</p>
+
+<h2 class="opt">A · Pile-up</h2>
+<p class="what">Staggered arrivals: each one slams into the port, bounces back tilted, sparks fly, the slide shakes. Port and main go red on the first hit.</p>
+<div class="wrap" data-v="A"><div class="slide"></div></div>
+<div class="ctl"><button data-act="play">play</button><button data-act="reset">reset</button></div>
+
+<h2 class="opt">B · Explosion</h2>
+<p class="what">All four arrive together: white flash, shockwave, debris, smoke. The alien's eye opens in the smoke. Two burnt wrecks remain, small fire.</p>
+<div class="wrap" data-v="B"><div class="slide"></div></div>
+<div class="ctl"><button data-act="play">play</button><button data-act="reset">reset</button></div>
+
+<h2 class="opt">C · Wedged in the door</h2>
+<p class="what">They try to squeeze through the port together and get stuck: squashed hulls, the frame cracks, a red beacon spins.</p>
+<div class="wrap" data-v="C"><div class="slide"></div></div>
+<div class="ctl"><button data-act="play">play</button><button data-act="reset">reset</button></div>
+
+<h2 class="opt">D · Rear-end chain</h2>
+<p class="what">One lane, nobody waits: the first stops at the port, each next one rear-ends the one in front. Crunch, crunch, crunch.</p>
+<div class="wrap" data-v="D"><div class="slide"></div></div>
+<div class="ctl"><button data-act="play">play</button><button data-act="reset">reset</button></div>
+</main>
+<script>
+const NS = 'http://www.w3.org/2000/svg';
+const AG = ['auth', 'pdf-export', 'user-prefs', 'search', 'dark-mode', 'fix-i18n', 'checkout', 'discount', 'wishlist', 'tax'];
+const PTS = AG.map((n, i) => { const a = (-62 + i * 13.8) * Math.PI / 180; return [300 + Math.cos(a) * 220, 520 + Math.sin(a) * 290, n]; });
+const CRASHERS = [1, 4, 6, 8];
+const IMPACT = [1135, 480];
+const SHIP = `<rect class="tr" x="-53" y="13" width="104" height="18" rx="9"/><path class="bd" d="M-47 15 L-41 -21 L17 -31 L45 -15 L53 15 Z"/>
+  <path class="wn" d="M21 -24 L41 -13 L38 -5 L19 -9 Z"/><rect class="st" x="-43" y="1" width="92" height="6"/><circle class="lp" cx="50" cy="9" r="4"/>`;
+const tf = (x, y, r = 0, sx = .8, sy = sx) => `translate(${x}px, ${y}px) rotate(${r}deg) scale(${sx}, ${sy})`;
+const mk = (svg, tag, attrs = {}, cls = '') => { const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); if (cls) e.setAttribute('class', cls); svg.appendChild(e); return e; };
+const ship = (layer, x, y) => { const g = mk(layer, 'g', {}, 'sh'); g.innerHTML = SHIP; g.style.transform = tf(x, y); return g; };
+const wait = ms => new Promise(r => setTimeout(r, ms));
+const lerp = (a, b, t) => a + (b - a) * t;
+const curve = (x, y, tx, ty, n = 6) => Array.from({ length: n + 1 }, (_, k) => {
+  const t = k / n, cx1 = x + 400, cy1 = y, cx2 = 1000, cy2 = 480;
+  const px = (1 - t) ** 3 * x + 3 * (1 - t) ** 2 * t * cx1 + 3 * (1 - t) * t * t * cx2 + t ** 3 * tx;
+  const py = (1 - t) ** 3 * y + 3 * (1 - t) ** 2 * t * cy1 + 3 * (1 - t) * t * t * cy2 + t ** 3 * ty;
+  return [px, py];
+});
+
+function spark(layer, x, y, n = 10, len = 60) {
+  for (let i = 0; i < n; i++) {
+    const a = Math.random() * Math.PI * 2, l = len * (.5 + Math.random());
+    const s = mk(layer, 'line', { x1: x, y1: y, x2: x + Math.cos(a) * 14, y2: y + Math.sin(a) * 14 }, 'spark');
+    s.animate([{ transform: 'translate(0,0)', opacity: 1 }, { transform: `translate(${Math.cos(a) * l}px, ${Math.sin(a) * l}px)`, opacity: 0 }], { duration: 450 + Math.random() * 300, easing: 'cubic-bezier(.2,.7,.3,1)', fill: 'forwards' });
+  }
+}
+function shake(el, amp = 14, dur = 420) {
+  const k = Array.from({ length: 9 }, (_, i) => ({ transform: el.dataset.base + ` translate(${i === 8 ? 0 : (Math.random() - .5) * amp * 2 * (1 - i / 8)}px, ${i === 8 ? 0 : (Math.random() - .5) * amp * 2 * (1 - i / 8)}px)` }));
+  el.animate(k, { duration: dur });
+}
+function flash(slide, o = .45, d = 260) { slide.querySelector('.flashbg').animate([{ opacity: o }, { opacity: 0 }], { duration: d }); }
+
+function scene(wrap) {
+  const slide = wrap.firstElementChild;
+  slide.innerHTML = `<header class="h"><div class="kicker">Deck 2 · Integration · Merge queue</div><h3>Ten agents, one main</h3></header>
+    <svg viewBox="0 0 1600 900"><g class="world">
+      <rect class="port" x="1180" y="400" width="140" height="160" rx="16"/>
+      <text class="locktag" x="1250" y="385" text-anchor="middle">port</text>
+      <line class="rail" x1="1360" y1="480" x2="1560" y2="480"/>
+      <text class="railtag" x="1460" y="520" text-anchor="middle">main</text>
+      <g class="paths">${PTS.map(([x, y]) => `<path class="path" d="M${x + 45} ${y} C ${x + 400} ${y}, 1000 480, 1175 480"/>`).join('')}</g>
+      ${PTS.map(([x, y, n]) => `<text class="tag" x="${x - 55}" y="${y + 6}" text-anchor="end">${n}</text>`).join('')}
+      <g class="ships"></g><g class="fx"></g>
+    </g></svg><div class="flashbg"></div>`;
+  const svg = slide.querySelector('svg'), world = slide.querySelector('.world');
+  world.dataset.base = '';
+  const ships = PTS.map(([x, y]) => ship(slide.querySelector('.ships'), x, y));
+  return { slide, svg, world, ships, fx: slide.querySelector('.fx'), port: slide.querySelector('.port'), rail: slide.querySelector('.rail'), paths: [...slide.querySelectorAll('.path')] };
+}
+const goRed = s => { s.port.classList.add('bad'); s.rail.classList.add('bad'); };
+const fly = (g, from, to, dur, rot = 0) => g.animate(curve(from[0], from[1], to[0], to[1]).map(([x, y], k, a) => ({ transform: tf(x, y, k === a.length - 1 ? rot : 0) })), { duration: dur, easing: 'cubic-bezier(.5,0,.9,.6)', fill: 'forwards' }).finished;
+
+const V = {
+  async A(s) {
+    s.paths.forEach(p => p.classList.add('on'));
+    const ends = [[1105, 440, -18, -70], [1110, 515, 14, -60], [1060, 470, -26, -110], [1045, 535, 22, -120]];
+    await Promise.all(CRASHERS.map(async (i, k) => {
+      await wait(k * 260);
+      const [x, y] = PTS[i], [ex, ey, r, back] = ends[k];
+      const g = s.ships[i];
+      await fly(g, [x, y], [1150, ey], 650);
+      g.classList.add('bad');
+      if (k === 0) goRed(s);
+      spark(s.fx, 1170, ey, 14, 90); shake(s.world, 16); flash(s.slide, .25, 200);
+      await g.animate([{ transform: tf(1150, ey) }, { transform: tf(ex, ey + (r > 0 ? 10 : -10), r) }], { duration: 380, easing: 'cubic-bezier(.2,.8,.3,1)', fill: 'forwards' }).finished;
+    }));
+  },
+  async B(s) {
+    s.paths.forEach(p => p.classList.add('on'));
+    await Promise.all(CRASHERS.map(i => fly(s.ships[i], PTS[i], IMPACT, 750)));
+    CRASHERS.forEach(i => s.ships[i].style.opacity = 0);
+    goRed(s);
+    const [x, y] = IMPACT;
+    const boom = mk(s.fx, 'circle', { cx: x, cy: y, r: 30 }, 'fire');
+    boom.style.fill = '#fff';
+    boom.animate([{ transform: 'scale(1)', opacity: 1, transformOrigin: `${x}px ${y}px` }, { transform: 'scale(6)', opacity: 0, transformOrigin: `${x}px ${y}px` }], { duration: 500, fill: 'forwards' });
+    const ring = mk(s.fx, 'circle', { cx: x, cy: y, r: 20 }, 'ring');
+    ring.animate([{ r: 20, opacity: 1, strokeWidth: 10 }, { r: 320, opacity: 0, strokeWidth: 1 }], { duration: 800, fill: 'forwards', easing: 'cubic-bezier(.1,.7,.3,1)' });
+    flash(s.slide, .7, 400); shake(s.world, 28, 600); spark(s.fx, x, y, 24, 220);
+    for (let i = 0; i < 16; i++) {
+      const a = Math.random() * Math.PI * 2, d = 120 + Math.random() * 260, w = 10 + Math.random() * 22;
+      const p = mk(s.fx, 'rect', { x: x - w / 2, y: y - w / 3, width: w, height: w / 1.6 }, 'debris' + (i % 4 ? '' : ' o'));
+      p.animate([{ transform: 'translate(0,0) rotate(0deg)', opacity: 1 }, { transform: `translate(${Math.cos(a) * d}px, ${Math.sin(a) * d + 80}px) rotate(${(Math.random() - .5) * 720}deg)`, opacity: .0 }], { duration: 1100 + Math.random() * 500, easing: 'cubic-bezier(.2,.6,.4,1)', fill: 'forwards' });
+    }
+    for (let i = 0; i < 9; i++) {
+      const sm = mk(s.fx, 'circle', { cx: x + (Math.random() - .5) * 80, cy: y + (Math.random() - .5) * 50, r: 30 }, 'smoke');
+      sm.animate([{ transform: 'translate(0,0) scale(.3)', opacity: .9 }, { transform: `translate(${(Math.random() - .5) * 60}px, ${-60 - Math.random() * 80}px) scale(2.6)`, opacity: .35 }], { duration: 2200, fill: 'forwards', easing: 'ease-out', delay: i * 60 });
+    }
+    await wait(500);
+    [[-28, 1070, 520], [22, 1110, 455]].forEach(([r, wx, wy]) => { const w = ship(s.fx, wx, wy); w.classList.add('burnt'); w.style.transform = tf(wx, wy, r); w.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 600 }); });
+    for (let i = 0; i < 4; i++) {
+      const f = mk(s.fx, 'path', { d: `M${1060 + i * 22} 520 q8 -26 0 -44 q-8 18 -14 0 q-6 20 14 44z` }, 'fire');
+      f.animate([{ transform: 'scaleY(1)', transformOrigin: `${1060 + i * 22}px 520px` }, { transform: 'scaleY(1.4)', transformOrigin: `${1060 + i * 22}px 520px` }], { duration: 260 + i * 40, direction: 'alternate', iterations: Infinity });
+    }
+    await wait(500);
+    const al = mk(s.fx, 'g', {}, 'alien');
+    al.innerHTML = `<circle class="a-r1" r="92"/><circle class="a-r2" r="72"/><path class="a-eye" d="M-60 0 Q0 -46 60 0 Q0 46 -60 0Z"/><path class="a-pupil" d="M0 -30 Q10 0 0 30 Q-10 0 0 -30Z"/>`;
+    al.style.transform = `translate(${x - 20}px, ${y - 210}px) scale(.8)`;
+    al.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 900, fill: 'forwards' });
+    al.querySelector('.a-eye').animate([{ transform: 'scaleY(0)' }, { transform: 'scaleY(1)' }], { duration: 700, easing: 'ease-out', fill: 'forwards' });
+  },
+  async C(s) {
+    s.paths.forEach(p => p.classList.add('on'));
+    const slots = [[1165, 455, -8], [1165, 505, 9], [1105, 440, -16], [1105, 520, 15]];
+    await Promise.all(CRASHERS.map(async (i, k) => {
+      await wait(k * 180);
+      const [tx, ty, r] = slots[k], g = s.ships[i];
+      await fly(g, PTS[i], [tx, ty], 700);
+      g.classList.add('bad'); if (k === 0) goRed(s);
+      spark(s.fx, tx + 40, ty, 8, 50); shake(s.world, 8, 260);
+      await g.animate([{ transform: tf(tx, ty, 0) }, { transform: tf(tx + 6, ty, r, .62, .9) }, { transform: tf(tx + 4, ty, r, .66, .86) }], { duration: 300, fill: 'forwards', easing: 'ease-out' }).finished;
+    }));
+    s.port.animate([{ transform: 'rotate(0)' }, { transform: 'rotate(-3deg)' }], { duration: 300, fill: 'forwards' }).transformOrigin;
+    s.port.style.transformOrigin = '1250px 480px';
+    mk(s.fx, 'path', { d: 'M1180 430 l30 18 l-12 20 l34 14 M1320 520 l-26 -10 l10 -22 l-30 -8' }, 'crack').animate([{ strokeDasharray: '0 400' }, { strokeDasharray: '400 0' }], { duration: 500, fill: 'forwards' });
+    const b = mk(s.fx, 'ellipse', { cx: 1250, cy: 396, rx: 26, ry: 10 }, 'beacon');
+    b.animate([{ opacity: 1 }, { opacity: .15 }], { duration: 400, direction: 'alternate', iterations: Infinity });
+    const glow = mk(s.fx, 'path', { d: 'M1250 396 L1450 330 L1450 460 Z' }, 'beacon');
+    glow.style.opacity = .18; glow.style.transformOrigin = '1250px 396px';
+    glow.animate([{ transform: 'rotate(0deg)' }, { transform: 'rotate(360deg)' }], { duration: 1600, iterations: Infinity });
+    const sparks = setInterval(() => { if (!s.slide.isConnected) return clearInterval(sparks); spark(s.fx, 1185 + Math.random() * 30, 440 + Math.random() * 80, 4, 40); }, 350);
+    s.stop = () => clearInterval(sparks);
+  },
+  async D(s) {
+    const lane = 480, stops = [1135, 1035, 935, 835];
+    for (let k = 0; k < 4; k++) {
+      const i = CRASHERS[k], g = s.ships[i];
+      s.paths[i].classList.add('on');
+      await g.animate([{ transform: tf(PTS[i][0], PTS[i][1]) }, { transform: tf(lerp(PTS[i][0], stops[k] - 200, .6), lerp(PTS[i][1], lane, .9)) }, { transform: tf(stops[k] - 30, lane) }], { duration: 650, easing: 'cubic-bezier(.5,0,1,.7)', fill: 'forwards' }).finished;
+      g.classList.add('bad'); if (k === 0) goRed(s);
+      spark(s.fx, stops[k] + 40, lane, 12, 70); shake(s.world, 12, 320); flash(s.slide, .2, 160);
+      await g.animate([{ transform: tf(stops[k] - 30, lane) }, { transform: tf(stops[k] + 8, lane, k % 2 ? 6 : -6, .58, .92) }, { transform: tf(stops[k], lane, k % 2 ? 5 : -5, .64, .88) }], { duration: 260, fill: 'forwards', easing: 'ease-out' }).finished;
+      if (k) {
+        const prev = s.ships[CRASHERS[k - 1]];
+        prev.animate([{ transform: tf(stops[k - 1], lane, k % 2 ? -5 : 5, .64, .88) }, { transform: tf(stops[k - 1] + 10, lane, k % 2 ? -8 : 8, .56, .9) }], { duration: 200, fill: 'forwards' });
+      }
+      await wait(120);
+    }
+  },
+};
+
+const wraps = [...document.querySelectorAll('.wrap')];
+const state = new Map();
+const reset = w => { state.get(w)?.stop?.(); const s = scene(w); s.played = false; state.set(w, s); };
+const play = w => { let s = state.get(w); if (s.played) { reset(w); s = state.get(w); } s.played = true; V[w.dataset.v](s); };
+wraps.forEach(w => {
+  reset(w);
+  w.addEventListener('click', () => play(w));
+  w.nextElementSibling.addEventListener('click', e => { const a = e.target.dataset.act; if (a === 'play') play(w); if (a === 'reset') reset(w); });
+});
+const fit = () => wraps.forEach(w => { w.firstElementChild.style.transform = 'scale(' + (w.clientWidth / 1600) + ')'; });
+addEventListener('resize', fit); fit();
+if (new URLSearchParams(location.search).has('play')) wraps.forEach(play);
+</script>
+</body>
+</html>

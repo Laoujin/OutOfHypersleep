@@ -331,9 +331,7 @@ import soCsv from '../data/stackoverflow-questions.csv?raw';
         <rect class="st" x="10" y="38" width="92" height="6"/>
         <circle class="lp" cx="103" cy="46" r="4"/>
       </g></g>`;
-      const tag = (x, y, t, cls = '', attr = '') => `<text class="mq-tag ${cls}" ${attr} x="${x}" y="${y}" text-anchor="middle">${t}</text>`;
       const STATIONS = ['rebase onto main', 'build', 'test', 'merge --ff-only'];
-      const cap = (s, t, last) => `<div class="mq-cap" data-s="${s}" ${last ? '' : `data-o="${s + 1}"`}>${t}</div>`;
       return [{
         slug: 'landing', title: 'Ten agents, one main', full: true, steps: 3, cls: 'mq mq-landing',
         body: () => {
@@ -435,36 +433,6 @@ import soCsv from '../data/stackoverflow-questions.csv?raw';
           };
           run();
         },
-      }, {
-        slug: 'jam', title: 'The next bottleneck', full: true, steps: 4, cls: 'mq mq-jam',
-        body: () => `<svg class="mq-svg" viewBox="0 0 1600 900">
-            <line class="mq-floor" x1="40" y1="390" x2="1400" y2="390"/>
-            ${Array.from({ length: 14 }, (_, i) => crawler(1310 - i * 92, 330, 0.8)).join('')}
-            <rect class="mq-lock" x="1420" y="290" width="150" height="120" rx="14"/>
-            <text class="mq-locktag" x="1495" y="440" text-anchor="middle">airlock</text>
-            <g data-s="1" data-o="3">
-              <rect class="mq-batch" x="80" y="500" width="620" height="180" rx="16"/>
-              ${['A', 'B', 'C', 'D'].map((t, i) => crawler(110 + i * 145, 560, 0.9) + tag(160 + i * 145, 545, t)).join('')}
-              <text class="mq-tag big" x="390" y="730" text-anchor="middle">main + A + B + C + D · one run</text>
-            </g>
-            <g data-s="2" data-o="3" class="mq-bisect">
-              <rect class="node bad" x="1000" y="490" width="240" height="56" rx="10"/><text x="1120" y="527" text-anchor="middle">✗ A B C D</text>
-              <path d="M1080 546 L 960 600 M1160 546 L 1280 600"/>
-              <rect class="node ok" x="860" y="600" width="200" height="56" rx="10"/><text x="960" y="637" text-anchor="middle">✓ A B</text>
-              <rect class="node bad" x="1180" y="600" width="200" height="56" rx="10"/><text x="1280" y="637" text-anchor="middle">✗ C D</text>
-              <path d="M1240 656 L 1190 710 M1320 656 L 1370 710"/>
-              <rect class="node bad" x="1120" y="710" width="140" height="56" rx="10"/><text x="1190" y="747" text-anchor="middle">✗ C</text>
-              <rect class="node ok" x="1300" y="710" width="140" height="56" rx="10"/><text x="1370" y="747" text-anchor="middle">✓ D</text>
-            </g>
-          </svg>
-          <div class="mq-big" data-o="1">20 agents × 10 min pipeline<small>the last one lands after 3h20</small></div>
-          ${cap(1, 'Batch: test four at once. Green? All four land.')}
-          ${cap(2, 'Red? Bisect the batch, bounce the culprit.')}
-          <div class="mq-ft" data-s="3">
-            <div class="drop">✗ run the full suite on every merge</div>
-            <div class="cost">! main is red. A lot.</div>
-            <div class="keep">✓ a dedicated fix-forward agent</div>
-          </div>`,
       }];
     })(),
     trailers: [{
