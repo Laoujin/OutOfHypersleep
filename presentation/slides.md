@@ -22,11 +22,11 @@ game:
   # alien scores with LLM problems at the twist
   alien:
     twist:
-      - { name: Hallucinations, points: 12 }
-      - { name: Bias, points: 12 }
-      - { name: Env. cost, points: 12 }
-      - { name: Lethal trifecta, points: 12 }
-      - { name: Slop at scale, points: 12 }
+      - { name: Lethal trifecta, points: 20 }
+      - { name: Hallucinations, points: 15 }
+      - { name: Slop at scale, points: 10 }
+      - { name: Bias, points: 10 }
+      - { name: Env. cost, points: 5 }
 layout: hs
 routeAlias: title
 ---
@@ -61,7 +61,7 @@ clicks: 2
 
 <!--
 The twist: an evil alien AI has infiltrated the ship.
-[click] It scores with the problems of LLMs: hallucinations, bias, environmental cost, the lethal trifecta, slop at scale. It is already ahead.
+[click] It scores with the problems of LLMs: the lethal trifecta, hallucinations, slop at scale, bias, environmental cost. It is already ahead.
 This slide starts a fresh game: score and woken pods reset to 0.
 The scoreboard stays with us all talk.
 -->
