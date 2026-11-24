@@ -53,7 +53,7 @@ routeAlias: trailers-froze
 ---
 layout: hs
 routeAlias: trailers-why
-clicks: 3
+clicks: 2
 ---
 
 <Hs id="trailers-why" />
@@ -62,12 +62,10 @@ clicks: 3
 Background: `git interpret-trailers`: Git 2.2, 2014 (to verify).
 The twist: revived, but it scores for the alien. Every Co-Authored-By trailer is the alien's mark on your history.
 Surprise: the audience has been looking at one for two years without knowing the name.
-The count is real: this talk's own repo, 48 commits, 45 co-authored by Claude (Nov 2026). Re-run before the talk.
 
 Everyone has seen the last line, almost nobody knows it is called a trailer.
 Git can add one for you: git commit --trailer (Git 2.32, 2021, to verify).
 [click] The result: on every commit the agent makes. git interpret-trailers, since 2014; Signed-off-by is the famous one.
-[click] They are structured: git log can filter and count them. This is the repo of this talk.
 [click] Scoring twist: revived, but it scores for the alien: alien +10. The alien's mark on every commit.
 -->
 
