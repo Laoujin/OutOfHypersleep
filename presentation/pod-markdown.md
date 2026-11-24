@@ -81,6 +81,8 @@ clicks: 1
 <!--
 facebook/react CLAUDE.md, verbatim first 12 lines (fetched 2026-11-24, main branch).
 Nobody renders it. The agent reads the raw text, every session.
+ADRs: architecture decisions as Markdown files in the repo (Michael Nygard, 2011, to verify). Agents read why the code is the way it is, not just what it is.
+Agents handle Markdown natively; docx, PDF and friends not so much: they have to be converted first and cost far more tokens. Markdown has real headers (#, ##); in a docx a "header" is often just bold text, so the structure is lost.
 [click] agents.md: "used by over 60k open-source projects" (to verify the current count).
 -->
 
