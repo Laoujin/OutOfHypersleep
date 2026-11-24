@@ -646,12 +646,11 @@ pre.code { margin: 0; font: 21px/1.6 var(--mono); color: var(--ink); white-space
 .is-deadpod.f-woke .stmt p { border-color: var(--alien); }
 .stmt-art { width: 440px; flex: none; }
 
-.log { max-width: 900px; background: rgba(8,9,11,.88); border: 1px solid var(--line); border-radius: 16px; padding: 36px 44px; display: flex; flex-direction: column; gap: 22px; }
+.log { position: relative; max-width: 900px; background: rgba(8,9,11,.6); backdrop-filter: blur(3px); border: 1px solid var(--line); border-radius: 16px; padding: 36px 44px; display: flex; flex-direction: column; gap: 22px; }
 .log-h { font: 600 18px var(--mono); letter-spacing: .2em; text-transform: uppercase; color: var(--muted); }
 .log-line { font: 600 42px/1.3 var(--head); color: var(--phos); }
-.log-score { font: 800 34px var(--mono); color: var(--awake); }
 .f-log:has(.log.titled) { justify-content: flex-start; }
-.log.titled { position: relative; margin-top: 150px; background: rgba(8,9,11,.6); backdrop-filter: blur(3px); }
+.log.titled { margin-top: 150px; }
 .log-stamp { position: absolute; right: -150px; top: -70px; border: 5px solid var(--awake); color: var(--awake); font: 900 40px var(--mono); padding: 10px 24px; border-radius: 12px; transform: rotate(-12deg); text-transform: uppercase; background: rgba(8,9,11,.35); box-shadow: 0 0 24px rgba(69,230,160,.25); }
 .log-stamp.red { border-color: var(--alien); color: var(--alien); box-shadow: 0 0 24px rgba(255,59,92,.25); }
 
