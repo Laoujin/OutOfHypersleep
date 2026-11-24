@@ -602,9 +602,7 @@ import soCsv from '../data/stackoverflow-questions.csv?raw';
         caps: [],
       }, {
         slug: 'cascade', title: 'The waterfall, at agent speed',
-        body: `${cascade([['spec.md', '2 hours'], ['plan.md', '1 hour'], ['tasks.md', '1 hour'], ['implement', '4 hours'], ['review', '2 hours']], 'mono green')}
-          <g data-s="1"><text class="lbl big" x="30" y="505">Total: 14 months → 10 hours</text></g></svg>`,
-        caps: ['Same cascade. Same documents. Different reader: <b>the agent</b>.<small>It does exactly what you wrote down.</small>', 'Big Design Up Front is back.<small>It just doesn\'t take a year anymore.</small>'],
+        body: `${cascade([['spec.md', '2 hours'], ['plan.md', '1 hour'], ['tasks.md', '1 hour'], ['implement', '4 hours'], ['review', '2 hours']], 'mono green')}</svg>`,
       }];
     })(),
     stackoverflow: [{
