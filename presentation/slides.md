@@ -19,18 +19,14 @@ fonts:
   mono: IBM Plex Mono
   weights: '400,500,600,700'
 game:
-  # alien points for every live pod still asleep at the end
-  sleepingPenalty: 10
-  # alien scores with LLM problems at fixed moments
+  # alien scores with LLM problems at the twist
   alien:
     twist:
-      - { name: Hallucinations, points: 20 }
-      - { name: Bias, points: 20 }
-      - { name: Env. cost, points: 20 }
-    intermezzo:
-      - { name: Prompt injection, points: 20 }
-      - { name: '"You''re absolutely right!"', points: 20 }
-      - { name: Slop at scale, points: 20 }
+      - { name: Hallucinations, points: 12 }
+      - { name: Bias, points: 12 }
+      - { name: Env. cost, points: 12 }
+      - { name: Lethal trifecta, points: 12 }
+      - { name: Slop at scale, points: 12 }
 layout: hs
 routeAlias: title
 ---
@@ -65,7 +61,7 @@ clicks: 2
 
 <!--
 The twist: an evil alien AI has infiltrated the ship.
-[click] It scores with the problems of LLMs: hallucinations, bias, environmental cost. It is already ahead.
+[click] It scores with the problems of LLMs: hallucinations, bias, environmental cost, the lethal trifecta, slop at scale. It is already ahead.
 This slide starts a fresh game: score and woken pods reset to 0.
 The scoreboard stays with us all talk.
 -->
@@ -94,7 +90,7 @@ routeAlias: map
 Run the vote: live counts from pods.sangu.be. Click a pod, or → for the vote leader: the pod opens fullscreen.
 Fullscreen pod plays by itself (~5 s): venting · lid opens: name + born · it lives or dies (score applied). → or a click skips ahead. Then → or the button: opens the pod's slides in a new tab and returns here. ← steps back / closes the pod.
 Aim for 5–6 pods. Watch the "N awake" per deck: if a deck is still empty after 3 pods, nudge: "nobody wants to verify anything?"
-After the 3rd pod, → on the map goes to the intermezzo. Press E for the final pod (Schrödinger's developer).
+Press E for the final pod (Schrödinger's developer).
 Pods are anonymous until opened: the audience votes on year and power only.
-Keys: E final pod · M map · I intermezzo · S scoreboard · A about · X reset game · R replay · F fullscreen.
+Keys: E final pod · M map · S scoreboard · A about · X reset game · R replay · F fullscreen.
 -->

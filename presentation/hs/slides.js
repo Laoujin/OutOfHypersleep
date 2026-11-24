@@ -1026,34 +1026,6 @@ Subject: Re: SCO: "thread creation is about a thousand times faster
     HS.FRAME_AFTER.filter(k => !(p.dead && k === 'woke')).forEach(put);
   }
 
-  // ───────────────────────── INTERMEZZO ─────────────────────────
-  add({
-    id: 'strike', seq: 'intermezzo', steps: 2, cls: 'twist strike',
-    html: () => `${HS.marquee('⚠ HULL BREACH · LIFE SUPPORT FAILING ·')}
-      <div class="twist-body">
-        <div class="twist-eye">${A.alien('angry')}</div>
-        <div class="twist-text">
-          <div class="big">The alien strikes back.</div>
-          <ul class="alien-events" data-s="1">${HS.alienEvents.intermezzo.map(([n, v]) => `<li><span>${n}</span><b>+${v}</b></li>`).join('')}</ul>
-        </div>
-      </div>
-      <div class="hud-corner">${A.hud()}</div>`,
-    step: (el, st, c) => {
-      if (c.active && st >= 1 && !c.state.events.intermezzo) { c.state.events.intermezzo = true; A.hudUpdate(el, c); }
-      else A.hudUpdate(el, c, false);
-    },
-  });
-
-  add({
-    id: 'status', seq: 'intermezzo', cls: 'status plate',
-    html: c => {
-      const sc = c.score;
-      return `${head('status report', 'Halfway there')}
-        <div class="status-cols">${['isolation', 'integration', 'verification'].map(t => `<div class="scol t-${t}"><div class="scol-h">Deck ${HS.TYPES[t].n} · ${HS.TYPES[t].label}</div>${HS.pods.filter(p => p.deck === t).map(p => `<div class="srow ${c.state.woken.includes(p.id) ? 'on' : ''}">${c.state.woken.includes(p.id) ? '●' : '○'} ${p.name}</div>`).join('')}</div>`).join('')}</div>
-        <div class="status-foot">${sc.wokenDead.length ? `Lost to the alien: ${sc.wokenDead.map(p => p.name).join(', ')}. ` : ''}Crew <b>${sc.crew}</b> · alien <b class="red">${sc.alien}</b></div>`;
-    },
-  });
-
   // ───────────────────────── FINAL ─────────────────────────
   add({
     id: 'final', seq: 'final', steps: 3, cls: 'thaw final',
@@ -1089,28 +1061,21 @@ Subject: Re: SCO: "thread creation is about a thousand times faster
 
   // ───────────────────────── OUTRO ─────────────────────────
   add({
-    id: 'scoreboard', seq: 'outro', steps: 4, cls: 'scoreboard',
-    enter: c => { c.state.events.final = true; },
+    id: 'scoreboard', seq: 'outro', steps: 3, cls: 'scoreboard',
     html: c => {
       const sc = c.score;
-      const pre = HS.score({ ...c.state, events: { ...c.state.events, final: false } });
       const max = Math.max(sc.crew, sc.alien, 1);
       const win = sc.crew >= sc.alien;
       return `${head('final score', 'Crew vs alien AI')}
         <div class="bars">
-          <div class="brow crew"><label>Crew</label><div class="b"><i style="--w0:${(pre.crew / max) * 100}%;--w:${(sc.crew / max) * 100}%"></i></div><b data-n="${sc.crew}">${pre.crew}</b></div>
-          <div class="brow alien"><label>Alien AI</label><div class="b"><i style="--w0:${(pre.alien / max) * 100}%;--w:${(sc.alien / max) * 100}%"></i></div><b data-n="${sc.alien}">${pre.alien}</b></div>
+          <div class="brow crew"><label>Crew</label><div class="b"><i style="width:${(sc.crew / max) * 100}%"></i></div><b>${sc.crew}</b></div>
+          <div class="brow alien"><label>Alien AI</label><div class="b"><i style="width:${(sc.alien / max) * 100}%"></i></div><b>${sc.alien}</b></div>
         </div>
-        <div class="sleepers" data-s="1">${sc.sleeping} crew members left in hypersleep · alien +${HS.RULES.sleeping} each</div>
-        <div class="reveal" data-s="2">The "new AI tooling" you woke tonight is on average <b>${sc.avgAge} years old</b>.<small>${sc.wokenLive.map(p => `${p.name} ${p.born}`).join(' · ')}</small></div>
-        <div class="verdict ${win ? 'ok' : 'bad'}" data-s="3">${win ? 'The crew wins. Narrowly.' : 'The alien AI wins. This time.'}</div>`;
+        <div class="reveal" data-s="1">The "new AI tooling" you woke tonight is on average <b>${sc.avgAge} years old</b>.<small>${sc.wokenLive.map(p => `${p.name} ${p.born}`).join(' · ')}</small></div>
+        <div class="verdict ${win ? 'ok' : 'bad'}" data-s="2">${win ? 'The crew wins. Narrowly.' : 'The alien AI wins. This time.'}</div>`;
     },
     step: (el, st, c) => {
-      el.querySelectorAll('.brow b').forEach(b => {
-        const to = +b.dataset.n;
-        if (c.active && st >= 1 && !b._done) { b._done = true; A.countUp(b, +b.textContent, to); }
-      });
-      if (c.active && st >= 1) { c.state.shown = { crew: c.score.crew, alien: c.score.alien }; c.save(); }
+      if (c.active) { c.state.shown = { crew: c.score.crew, alien: c.score.alien }; c.save(); }
     },
   });
 

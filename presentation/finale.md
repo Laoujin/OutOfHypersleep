@@ -62,13 +62,13 @@ Diagnosis line, then straight to the scoreboard. Do not linger.
 ---
 layout: hs
 routeAlias: scoreboard
-clicks: 3
+clicks: 2
 ---
 
 <Hs id="scoreboard" />
 
 <!--
-Click 1: the sleepers count for the alien (+10 each). Click 2: the reveal: average age of the tooling woken tonight. Click 3: the verdict.
+Click 1: the reveal: average age of the tooling woken tonight. Click 2: the verdict.
 If the crew wins: "the tools were on board all along".
 If the alien wins: "then you know what to wake on Monday". The closing line works either way.
 -->
@@ -95,5 +95,5 @@ routeAlias: about
 
 <!--
 Source of the talk: https://github.com/itenium-be/git-worktrees/issues/3
-Keys: → next · ← back · N notes · F fullscreen · R replay · M map · I intermezzo · S scoreboard · A about · X reset game.
+Keys: → next · ← back · N notes · F fullscreen · R replay · M map · S scoreboard · A about · X reset game.
 -->

@@ -49,7 +49,6 @@ HS.deckOf = (id) => {
   const seq = byId[id].seq
   if (seq === 'intro' || seq === 'map') return ''
   if (seq.startsWith('pod:')) return 'pod-' + seq.slice(4)
-  if (seq === 'intermezzo') return 'intermezzo'
   return 'finale'
 }
 HS.deckSlides = deck => HS.slides.filter(s => HS.deckOf(s.id) === deck).map(s => s.id)
@@ -95,10 +94,6 @@ setInterval(async () => {
 }, 2000)
 
 HS.deckUrl = deck => `${HS.rootBase()}${deck ? deck + '/' : ''}`
-HS.intermezzoDue = () => {
-  const sc = HS.score(state)
-  return !state.events.intermezzo && sc.wokenLive.length + sc.wokenDead.length >= 3
-}
 
 HS.openPod = (id) => {
   if (id === 'schrodinger') return HS.go(seqs.final[0])
@@ -108,7 +103,6 @@ HS.openPod = (id) => {
 HS.after = (id) => {
   const s = byId[id]
   if (s.seq === 'map') {
-    if (HS.intermezzoDue()) return HS.go(seqs.intermezzo[0])
     const l = HS.leader()
     if (l) HS.openPod(l)
     return
@@ -117,7 +111,6 @@ HS.after = (id) => {
   if (s.idx < seq.length - 1) return HS.go(seq[s.idx + 1])
   if (s.seq === 'intro') return HS.go('map')
   if (s.seq.startsWith('pod:')) { if (window.opener) return window.close(); return HS.go('map') }
-  if (s.seq === 'intermezzo') return HS.go('map')
   if (s.seq === 'final') return HS.go(seqs.outro[0])
 }
 

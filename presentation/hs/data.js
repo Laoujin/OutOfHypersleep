@@ -25,9 +25,7 @@ HS.awake = [
 const game = frontmatter(intro).game || {};
 HS.alienEvents = {
   twist: (game.alien?.twist || []).map(e => [e.name, e.points]),
-  intermezzo: (game.alien?.intermezzo || []).map(e => [e.name, e.points]),
 };
-HS.RULES = { sleeping: game.sleepingPenalty ?? 10 };
 
 HS.pods = Object.values(podFiles)
   .map(src => frontmatter(src).pod)
@@ -47,10 +45,8 @@ HS.score = st => {
     else if (p.score.alive < 0) alien += -p.score.alive;
     else crew += p.score.alive;
   }
-  for (const k of ['twist', 'intermezzo']) if (st.events[k]) alien += HS.alienEvents[k].reduce((a, e) => a + e[1], 0);
-  const sleeping = HS.pods.filter(p => !p.dead && !st.woken.includes(p.id)).length;
-  if (st.events.final) alien += sleeping * HS.RULES.sleeping;
+  if (st.events.twist) alien += HS.alienEvents.twist.reduce((a, e) => a + e[1], 0);
   const wl = woken.filter(p => !p.dead);
   const avgAge = wl.length ? Math.round(wl.reduce((a, p) => a + (HS.thisYear - p.born), 0) / wl.length) : 0;
-  return { crew, alien, sleeping, avgAge, wokenLive: wl, wokenDead: woken.filter(p => p.dead) };
+  return { crew, alien, avgAge, wokenLive: wl, wokenDead: woken.filter(p => p.dead) };
 };

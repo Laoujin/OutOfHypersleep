@@ -32,14 +32,13 @@ The talk is split into **separate Slidev decks**:
 |---|---|---|
 | Intro: starship, alien AI invasion, **ship map** | `slides.md` | `/OutOfHypersleep/` |
 | One deck per pod (its content slides) | `pod-<id>.md` | `/OutOfHypersleep/pod-<id>/` |
-| Intermezzo: the alien strikes back | `intermezzo.md` | `/OutOfHypersleep/intermezzo/` |
 | Finale: Schrödinger's developer, scoreboard, closing | `finale.md` | `/OutOfHypersleep/finale/` |
 
 1. **Ship map** (last slide of the intro). Pods are anonymous: freeze year and power. Votes come live from the voting app at **https://pods.sangu.be** (`voting/`, polled every 2s). The leader glows.
 2. Click a pod, or → for the vote leader: the pod opens **fullscreen** on top of the map.
    → venting · → the lid opens: name and born year · → it lives or dies (died year, score applied).
 3. **Open the slides ↗** (or → once more) opens that pod's deck in a **new tab**, closes the fullscreen pod and the map updates: score counts up, the pod shows revived or dead. At the end of the pod deck, → closes the tab.
-4. After the 3rd pod, → on the map goes to the intermezzo deck. E opens the finale.
+4. E opens the finale.
 
 Game state (woken pods, score) is in `localStorage`, shared by all decks on the same origin.
 
@@ -76,7 +75,7 @@ pod:
 
 Every pod deck uses the same frame: **thaw** (ID card) → **froze** (`frozenBecause`, or `was` for dead pods) → the pod's own slides → **woke** (`wokenBecause`; skipped for dead pods) → **log** (`takeaway`, score). The frame slides are generated in `hs/slides.js`; the `.md` lists them as `<Hs id="<pod>-thaw" />` etc. A pod can replace a frame slide with its own slides via `podFrame` in `hs/slides.js` (Stack Overflow replaces *froze* with empire / gamification / reflex; an empty list drops the slide, e.g. commit trailers has no *woke*). Background plate for thaw and log: `public/plates/pod-<id>.webp` (prompts in `docs/theme/index.html`).
 
-Game-wide rules (alien events at the twist and intermezzo, the penalty per pod left asleep) are in the `game:` block of `presentation/slides.md`. Add a pod by adding a `pod-<id>.md` with a `pod:` header and its slides.
+Game-wide rules (the alien events at the twist) are in the `game:` block of `presentation/slides.md`. Add a pod by adding a `pod-<id>.md` with a `pod:` header and its slides.
 
 | Key | Action |
 |---|---|
@@ -85,7 +84,6 @@ Game-wide rules (alien events at the twist and intermezzo, the penalty per pod l
 | ↑ / ↓ | previous / next slide (skip clicks) |
 | M | ship map |
 | E | final pod (Schrödinger's developer) |
-| I | intermezzo |
 | S | scoreboard |
 | A | about slide |
 | R | replay the current slide's animation |
@@ -96,7 +94,7 @@ Game-wide rules (alien events at the twist and intermezzo, the penalty per pod l
 
 | Path | What |
 |---|---|
-| `presentation/slides.md`, `pod-*.md`, `intermezzo.md`, `finale.md` | the decks: one `<Hs id>` per slide, with `routeAlias`, `clicks` and speaker notes |
+| `presentation/slides.md`, `pod-*.md`, `finale.md` | the decks: one `<Hs id>` per slide, with `routeAlias`, `clicks` and speaker notes |
 | `presentation/build.mjs` | builds every deck into `dist/` |
 | `presentation/hs/data.js` | reads the pods and game rules from the YAML headers; score function |
 | `presentation/hs/slides.js` | slide content and per-step SVG/CSS animations |
@@ -118,13 +116,12 @@ Everything below is a default; change pods in the `pod:` header of `presentation
 | Dead pods | 5: Stack Overflow ⭐, small SaaS tools, story points (cargo row), code review (integration row), the IDE (isolation row). |
 | Context column | Left out (goes to the Memento talk). |
 | Crew score | `relevance today × 10` (30–50 per pod). Commit trailers: **−10** (the alien's mark). TDD + unit testing are already awake (on duty, no points): the crew starts at 0. |
-| Alien score | Fixed events: the twist (hallucinations, bias, environmental cost: +60) and the intermezzo (prompt injection, sycophancy, slop: +60). +40 per dead pod opened. At the end, +10 per live pod left asleep. |
-| Rigged? | No. Balanced so a 5–6 pod run with one dead pod ends close (e.g. five pods + one dead pod: crew ≈ 210 vs alien ≈ 220, a knife edge now that the crew starts at 0). Many dead pods or few pods opened → the alien wins. The speaker notes have a closing line for both outcomes. |
-| Message map vs random order | Free vote. The map shows "N awake" per deck, and the intermezzo status report lists coverage per deck so the speaker can steer ("nobody wants to verify anything?"). |
+| Alien score | Fixed event: the twist (hallucinations, bias, environmental cost, lethal trifecta, slop at scale: +60). +30–40 per dead pod opened. |
+| Rigged? | Crew-leaning. Five live pods + one dead pod: crew ≈ 170–210 vs alien ≈ 90–110. The alien only wins with several dead pods or few pods opened. The speaker notes have a closing line for both outcomes. |
+| Message map vs random order | Free vote. The map shows "N awake" per deck so the speaker can steer ("nobody wants to verify anything?"). |
 | Already awake | Shown in the medbay as open pods (on duty); not selectable, no points. |
 | Do voters know a pod is dead? | No hint on the pod itself: a dead pod shows a normal power and positive score, and its freeze year is the year it died (Stack Overflow ❄ 2023). They do sit in the cargo row. |
 | Voting | Only in the deployed voting app; the map shows the live counts. |
-| Intermezzo | The alien strikes back (its turn on the scoreboard) + a status report. Auto after the 3rd pod, or press I. |
 | Crew manifest photo | Slide removed from the intro. The final pod shows a placeholder crowd for now. |
 | Surprising moment | Kept the source's main pick: the average age of the woken tooling, revealed on the scoreboard. |
 | Title / abstract | Drafted in `notes/talks/out-of-hypersleep.md`. |
@@ -137,4 +134,4 @@ Everything below is a default; change pods in the `pod:` header of `presentation
 - Commit trailer count (1284) on the trailers slide is illustrative.
 - Meridian and homelab `.lan` stories are referenced in the vitals but have no screenshots yet.
 - The "own wake-up moment from the dark factory" per tool (source TODO) is only partly covered in the notes.
-- Timing: ~6 min intro, ~5 min per pod × 5–6, ~2 min intermezzo, ~2 min final pod, ~3 min scoreboard + close.
+- Timing: ~6 min intro, ~5 min per pod × 5–6, ~2 min final pod, ~3 min scoreboard + close.
