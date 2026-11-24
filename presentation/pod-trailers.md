@@ -25,7 +25,7 @@ pod:
   order: 2
   frozen: 2014
   born: 2014
-  power: 5
+  power: 1
   fate: alive
   score:
     alive: -10

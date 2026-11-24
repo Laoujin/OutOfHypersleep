@@ -633,10 +633,10 @@ pre.code { margin: 0; font: 21px/1.6 var(--mono); color: var(--ink); white-space
 .f-thaw, .f-log { justify-content: center; }
 .thaw-card { max-width: 820px; display: flex; flex-direction: column; gap: 22px; }
 .thaw-card h1 { font-size: 104px; line-height: .95; }
-.thaw-card .ids { display: flex; gap: 40px; align-items: flex-end; }
+.thaw-card .ids { display: flex; gap: 40px; align-items: flex-start; }
 .thaw-card .ids span { display: flex; flex-direction: column; gap: 6px; font: 600 16px var(--mono); letter-spacing: .15em; text-transform: uppercase; color: var(--muted); }
-.thaw-card .ids b { font: 700 40px var(--mono); letter-spacing: 0; color: var(--cryo); }
-.thaw-card .ids .rel { flex-direction: row; gap: 6px; height: 40px; align-items: center; }
+.thaw-card .ids b { font: 700 40px/48px var(--mono); letter-spacing: 0; color: var(--cryo); }
+.thaw-card .ids .rel { flex-direction: row; gap: 6px; height: 48px; align-items: center; }
 .thaw-card .ids .rel i { width: 14px; height: 30px; }
 .thaw-card .fate { align-self: flex-start; font: 800 26px var(--mono); letter-spacing: .2em; text-transform: uppercase; color: var(--awake); border: 2px solid; padding: 8px 22px; border-radius: 10px; }
 .is-deadpod .thaw-card .fate { color: var(--alien); }
