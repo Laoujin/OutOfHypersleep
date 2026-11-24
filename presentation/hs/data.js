@@ -22,12 +22,6 @@ HS.awake = [
   { id: 'unit', name: 'Unit testing', year: 1994, points: 0 },
 ];
 
-HS.dying = [
-  { id: 'pairing', name: 'Pair programming', sub: 'human with human', why: 'You pair with the agent now.' },
-  { id: 'sprints', name: 'Sprints & ceremonies', why: 'Two weeks is an eternity.' },
-  { id: 'humandocs', name: 'Docs for humans', why: 'CLAUDE.md and llms.txt are written for agents first.' },
-];
-
 const game = frontmatter(intro).game || {};
 HS.alienEvents = {
   twist: (game.alien?.twist || []).map(e => [e.name, e.points]),

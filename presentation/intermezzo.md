@@ -20,7 +20,7 @@ fonts:
   weights: '400,500,600,700'
 layout: hs
 routeAlias: strike
-clicks: 2
+clicks: 1
 ---
 
 <Hs id="strike" />
@@ -28,7 +28,6 @@ clicks: 2
 <!--
 Intermezzo (~minute 20). The alien takes its turn.
 [click] Prompt injection, sycophancy, slop at scale: +60.
-[click] The pods on life support flatline: human pair programming, sprint ceremonies, docs written only for humans. Nobody voted for them: they die on stage.
 Then back to the map for the second half.
 -->
 

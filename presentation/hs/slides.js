@@ -166,7 +166,7 @@ import soCsv from '../data/stackoverflow-questions.csv?raw';
         <div class="map-grid">
           ${['isolation', 'integration', 'verification'].map(t => `<div class="deck-lbl t-${t}"><b>Deck ${HS.TYPES[t].n}</b>${HS.TYPES[t].label}<small>${cov(t)} awake</small></div><div class="deck-row">${row(t)}</div>`).join('')}
           <div class="deck-lbl t-dead"><b>Cargo</b>unmarked pods</div>
-          <div class="deck-row">${row('cargo')}${HS.dying.map(d => `<div class="pod t-dying ${st.events.intermezzo ? 'is-lost' : 'is-dying'}" title="${d.why}"><div class="pod-art">${A.cryo(st.events.intermezzo ? 'dead' : 'dying', st.events.intermezzo ? 'LOST' : 'LIFE SUPP.')}</div></div>`).join('')}</div>
+          <div class="deck-row">${row('cargo')}</div>
         </div>
 `;
     },
@@ -679,21 +679,19 @@ expect(canVote(5)).toBe(false)   <span class="green">✓</span>
 
   // ───────────────────────── INTERMEZZO ─────────────────────────
   add({
-    id: 'strike', seq: 'intermezzo', steps: 3, cls: 'twist strike',
+    id: 'strike', seq: 'intermezzo', steps: 2, cls: 'twist strike',
     html: () => `${HS.marquee('⚠ HULL BREACH · LIFE SUPPORT FAILING ·')}
       <div class="twist-body">
         <div class="twist-eye">${A.alien('angry')}</div>
         <div class="twist-text">
           <div class="big">The alien strikes back.</div>
           <ul class="alien-events" data-s="1">${HS.alienEvents.intermezzo.map(([n, v]) => `<li><span>${n}</span><b>+${v}</b></li>`).join('')}</ul>
-          <div class="dying-row" data-s="2">${HS.dying.map(d => `<div class="dpod">${A.cryo('dying', 'LIFE SUPP.')}<b>${d.name}</b><small>${d.why}</small></div>`).join('')}</div>
         </div>
       </div>
       <div class="hud-corner">${A.hud()}</div>`,
     step: (el, st, c) => {
       if (c.active && st >= 1 && !c.state.events.intermezzo) { c.state.events.intermezzo = true; A.hudUpdate(el, c); }
       else A.hudUpdate(el, c, false);
-      el.querySelectorAll('.dpod .cryo').forEach(s => { s.setAttribute('class', `cryo ${st >= 2 ? 'dead' : 'dying'}`); s.querySelector('.readout-t').textContent = st >= 2 ? 'LOST' : 'LIFE SUPP.'; });
     },
   });
 
