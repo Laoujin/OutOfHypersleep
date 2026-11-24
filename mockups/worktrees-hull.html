@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Worktrees Hull Mockup</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@600;700&family=IBM+Plex+Mono:wght@500;600;700&family=IBM+Plex+Sans:wght@400;600&display=swap">
+<style>
+:root {
+  --bg: #0b0d10; --ink: #d9dee6; --muted: #8a93a1; --line: #2e3540; --panel: #15191f;
+  --cryo: #9fd8f0; --frost: #cfefff; --awake: #45e6a0; --alien: #ff3b5c; --amber: #ffb547; --iso: #6fb6e8;
+  --head: "Chakra Petch", "Eurostile", "Arial Narrow", sans-serif;
+  --sans: "IBM Plex Sans", system-ui, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: #05070a; color: var(--ink); font-family: var(--sans); }
+main { max-width: 1280px; margin: 0 auto; padding-block: 32px 80px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+h1.page { font: 700 32px var(--head); margin: 0 0 6px; }
+p.lead { color: var(--muted); margin: 0 0 24px; line-height: 1.5; }
+h2.opt { font: 700 20px var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--amber); margin: 40px 0 6px; }
+.ctl { display: flex; gap: 8px; align-items: center; margin: 10px 0 24px; font: 600 14px var(--mono); color: var(--muted); }
+.ctl button { font: 600 14px var(--mono); background: var(--panel); color: var(--ink); border: 1px solid var(--line); border-radius: 6px; padding: 6px 14px; cursor: pointer; }
+
+.wrap { position: relative; width: 100%; aspect-ratio: 16 / 9; overflow: hidden; border-radius: 10px; border: 1px solid #222; cursor: pointer; }
+.slide { position: absolute; left: 0; top: 0; width: 1600px; height: 900px; transform-origin: 0 0; overflow: hidden;
+  background: radial-gradient(1100px 700px at 80% -20%, #1b2027 0%, transparent 60%), radial-gradient(900px 600px at -10% 120%, #171a1f 0%, transparent 55%), var(--bg); }
+[data-s] { opacity: 0; transition: opacity .45s; }
+[data-s].on { opacity: 1; }
+
+header.h { position: absolute; left: 72px; top: 64px; z-index: 2; }
+.kicker { font: 600 18px var(--mono); letter-spacing: .2em; text-transform: uppercase; color: var(--iso); }
+header.h h3 { margin: 6px 0 0; font: 700 54px/1.05 var(--head); text-transform: uppercase; color: #fff; }
+
+svg.hullsvg { position: absolute; left: 0; top: -40px; }
+.hull { fill: rgba(111,182,232,.05); stroke: var(--iso); stroke-width: 3; }
+.zone { transition: fill .45s; fill: transparent; }
+.bad .zone.on { fill: rgba(255,59,92,.16); }
+.open { stroke: rgba(111,182,232,.35); stroke-width: 2; stroke-dasharray: 10 10; }
+.bulk { stroke: var(--iso); stroke-width: 10; stroke-linecap: round; }
+.keel { stroke: var(--awake); stroke-width: 10; stroke-linecap: round; filter: drop-shadow(0 0 8px var(--awake)); }
+.ag { stroke: #fff; stroke-width: 2; } .ag1 { fill: #ff9d5c; } .ag2 { fill: #2dd4bf; } .ag3 { fill: #a78bfa; }
+.spark { stroke: var(--alien); stroke-width: 3; fill: none; }
+.mono { font: 500 20px var(--mono); }
+
+.sec { position: absolute; top: 290px; z-index: 2; }
+.sec .t { font: 700 20px/1.25 var(--mono); letter-spacing: .1em; text-transform: uppercase; display: flex; gap: 12px; }
+.sec .t i { width: 12px; height: 12px; border-radius: 50%; flex: none; margin-top: 6px; }
+.sec .t small { display: block; font-size: 15px; letter-spacing: .16em; opacity: .75; }
+.sec .d { font: 400 21px/1.4 var(--sans); color: var(--ink); margin: 10px 0 0 24px; }
+.sec .d code { font: 500 .88em var(--mono); color: var(--frost); background: rgba(159,216,240,.08); padding: 0 .25em; border-radius: 4px; }
+.sec .was { font: 400 17px/1.35 var(--sans); color: var(--muted); margin: 8px 0 0 24px; text-decoration: line-through; text-decoration-color: rgba(255,59,92,.6); }
+.bad .sec .t { color: var(--alien); } .bad .sec .t i { background: var(--alien); box-shadow: 0 0 10px var(--alien); animation: blink 1s steps(2) infinite; }
+.good .sec .t { color: var(--alien); transition: color .45s; } .good .sec .t i { background: var(--alien); transition: background .45s, box-shadow .45s; }
+.good .sec .d { opacity: 0; transition: opacity .45s; }
+.good .sec.on .t { color: var(--awake); } .good .sec.on .t i { background: var(--awake); box-shadow: 0 0 10px var(--awake); }
+.good .sec.on .d { opacity: 1; }
+.good .zone.on { fill: rgba(69,230,160,.10); }
+.good .zone:not(.on) { fill: rgba(255,59,92,.08); }
+@keyframes blink { 50% { opacity: .25; } }
+
+.bar { position: absolute; left: 0; right: 0; height: 40px; display: flex; align-items: center; justify-content: space-around; white-space: nowrap; overflow: hidden; z-index: 3;
+  font: 700 17px var(--mono); letter-spacing: .2em; color: #fff; background: repeating-linear-gradient(-45deg, var(--alien) 0 24px, #c2203d 24px 48px); }
+.bar.top { top: 0; } .bar.bottom { bottom: 0; }
+.cmd { position: absolute; left: 50%; transform: translateX(-50%); bottom: 34px; z-index: 2; background: #06080b; border: 1px solid var(--line); border-radius: 10px; padding: 14px 24px; font: 500 24px var(--mono); color: var(--ink); white-space: nowrap; }
+.cmd span { color: var(--muted); }
+.keeltag { position: absolute; left: 0; right: 0; top: 750px; text-align: center; font: 500 19px var(--mono); color: var(--awake); z-index: 2; }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+</style>
+</head>
+<body>
+<main>
+<h1 class="page">git worktree: damage report → compartments</h1>
+<p class="lead">Two slides, same hull split into four sections. Click a slide (or →) to step; buttons step back and reset.</p>
+
+<h2 class="opt">1 · Damage report</h2>
+<div class="wrap" data-steps="5"><div class="slide bad">
+  <div class="bar top" data-s="5"><span>⚠ ALL AGENTS · ONE COMPARTMENT</span><span>⚠ ALL AGENTS · ONE COMPARTMENT</span><span>⚠ ALL AGENTS · ONE COMPARTMENT</span></div>
+  <header class="h"><div class="kicker">Deck 1 · Isolation · git worktree</div><h3>Damage report</h3></header>
+  <svg class="hullsvg" viewBox="0 0 1600 900" width="1600" height="900">
+    <defs><clipPath id="hc1"><path d="M70 500 C 70 340, 190 250, 340 250 H 1260 C 1410 250, 1530 340, 1530 500 C 1530 660, 1410 750, 1260 750 H 340 C 190 750, 70 660, 70 500 Z"/></clipPath></defs>
+    <g clip-path="url(#hc1)">
+      <rect class="zone" data-z="1" x="60" y="240" width="370" height="520"/>
+      <rect class="zone" data-z="2" x="430" y="240" width="370" height="520"/>
+      <rect class="zone" data-z="3" x="800" y="240" width="370" height="520"/>
+      <rect class="zone" data-z="4" x="1170" y="240" width="370" height="520"/>
+    </g>
+    <path class="hull" d="M70 500 C 70 340, 190 250, 340 250 H 1260 C 1410 250, 1530 340, 1530 500 C 1530 660, 1410 750, 1260 750 H 340 C 190 750, 70 660, 70 500 Z"/>
+    <line class="open" x1="430" y1="256" x2="430" y2="744"/><line class="open" x1="800" y1="256" x2="800" y2="744"/><line class="open" x1="1170" y1="256" x2="1170" y2="744"/>
+    <circle class="ag ag1" cx="400" cy="640" r="24"/><circle class="ag ag2" cx="790" cy="660" r="24"/><circle class="ag ag3" cx="1180" cy="630" r="24"/>
+    <g data-s="1"><path class="spark" d="M450 630 l14 8 l-4 -18 l14 14 l2 -16 l8 18"/><path class="spark" d="M840 650 l12 8 l-2 -16 l12 12 l4 -14 l4 16"/></g>
+  </svg>
+  <div class="sec" data-s="1" style="left:150px;width:260px"><div class="t"><i></i><span>Hull breach<small>working tree</small></span></div><div class="d">Two agents, one file. Last write wins.</div></div>
+  <div class="sec" data-s="2" style="left:460px;width:320px"><div class="t"><i></i><span>Nav failure<small>git state</small></span></div><div class="d">Checkout moves. Commit steals. Stash vanishes.</div></div>
+  <div class="sec" data-s="3" style="left:830px;width:320px"><div class="t"><i></i><span>Reactor unstable<small>dev server</small></span></div><div class="d">It rebuilds &amp; reloads all the time.</div></div>
+  <div class="sec" data-s="4" style="left:1200px;width:270px"><div class="t"><i></i><span>Life support<small>test run</small></span></div><div class="d">Red, from the other agent's in-progress work.</div></div>
+  <div class="bar bottom" data-s="5"><span>⚠ ALL AGENTS · ONE COMPARTMENT</span><span>⚠ ALL AGENTS · ONE COMPARTMENT</span><span>⚠ ALL AGENTS · ONE COMPARTMENT</span></div>
+</div></div>
+<div class="ctl"><button data-act="prev">←</button><button data-act="next">→</button><button data-act="reset">reset</button><span class="st"></span></div>
+
+<h2 class="opt">2 · Compartments sealed</h2>
+<div class="wrap" data-steps="5"><div class="slide good">
+  <header class="h"><div class="kicker">Deck 1 · Isolation · git worktree</div><h3>Seal the bulkheads</h3></header>
+  <svg class="hullsvg" viewBox="0 0 1600 900" width="1600" height="900">
+    <defs><clipPath id="hc2"><path d="M70 500 C 70 340, 190 250, 340 250 H 1260 C 1410 250, 1530 340, 1530 500 C 1530 660, 1410 750, 1260 750 H 340 C 190 750, 70 660, 70 500 Z"/></clipPath></defs>
+    <g clip-path="url(#hc2)">
+      <rect class="zone" data-z="1" x="60" y="240" width="370" height="520"/>
+      <rect class="zone" data-z="2" x="430" y="240" width="370" height="520"/>
+      <rect class="zone" data-z="3" x="800" y="240" width="370" height="520"/>
+      <rect class="zone" data-z="4" x="1170" y="240" width="370" height="520"/>
+    </g>
+    <path class="hull" d="M70 500 C 70 340, 190 250, 340 250 H 1260 C 1410 250, 1530 340, 1530 500 C 1530 660, 1410 750, 1260 750 H 340 C 190 750, 70 660, 70 500 Z"/>
+    <line class="bulk" x1="430" y1="256" x2="430" y2="744"/><line class="bulk" x1="800" y1="256" x2="800" y2="744"/><line class="bulk" x1="1170" y1="256" x2="1170" y2="744"/>
+    <g data-s="2"><line class="keel" x1="300" y1="772" x2="1300" y2="772"/></g>
+  </svg>
+  <div class="keeltag" data-s="2">.git · one object store · the keel</div>
+  <div class="sec" data-z="1" style="left:150px;width:260px"><div class="t"><i></i><span>Hull sealed<small>working tree</small></span></div><div class="d">Separate directories.<br><code>.worktreeinclude</code> for <code>.env</code></div></div>
+  <div class="sec" data-z="2" style="left:460px;width:320px"><div class="t"><i></i><span>Nav restored<small>git state</small></span></div><div class="d">One shared <code>.git</code>.<br>Since v2.5, 2015.</div></div>
+  <div class="sec" data-z="3" style="left:830px;width:320px"><div class="t"><i></i><span>Reactor stable<small>dev server</small></span></div><div class="d">Own port.<br>Hardlinked <code>node_modules</code> (pnpm, bun).</div></div>
+  <div class="sec" data-z="4" style="left:1200px;width:270px"><div class="t"><i></i><span>Life support<small>test run</small></span></div><div class="d">Own code only.<br>Own testcontainer.</div></div>
+  <div class="cmd" data-s="5">$ git worktree add ../app-auth -b auth   <span># one per agent</span></div>
+</div></div>
+<div class="ctl"><button data-act="prev">←</button><button data-act="next">→</button><button data-act="reset">reset</button><span class="st"></span></div>
+</main>
+<script>
+const wraps = [...document.querySelectorAll('.wrap')];
+const fit = () => wraps.forEach(w => { w.firstElementChild.style.transform = 'scale(' + (w.clientWidth / 1600) + ')'; });
+const show = (w, st) => {
+  const max = +w.dataset.steps;
+  st = Math.max(0, Math.min(max, st));
+  w.dataset.st = st;
+  w.querySelectorAll('[data-s]').forEach(e => e.classList.toggle('on', st >= +e.dataset.s));
+  w.querySelectorAll('[data-z]').forEach(e => e.classList.toggle('on', st >= +e.dataset.z));
+  w.nextElementSibling.querySelector('.st').textContent = 'step ' + st + ' / ' + max;
+};
+let current = wraps[0];
+const q = new URLSearchParams(location.search).get('step');
+wraps.forEach(w => {
+  show(w, q === 'max' ? +w.dataset.steps : 0);
+  w.addEventListener('click', () => { current = w; show(w, +w.dataset.st + 1); });
+  w.nextElementSibling.addEventListener('click', e => {
+    const a = e.target.dataset.act; if (!a) return; current = w;
+    show(w, a === 'next' ? +w.dataset.st + 1 : a === 'prev' ? +w.dataset.st - 1 : 0);
+  });
+});
+addEventListener('keydown', e => { if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); show(current, +current.dataset.st + 1); } if (e.key === 'ArrowLeft') show(current, +current.dataset.st - 1); });
+addEventListener('resize', fit); fit();
+</script>
+</body>
+</html>
