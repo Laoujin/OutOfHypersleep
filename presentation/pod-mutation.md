@@ -30,7 +30,7 @@ pod:
   score:
     alive: 50
     dead: -40
-  frozenBecause: Too slow and too expensive<br>it ran the whole suite for each mutant
+  frozenBecause: Too slow and too expensive<br>It ran the whole suite for each mutant
   wokenBecause: Compute is cheap and agents write the tests. Who tests the tests?
   logTitle: Agents write the tests
   takeaway: Deterministic guardrails make sure they actually test something.
