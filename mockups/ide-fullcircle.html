@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>IDE Full Circle</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@600;700&family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;600&family=VT323&display=swap">
+<style>
+:root {
+  --bg: #0b0d10; --panel: #15191f; --line: #2e3540; --ink: #d9dee6; --muted: #8a93a1; --faint: #565e6b;
+  --awake: #45e6a0; --alien: #ff3b5c; --amber: #ffb547; --clawd: #d97757;
+  --head: "Chakra Petch", "Eurostile", "Arial Narrow", sans-serif;
+  --sans: "IBM Plex Sans", system-ui, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+  --crt: "VT323", "IBM Plex Mono", monospace;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: #05070a; color: var(--ink); font-family: var(--sans); }
+main { max-width: 1280px; margin: 0 auto; padding: 32px 16px 80px; }
+h1.page { font: 700 32px var(--head); margin: 0 0 6px; }
+p.lead { color: var(--muted); margin: 0 0 24px; line-height: 1.5; }
+.wrap { position: relative; width: 100%; aspect-ratio: 16 / 9; overflow: hidden; border-radius: 10px; border: 1px solid #222; cursor: pointer; }
+.slide { position: absolute; left: 0; top: 0; width: 1600px; height: 900px; transform-origin: 0 0; overflow: hidden; background: radial-gradient(1200px 800px at 50% 40%, #1c2530 0%, transparent 65%), var(--bg); }
+.ctl { display: flex; gap: 8px; align-items: center; margin-top: 8px; font: 600 13px var(--mono); color: var(--muted); flex-wrap: wrap; }
+.ctl button { font: 600 13px var(--mono); background: var(--panel); color: var(--ink); border: 1px solid var(--line); border-radius: 6px; padding: 6px 12px; cursor: pointer; }
+.ctl .cap { margin-left: 12px; }
+
+.era { position: absolute; left: 340px; top: 70px; width: 920px; opacity: 0; transform: scale(.94); transition: opacity .6s, transform .9s cubic-bezier(.5,0,.2,1); pointer-events: none; }
+.era.show { opacity: 1; transform: none; }
+.mon { width: 920px; height: 575px; border-radius: 14px; border: 10px solid #2a3039; overflow: hidden; position: relative; box-shadow: 0 20px 60px rgba(0,0,0,.6); transition: border-color .6s, box-shadow .6s; }
+.lbl { display: flex; align-items: baseline; gap: 22px; margin-top: 22px; padding-left: 6px; }
+.lbl .y { font: 700 64px/1 var(--head); color: #fff; }
+.lbl .n { font: 600 24px var(--mono); color: var(--amber); }
+.lbl .q { margin-left: auto; font: 400 22px var(--sans); color: var(--muted); font-style: italic; text-align: right; }
+
+.done .e0 { opacity: 1; transform: translate(-300px, 70px) scale(.6); }
+.done .e4 { opacity: 1; transform: translate(300px, 70px) scale(.6); }
+.done .e0 .mon, .done .e4 .mon { border-color: var(--awake); box-shadow: 0 0 70px rgba(69,230,160,.4); }
+.done .lbl .q { opacity: 0; }
+.arc { position: absolute; left: 0; top: 0; width: 1600px; height: 900px; pointer-events: none; }
+.arc path { fill: none; stroke: var(--awake); stroke-width: 5; stroke-linecap: round; stroke-dasharray: 1300; stroke-dashoffset: 1300; transition: stroke-dashoffset 1.6s ease .6s; }
+.done .arc path { stroke-dashoffset: 0; }
+.fc { position: absolute; left: 0; right: 0; top: 740px; text-align: center; font: 700 52px var(--head); text-transform: uppercase; color: #fff; opacity: 0; transition: opacity .6s 1.6s; }
+.fc em { font-style: normal; color: var(--awake); }
+.done .fc { opacity: 1; }
+.cur-b { display: inline-block; width: .55em; height: 1em; background: currentColor; vertical-align: -.15em; animation: blink 1s steps(1) infinite; }
+@keyframes blink { 50% { opacity: 0; } }
+
+/* 1983 Turbo Pascal */
+.m83 { background: #0000aa; font: 30px/1.15 var(--crt); color: #ffff55; }
+.m83 .mb { background: #aaaaaa; color: #000; padding: 2px 12px; display: flex; gap: 28px; }
+.m83 .mb b { color: #aa0000; font-weight: 400; }
+.m83 .bx { position: absolute; inset: 44px 14px 40px; border: 3px double #ffff55; padding: 14px 20px; color: #fff; }
+.m83 .bx .t { position: absolute; top: -18px; left: 50%; transform: translateX(-50%); background: #0000aa; padding: 0 10px; color: #ffff55; }
+.m83 .kw { color: #ffff55; }
+.m83 .st { position: absolute; bottom: 0; left: 0; right: 0; background: #00aaaa; color: #000; padding: 2px 12px; display: flex; gap: 30px; }
+
+/* 1997 Visual Studio */
+.mvs { background: #c0c0c0; font: 13px "Tahoma", "MS Sans Serif", sans-serif; color: #000; }
+.mvs .tt { height: 24px; background: linear-gradient(90deg, #000080, #1084d0); color: #fff; font-weight: 700; padding: 4px 8px; }
+.mvs .mn { display: flex; gap: 16px; padding: 3px 8px; border-bottom: 1px solid #808080; }
+.mvs .tb { display: flex; flex-wrap: wrap; gap: 3px; padding: 4px 6px; border-bottom: 1px solid #808080; }
+.mvs .tb i { width: 20px; height: 20px; background: linear-gradient(135deg, #dcdcdc, #9aa4b0); border: 1px outset #fff; }
+.mvs .tb i:nth-child(5n) { background: linear-gradient(135deg, #ffd860, #c09020); } .mvs .tb i:nth-child(7n) { background: linear-gradient(135deg, #8ab4ff, #2050b0); } .mvs .tb i:nth-child(11n) { margin-right: 10px; }
+.mvs .bd { position: absolute; top: 108px; left: 0; right: 0; bottom: 22px; display: grid; grid-template-columns: 210px 1fr 190px; grid-template-rows: 1fr 120px; gap: 4px; padding: 4px; }
+.mvs .p { background: #fff; border: 2px inset #ddd; padding: 6px; font-size: 12px; line-height: 1.6; overflow: hidden; }
+.mvs .p h5 { margin: -6px -6px 6px; padding: 2px 6px; background: #808080; color: #fff; font-size: 12px; }
+.mvs .code { font: 13px/1.6 "Courier New", monospace; } .mvs .code .k { color: #0000ff; } .mvs .code .c { color: #008000; }
+.mvs .o { grid-column: 1 / -1; font: 12px/1.5 "Courier New", monospace; }
+.mvs .sb { position: absolute; bottom: 0; left: 0; right: 0; height: 22px; border-top: 1px solid #fff; padding: 3px 8px; font-size: 12px; }
+
+/* 2004 Eclipse */
+.mec { background: #ece9d8; font: 12px "Tahoma", sans-serif; color: #000; }
+.mec .mn { display: flex; gap: 14px; padding: 3px 8px; }
+.mec .tb { display: flex; gap: 3px; padding: 3px 6px; border-bottom: 1px solid #aca899; }
+.mec .tb i { width: 18px; height: 18px; border-radius: 3px; background: linear-gradient(135deg, #e8e4d4, #a8a090); }
+.mec .tb i:nth-child(4n) { background: linear-gradient(135deg, #b8e0a0, #4a9a30); } .mec .tb i:nth-child(6n) { background: linear-gradient(135deg, #ffd0a0, #d06020); }
+.mec .persp { position: absolute; right: 8px; top: 24px; display: flex; gap: 4px; } .mec .persp span { border: 1px solid #aca899; padding: 1px 6px; background: #fff; border-radius: 3px; }
+.mec .bd { position: absolute; top: 52px; left: 0; right: 0; bottom: 20px; display: grid; grid-template-columns: 190px 1fr 180px; grid-template-rows: 1fr 1fr 150px; gap: 4px; padding: 4px; }
+.mec .v { background: #fff; border: 1px solid #7f9db9; overflow: hidden; display: flex; flex-direction: column; }
+.mec .v .tabs { display: flex; background: linear-gradient(#f4f3ee, #dcd9c8); border-bottom: 1px solid #7f9db9; }
+.mec .v .tabs span { padding: 2px 8px; border-right: 1px solid #c0bcae; white-space: nowrap; } .mec .v .tabs span.a { background: #fff; font-weight: 700; }
+.mec .v .c { padding: 5px 8px; line-height: 1.55; font-size: 11.5px; color: #333; }
+.mec .ed { grid-row: 1 / 3; } .mec .ed .c { font: 12.5px/1.6 "Courier New", monospace; } .mec .ed .k { color: #7f0055; font-weight: 700; } .mec .ed .s { color: #2a00ff; }
+.mec .tree { grid-row: 1 / 3; }
+.mec .bot { grid-column: 1 / -1; }
+.mec .sb { position: absolute; bottom: 0; left: 0; right: 0; height: 20px; padding: 2px 8px; border-top: 1px solid #aca899; }
+
+/* 2015 VS Code */
+.mvc { background: #1e1e1e; font: 13px "Segoe UI", system-ui, sans-serif; color: #ccc; }
+.mvc .bd { position: absolute; inset: 0 0 24px 0; display: grid; grid-template-columns: 52px 240px 1fr; grid-template-rows: 34px 1fr 160px; }
+.mvc .ab { background: #333; grid-row: 1 / 4; display: grid; align-content: start; gap: 22px; padding: 16px 0; justify-items: center; }
+.mvc .ab i { width: 24px; height: 24px; border-radius: 4px; border: 2px solid #858585; } .mvc .ab i:first-child { border-color: #fff; }
+.mvc .side { background: #252526; grid-row: 1 / 4; padding: 10px 14px; line-height: 1.85; font-size: 13px; } .mvc .side h5 { margin: 0 0 4px; font-size: 11px; letter-spacing: .1em; color: #bbb; }
+.mvc .tabs { display: flex; background: #252526; } .mvc .tabs span { padding: 8px 16px; background: #2d2d2d; border-right: 1px solid #1e1e1e; } .mvc .tabs span.a { background: #1e1e1e; color: #fff; }
+.mvc .ed { padding: 10px 0 0 20px; font: 15px/1.7 "Consolas", var(--mono); color: #d4d4d4; white-space: pre; }
+.mvc .ed .k { color: #569cd6; } .mvc .ed .f { color: #dcdcaa; } .mvc .ed .s { color: #ce9178; } .mvc .ed .c { color: #6a9955; } .mvc .ed .t { color: #4ec9b0; }
+.mvc .ed .sq { text-decoration: underline wavy #f14c4c; }
+.mvc .pop { position: absolute; left: 480px; top: 172px; width: 280px; background: #252526; border: 1px solid #454545; box-shadow: 0 6px 20px rgba(0,0,0,.5); font: 13px/1.9 var(--mono); }
+.mvc .pop div { padding: 0 10px; } .mvc .pop .a { background: #094771; color: #fff; }
+.mvc .term { border-top: 1px solid #333; padding: 8px 20px; font: 13px/1.6 var(--mono); color: #ccc; } .mvc .term .h { display: flex; gap: 20px; font: 11px var(--sans); letter-spacing: .08em; color: #888; margin-bottom: 6px; } .mvc .term .h b { color: #fff; border-bottom: 1px solid #fff; font-weight: 400; }
+.mvc .st { position: absolute; bottom: 0; left: 0; right: 0; height: 24px; background: #007acc; color: #fff; display: flex; gap: 20px; padding: 3px 12px; font-size: 12px; }
+
+/* 2025 terminal + Claude Code */
+.m25 { background: #0a0a0a; padding: 30px 36px; font: 22px/1.55 var(--mono); color: var(--ink); }
+.m25 .box { border: 2px solid var(--clawd); border-radius: 10px; padding: 18px 24px; display: flex; gap: 28px; align-items: center; margin-bottom: 22px; }
+.m25 .box svg { width: 150px; height: auto; flex: none; }
+.m25 .box b { color: #fff; font-weight: 600; } .m25 .box small { display: block; color: var(--muted); font-size: 18px; }
+.m25 .d { color: var(--muted); } .m25 .o { color: var(--clawd); } .m25 .g { color: var(--awake); }
+.m25 .prompt { margin-top: 14px; border: 1px solid #3a3a3a; border-radius: 8px; padding: 6px 14px; }
+</style>
+</head>
+<body>
+<main>
+<h1 class="page">The IDE · full circle</h1>
+<p class="lead">One era per click, each on its own. Last click: 1983 and 2025 side by side, full circle.</p>
+<div class="wrap"><div class="slide" id="s">
+
+  <div class="era e0"><div class="mon m83">
+    <div class="mb"><span><b>F</b>ile</span><span><b>E</b>dit</span><span><b>R</b>un</span><span><b>C</b>ompile</span><span><b>O</b>ptions</span></div>
+    <div class="bx"><span class="t">VOTE.PAS</span><span class="kw">program</span> Vote;<br><span class="kw">var</span> total: Integer;<br><span class="kw">begin</span><br>&nbsp;&nbsp;total := 0;<br>&nbsp;&nbsp;WriteLn('Votes: ', total);<br><span class="kw">end</span>.<span class="cur-b"></span></div>
+    <div class="st"><span>F1 Help</span><span>F2 Save</span><span>F3 Load</span><span>F9 Make</span><span>F10 Menu</span></div>
+  </div><div class="lbl"><span class="y">1983</span><span class="n">Turbo Pascal</span><span class="q">Edit, compile, run.<br>One blue screen.</span></div></div>
+
+  <div class="era e1"><div class="mon mvs">
+    <div class="tt">Microsoft Developer Studio - Vote - [vote.cpp]</div>
+    <div class="mn"><span>File</span><span>Edit</span><span>View</span><span>Insert</span><span>Project</span><span>Build</span><span>Tools</span><span>Window</span><span>Help</span></div>
+    <div class="tb"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    <div class="bd">
+      <div class="p"><h5>Workspace</h5>📁 Vote files<br>&nbsp;&nbsp;📁 Source Files<br>&nbsp;&nbsp;&nbsp;&nbsp;📄 vote.cpp<br>&nbsp;&nbsp;&nbsp;&nbsp;📄 tally.cpp<br>&nbsp;&nbsp;📁 Header Files<br>&nbsp;&nbsp;📁 Resource Files</div>
+      <div class="p code"><span class="k">#include</span> &lt;stdio.h&gt;<br><br><span class="k">int</span> tally(<span class="k">int</span>* v, <span class="k">int</span> n) {<br>&nbsp;&nbsp;<span class="k">int</span> total = 0;<br>&nbsp;&nbsp;<span class="k">for</span> (<span class="k">int</span> i = 0; i &lt; n; i++)<br>&nbsp;&nbsp;&nbsp;&nbsp;total += v[i];<br>&nbsp;&nbsp;<span class="k">return</span> total; <span class="c">// TODO</span><br>}</div>
+      <div class="p"><h5>Properties</h5>Name: tally<br>Type: int<br>Calling: __cdecl<br>Inline: No<br>Debug: Yes</div>
+      <div class="p o"><h5>Output</h5>--------------------Configuration: Vote - Win32 Debug--------------------<br>Compiling...<br>vote.cpp<br>Vote.exe - 0 error(s), 3 warning(s)</div>
+    </div>
+    <div class="sb">Ready</div>
+  </div><div class="lbl"><span class="y">1997</span><span class="n">Visual Studio</span><span class="q">Toolbars.<br>So many toolbars.</span></div></div>
+
+  <div class="era e2"><div class="mon mec">
+    <div class="mn"><span>File</span><span>Edit</span><span>Source</span><span>Refactor</span><span>Navigate</span><span>Search</span><span>Project</span><span>Run</span><span>Window</span><span>Help</span></div>
+    <div class="tb"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    <div class="persp"><span>Java</span><span>Debug</span><span>CVS</span><span>Team Sync</span></div>
+    <div class="bd">
+      <div class="v tree"><div class="tabs"><span class="a">Package Explorer</span><span>Hierarchy</span></div><div class="c">▾ vote<br>&nbsp;&nbsp;▾ src<br>&nbsp;&nbsp;&nbsp;&nbsp;▾ be.vote<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Vote.java<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Tally.java<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TallyFactory.java<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TallyFactoryImpl.java<br>&nbsp;&nbsp;▸ JRE System Library<br>&nbsp;&nbsp;▸ lib</div></div>
+      <div class="v ed"><div class="tabs"><span class="a">Tally.java</span><span>Vote.java</span><span>TallyFactoryImpl.java</span></div><div class="c"><span class="k">public class</span> Tally {<br>&nbsp;&nbsp;<span class="k">private final</span> List&lt;Vote&gt; votes;<br><br>&nbsp;&nbsp;<span class="k">public int</span> total() {<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="k">int</span> t = 0;<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="k">for</span> (Vote v : votes) t += v.n();<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="k">return</span> t;<br>&nbsp;&nbsp;}<br>}</div></div>
+      <div class="v"><div class="tabs"><span class="a">Outline</span></div><div class="c">◆ Tally<br>&nbsp;&nbsp;▫ votes<br>&nbsp;&nbsp;● total()</div></div>
+      <div class="v"><div class="tabs"><span class="a">Ant</span><span>Tasks</span></div><div class="c">▸ build.xml<br>&nbsp;&nbsp;compile<br>&nbsp;&nbsp;jar</div></div>
+      <div class="v bot"><div class="tabs"><span class="a">Problems</span><span>Javadoc</span><span>Declaration</span><span>Console</span><span>Search</span><span>Progress</span></div><div class="c">⚠ 47 warnings<br>⚠ The import java.util.Date is never used<br>⚠ Serializable class Tally does not declare a serialVersionUID</div></div>
+    </div>
+    <div class="sb">Building workspace (63%)</div>
+  </div><div class="lbl"><span class="y">2004</span><span class="n">Eclipse</span><span class="q">Perspectives, views,<br>and a 4-minute startup.</span></div></div>
+
+  <div class="era e3"><div class="mon mvc">
+    <div class="bd">
+      <div class="ab"><i></i><i></i><i></i><i></i><i></i></div>
+      <div class="side"><h5>EXPLORER</h5>▾ VOTE<br>&nbsp;&nbsp;▾ src<br>&nbsp;&nbsp;&nbsp;&nbsp;vote.ts<br>&nbsp;&nbsp;&nbsp;&nbsp;tally.ts<br>&nbsp;&nbsp;▸ node_modules<br>&nbsp;&nbsp;package.json<br>&nbsp;&nbsp;tsconfig.json<br><br><h5>EXTENSIONS · 47 INSTALLED</h5>Prettier<br>ESLint<br>GitLens<br>Copilot</div>
+      <div class="tabs"><span class="a">tally.ts</span><span>vote.ts</span><span>package.json</span></div>
+      <div class="ed"><span class="k">export function</span> <span class="f">tally</span>(votes: <span class="t">Vote</span>[]) {
+  <span class="k">const</span> total = votes.<span class="f">reduce</span>((a, v) =&gt; a + v.n, 0)
+  <span class="k">return</span> votes.<span class="f">ma</span><span class="cur-b"></span>
+}
+<span class="c">// TODO: handle empty votes</span></div>
+      <div class="term"><div class="h"><b>TERMINAL</b><span>PROBLEMS 1</span><span>OUTPUT</span><span>DEBUG CONSOLE</span></div>$ npm run dev<br>ready on :5173</div>
+    </div>
+    <div class="pop"><div class="a">⬡ map</div><div>⬡ filter</div><div>⬡ flatMap</div><div>⬡ find</div></div>
+    <div class="st"><span>⎇ main</span><span>⊗ 0 ⚠ 1</span><span style="margin-left:auto">Ln 3, Col 22</span><span>TypeScript</span><span>Prettier ✓</span></div>
+  </div><div class="lbl"><span class="y">2015</span><span class="n">VS Code</span><span class="q">Lighter. Plus<br>60,000 extensions.</span></div></div>
+
+  <div class="era e4"><div class="mon m25">
+    <div class="box">
+      <svg viewBox="0 0 18 10" shape-rendering="crispEdges" aria-label="Claude Code mascot"><g fill="#d97757"><rect x="3" y="0" width="1" height="2"/><rect x="4" y="0" width="1" height="2"/><rect x="5" y="0" width="1" height="2"/><rect x="6" y="0" width="1" height="2"/><rect x="7" y="0" width="1" height="2"/><rect x="8" y="0" width="1" height="2"/><rect x="9" y="0" width="1" height="2"/><rect x="10" y="0" width="1" height="2"/><rect x="11" y="0" width="1" height="2"/><rect x="12" y="0" width="1" height="2"/><rect x="13" y="0" width="1" height="2"/><rect x="14" y="0" width="1" height="2"/><rect x="3" y="2" width="1" height="2"/><rect x="4" y="2" width="1" height="2"/><rect x="6" y="2" width="1" height="2"/><rect x="7" y="2" width="1" height="2"/><rect x="8" y="2" width="1" height="2"/><rect x="9" y="2" width="1" height="2"/><rect x="10" y="2" width="1" height="2"/><rect x="11" y="2" width="1" height="2"/><rect x="13" y="2" width="1" height="2"/><rect x="14" y="2" width="1" height="2"/><rect x="1" y="4" width="1" height="2"/><rect x="2" y="4" width="1" height="2"/><rect x="3" y="4" width="1" height="2"/><rect x="4" y="4" width="1" height="2"/><rect x="5" y="4" width="1" height="2"/><rect x="6" y="4" width="1" height="2"/><rect x="7" y="4" width="1" height="2"/><rect x="8" y="4" width="1" height="2"/><rect x="9" y="4" width="1" height="2"/><rect x="10" y="4" width="1" height="2"/><rect x="11" y="4" width="1" height="2"/><rect x="12" y="4" width="1" height="2"/><rect x="13" y="4" width="1" height="2"/><rect x="14" y="4" width="1" height="2"/><rect x="15" y="4" width="1" height="2"/><rect x="16" y="4" width="1" height="2"/><rect x="3" y="6" width="1" height="2"/><rect x="4" y="6" width="1" height="2"/><rect x="5" y="6" width="1" height="2"/><rect x="6" y="6" width="1" height="2"/><rect x="7" y="6" width="1" height="2"/><rect x="8" y="6" width="1" height="2"/><rect x="9" y="6" width="1" height="2"/><rect x="10" y="6" width="1" height="2"/><rect x="11" y="6" width="1" height="2"/><rect x="12" y="6" width="1" height="2"/><rect x="13" y="6" width="1" height="2"/><rect x="14" y="6" width="1" height="2"/><rect x="4" y="8" width="1" height="2"/><rect x="6" y="8" width="1" height="2"/><rect x="11" y="8" width="1" height="2"/><rect x="13" y="8" width="1" height="2"/></g></svg>
+      <div><b><span class="o">✻</span> Welcome to Claude Code</b><small>~/vote</small></div>
+    </div>
+    <div><span class="d">&gt;</span> handle empty votes in tally</div>
+    <div class="d"><span class="o">✻</span> Edit src/tally.ts <span class="g">(+2 −1)</span></div>
+    <div class="d"><span class="o">✻</span> Bash npm test <span class="g">· 118 passed</span></div>
+    <div><span class="g">●</span> Done. Commit?</div>
+    <div class="prompt"><span class="d">&gt;</span> y<span class="cur-b"></span></div>
+  </div><div class="lbl"><span class="y">2025</span><span class="n">a terminal</span><span class="q">The agent edits.<br>You press Enter.</span></div></div>
+
+  <svg class="arc" viewBox="0 0 1600 900"><path d="M500 262 C 640 110, 960 110, 1100 262"/></svg>
+  <div class="fc">Full circle: <em>a text screen and a blinking cursor.</em></div>
+</div></div>
+<div class="ctl"><button data-act="prev">Prev</button><button data-act="next">Next</button><button data-act="reset">Reset</button><span class="cap"></span></div>
+</main>
+<script>
+const CAPS = ['1983: Turbo Pascal.', '1997: Visual Studio.', '2004: Eclipse.', '2015: VS Code.', '2025: a terminal, and Claude.', 'Full circle.'];
+const MAX = CAPS.length - 1;
+const slide = document.getElementById('s'), wrap = slide.parentElement, cap = document.querySelector('.cap');
+const eras = [...slide.querySelectorAll('.era')];
+let st = 0;
+const go = n => {
+  st = Math.max(0, Math.min(MAX, n));
+  eras.forEach((e, i) => e.classList.toggle('show', i === st));
+  slide.classList.toggle('done', st === MAX);
+  cap.textContent = `step ${st}/${MAX} · ${CAPS[st]}`;
+};
+window.go = go;
+wrap.addEventListener('click', () => go(st + 1));
+document.querySelector('.ctl').addEventListener('click', e => { const a = e.target.dataset.act; if (a === 'next') go(st + 1); if (a === 'prev') go(st - 1); if (a === 'reset') go(0); });
+go(0);
+const fit = () => { slide.style.transform = 'scale(' + (wrap.clientWidth / 1600) + ')'; };
+addEventListener('resize', fit); fit();
+</script>
+</body>
+</html>
