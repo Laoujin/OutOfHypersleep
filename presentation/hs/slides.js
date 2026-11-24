@@ -332,21 +332,63 @@ import soCsv from '../data/stackoverflow-questions.csv?raw';
         <circle class="lp" cx="103" cy="46" r="4"/>
       </g></g>`;
       const STATIONS = ['rebase onto main', 'build', 'test', 'merge --ff-only'];
+      const LAND_PTS = ['auth', 'pdf-export', 'user-prefs', 'search', 'dark-mode', 'fix-i18n', 'checkout', 'discount', 'wishlist', 'tax'].map((n, i) => { const a = (-62 + i * 13.8) * Math.PI / 180; return [300 + Math.cos(a) * 220, 520 + Math.sin(a) * 290, n]; });
+      const WEDGE = [[1, 1165, 455, -8], [4, 1165, 505, 9], [6, 1105, 440, -16], [8, 1105, 520, 15]];
+      const wedgeTf = (x, y, r, sx, sy) => `translate(${x}px, ${y}px) rotate(${r}deg) scale(${sx}, ${sy})`;
       return [{
         slug: 'landing', title: 'Ten agents, one main', full: true, steps: 3, cls: 'mq mq-landing',
         body: () => {
-          const AG = ['auth', 'pdf-export', 'user-prefs', 'search', 'dark-mode', 'fix-i18n', 'checkout', 'discount', 'wishlist', 'tax'];
-          const pts = AG.map((n, i) => { const a = (-62 + i * 13.8) * Math.PI / 180; return [300 + Math.cos(a) * 220, 520 + Math.sin(a) * 290, n]; });
           const port = cls => `<rect class="mq-port ${cls}" x="1180" y="400" width="140" height="160" rx="16"/><line class="mq-rail ${cls}" x1="1360" y1="480" x2="1560" y2="480"/>`;
-          return `<svg class="mq-svg" viewBox="0 0 1600 900">
-            <g data-o="1">${port('ok')}</g><g data-s="1" data-o="2">${port('bad')}</g><g data-s="2">${port('ok')}</g>
+          return `<svg class="mq-svg" viewBox="0 0 1600 900"><g class="mq-world">
+            <g data-o="1">${port('ok')}</g><g class="mq-redport" data-s="1" data-o="2">${port('bad')}</g><g data-s="2">${port('ok')}</g>
             <text class="mq-locktag" x="1250" y="385" text-anchor="middle">port</text>
             <text class="mq-railtag" x="1460" y="520" text-anchor="middle">main</text>
-            <g data-o="2">${pts.map(([x, y, n]) => `${crawler(x - 42, y - 30, .8, 'ok')}<text class="mq-tag" x="${x - 55}" y="${y + 6}" text-anchor="end">${n}</text>`).join('')}</g>
-            <g data-s="1" data-o="2">${pts.map(([x, y]) => `<path class="mq-path" d="M${x + 45} ${y} C ${x + 400} ${y}, 1000 480, 1175 480"/>`).join('')}
-              ${[0, 1, 2, 3].map(i => `<g transform="rotate(${i % 2 ? 12 : -14} ${1090 - i * 24} ${450 + (i % 2 ? 40 : -10)})">${crawler(1048 - i * 24, 420 + (i % 2 ? 40 : -10), .8, 'bad')}</g>`).join('')}</g>
-            <g data-s="2"><path class="mq-beam" d="M60 420 H1175 V540 H60 Z"/>${AG.map((n, i) => `${crawler(1068 - i * 108, 450, .8, 'ok')}<text class="mq-tag ${i ? '' : 'in'}" x="${1110 - i * 108}" y="${i % 2 ? 568 : 404}" text-anchor="middle">${n}</text>`).join('')}</g>
-          </svg>`;
+            <g data-o="2">${LAND_PTS.map(([x, y, n], i) => `<g ${WEDGE.some(w => w[0] === i) ? 'data-o="1"' : ''}>${crawler(x - 42, y - 30, .8, 'ok')}</g><text class="mq-tag" x="${x - 55}" y="${y + 6}" text-anchor="end">${n}</text>`).join('')}</g>
+            <g data-s="1" data-o="2">${LAND_PTS.map(([x, y]) => `<path class="mq-path" d="M${x + 45} ${y} C ${x + 400} ${y}, 1000 480, 1175 480"/>`).join('')}
+              <path class="mq-crack" d="M1180 430 l30 18 l-12 20 l34 14 M1320 520 l-26 -10 l10 -22 l-30 -8"/>
+              <ellipse class="mq-beacon" cx="1250" cy="396" rx="26" ry="10"/>
+              <path class="mq-beacon-glow" d="M1250 396 L1450 330 L1450 460 Z"/>
+              ${WEDGE.map(([, tx, ty, r], k) => `<g class="mq-wedge" data-k="${k}" style="transform: ${wedgeTf(tx + 4, ty, r, .66, .86)}">${crawler(-53, -37, 1, 'bad')}</g>`).join('')}
+              <g class="mq-fx"></g>
+            </g>
+            <g data-s="2"><path class="mq-beam" d="M60 420 H1175 V540 H60 Z"/>${LAND_PTS.map(([, , n], i) => `${crawler(1068 - i * 108, 450, .8, 'ok')}<text class="mq-tag ${i ? '' : 'in'}" x="${1110 - i * 108}" y="${i % 2 ? 568 : 404}" text-anchor="middle">${n}</text>`).join('')}</g>
+          </g></svg>`;
+        },
+        step: (el, st, c) => {
+          clearInterval(el._sparks);
+          if (st !== 1 || !c.active || el._st === 1) { el._st = st; return; }
+          el._st = st;
+          const fx = el.querySelector('.mq-fx'), world = el.querySelector('.mq-world');
+          fx.innerHTML = '';
+          const spark = (x, y, n, len) => {
+            for (let i = 0; i < n; i++) {
+              const a = Math.random() * Math.PI * 2, l = len * (.5 + Math.random());
+              const s = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+              Object.entries({ x1: x, y1: y, x2: x + Math.cos(a) * 14, y2: y + Math.sin(a) * 14, class: 'mq-spark' }).forEach(([k, v]) => s.setAttribute(k, v));
+              fx.appendChild(s);
+              s.animate([{ transform: 'translate(0,0)', opacity: 1 }, { transform: `translate(${Math.cos(a) * l}px, ${Math.sin(a) * l}px)`, opacity: 0 }], { duration: 450 + Math.random() * 300, easing: 'cubic-bezier(.2,.7,.3,1)', fill: 'forwards' }).onfinish = () => s.remove();
+            }
+          };
+          const shake = (amp, dur) => world.animate(Array.from({ length: 9 }, (_, i) => ({ transform: `translate(${i === 8 ? 0 : (Math.random() - .5) * amp * 2 * (1 - i / 8)}px, ${i === 8 ? 0 : (Math.random() - .5) * amp * 2 * (1 - i / 8)}px)` })), { duration: dur });
+          const curve = (x, y, tx, ty) => Array.from({ length: 7 }, (_, k) => {
+            const t = k / 6, u = 1 - t;
+            return [u ** 3 * x + 3 * u * u * t * (x + 400) + 3 * u * t * t * 1000 + t ** 3 * tx, u ** 3 * y + 3 * u * u * t * y + 3 * u * t * t * 480 + t ** 3 * ty];
+          });
+          const LAST = 3 * 180 + 1000;
+          el.querySelector('.mq-redport').animate([{ opacity: 0 }, { opacity: 0, offset: .99 }, { opacity: 1 }], { duration: 700 });
+          el.querySelector('.mq-crack').animate([{ strokeDasharray: '0 400' }, { strokeDasharray: '0 400', offset: LAST / (LAST + 500) }, { strokeDasharray: '400 0' }], { duration: LAST + 500 });
+          el.querySelectorAll('.mq-beacon, .mq-beacon-glow').forEach(b => b.animate([{ visibility: 'hidden' }, { visibility: 'hidden', offset: .99 }, { visibility: 'visible' }], { duration: LAST }));
+          el.querySelectorAll('.mq-wedge').forEach(g => {
+            const k = +g.dataset.k, [i, tx, ty, r] = WEDGE[k], [x, y] = LAND_PTS[i];
+            const fly = curve(x, y, tx, ty).map(([px, py], j) => ({ transform: wedgeTf(px, py, 0, .8, .8), offset: j / 6 * .7, easing: j === 0 ? 'cubic-bezier(.5,0,.9,.6)' : 'linear' }));
+            const delay = k * 180;
+            g.animate([...fly.slice(0, 1), ...fly.slice(1).map(f => ({ ...f, easing: 'linear' })), { transform: wedgeTf(tx + 6, ty, r, .62, .9), offset: .85 }, { transform: wedgeTf(tx + 4, ty, r, .66, .86), offset: 1 }], { duration: 1000, delay, easing: 'linear', fill: 'backwards' });
+            setTimeout(() => { if (el._st !== 1) return; spark(tx + 40, ty, 8, 50); shake(8, 260); }, delay + 700);
+          });
+          setTimeout(() => {
+            if (el._st !== 1) return;
+            el._sparks = setInterval(() => { if (!el.isConnected || el._st !== 1) return clearInterval(el._sparks); spark(1185 + Math.random() * 30, 440 + Math.random() * 80, 4, 40); }, 350);
+          }, LAST);
         },
       }, {
         slug: 'airlock', title: 'Through the airlock', full: true, steps: 1, cls: 'mq mq-air',

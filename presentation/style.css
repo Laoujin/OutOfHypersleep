@@ -817,3 +817,9 @@ header .sub { font-size: 26px; color: var(--muted); margin-top: 6px; }
 .mq-al-sh.ok .bd { stroke: var(--awake); stroke-width: 1.5; }
 .mq-al-sh text { font: 600 24px var(--mono); fill: var(--ink); }
 .mq-al-sh.in text { fill: var(--amber); } .mq-al-sh.ok text { fill: var(--awake); }
+.mq-crack { fill: none; stroke: var(--alien); stroke-width: 3; }
+.mq-beacon { fill: var(--alien); filter: drop-shadow(0 0 16px var(--alien)); animation: mq-blink .4s ease-in-out infinite alternate; }
+.mq-beacon-glow { fill: var(--alien); opacity: .18; transform-origin: 1250px 396px; animation: mq-rot 1.6s linear infinite; }
+@keyframes mq-blink { to { opacity: .15; } }
+@keyframes mq-rot { to { transform: rotate(360deg); } }
+.mq-spark { stroke: #ffd27a; stroke-width: 4; stroke-linecap: round; }
