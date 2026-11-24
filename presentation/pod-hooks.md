@@ -31,7 +31,7 @@ pod:
   score:
     alive: 40
     dead: -40
-  frozenBecause: Everyone bypassed them with <code>--no-verify</code>.
+  frozenBecause: Everyone bypassed them with <code>--no-verify</code>.<br>Ain't nobody got time for that
   frozenSub: Backpressure moved to CI.
   wokenBecause: Agent hooks run the checks on every edit and feed the errors straight back to the agent.
 layout: hs
