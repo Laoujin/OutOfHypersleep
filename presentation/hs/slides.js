@@ -592,11 +592,10 @@ import soCsv from '../data/stackoverflow-questions.csv?raw';
       return [{
         slug: 'horror', title: 'The waterfall', sub: 'Royce draws the waterfall, 1970', steps: 2,
         body: `<div class="spec-stage">${cascade([['Requirements', '3 months'], ['Design', '2 months'], ['Implementation', '6 months'], ['Verification', '3 months']], 'lbl spec-w')}</svg>
-          <div class="spec-ov" data-s="1"><div class="mut-stamp">${A.alien()}<div>The horror</div></div></div></div>`,
+          <div class="spec-ov" data-s="1"><div class="mut-stamp">${A.alien()}<div>The horror<small>50 years of projects late, over budget.<br>Usually both.</small></div></div></div></div>`,
       }, {
-        slug: '2026', title: 'It\'s 2026',
+        slug: '2026', title: 'It\'s 2026', steps: 4,
         body: `<div class="spec-tools">${TOOLS.map(([n, by, f], i) => `<div class="card" data-s="${i}"><div class="card-h">${by}</div><b>${n}</b><code>${f}</code></div>`).join('')}</div>`,
-        caps: ['GitHub Spec Kit.', 'Superpowers.', 'OpenSpec.', 'And Plan Mode, built into the agent.<small>Every one of them: write the spec first, then let the agent build it.</small>'],
       }, {
         slug: 'managers', title: 'Finally',
         body: `<div class="stmt"><p>Finally, we're doing the waterfall our managers still love so much.<small>After 50 years of failures to show for it.</small></p></div>`,
