@@ -536,7 +536,7 @@ import soCsv from '../data/stackoverflow-questions.csv?raw';
           <div class="mut-side">
             <div class="card mut-gauge"><label>mutation score</label><div class="row"><div class="bar"><i></i></div><b>–</b></div></div>
             <div class="mut-esc">
-              <div class="mut-esc-h"><span class="t-esc">survived</span><span class="t-ok">contained</span><span class="n">${SURV.length} mutants</span></div>
+              <div class="mut-esc-h"><span class="t-esc">survived</span><span class="t-ok">killed</span><span class="n">${SURV.length} mutants</span></div>
               <div class="mut-grid">${SURV.map(([m, i]) => `<div class="mut-card"><small>line ${i + 1}</small><div class="op${m.from.length > 3 ? ' long' : ''}"><s>${esc(m.from)}</s><svg viewBox="0 0 26 16"><path d="M1 8h22M16 2l7 6-7 6"/></svg><em>${esc(m.to)}</em></div><p><span class="t-esc">nobody tests</span><span class="t-ok">now tests</span> ${esc(m.what)}</p></div>`).join('')}</div>
             </div>
           </div>
