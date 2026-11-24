@@ -1084,7 +1084,6 @@ svg .lbl.spec-w { font-size: 20px; }
 .cr-who .wc b { font: 700 22px var(--mono); color: var(--faint); }
 .cr-who .wc h3 { font-size: 34px; line-height: 1.1; color: #fff; }
 .cr-who .wc p { margin: 0; font-size: 24px; line-height: 1.4; color: var(--ink); }
-.cr-who .wc small { margin-top: auto; font: 600 18px var(--mono); color: var(--awake); }
 .cr-who.s5 .wc { animation: who-fall 1.5s cubic-bezier(.55,0,1,.45) var(--d) forwards; }
 @keyframes who-fall {
   0% { transform: none; }

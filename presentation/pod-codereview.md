@@ -80,9 +80,9 @@ clicks: 5
 
 <!--
 So who reviews 4,012 lines? One option per click, most automated first.
-[click] Be deterministic: hooks, types, tests and mutation testing check every line, every edit. Those pods are still on board.
+[click] Be deterministic: hooks, types, tests and mutation testing check every line, every edit.
 [click] Agents review agents. Works with a separate context and a narrow focus (security only, tests only). The same model checking its own work does not.
-[click] Review the spec and the tests instead of the diff: the Waterfall pod.
+[click] Review the spec and the tests instead of the diff.
 [click] Humans keep the risky part: architecture, security, the API.
 [click] Or... it all comes crumbling down. Nobody knows yet.
 -->
