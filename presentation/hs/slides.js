@@ -969,7 +969,7 @@ Subject: Re: SCO: "thread creation is about a thousand times faster
         body: soEmpire(),
         caps: ['The Q&A site that won so hard every other dev forum died.<small>Then spread into 50+ sister sites.</small>'],
       }, {
-        slug: 'gamification', title: 'Gamification done right', cls: 'beat',
+        slug: 'gamification', title: 'Gamification done right', cls: 'beat so-gam',
         body: `<div class="so-rep">
           <div class="rep-top"><div class="rep-n"><small>reputation</small>10,297</div><div class="rep-tag"><small>top tag</small><code>c#</code></div></div>
           <div class="rep-badges"><span class="g">7</span><span class="s">46</span><span class="b">74</span></div>

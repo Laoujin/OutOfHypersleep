@@ -621,6 +621,8 @@ div.absolute.bottom-0.left-0:has(> nav) { display: none !important; }
 
 /* Stack Overflow: what it was */
 .custom.beat aside { width: 520px; }
+.custom.so-gam aside { width: 700px; }
+.custom.so-gam .cap { white-space: nowrap; }
 .custom.beat .cap { font-size: 38px; }
 .custom.beat .cap small { font-size: 30px; }
 .amber { color: var(--amber); }
