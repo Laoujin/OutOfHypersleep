@@ -1005,6 +1005,7 @@ svg .lbl.spec-w { font-size: 20px; }
 .cr-er .s76 h4 { margin: 0; white-space: nowrap; font-size: 20px; letter-spacing: .1em; border-bottom: 2px solid #2a2620; padding-bottom: 6px; }
 .cr-er .s76 .roles { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; font-size: 17px; }
 .cr-er .s76 .roles div { border: 2px solid #2a2620; padding: 8px 10px; }
+.cr-er .s76 .roles .long { font-size: 14px; white-space: nowrap; }
 .cr-er .s76 .roles b { display: block; font-size: 13px; letter-spacing: .1em; }
 .cr-er .s76 ul { margin: 0; padding: 0; list-style: none; font-size: 17px; line-height: 1.7; }
 .cr-er .s76 ul li::before { content: "☐ "; }
