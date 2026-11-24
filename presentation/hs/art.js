@@ -35,6 +35,16 @@ HS.art = {
     <g class="a-ticks">${Array.from({ length: 24 }, (_, i) => `<line x1="0" y1="-96" x2="0" y2="${i % 6 ? -88 : -80}" transform="rotate(${i * 15})"/>`).join('')}</g>
   </svg>`,
 
+  crew: (cls = '') => `<svg class="crew ${cls}" viewBox="-100 -100 200 200" aria-hidden="true">
+    <defs><linearGradient id="crewVisorGrad" x1="0" x2="1"><stop offset="0" stop-color="#7dffb0" stop-opacity="0"/><stop offset=".5" stop-color="#7dffb0"/><stop offset="1" stop-color="#7dffb0" stop-opacity="0"/></linearGradient>
+      <clipPath id="crewVisorClip"><rect x="-62" y="-16" width="124" height="32" rx="16"/></clipPath></defs>
+    <circle class="c-r1" r="92"/><circle class="c-r2" r="72"/><circle class="c-r3" r="52"/>
+    <rect class="c-visor" x="-62" y="-16" width="124" height="32" rx="16"/>
+    <g clip-path="url(#crewVisorClip)"><rect class="c-light" x="-22" y="-16" width="44" height="32"/></g>
+    <circle class="c-dot" cx="-30" cy="34" r="3"/><circle class="c-dot" cx="0" cy="34" r="3"/><circle class="c-dot" cx="30" cy="34" r="3"/>
+    <g class="c-ticks">${Array.from({ length: 24 }, (_, i) => `<line x1="0" y1="-96" x2="0" y2="${i % 6 ? -88 : -80}" transform="rotate(${i * 15})"/>`).join('')}</g>
+  </svg>`,
+
   rel: n => `<span class="rel" title="relevance today">${[1, 2, 3, 4, 5].map(i => `<i class="${i <= n ? 'on' : ''}"></i>`).join('')}</span>`,
 
   hud: () => `<div class="hud"><div class="hud-side crew"><label>Crew</label><b data-hud="crew">0</b></div><div class="hud-vs">vs</div><div class="hud-side alien"><label>Alien AI</label><b data-hud="alien">0</b></div></div>`,

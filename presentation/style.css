@@ -296,10 +296,6 @@ svg .gate { fill: #0e1a2e; stroke: var(--cryo); stroke-width: 3; }
 .card-h { font: 600 18px var(--mono); color: var(--muted); margin-bottom: 14px; }
 .card-h small { color: var(--faint); }
 pre.code { margin: 0; font: 21px/1.6 var(--mono); color: var(--ink); white-space: pre-wrap; }
-.op { display: inline-grid; }
-.op > * { grid-area: 1 / 1; }
-.mut { color: var(--alien); font-weight: 800; }
-.mut-tag { margin-top: 14px; font-size: 20px; color: var(--alien); }
 .banner { position: absolute; left: 26px; right: 26px; bottom: -26px; text-align: center; font: 800 24px var(--mono); letter-spacing: .1em; padding: 8px; border-radius: 10px; }
 .banner.bad { background: var(--alien); color: #fff; }
 .banner.ok { background: var(--awake); color: #04140d; }
@@ -804,3 +800,59 @@ header .sub { font-size: 26px; color: var(--muted); margin-top: 6px; }
 .mq-portg .mq-port, .mq-portg .mq-rail { transition: fill .25s, stroke .25s, filter .25s; }
 .mq-landing.s1:not(.s2):not(.mq-pending) .mq-portg .mq-port { fill: rgba(255, 59, 92, .14); stroke: var(--alien); filter: drop-shadow(0 0 14px var(--alien)); }
 .mq-landing.s1:not(.s2):not(.mq-pending) .mq-portg .mq-rail { stroke: var(--alien); filter: drop-shadow(0 0 8px var(--alien)); }
+
+/* crew agent (visor), the alien's counterpart */
+.crew { display: block; overflow: visible; }
+.crew .c-r1, .crew .c-r2 { transform-box: fill-box; transform-origin: center; }
+.crew circle { fill: none; stroke: var(--awake); }
+.crew .c-r1 { stroke-width: 2; opacity: .5; stroke-dasharray: 6 10; animation: spin 30s linear infinite; }
+.crew .c-r2 { stroke-width: 3; opacity: .7; stroke-dasharray: 40 14; animation: spin 16s linear infinite reverse; }
+.crew .c-r3 { stroke-width: 2; opacity: .4; }
+.crew .c-ticks line { stroke: var(--awake); stroke-width: 2; opacity: .6; }
+.crew .c-visor { fill: #06281a; stroke: var(--awake); stroke-width: 3; }
+.crew .c-light { fill: url(#crewVisorGrad); animation: crew-sweep 2.4s ease-in-out infinite alternate; }
+.crew .c-dot { fill: var(--awake); opacity: .5; }
+@keyframes crew-sweep { from { transform: translateX(-46px); } to { transform: translateX(46px); } }
+
+/* mutation: containment sweep */
+.mut-stage { position: absolute; inset: 0; }
+.mut .card { padding: 0; }
+.mut .card-h { display: flex; justify-content: space-between; padding: 14px 20px; margin: 0; border-bottom: 1px solid var(--line); }
+.mut-hull { position: absolute; left: 72px; top: 190px; width: 900px; }
+.mut-hull pre { position: relative; margin: 0; padding: 18px 20px 18px 70px; font: 21px/40px var(--mono); color: var(--ink); overflow: hidden; }
+.mut-line { position: relative; height: 40px; white-space: pre; }
+.mut-line::before { content: ""; position: absolute; left: -70px; right: -20px; top: 0; bottom: 0; background: rgba(255, 59, 92, .12); border-left: 3px solid var(--alien); opacity: 0; transition: opacity .3s; }
+.mut-line.hit::before { opacity: 1; }
+.mut-line .ln { position: absolute; left: -66px; width: 52px; text-align: right; color: var(--faint); }
+.mut-spec { position: absolute; right: 6px; top: 0; width: 40px; height: 40px; transition: opacity .3s, transform .3s; }
+.mut-spec svg { width: 40px; height: 40px; overflow: visible; }
+.mut-spec .mt { position: absolute; right: 52px; top: 0; white-space: nowrap; font: 600 15px/40px var(--mono); color: var(--muted); opacity: .8; }
+.mut-spec .bd { fill: #2a3a30; stroke: var(--phos); stroke-width: 2; }
+.mut-spec .lg line { stroke: var(--phos); stroke-width: 2; stroke-linecap: round; }
+.mut-spec .ey { fill: var(--phos); }
+.mut-spec.alive .bd { fill: #3a0b16; stroke: var(--alien); } .mut-spec.alive .lg line { stroke: var(--alien); } .mut-spec.alive .ey { fill: var(--alien); }
+.mut-spec.alive svg { animation: mut-wig .35s infinite alternate; filter: drop-shadow(0 0 10px rgba(255, 59, 92, .8)); }
+.mut-spec.alive .mt { color: var(--alien); opacity: 1; }
+.mut-spec.dead { opacity: 0; transform: scale(1.8); }
+@keyframes mut-wig { from { transform: rotate(-9deg) translateX(-2px); } to { transform: rotate(9deg) translateX(2px); } }
+.mut-scan { position: absolute; left: 0; right: 0; top: 18px; height: 60px; opacity: 0; pointer-events: none; background: linear-gradient(180deg, transparent, rgba(125, 255, 176, .25) 80%, rgba(125, 255, 176, .9)); border-bottom: 2px solid var(--phos); }
+.mut-side { position: absolute; right: 72px; top: 190px; width: 500px; display: flex; flex-direction: column; gap: 20px; }
+.mut-gauge { padding: 14px 20px !important; --c: var(--alien); }
+.mut-gauge.ok { --c: var(--awake); }
+.mut-gauge label { font: 600 16px var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+.mut-gauge .row { display: flex; align-items: center; gap: 16px; margin-top: 8px; }
+.mut-gauge .bar { flex: 1; height: 16px; background: var(--bg); border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+.mut-gauge .bar i { display: block; height: 100%; width: var(--w, 0%); background: var(--c); transition: width 1.6s cubic-bezier(.2, .8, .2, 1); }
+.mut-gauge b { font: 700 40px var(--head); width: 110px; text-align: right; color: var(--c); }
+.mut-surv pre { margin: 0; padding: 16px 20px; font: 18px/1.7 var(--mono); color: var(--ink); min-height: 170px; }
+.mut-ov { position: absolute; inset: 0; z-index: 5; display: flex; align-items: center; justify-content: center; pointer-events: none; opacity: 0; background: rgba(5, 7, 10, .55); transition: opacity .35s; }
+.mut-ov.show { opacity: 1; }
+.mut-stamp { display: flex; align-items: center; gap: 36px; padding: 28px 48px; border: 6px solid var(--c); border-radius: 18px; color: var(--c); background: rgba(8, 9, 11, .85);
+  font: 900 64px/1.05 var(--mono); text-transform: uppercase; white-space: nowrap; box-shadow: 0 0 60px var(--g); transform: rotate(-8deg) scale(1.6); opacity: 0; }
+.mut-ov.show .mut-stamp { animation: mut-thump .45s cubic-bezier(.3, 1.6, .5, 1) forwards; }
+@keyframes mut-thump { to { transform: rotate(-8deg) scale(1); opacity: 1; } }
+.mut-stamp small { display: block; font-size: 30px; font-weight: 700; margin-top: 10px; letter-spacing: .06em; }
+.mut-stamp .alien { width: 220px; height: 220px; flex: none; filter: drop-shadow(0 0 30px rgba(255, 59, 92, .75)); }
+.mut-stamp .crew { width: 220px; height: 220px; flex: none; filter: drop-shadow(0 0 30px rgba(69, 230, 160, .6)); }
+.mut-ov.red .mut-stamp { --c: var(--alien); --g: rgba(255, 59, 92, .45); }
+.mut-ov.green .mut-stamp { --c: var(--awake); --g: rgba(69, 230, 160, .4); font-size: 52px; }
