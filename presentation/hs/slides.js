@@ -807,7 +807,7 @@ import soCsv from '../data/stackoverflow-questions.csv?raw';
     cls: `frame f-${slug} t-${p.deck} ${p.dead ? 'is-deadpod' : 'is-alivepod'}`,
     html: () => html(p),
   });
-  const statement = (p, title, text, art) => `${head(deckOf(p) + ' · ' + p.name, title)}
+  const statement = (p, title, text, art, sub) => `${head(deckOf(p) + ' · ' + p.name, title, sub ? `<div class="sub">${sub}</div>` : '')}
     <div class="stmt"><p>${todo(text)}</p>${art ? `<div class="stmt-art">${art}</div>` : ''}</div>`;
   const FRAME = {
     thaw: p => `${bg(p)}<div class="thaw-card">
@@ -818,7 +818,7 @@ import soCsv from '../data/stackoverflow-questions.csv?raw';
     </div>`,
     froze: p => p.dead
       ? statement(p, 'What it was', p.was)
-      : statement(p, 'Why it froze', p.frozenBecause),
+      : statement(p, 'Why it froze', p.frozenBecause, null, p.frozenSub),
     woke: p => p.dead
       ? statement(p, 'What killed it', p.diesBecause, A.cryo('dead', 'NO SIGNS'))
       : statement(p, 'What woke it', p.wokenBecause, A.cryo('awake', 'REVIVED')),

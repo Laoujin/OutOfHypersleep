@@ -31,7 +31,8 @@ pod:
   score:
     alive: 40
     dead: -40
-  frozenBecause: "The Agile Manifesto, 2001.<small>Working software over comprehensive documentation.</small><small>Did it ever truly disappear though?</small>"
+  frozenBecause: "The Agile Manifesto, 2001.<small>Working software over comprehensive documentation.</small>"
+  frozenSub: Did it ever truly disappear though?
   wokenBecause: Agents do exactly what you write. So write it down first.
   logTitle: Spec-driven development
   takeaway: Big Design Up Front<br>In hours instead of years

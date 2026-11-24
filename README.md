@@ -67,7 +67,7 @@ pod:
     alive: 50          # crew points if it lives (the + on the map); negative = it lives but scores for the alien (commit trailers)
     dead: -40          # alien points if it dies (the − on the map)
   diesBecause: ...     # dead pods
-  # frozenBecause / wokenBecause for pods that live
+  # frozenBecause / wokenBecause for pods that live; frozenSub: optional subtitle on the froze slide
   was: ...             # dead pods: what it was in its prime
   takeaway: ...        # one line on the crew log slide
   wip: true            # badge on the ship map until the deck is done
