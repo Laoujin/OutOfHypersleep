@@ -241,43 +241,66 @@ import soCsv from '../data/stackoverflow-questions.csv?raw';
 
   // ───────────────────────── PODS ─────────────────────────
   const custom = (podId, def) => ({
-    id: `${podId}-${def.slug}`, seq: 'pod:' + podId, steps: def.steps || def.caps.length,
+    id: `${podId}-${def.slug}`, seq: 'pod:' + podId, steps: def.steps || def.caps?.length || 1,
     cls: `custom t-${HS.podById(podId).deck} ${def.cls || ''}`,
     html: () => `${head(deckOf(HS.podById(podId)) + ' · ' + HS.podById(podId).name, def.title, def.sub ? `<div class="sub">${def.sub}</div>` : '')}
-      <div class="pane"><div class="stage">${def.body}</div>${def.caps ? `<aside>${HS.caps(def.caps)}</aside>` : ''}</div>`,
+      ${def.full ? def.body() : `<div class="pane"><div class="stage">${def.body}</div>${def.caps ? `<aside>${HS.caps(def.caps)}</aside>` : ''}</div>`}`,
     init: def.init,
     step: (el, st, c) => { HS.capStep(el, st); if (def.step) def.step(el, st, c); },
   });
 
   const podSlides = {
-    worktrees: [{
-      slug: 'why', title: 'Three agents, one checkout',
-      body: `<svg viewBox="0 0 1000 560">
-        <g data-o="2">
-          <rect class="box" x="60" y="60" width="440" height="400" rx="18"/>
-          <text class="lbl big" x="90" y="110">~/app</text><text class="lbl dim" x="400" y="110">(main?)</text>
-          ${['src/auth.ts', 'src/search.ts', 'src/billing.ts', 'package-lock.json'].map((f, i) => `<text class="mono" x="90" y="${170 + i * 60}">${f}</text>`).join('')}
-          <circle class="ag ag1" cx="380" cy="165" r="18"/><circle class="ag ag2" cx="420" cy="225" r="18"/><circle class="ag ag3" cx="385" cy="285" r="18"/>
-          <g data-s="1" class="bad">
-            <path class="spark" d="M340 200 l14 6 l-4 -16 l12 12 l2 -14 l6 16"/><path class="spark" d="M300 330 l12 8 l-2 -16 l12 12 l4 -14 l4 16"/>
-            <text x="560" y="150" class="lbl red">agent 2 switched branch</text><text x="560" y="180" class="lbl dim">agent 1's edits are now on the wrong branch</text>
-            <text x="560" y="250" class="lbl red">file changed on disk</text><text x="560" y="280" class="lbl dim">agent 3 overwrote search.ts mid-edit</text>
-            <text x="560" y="350" class="lbl red">npm install × 3</text><text x="560" y="380" class="lbl dim">lockfile roulette</text>
-          </g>
-        </g>
-        <g data-s="2">
-          <ellipse class="git" cx="220" cy="190" rx="110" ry="26"/><path class="git" d="M110 190 v150 a110 26 0 0 0 220 0 v-150"/><ellipse class="git-top" cx="220" cy="190" rx="110" ry="26"/>
-          <text class="lbl big" x="220" y="280" text-anchor="middle">.git</text><text class="lbl dim" x="220" y="310" text-anchor="middle">one object store</text>
-          ${[['app-auth', 'auth', 1], ['app-search', 'search', 2], ['app-billing', 'billing', 3]].map(([d, b, i]) => `
-            <path class="link" d="M330 ${265} C 450 265, 450 ${i * 150 - 60}, 560 ${i * 150 - 60}"/>
-            <rect class="box ok" x="560" y="${i * 150 - 115}" width="380" height="110" rx="14"/>
-            <text class="lbl" x="590" y="${i * 150 - 72}">../${d}</text><text class="mono dim" x="590" y="${i * 150 - 38}">branch: ${b}</text>
-            <circle class="ag ag${i}" cx="900" cy="${i * 150 - 60}" r="18"/>`).join('')}
-        </g>
-        <g data-s="3"><rect class="term" x="60" y="470" width="880" height="70" rx="10"/><text class="mono" x="84" y="514">$ git worktree add ../app-auth -b auth   <tspan class="dim"># ×N, one per agent</tspan></text></g>
-      </svg>`,
-      caps: ['Three agents work in <b>one checkout</b>.', 'They trample each other: branches switch underneath, files change mid-edit.', '<b>One .git, N working directories.</b> Each agent its own folder and branch.', 'Ten years as the hotfix side door. Now: <b>one per agent</b>.<br><small>How: the Git Worktrees deck.</small>'],
-    }],
+    worktrees: (() => {
+      const HULL = 'M70 500 C 70 340, 190 250, 340 250 H 1260 C 1410 250, 1530 340, 1530 500 C 1530 660, 1410 750, 1260 750 H 340 C 190 750, 70 660, 70 500 Z';
+      const XS = [60, 430, 800, 1170];
+      const POS = [[150, 270], [452, 340], [822, 340], [1192, 290]];
+      const SECS = [
+        ['Hull breach', 'Hull sealed', 'working tree', 'Two agents, one file. Last write wins.', 'Separate directories.<br><code>.worktreeinclude</code> for <code>.env</code>'],
+        ['Nav failure', 'Nav restored', 'git state', 'Checkout moves. Commit steals. Stash vanishes.', 'One shared <code>.git</code>.'],
+        ['Reactor unstable', 'Reactor stable', 'dev server', 'It rebuilds &amp; reloads all the time.', 'Own port.<br>Hardlinked <code>node_modules</code> (pnpm, bun).'],
+        ['Life support', 'Life support', 'test run', 'Red, from the other agent\'s in-progress work.', 'Own code only.<br>Own testcontainer.'],
+      ];
+      const hull = (id, zones, walls, extra = '') => `<svg class="wt-hull" viewBox="0 0 1600 900">
+        <defs><clipPath id="${id}"><path d="${HULL}"/></clipPath></defs>
+        <g clip-path="url(#${id})">${zones}</g>
+        <path class="wt-shell" d="${HULL}"/>
+        ${[430, 800, 1170].map(x => `<line class="${walls}" x1="${x}" y1="256" x2="${x}" y2="744"/>`).join('')}
+        ${extra}
+      </svg>`;
+      const zone = (i, cls, s = '') => `<rect class="wt-zone ${cls}" ${s ? `data-s="${s}"` : ''} x="${XS[i]}" y="240" width="370" height="520"/>`;
+      const sec = (i, cls, title, desc, attr) => `<div class="wt-sec ${cls}" ${attr} style="left:${POS[i][0]}px;width:${POS[i][1]}px">
+        <div class="t"><i></i><span>${title}<small>${SECS[i][2]}</small></span></div><div class="d">${desc}</div></div>`;
+      const BADGES = [
+        ['auth', '#ff9d5c', 'M600 420 C 420 470, 220 520, 0 580', 'left:70px;top:540px'],
+        ['pdf-export', '#2dd4bf', 'M965 420 C 1150 470, 1350 520, 1600 560', 'right:30px;top:500px'],
+        ['user-prefs', '#a78bfa', 'M720 450 C 650 560, 560 700, 480 900', 'left:330px;top:770px'],
+        ['search-filters', '#f472b6', 'M840 450 C 900 560, 980 700, 1060 900', 'left:1000px;top:770px'],
+        ['dark-mode', '#facc15', 'M600 385 C 430 385, 230 400, 0 440', 'left:70px;top:372px'],
+        ['fix-i18n', '#60a5fa', 'M965 385 C 1130 385, 1340 395, 1600 420', 'right:30px;top:330px'],
+      ];
+      return [{
+        slug: 'damage', title: 'Damage report', full: true, steps: 6, cls: 'wt wt-damage',
+        body: () => `<div data-s="5">${HS.marquee('⚠ ALL AGENTS · ONE COMPARTMENT ·')}</div>
+          ${hull('wt-c1', SECS.map((_, i) => zone(i, 'bad', i + 1)).join(''), 'wt-open')}
+          ${SECS.map((s, i) => sec(i, 'bad', s[0], s[3], `data-s="${i + 1}"`)).join('')}`,
+      }, {
+        slug: 'sealed', title: 'Seal the bulkheads', full: true, steps: 6, cls: 'wt wt-sealed',
+        body: () => `${hull('wt-c2', SECS.map((_, i) => zone(i, 'bad') + zone(i, 'ok', i + 1)).join(''), 'wt-bulk',
+            '<line class="wt-keel" data-s="2" x1="300" y1="772" x2="1300" y2="772"/>')}
+          <div class="wt-keeltag" data-s="2">.git · one object store · the keel</div>
+          ${SECS.map((s, i) => sec(i, 'flip', s[1], s[4], `data-z="${i + 1}"`)).join('')}
+          <div class="wt-cmd" data-s="5">$ git worktree add ../app-auth -b auth   <span># one per agent</span></div>`,
+      }, {
+        slug: 'core', title: 'One .git, a worktree per agent', full: true, steps: 1, cls: 'wt wt-core',
+        body: () => `<div class="wt-plate" style="--plate-img: url('${import.meta.env.BASE_URL}plates/pod-worktrees.webp')"></div>
+          <svg class="wt-cables" viewBox="0 0 1600 900">
+            <ellipse class="wt-ring" cx="782" cy="355" rx="215" ry="62"/>
+            ${BADGES.map(b => `<path class="wt-glow" d="${b[2]}"/>`).join('')}
+          </svg>
+          <div class="wt-hub">.git</div>
+          ${BADGES.map(([n, c, , pos]) => `<div class="wt-badge" style="${pos}"><b style="background:${c}"></b>${n} <small>../app-${n}</small></div>`).join('')}`,
+      }];
+    })(),
     boxes: [{
       slug: 'why', title: 'Give the agent a box you can wipe',
       body: `<svg viewBox="0 0 1000 560">

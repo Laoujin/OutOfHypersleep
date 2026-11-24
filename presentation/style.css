@@ -705,3 +705,42 @@ div.absolute.bottom-0.left-0:has(> nav) { display: none !important; }
 header .sub { font-size: 26px; color: var(--muted); margin-top: 6px; }
 .term-block.cmd { margin: 0 0 22px; }
 .trailer-hl { color: var(--alien); }
+
+/* git worktree: hull and plate */
+.wt-hull { position: absolute; left: 0; top: -40px; width: 1600px; height: 900px; }
+.wt-shell { fill: rgba(111, 182, 232, .05); stroke: var(--iso); stroke-width: 3; }
+.wt-zone.bad { fill: rgba(255, 59, 92, .16); }
+.wt-sealed .wt-zone.bad { fill: rgba(255, 59, 92, .08); }
+.wt-zone.ok { fill: rgba(69, 230, 160, .14); }
+.wt-sealed .wt-zone.ok[data-s] { opacity: 0; }
+.wt-sealed.s1 .wt-zone.ok[data-s="1"], .wt-sealed.s2 .wt-zone.ok[data-s="2"], .wt-sealed.s3 .wt-zone.ok[data-s="3"], .wt-sealed.s4 .wt-zone.ok[data-s="4"] { opacity: 1; }
+.wt-open { stroke: rgba(111, 182, 232, .35); stroke-width: 2; stroke-dasharray: 10 10; }
+.wt-bulk { stroke: var(--iso); stroke-width: 10; stroke-linecap: round; }
+.wt-keel { stroke: var(--awake); stroke-width: 10; stroke-linecap: round; filter: drop-shadow(0 0 8px var(--awake)); }
+.wt-keeltag { position: absolute; left: 0; right: 0; top: 750px; text-align: center; font: 500 19px var(--mono); color: var(--awake); }
+.wt-sec { position: absolute; top: 290px; z-index: 2; }
+.wt-sec .t { font: 700 28px/1.2 var(--mono); letter-spacing: .03em; text-transform: uppercase; display: flex; gap: 12px; color: var(--alien); transition: color .45s; }
+.wt-sec .t i { width: 16px; height: 16px; border-radius: 50%; flex: none; margin-top: 10px; background: var(--alien); transition: background .45s, box-shadow .45s; }
+.wt-sec .t small { display: block; font-size: 20px; letter-spacing: .14em; opacity: .75; margin-top: 4px; }
+.wt-sec .d { font: 400 31px/1.35 var(--sans); color: var(--ink); margin: 22px 0 0 28px; transition: opacity .45s; }
+.wt-sec .d code { font-size: .78em; }
+.wt-sec.bad .t i { box-shadow: 0 0 10px var(--alien); animation: wt-blink 1s steps(2) infinite; }
+.wt-sec.flip .d { opacity: 0; }
+.s1 .wt-sec[data-z="1"] .t, .s2 .wt-sec[data-z="2"] .t, .s3 .wt-sec[data-z="3"] .t, .s4 .wt-sec[data-z="4"] .t { color: var(--awake); }
+.s1 .wt-sec[data-z="1"] .t i, .s2 .wt-sec[data-z="2"] .t i, .s3 .wt-sec[data-z="3"] .t i, .s4 .wt-sec[data-z="4"] .t i { background: var(--awake); box-shadow: 0 0 10px var(--awake); }
+.s1 .wt-sec[data-z="1"] .d, .s2 .wt-sec[data-z="2"] .d, .s3 .wt-sec[data-z="3"] .d, .s4 .wt-sec[data-z="4"] .d { opacity: 1; }
+@keyframes wt-blink { 50% { opacity: .25; } }
+.wt-damage .alarm-bar { padding: 0; height: 40px; display: flex; align-items: center; color: #fff; text-shadow: 0 1px 2px rgba(0,0,0,.6); font: 700 17px var(--mono); letter-spacing: .2em; background: repeating-linear-gradient(-45deg, var(--alien) 0 24px, #c2203d 24px 48px); animation: none; }
+.wt-cmd { position: absolute; left: 50%; bottom: 34px; transform: translateX(-50%); background: #06080b; border: 1px solid var(--line); border-radius: 10px; padding: 14px 24px; font: 500 24px var(--mono); color: var(--ink); white-space: nowrap; }
+.wt-cmd[data-s] { transform: translateX(-50%); }
+.wt-cmd span { color: var(--muted); }
+.wt-plate { position: absolute; inset: 0; z-index: -2; background: var(--plate-img) center / cover no-repeat; }
+.wt-plate::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,.6), rgba(0,0,0,.05) 35%, rgba(0,0,0,.05) 65%, rgba(0,0,0,.45)); }
+.wt-core h2 { text-shadow: 0 0 30px #000; }
+.wt-cables { position: absolute; inset: 0; width: 1600px; height: 900px; z-index: -1; }
+.wt-glow { fill: none; stroke: var(--awake); stroke-width: 10; stroke-linecap: round; filter: drop-shadow(0 0 10px var(--awake)) drop-shadow(0 0 24px var(--awake)); opacity: .85; }
+.wt-ring { fill: none; stroke: var(--awake); stroke-width: 3; stroke-dasharray: 10 8; filter: drop-shadow(0 0 10px var(--awake)); }
+.wt-hub { position: absolute; left: 700px; top: 258px; width: 200px; text-align: center; font: 700 40px var(--mono); color: #fff; text-shadow: 0 0 20px #000, 0 0 6px #000; }
+.wt-badge { position: absolute; display: flex; align-items: center; gap: 8px; padding: 6px 14px 6px 10px; border-radius: 999px; background: rgba(4, 14, 10, .86); border: 1.5px solid var(--awake); box-shadow: 0 0 16px rgba(69, 230, 160, .35); font: 600 20px var(--mono); color: #fff; white-space: nowrap; }
+.wt-badge b { width: 22px; height: 22px; border-radius: 50%; border: 2px solid #fff; flex: none; }
+.wt-badge small { font: 500 15px var(--mono); color: var(--awake); }

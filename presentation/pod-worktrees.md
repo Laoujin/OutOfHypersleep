@@ -51,21 +51,51 @@ routeAlias: worktrees-froze
 
 ---
 layout: hs
-routeAlias: worktrees-why
-clicks: 3
+routeAlias: worktrees-damage
+clicks: 5
 ---
 
-<Hs id="worktrees-why" />
+<Hs id="worktrees-damage" />
 
 <!--
 Background: Shipped in Git 2.5 (July 2015). For ten years it was the hotfix side door: "keep your feature branch open, fix prod in a second folder".
-What changed: three agents in one checkout trample each other's files and switch branches under each other's feet.
-The how is in the Git Worktrees deck. Here: why it woke up.
+What changed: several agents in one checkout trample each other.
 
-Three agents in one folder: show the collisions.
-[click] Branch switches under someone else's feet; files change on disk mid-edit; three npm installs fight over the lockfile.
-[click] Worktrees: one object store, a working directory per agent. Cheap: no re-clone.
-[click] git worktree add. That's it. Ten years in the freezer as "the hotfix trick".
+[click] Hull breach: two agents edit the same file. Last write wins.
+[click] Nav failure: one agent checks out a branch under the other's feet. A commit sweeps up the other agent's changes. A stash vanishes.
+[click] Reactor unstable: the dev server rebuilds and reloads on every save of every agent.
+[click] Life support: the test run is red because of another agent's half-finished work.
+[click] All agents, one compartment.
+-->
+
+---
+layout: hs
+routeAlias: worktrees-sealed
+clicks: 5
+---
+
+<Hs id="worktrees-sealed" />
+
+<!--
+Seal the bulkheads: one worktree per agent.
+
+[click] Working tree: separate directories. .worktreeinclude (Claude Code, not git) copies .env and friends into the new worktree.
+[click] Git state: all worktrees share one .git: one object store, no re-clone. The keel of the ship.
+[click] Dev server: each worktree its own port. pnpm or bun hardlink node_modules, so N installs cost almost nothing.
+[click] Test run: each agent only runs its own code, against its own testcontainer.
+[click] git worktree add. That's it.
+-->
+
+---
+layout: hs
+routeAlias: worktrees-core
+---
+
+<Hs id="worktrees-core" />
+
+<!--
+One .git at the core, a worktree per agent: auth, pdf-export, user-prefs, search-filters, dark-mode, fix-i18n.
+The how is in the Git Worktrees deck.
 -->
 
 ---
