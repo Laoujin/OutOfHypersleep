@@ -332,7 +332,6 @@ import soCsv from '../data/stackoverflow-questions.csv?raw';
         <circle class="lp" cx="103" cy="46" r="4"/>
       </g></g>`;
       const tag = (x, y, t, cls = '', attr = '') => `<text class="mq-tag ${cls}" ${attr} x="${x}" y="${y}" text-anchor="middle">${t}</text>`;
-      const CONVOY = ['fix/totals', 'chore/deps', 'feat/wishlist', 'fix/i18n', 'feat/gift-cards'];
       const STATIONS = ['rebase onto main', 'build', 'test', 'merge --ff-only'];
       const cap = (s, t, last) => `<div class="mq-cap" data-s="${s}" ${last ? '' : `data-o="${s + 1}"`}>${t}</div>`;
       return [{
@@ -352,32 +351,90 @@ import soCsv from '../data/stackoverflow-questions.csv?raw';
           </svg>`;
         },
       }, {
-        slug: 'lander', title: 'One lane to main', full: true, steps: 7, cls: 'mq mq-lander',
-        body: () => `<svg class="mq-svg" viewBox="0 0 1600 900">
-            <path class="mq-tunnel" d="M30 700 V400 Q30 300 130 300 H700 V700 Z"/>
-            ${[120, 240, 360, 480, 600].map(x => `<line class="mq-lamp" x1="${x}" y1="312" x2="${x + 60}" y2="312"/>`).join('')}
-            <line class="mq-floor" x1="30" y1="660" x2="700" y2="660"/>
-            <g data-s="1">${CONVOY.map((n, i) => `<g ${i ? '' : 'data-o="6"'}>${crawler(560 - i * 130, 560, 1, i === 0 ? 'next' : '')}${tag(613 - i * 130, i % 2 ? 700 : 540, n)}</g>`).join('')}</g>
-            <rect class="mq-lock" x="720" y="300" width="400" height="400" rx="18"/>
-            <text class="mq-locktag" x="920" y="282" text-anchor="middle">the airlock</text>
-            ${crawler(860, 330, 1.15, 'in', 'data-o="6"')}${tag(920, 435, 'feat/checkout', 'in', 'data-o="6"')}
-            ${crawler(860, 330, 1.15, 'bad', 'data-s="6"')}${tag(920, 435, 'fix/totals', 'red', 'data-s="6"')}
-            ${STATIONS.map((t, i) => `<g class="mq-station" data-z="${i + 2}"><circle cx="770" cy="${490 + i * 52}" r="10"/><text x="796" y="${498 + i * 52}">${t}</text></g>`).join('')}
-            <g class="mq-x" data-s="6"><circle cx="770" cy="594" r="10"/><text x="1000" y="602">✗ red</text></g>
-            <path class="mq-bounce" data-s="6" d="M920 700 C 920 760, 820 780, 640 780"/>
-            <text class="mq-tag red" data-s="6" x="625" y="787" text-anchor="end">back to its agent</text>
-            <path class="mq-arrow" d="M1130 500 H1210"/>
-            <line class="mq-rail ok" x1="1330" y1="760" x2="1330" y2="300"/>
-            <text class="mq-railtag" x="1330" y="800" text-anchor="middle">main · always green</text>
-            ${['chore/lockfile', 'fix/cart', 'feat/auth', 'fix/i18n'].map((t, i) => `<g class="mq-commit ok"><circle cx="1330" cy="${720 - i * 70}" r="13"/><text x="1360" y="${727 - i * 70}">${t}</text></g>`).join('')}
-            <g class="mq-commit ok new" data-s="5"><circle cx="1330" cy="440" r="13"/><text x="1360" y="447">feat/checkout</text></g>
-          </svg>
-          ${cap(1, 'Every branch joins one queue.')}
-          ${cap(2, 'Rebase onto the <b>latest</b> main.')}
-          ${cap(3, 'Build that exact commit.')}
-          ${cap(4, 'Test the commit that <b>will</b> land.')}
-          ${cap(5, 'Fast-forward. Nobody else lands in between.')}
-          ${cap(6, 'Red? Bounce it back to its agent. The queue keeps moving.', true)}`,
+        slug: 'airlock', title: 'Through the airlock', full: true, steps: 1, cls: 'mq mq-air',
+        body: () => {
+          const L = { x: 600, y: 300, w: 440, h: 260 };
+          return `<svg class="mq-svg" viewBox="0 0 1600 900">
+            <defs>
+              <pattern id="mqHz" width="20" height="20" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="10" height="20" fill="#ffb547"/><rect x="10" width="10" height="20" fill="#1a1f26"/></pattern>
+              <linearGradient id="mqScan" x1="0" x2="1"><stop offset="0" stop-color="#ffb547" stop-opacity="0"/><stop offset=".5" stop-color="#ffb547" stop-opacity=".35"/><stop offset="1" stop-color="#ffb547" stop-opacity="0"/></linearGradient>
+              <clipPath id="mqLockClip"><rect x="${L.x}" y="${L.y}" width="${L.w}" height="${L.h}" rx="16"/></clipPath>
+            </defs>
+            <path class="mq-tunnel" d="M-10 560 V360 Q-10 300 60 300 H${L.x - 10} V560 Z"/>
+            ${[60, 200, 340, 480].map(x => `<line class="mq-lamp" x1="${x}" y1="312" x2="${x + 70}" y2="312"/>`).join('')}
+            <line class="mq-floor" x1="0" y1="535" x2="1290" y2="535"/>
+            <rect class="mq-al-lock" x="${L.x}" y="${L.y}" width="${L.w}" height="${L.h}" rx="16"/>
+            <g clip-path="url(#mqLockClip)"><rect class="mq-al-scan" x="${L.x}" y="${L.y}" width="110" height="${L.h}"/></g>
+            <text class="mq-locktag" x="${L.x + L.w / 2}" y="${L.y - 18}" text-anchor="middle">the airlock</text>
+            <g class="mq-al-ships"></g>
+            <rect class="mq-al-door l" x="${L.x - 8}" y="${L.y + 8}" width="16" height="${L.h - 16}"/>
+            <rect class="mq-al-door r" x="${L.x + L.w - 8}" y="${L.y + 8}" width="16" height="${L.h - 16}"/>
+            <rect fill="url(#mqHz)" x="${L.x}" y="${L.y + L.h}" width="${L.w}" height="10"/>
+            <text class="mq-al-status" x="${L.x + L.w / 2}" y="${L.y + L.h + 70}" text-anchor="middle"></text>
+            ${STATIONS.map((t, i) => `<g class="mq-al-step"><circle cx="${L.x + 40}" cy="${L.y + L.h + 120 + i * 50}" r="11"/><circle class="spin" cx="${L.x + 40}" cy="${L.y + L.h + 120 + i * 50}" r="17"/><text x="${L.x + 72}" y="${L.y + L.h + 128 + i * 50}">${t}</text></g>`).join('')}
+            <line class="mq-rail ok" x1="1330" y1="820" x2="1330" y2="260"/>
+            <text class="mq-railtag" x="1330" y="860" text-anchor="middle">main</text>
+            <g class="mq-al-commits"></g>
+          </svg>`;
+        },
+        init: el => {
+          const NAMES = ['auth', 'pdf-export', 'user-prefs', 'search', 'dark-mode', 'fix-i18n', 'checkout', 'discount', 'wishlist', 'tax'];
+          const VERB = ['Rebasing', 'Building', 'Testing', 'Merging'];
+          const S = 3, PARK = { x: 661, y: 319 }, OUT = { x: 1290, y: 280, s: .12 };
+          const slot = i => ({ x: 250 - i * 360, y: 319 });
+          const q = sel => el.querySelector(sel);
+          const ships = q('.mq-al-ships'), commits = q('.mq-al-commits'), lock = q('.mq-al-lock'), scan = q('.mq-al-scan'), status = q('.mq-al-status');
+          const dl = q('.mq-al-door.l'), dr = q('.mq-al-door.r'), steps = [...el.querySelectorAll('.mq-al-step')];
+          const token = (HS.mqAirlock = (HS.mqAirlock || 0) + 1);
+          const alive = () => token === HS.mqAirlock && el.isConnected;
+          const sleep = ms => new Promise(r => setTimeout(r, ms));
+          const put = (g, p, t = 1.2) => { g.style.setProperty('--t', t + 's'); g.style.transform = `translate(${p.x}px, ${p.y}px) scale(${p.s || 1})`; };
+          const ship = n => `<g class="mq-al-sh"><g transform="scale(${S})">
+            <rect class="tr" x="0" y="50" width="104" height="18" rx="9"/><path class="bd" d="M6 52 L12 16 L70 6 L98 22 L106 52 Z"/>
+            <path class="wn" d="M74 13 L94 24 L91 32 L72 28 Z"/><rect class="st" x="10" y="38" width="92" height="6"/><circle class="lp" cx="103" cy="46" r="4"/></g>
+            <text x="${53 * S}" y="12" text-anchor="middle">${n}</text></g>`;
+          let main;
+          const drawCommits = () => { commits.innerHTML = main.slice(0, 8).map((c, i) => `<g class="mq-commit ok ${i === 0 && c.fresh ? 'new' : ''}"><circle cx="1330" cy="${300 + i * 70}" r="13"/><text x="1360" y="${307 + i * 70}">${c.name}</text></g>`).join(''); };
+          const idle = () => { steps.forEach(s => s.setAttribute('class', 'mq-al-step')); status.textContent = ''; status.setAttribute('class', 'mq-al-status'); lock.setAttribute('class', 'mq-al-lock'); };
+          const run = async () => {
+            ships.innerHTML = '';
+            const queue = NAMES.map(n => { ships.insertAdjacentHTML('beforeend', ship(n)); return ships.lastElementChild; });
+            queue.forEach((g, i) => { g.style.transition = 'none'; put(g, slot(i)); });
+            ships.getBoundingClientRect();
+            queue.forEach(g => { g.style.transition = ''; });
+            main = ['chore/lockfile', 'fix/cart', 'feat/auth-v1'].map(name => ({ name }));
+            drawCommits(); idle(); dl.classList.add('open'); dr.classList.remove('open');
+            await sleep(900);
+            while (alive() && queue.length) {
+              const s = queue.shift();
+              dl.classList.add('open'); s.classList.add('in');
+              put(s, PARK, 1.3); queue.forEach((g, i) => put(g, slot(i), 1.3));
+              await sleep(1400); if (!alive()) return;
+              dl.classList.remove('open'); lock.setAttribute('class', 'mq-al-lock busy'); scan.classList.add('on');
+              await sleep(500); if (!alive()) return;
+              for (let i = 0; i < steps.length; i++) {
+                steps[i].setAttribute('class', 'mq-al-step now'); status.textContent = VERB[i] + '…';
+                await sleep(i === 3 ? 800 : 1150); if (!alive()) return;
+                steps[i].setAttribute('class', 'mq-al-step done');
+              }
+              scan.classList.remove('on'); lock.setAttribute('class', 'mq-al-lock done');
+              status.textContent = '✓ Green'; status.setAttribute('class', 'mq-al-status ok');
+              s.classList.remove('in'); s.classList.add('ok');
+              await sleep(500); if (!alive()) return;
+              dr.classList.add('open');
+              await sleep(500); if (!alive()) return;
+              put(s, OUT, 1.1);
+              await sleep(1000); if (!alive()) return;
+              s.style.opacity = 0; dr.classList.remove('open');
+              main.unshift({ name: s.querySelector('text').textContent, fresh: true });
+              drawCommits(); idle();
+              await sleep(600); if (!alive()) return;
+              s.remove();
+            }
+            if (alive()) { await sleep(1500); if (alive()) run(); }
+          };
+          run();
+        },
       }, {
         slug: 'jam', title: 'The next bottleneck', full: true, steps: 4, cls: 'mq mq-jam',
         body: () => `<svg class="mq-svg" viewBox="0 0 1600 900">

@@ -785,17 +785,6 @@ header .sub { font-size: 26px; color: var(--muted); margin-top: 6px; }
 .mq-floor { stroke: #3a4350; stroke-width: 3; stroke-dasharray: 18 12; }
 .mq-lock { fill: rgba(179, 154, 224, .06); stroke: var(--int); stroke-width: 4; }
 .mq-locktag { font: 700 20px var(--mono); fill: var(--int); letter-spacing: .14em; text-transform: uppercase; }
-.mq-station circle { fill: #1a1f26; stroke: var(--muted); stroke-width: 3; transition: fill .4s, stroke .4s; }
-.mq-station text { font: 500 24px var(--mono); fill: var(--muted); transition: fill .4s; }
-.s2 .mq-station[data-z="2"] circle, .s3 .mq-station[data-z="3"] circle, .s4 .mq-station[data-z="4"] circle, .s5 .mq-station[data-z="5"] circle { fill: var(--awake); stroke: var(--awake); filter: drop-shadow(0 0 6px var(--awake)); }
-.s2 .mq-station[data-z="2"] text, .s3 .mq-station[data-z="3"] text, .s4 .mq-station[data-z="4"] text, .s5 .mq-station[data-z="5"] text { fill: var(--ink); }
-.s6 .mq-station[data-z="4"] text { fill: var(--alien); }
-.s6 .mq-station[data-z="5"] circle { fill: #1a1f26; stroke: var(--muted); filter: none; }
-.s6 .mq-station[data-z="5"] text { fill: var(--muted); }
-.mq-x circle { fill: var(--alien); filter: drop-shadow(0 0 6px var(--alien)); }
-.mq-x text { font: 700 24px var(--mono); fill: var(--alien); }
-.mq-bounce { fill: none; stroke: var(--alien); stroke-width: 4; stroke-dasharray: 10 8; }
-.mq-arrow { stroke: var(--int); stroke-width: 5; marker-end: none; }
 .mq-cap { position: absolute; left: 0; right: 0; bottom: 30px; text-align: center; font: 400 32px var(--sans); color: var(--ink); }
 .mq-cap b { color: var(--int); }
 .mq-batch { fill: rgba(69, 230, 160, .06); stroke: var(--awake); stroke-width: 3; stroke-dasharray: 12 8; }
@@ -817,3 +806,32 @@ header .sub { font-size: 26px; color: var(--muted); margin-top: 6px; }
 .mq-port.bad { fill: rgba(255, 59, 92, .14); stroke: var(--alien); stroke-width: 4; filter: drop-shadow(0 0 14px var(--alien)); }
 .mq-rail.bad { stroke: var(--alien); filter: drop-shadow(0 0 8px var(--alien)); }
 .mq-beam { fill: rgba(159, 216, 240, .08); stroke: var(--cryo); stroke-width: 2; stroke-dasharray: 4 6; }
+
+.mq-al-lock { fill: rgba(179, 154, 224, .05); stroke: var(--int); stroke-width: 4; transition: stroke .4s, fill .4s; }
+.mq-al-lock.busy { fill: rgba(255, 181, 71, .06); stroke: var(--amber); }
+.mq-al-lock.done { fill: rgba(69, 230, 160, .07); stroke: var(--awake); }
+.mq-al-door { fill: #2a313a; stroke: var(--int); stroke-width: 2; transition: transform .6s ease-in-out, opacity .6s; }
+.mq-al-door.open { transform: translateY(-120px); opacity: 0; }
+.mq-al-scan { fill: url(#mqScan); opacity: 0; }
+.mq-al-scan.on { opacity: 1; animation: mq-scan 1.1s ease-in-out infinite alternate; }
+@keyframes mq-scan { from { transform: translateX(0); } to { transform: translateX(330px); } }
+.mq-al-status { font: 700 34px var(--head); fill: var(--amber); text-transform: uppercase; letter-spacing: .04em; }
+.mq-al-status.ok { fill: var(--awake); }
+.mq-al-step circle { fill: #1a1f26; stroke: var(--muted); stroke-width: 3; transition: fill .3s, stroke .3s; }
+.mq-al-step text { font: 500 24px var(--mono); fill: var(--muted); transition: fill .3s; }
+.mq-al-step .spin { fill: none; stroke: var(--amber); stroke-width: 4; stroke-dasharray: 20 40; opacity: 0; transform-box: fill-box; transform-origin: center; }
+.mq-al-step.now .spin { opacity: 1; animation: mq-spin .8s linear infinite; }
+.mq-al-step.now text { fill: var(--amber); }
+.mq-al-step.done circle { fill: var(--awake); stroke: var(--awake); filter: drop-shadow(0 0 6px var(--awake)); }
+.mq-al-step.done text { fill: var(--ink); }
+@keyframes mq-spin { to { transform: rotate(360deg); } }
+.mq-al-sh { transition: transform var(--t, 1.2s) ease-in-out, opacity .5s; }
+.mq-al-sh .tr { fill: #1c2228; stroke: #0c0f12; stroke-width: 1; }
+.mq-al-sh .bd { fill: #46525e; stroke: #222a32; stroke-width: 1; transition: stroke .4s; }
+.mq-al-sh .wn { fill: #ffcf7a; opacity: .55; }
+.mq-al-sh .st { fill: #d9822b; }
+.mq-al-sh .lp { fill: var(--amber); filter: drop-shadow(0 0 4px var(--amber)); }
+.mq-al-sh.in .bd { stroke: var(--amber); stroke-width: 1.5; }
+.mq-al-sh.ok .bd { stroke: var(--awake); stroke-width: 1.5; }
+.mq-al-sh text { font: 600 24px var(--mono); fill: var(--ink); }
+.mq-al-sh.in text { fill: var(--amber); } .mq-al-sh.ok text { fill: var(--awake); }

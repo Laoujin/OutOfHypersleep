@@ -68,21 +68,16 @@ Ten agents, ten green branches, all ready to land.
 
 ---
 layout: hs
-routeAlias: mergequeue-lander
-clicks: 6
+routeAlias: mergequeue-airlock
 ---
 
-<Hs id="mergequeue-lander" />
+<Hs id="mergequeue-airlock" />
 
 <!--
-Serialize the landing: one lane to main.
+Serialize the landing: one at a time through the airlock. Runs on its own, no clicks.
 
-[click] Every agent pushes its branch into one queue.
-[click] Rebase onto the latest main.
-[click] Build.
-[click] Test exactly the commit that will land.
-[click] merge --ff-only. Nobody lands in between, so main is never red.
-[click] Red? The branch bounces back to its agent, the next one rolls in.
+Each branch: rebase onto the latest main, build, test exactly the commit that will land, merge --ff-only. Nobody lands in between, so main is never red.
+A red one would bounce back to its agent and the next one rolls in.
 -->
 
 ---
