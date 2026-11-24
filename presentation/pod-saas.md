@@ -19,7 +19,6 @@ fonts:
   mono: IBM Plex Mono
   weights: '400,500,600,700'
 pod:
-  wip: true
   id: saas
   name: Small SaaS tools
   sub: build vs buy
@@ -33,7 +32,10 @@ pod:
   score:
     alive: 30
     dead: -40
+  was: A monthly subscription for one button on someone else's website.
   diesBecause: Building beats buying. A PDF tool in 2 hours instead of hosting Stirling PDF.
+  logTitle: Build vs buy, flipped
+  takeaway: Unsubscribed.
 layout: hs
 routeAlias: saas-thaw
 ---

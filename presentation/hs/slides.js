@@ -704,12 +704,11 @@ import soCsv from '../data/stackoverflow-questions.csv?raw';
       })(),
     }],
     saas: [{
-      slug: 'story', title: 'I needed three PDF operations', cls: 'deadslide',
+      slug: 'story', title: 'I needed three PDF operations', steps: 3, cls: 'deadslide',
       body: `<div class="two">
         <div class="card"><div class="card-h">buy / host: Stirling PDF</div><ul class="check">${['docker compose', 'reverse proxy + TLS', 'auth in front of it', 'updates', 'CVE watching', '50 features I don\'t need'].map((t, i) => `<li data-s="${i < 3 ? 0 : 1}">${t}</li>`).join('')}</ul></div>
         <div class="card" data-s="2"><div class="card-h">build: ask an agent</div><ul class="check ok"><li>merge</li><li>split</li><li>compress</li></ul><div class="timer">⏱ 2 h</div></div>
       </div>`,
-      caps: ['Small SaaS tools: why build what you can buy?', 'Because "buying" (or hosting) has a running cost too.', 'Building exactly what I need: <b>two hours</b>.'],
     }],
     codereview: (() => {
       const LINES = 4012, SCROLL_MS = 9000;
