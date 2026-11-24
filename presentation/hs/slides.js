@@ -614,6 +614,7 @@ decode(encode("123"))   <span class="green">✓</span></pre></div>
   };
   const podFrame = {
     trailers: { woke: [] },
+    worktrees: { woke: [] },
     stackoverflow: {
       froze: [{
         slug: 'empire', title: 'The empire', cls: 'beat',

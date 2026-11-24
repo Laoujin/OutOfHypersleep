@@ -88,13 +88,6 @@ The how is in the Git Worktrees deck.
 
 ---
 layout: hs
-routeAlias: worktrees-woke
----
-
-<Hs id="worktrees-woke" />
-
----
-layout: hs
 routeAlias: worktrees-log
 ---
 
