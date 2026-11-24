@@ -590,11 +590,9 @@ import soCsv from '../data/stackoverflow-questions.csv?raw';
       }).join('')}`;
       const TOOLS = [['Spec Kit', 'GitHub', '/specify → /plan → /tasks → /implement'], ['Superpowers', 'obra', 'brainstorm → write plan → execute plan'], ['OpenSpec', 'Fission AI', 'proposal → specs → tasks → archive'], ['Plan Mode', 'Claude Code', 'read-only: plan first, approve, then code']];
       return [{
-        slug: 'horror', title: 'The waterfall',
-        body: `<div class="spec-stage">${cascade([['Requirements', '3 months'], ['Design', '2 months'], ['Implementation', '6 months'], ['Verification', '3 months'], ['Maintenance', 'forever']], 'lbl spec-w')}
-          <text class="lbl big" x="30" y="505">Total: 14 months. Then the requirements changed.</text></svg>
+        slug: 'horror', title: 'The waterfall', sub: 'Royce draws the waterfall, 1970', steps: 2,
+        body: `<div class="spec-stage">${cascade([['Requirements', '3 months'], ['Design', '2 months'], ['Implementation', '6 months'], ['Verification', '3 months']], 'lbl spec-w')}</svg>
           <div class="spec-ov" data-s="1"><div class="mut-stamp">${A.alien()}<div>The horror</div></div></div></div>`,
-        caps: ['1970: Royce draws the waterfall.<small>Every phase signed off before the next one starts.</small>', 'Fifty years of projects late, over budget, or both.'],
       }, {
         slug: '2026', title: 'It\'s 2026',
         body: `<div class="spec-tools">${TOOLS.map(([n, by, f], i) => `<div class="card" data-s="${i}"><div class="card-h">${by}</div><b>${n}</b><code>${f}</code></div>`).join('')}</div>`,
