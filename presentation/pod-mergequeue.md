@@ -32,6 +32,7 @@ pod:
     dead: -40
   frozenBecause: '"Only Google-scale needed this."'
   wokenBecause: 20 green branches at once. Each is green alone; together they break main.
+  takeaway: Google-scale is you and ten agents.
 layout: hs
 routeAlias: mergequeue-thaw
 ---
