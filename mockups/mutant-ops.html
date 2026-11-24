@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Surviving mutant operators</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@600;700&family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;600&display=swap">
+<style>
+:root {
+  --bg: #0b0d10; --panel: #15191f; --line: #2e3540; --ink: #d9dee6; --muted: #8a93a1; --faint: #565e6b;
+  --awake: #45e6a0; --alien: #ff3b5c; --iso: #7fb8ff;
+  --head: "Chakra Petch", "Arial Narrow", sans-serif;
+  --sans: "IBM Plex Sans", system-ui, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: #05070a; color: var(--ink); font-family: var(--sans); }
+main { max-width: 1400px; margin: 0 auto; padding: 32px 16px 80px; }
+h1.page { font: 700 32px var(--head); margin: 0 0 6px; }
+p.lead { color: var(--muted); margin: 0 0 16px; line-height: 1.5; }
+.ctl button { font: 600 13px var(--mono); background: var(--panel); color: var(--ink); border: 1px solid var(--line); border-radius: 6px; padding: 6px 12px; cursor: pointer; }
+.opts { display: grid; grid-template-columns: repeat(2, 600px); gap: 56px 72px; margin-top: 28px; }
+h2 { font: 700 18px var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--iso); margin: 0 0 4px; }
+p.note { color: var(--muted); margin: 0 0 14px; font-size: 14px; line-height: 1.45; min-height: 40px; }
+
+/* shared: .mut-esc panel and .mut-card as on the slide */
+.esc-h { display: flex; justify-content: space-between; font: 700 20px var(--mono); color: var(--muted); letter-spacing: .1em; text-transform: uppercase; margin: 4px 2px 14px; }
+.esc-h .n { color: var(--alien); }
+.grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.card { padding: 18px 20px 20px; border: 2px solid rgba(255, 59, 92, .55); border-radius: 14px; background: rgba(40, 6, 14, .55); box-shadow: inset 0 0 30px rgba(255, 59, 92, .12); --acc: var(--alien); --acc-rgb: 255, 59, 92; }
+.ok .card { border-color: rgba(69, 230, 160, .55); background: rgba(6, 40, 26, .45); box-shadow: inset 0 0 30px rgba(69, 230, 160, .1); --acc: var(--awake); --acc-rgb: 69, 230, 160; }
+.ok .esc-h .n { color: var(--awake); }
+.t-ok, .ok .t-esc { display: none; }
+.ok .t-ok { display: inline; }
+.card small { font: 700 16px var(--mono); letter-spacing: .14em; color: var(--acc); text-transform: uppercase; }
+.card p { margin: 10px 0 0; font: 500 17px/1.35 var(--mono); color: var(--muted); }
+.op { margin-top: 14px; white-space: nowrap; }
+.op s, .op em { text-decoration: none; font-style: normal; }
+.op .ar { display: inline-block; }
+.ar svg { display: block; }
+
+/* Now */
+.v0 .op { font: 700 44px var(--mono); color: #fff; }
+.v0 .op s { color: var(--faint); font-size: 34px; }
+.v0 .op i { font-style: normal; color: var(--muted); font-size: 30px; margin: 0 10px; }
+.v0 .op em { color: var(--acc); }
+
+/* 1 · Chips: equal-weight tokens, old dim chip, new lit chip */
+.v1 .op { display: flex; align-items: center; gap: 12px; font: 700 34px/1 var(--mono); }
+.v1 .op s, .v1 .op em { min-width: 76px; padding: 12px 14px; text-align: center; border-radius: 10px; }
+.v1 .op s { color: var(--muted); background: rgba(255, 255, 255, .05); border: 1.5px solid rgba(255, 255, 255, .1); }
+.v1 .op em { color: #fff; background: rgba(var(--acc-rgb), .2); border: 1.5px solid rgba(var(--acc-rgb), .8); box-shadow: 0 0 18px rgba(var(--acc-rgb), .35); }
+.v1 .ar { color: var(--muted); }
+
+/* 2 · Strike + replace: old struck through in place, new right after */
+.v2 .op { display: flex; align-items: baseline; gap: 16px; font: 700 46px/1 var(--mono); }
+.v2 .op s { color: var(--faint); position: relative; }
+.v2 .op s::after { content: ''; position: absolute; left: -4px; right: -4px; top: 52%; height: 4px; border-radius: 2px; background: var(--acc); transform: rotate(-8deg); opacity: .85; }
+.v2 .op em { color: var(--acc); text-shadow: 0 0 16px rgba(var(--acc-rgb), .5); }
+.v2 .ar { display: none; }
+
+/* 3 · Split tile: one segmented box, old half dark, new half lit */
+.v3 .op { display: inline-flex; align-items: stretch; font: 700 36px/1 var(--mono); border: 1.5px solid rgba(var(--acc-rgb), .7); border-radius: 10px; overflow: hidden; }
+.v3 .op s, .v3 .op em { padding: 12px 18px; min-width: 80px; text-align: center; }
+.v3 .op s { color: var(--muted); background: rgba(0, 0, 0, .35); }
+.v3 .op em { color: #fff; background: rgba(var(--acc-rgb), .28); }
+.v3 .ar { display: flex; align-items: center; padding: 0 4px; background: linear-gradient(90deg, rgba(0, 0, 0, .35), rgba(var(--acc-rgb), .28)); color: var(--acc); }
+
+/* 4 · Was / now: tiny labels above two equal operators */
+.v4 .op { display: flex; align-items: flex-end; gap: 14px; }
+.v4 .op s, .v4 .op em { display: flex; flex-direction: column; gap: 6px; font: 700 44px/1 var(--mono); }
+.v4 .op s::before, .v4 .op em::before { font: 700 12px var(--mono); letter-spacing: .18em; text-transform: uppercase; }
+.v4 .op s { color: var(--faint); }
+.v4 .op s::before { content: 'was'; color: var(--faint); }
+.v4 .op em { color: var(--acc); }
+.v4 .op em::before { content: 'mutant'; color: var(--acc); }
+.v4 .ok .op em::before { content: 'caught'; }
+.v4 .ar { color: var(--muted); padding-bottom: 10px; }
+.opts .op.long, .opts .op.long s, .opts .op.long em { font-size: 26px; }
+</style>
+</head>
+<body>
+<main>
+  <h1 class="page">Who tests the tests? · operator display</h1>
+  <p class="lead">Same cards, same content (<code>&gt;=</code> → <code>&gt;</code>); only how the operator swap is drawn changes. Right-hand panel at real slide size (600px).</p>
+  <div class="ctl"><button id="tg">Toggle escaped / contained</button></div>
+  <div class="opts" id="opts"></div>
+</main>
+<script>
+const MUTANTS = [
+  ['4', '>=', '>', 'the discount at exactly €100'],
+  ['5', '===', '!==', 'the CREW code'],
+  ['7', 'round(x)', 'x', 'rounding to cents'],
+  ['11', '*', '/', 'the rounding math'],
+]
+const VARIANTS = [
+  ['v0', 'Now', 'Old 34px faint, new 44px; text arrow.'],
+  ['v1', '1 · Chips', 'Both operators the same size, each in a token chip. Old chip dim, new chip lit in the state colour.'],
+  ['v2', '2 · Strike + replace', 'Old operator crossed out by a slash in the state colour, new one glowing next to it. No arrow.'],
+  ['v3', '3 · Split tile', 'One segmented tile: old half dark, new half lit, chevron in the seam.'],
+  ['v4', '4 · Was / mutant', 'Equal-size operators with tiny labels; "mutant" becomes "caught" once contained.'],
+]
+const esc = t => t.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+const arrow = '<span class="ar"><svg width="26" height="16" viewBox="0 0 26 16"><path d="M1 8h22M16 2l7 6-7 6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>'
+const op = (v, from, to) => v === 'v0' ? `<s>${esc(from)}</s><i>→</i><em>${esc(to)}</em>` : `<s>${esc(from)}</s>${arrow}<em>${esc(to)}</em>`
+document.getElementById('opts').innerHTML = VARIANTS.map(([v, title, note]) => `<section class="${v}">
+  <h2>${title}</h2><p class="note">${note}</p>
+  <div class="esc">
+    <div class="esc-h"><span class="t-esc">escaped</span><span class="t-ok">contained</span><span class="n">4 mutants</span></div>
+    <div class="grid">${MUTANTS.map(([ln, from, to, what]) => `<div class="card"><small>line ${ln}</small><div class="op${v !== 'v0' && from.length > 3 ? ' long' : ''}">${op(v, from, to)}</div><p><span class="t-esc">nobody tests</span><span class="t-ok">now tests</span> ${what}</p></div>`).join('')}</div>
+  </div></section>`).join('')
+document.getElementById('tg').onclick = () => document.querySelectorAll('.esc').forEach(e => e.classList.toggle('ok'))
+</script>
+</body>
+</html>
