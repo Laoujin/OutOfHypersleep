@@ -976,7 +976,7 @@ Subject: Re: SCO: "thread creation is about a thousand times faster
           <div class="rep-best"><b>411</b><span>ESLint: "window" is not defined</span><small>Sep 2015</small></div>
           <div class="rep-impact"><span><b>~855k</b>people reached</span><span><b>168</b>answers</span></div>
         </div>`,
-        caps: ['Reputation was coveted, a gold badge a medal of honour, an accepted answer made your day.'],
+        caps: ['Reputation was coveted.<br>A gold badge a medal of honour.<br>An accepted answer made your day.'],
       }, {
         slug: 'reflex', title: 'The reflex', cls: 'beat',
         body: `<div class="so-search"><span>TypeError: Cannot read properties of undefined (reading 'map')</span> <b>stackoverflow</b><i></i></div>
