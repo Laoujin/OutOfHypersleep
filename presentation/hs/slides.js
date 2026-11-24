@@ -550,19 +550,6 @@ import soCsv from '../data/stackoverflow-questions.csv?raw';
       }];
     })(),
     hooks: [{
-      slug: 'why', title: 'The gate everyone walked around',
-      body: `<svg viewBox="0 0 1000 560">
-        <rect class="box" x="40" y="220" width="200" height="90" rx="12"/><text class="mono" x="140" y="272" text-anchor="middle">git commit</text>
-        <rect class="gate" x="400" y="180" width="200" height="170" rx="12"/><text class="lbl" x="500" y="225" text-anchor="middle">pre-commit</text>
-        ${['lint', 'types', 'tests'].map((t, i) => `<text class="mono dim" x="500" y="${265 + i * 28}" text-anchor="middle">${t}</text>`).join('')}
-        <rect class="box" x="760" y="220" width="200" height="90" rx="12"/><text class="mono" x="860" y="272" text-anchor="middle">repo</text>
-        <path class="arrow" d="M240 265 H400"/><path class="arrow" d="M600 265 H760"/>
-        <g data-s="1"><path class="arrow bad dashed" d="M200 220 C 300 90, 700 90, 820 220"/><text class="mono red" x="500" y="88" text-anchor="middle">humans: git commit --no-verify</text></g>
-        <g data-s="2"><path class="arrow dashed" d="M200 310 C 260 480, 380 480, 420 440"/><path class="wall bad" d="M430 410 v80"/><text class="mono" x="460" y="440">agent: git commit --no-verify</text><text class="mono red" x="460" y="472">✗ denied by permission rule</text></g>
-        <g data-s="3"><text class="lbl green" x="500" y="168" text-anchor="middle">✓ the gate holds</text></g>
-      </svg>`,
-      caps: ['Hooks: since Git 1.0, 2005.', 'Slow hook? Humans skipped it.', 'Agents don\'t get the choice: <code>--no-verify</code> is blocked.', 'The hook finally is what it was meant to be: <b>a gate</b>.<br><small>A guardrail that only warns is documentation.</small>'],
-    }, {
       slug: 'loop', title: 'A gate on every edit',
       body: `<svg viewBox="0 0 1000 560">
         <rect class="box" x="40" y="200" width="200" height="110" rx="12"/><text class="lbl" x="140" y="248" text-anchor="middle">agent</text><text class="mono dim" x="140" y="282" text-anchor="middle">Edit vote.ts</text>

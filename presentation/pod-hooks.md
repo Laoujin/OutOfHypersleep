@@ -53,24 +53,6 @@ routeAlias: hooks-froze
 
 ---
 layout: hs
-routeAlias: hooks-why
-clicks: 3
----
-
-<Hs id="hooks-why" />
-
-<!--
-Background: Hooks exist since Git 1.0 (2005).
-Humans bypassed slow hooks. Agents get a permission rule that blocks --no-verify, so the hook becomes a real gate.
-From the Guardrails talk: a guardrail that only warns is documentation.
-
-Everyone has a pre-commit hook story ending in --no-verify.
-[click] For agents: a permission rule or PreToolUse hook denies --no-verify.
-[click] The hook becomes backpressure. More in the Guardrails & Backpressure talk.
--->
-
----
-layout: hs
 routeAlias: hooks-loop
 clicks: 3
 ---
