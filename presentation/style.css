@@ -1075,18 +1075,7 @@ svg .lbl.spec-w { font-size: 20px; }
 .cr-er .s08 code { background: #eaf5ff; color: #0366d6; padding: 2px 6px; font: 13px var(--mono); border-radius: 4px; }
 
 /* code review: who reviews now */
-.cr-who .who-bg { position: absolute; inset: 0; padding: 40px 80px; font: 15px/22px var(--mono); color: #3c4552; white-space: pre; overflow: hidden; opacity: 0; transition: opacity 1s .8s; }
-.cr-who .who-bg .a { color: #2f5a3f; } .cr-who .who-bg .d { color: #5c2a33; }
-.cr-who .who-bg i { display: inline-block; width: 52px; font-style: normal; color: #2a3039; }
-.cr-who.s5 .who-bg { opacity: 1; }
 .cr-who .who { position: relative; display: grid; grid-template-columns: repeat(2, 1fr); gap: 28px; margin-top: 30px; }
 .cr-who .wc { background: var(--panel); border: 1px solid var(--line); border-top: 4px solid var(--awake); border-radius: 16px; padding: 30px 34px; min-height: 230px; display: flex; flex-direction: column; gap: 14px; }
 .cr-who .wc h3 { font-size: 40px; line-height: 1.1; color: #fff; }
 .cr-who .wc p { margin: 0; font-size: 28px; line-height: 1.4; color: var(--ink); }
-.cr-who.s5 .wc { animation: who-fall 1.5s cubic-bezier(.55,0,1,.45) var(--d) forwards; }
-@keyframes who-fall {
-  0% { transform: none; }
-  12% { transform: translate(4px, 6px) rotate(calc(var(--r) / 8)); }
-  20% { transform: translate(-3px, 8px) rotate(calc(var(--r) / 6)); }
-  100% { transform: translateY(1000px) rotate(var(--r)); opacity: .6; }
-}

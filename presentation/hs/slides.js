@@ -799,13 +799,8 @@ Subject: Re: SCO: "thread creation is about a thousand times faster
           else { setScroll(1); void el.offsetWidth; el.classList.add('cr-stamped'); }
         },
       }, {
-        slug: 'who', title: 'Who reviews now?', full: true, steps: 6, cls: 'cr-who',
-        body: () => {
-          let bg = '';
-          for (let ln = 1; ln <= 40; ln++) { const [c, t] = SNIP[(ln * 7) % SNIP.length]; bg += `<div class="${c}"><i>${ln}</i>${c === 'a' ? '+' : c === 'd' ? '-' : ' '} ${esc(t)}</div>`; }
-          return `<div class="who-bg">${bg}</div>
-  <div class="who"><div class="wc" data-s="1" style="--r:-14deg;--d:0.00s"><h3>Be deterministic</h3><p>Guardrails &amp; backpressure.<br>Machines check every line.</p></div><div class="wc" data-s="2" style="--r:9deg;--d:0.12s"><h3>Agents review agents</h3><p>A better model, a fresh context,<br>one aspect each.</p></div><div class="wc" data-s="3" style="--r:-7deg;--d:0.24s"><h3>Review the spec &amp; tests</h3><p>One page and the asserts,<br>not 4,012 lines.</p></div><div class="wc" data-s="4" style="--r:16deg;--d:0.36s"><h3>Humans on the risky parts</h3><p>Architecture, security, API.<br>The 5% that hurts.</p></div></div>`;
-        },
+        slug: 'who', title: 'Who reviews now?', full: true, steps: 5, cls: 'cr-who',
+        body: () => `<div class="who"><div class="wc" data-s="1"><h3>Be deterministic</h3><p>Guardrails &amp; backpressure.<br>Machines check every line.</p></div><div class="wc" data-s="2"><h3>Agents review agents</h3><p>A better model, a fresh context,<br>one aspect each.</p></div><div class="wc" data-s="3"><h3>Review the spec &amp; tests</h3><p>One page and the asserts,<br>not 4,012 lines.</p></div><div class="wc" data-s="4"><h3>Humans on the risky parts</h3><p>Architecture, security, API.<br>The 5% that hurts.</p></div></div>`,
       }];
     })(),
     ide: [{
