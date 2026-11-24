@@ -331,13 +331,6 @@ pre.code { margin: 0; font: 21px/1.6 var(--mono); color: var(--ink); white-space
 .check li::before { content: "▢ "; color: var(--faint); }
 .check.ok li::before { content: "✓ "; color: var(--awake); }
 .timer { font: 800 64px var(--mono); color: var(--awake); margin-top: 20px; }
-.poker { display: flex; justify-content: center; margin-top: 30px; height: 300px; }
-.pcard { width: 130px; height: 190px; margin: 0 -10px; background: #e9edf3; color: #2a3039; border-radius: 12px; font: 800 60px var(--mono); display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 30px rgba(0, 0, 0, .4); }
-.timers { display: flex; gap: 40px; justify-content: center; margin-top: 40px; }
-.tm { background: var(--panel); border: 1px solid var(--line); border-radius: 16px; padding: 18px 30px; text-align: center; }
-.tm label { display: block; font-size: 20px; color: var(--muted); }
-.tm b { font: 800 64px var(--mono); color: var(--amber); }
-.tm.ok b { color: var(--awake); }
 
 /* final */
 .final .manifest-reveal { position: relative; overflow: hidden; width: 640px; height: 360px; background: #e9edf3; padding: 12px 12px 44px; border-radius: 6px; transform: rotate(1.5deg); margin-top: 10px; }

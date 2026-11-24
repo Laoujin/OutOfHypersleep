@@ -711,12 +711,6 @@ import soCsv from '../data/stackoverflow-questions.csv?raw';
       </div>`,
       caps: ['Small SaaS tools: why build what you can buy?', 'Because "buying" (or hosting) has a running cost too.', 'Building exactly what I need: <b>two hours</b>.'],
     }],
-    storypoints: [{
-      slug: 'poker', title: 'Planning poker', cls: 'deadslide',
-      body: `<div class="poker">${['1', '2', '3', '5', '8', '13', '?'].map((v, i) => `<div class="pcard" style="transform: rotate(${(i - 3) * 7}deg) translateY(${Math.abs(i - 3) * 9}px)">${v}</div>`).join('')}</div>
-        <div class="timers"><div class="tm" data-s="1"><label>estimation meeting</label><b>45:00</b></div><div class="tm ok" data-s="2"><label>agent builds it</label><b>03:52</b></div></div>`,
-      caps: ['How many points is this story?', 'The meeting takes 45 minutes.', 'The build takes four.'],
-    }],
     codereview: (() => {
       const LINES = 4012, SCROLL_MS = 9000;
       const RATES = [[150, ''], [300, ''], [400, '']];
