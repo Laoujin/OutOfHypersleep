@@ -83,24 +83,29 @@ p.lead { color: var(--muted); margin: 0 0 24px; line-height: 1.5; }
 .s08 .cm .h { background: #f1f8ff; border-bottom: 1px solid #c8e1ff; padding: 6px 10px; font-size: 13px; color: #586069; }
 .s08 .cm .b { padding: 8px 10px; }
 
-/* 2025 · bot PR */
-.s25 { background: #0d1117; color: #c9d1d9; font: 15px/1.5 -apple-system, "Segoe UI", Helvetica, sans-serif; }
-.s25 .top { padding: 18px 24px 12px; border-bottom: 1px solid #30363d; }
-.s25 h2 { margin: 0; font-size: 26px; font-weight: 400; color: #e6edf3; }
-.s25 h2 span { color: #7d8590; }
-.s25 .meta { margin-top: 8px; display: flex; gap: 10px; align-items: center; color: #7d8590; }
-.s25 .pill { background: #238636; color: #fff; border-radius: 20px; padding: 3px 12px; font-weight: 600; }
-.s25 .diffstat { font-family: var(--mono); } .s25 .diffstat .p { color: #3fb950; } .s25 .diffstat .m { color: #f85149; }
-.s25 .feed { padding: 10px 24px; display: flex; flex-direction: column; gap: 6px; }
-.s25 .c { display: grid; grid-template-columns: 30px 1fr; gap: 10px; align-items: start; opacity: 0; transform: translateY(8px); transition: opacity .25s, transform .25s; }
-.s25 .c.in { opacity: 1; transform: none; }
-.s25 .av { width: 30px; height: 30px; border-radius: 6px; display: grid; place-items: center; font-size: 16px; background: #21262d; }
-.s25 .bub { border: 1px solid #30363d; border-radius: 6px; padding: 6px 12px; background: #161b22; font-size: 14px; }
-.s25 .bub b { color: #e6edf3; } .s25 .bub .bot { font: 600 11px var(--mono); color: #7d8590; border: 1px solid #30363d; border-radius: 10px; padding: 0 6px; margin-left: 6px; }
-.s25 .c.more { display: block; color: #7d8590; font-style: italic; padding-left: 40px; }
-.s25 .human .bub { border-color: #238636; background: #0f2a17; }
-.s25 .human .av { background: #238636; }
-.s25 .human .bub b { color: #3fb950; }
+/* 2026 · LGTM scroll */
+.s26 { background: #0d1117; color: #c9d1d9; font: 15px/1.5 -apple-system, "Segoe UI", Helvetica, sans-serif; }
+.s26 .top { padding: 16px 24px 12px; border-bottom: 1px solid #30363d; }
+.s26 h2 { margin: 0; font-size: 26px; font-weight: 400; color: #e6edf3; }
+.s26 h2 span { color: #7d8590; }
+.s26 .meta { margin-top: 6px; display: flex; gap: 10px; align-items: center; color: #7d8590; }
+.s26 .pill { background: #238636; color: #fff; border-radius: 20px; padding: 3px 12px; font-weight: 600; }
+.s26 .p { color: #3fb950; font-family: var(--mono); } .s26 .m { color: #f85149; font-family: var(--mono); }
+.s26 .view { position: absolute; left: 0; right: 18px; top: 102px; bottom: 0; overflow: hidden; }
+.s26 .code { font: 13px/19px var(--mono); white-space: pre; will-change: transform; }
+.s26 .code div { padding-left: 58px; position: relative; }
+.s26 .code div i { position: absolute; left: 0; width: 48px; text-align: right; color: #484f58; font-style: normal; }
+.s26 .code .a { background: rgba(46,160,67,.15); } .s26 .code .d { background: rgba(248,81,73,.15); }
+.s26 .code .f { background: #161b22; color: #e6edf3; font-weight: 600; padding: 6px 12px; border-top: 1px solid #30363d; border-bottom: 1px solid #30363d; }
+.s26 .code .end { padding: 30px 12px; color: #7d8590; font-family: var(--sans); text-align: center; }
+.s26 .sbar { position: absolute; right: 4px; top: 106px; bottom: 4px; width: 10px; background: #161b22; border-radius: 5px; }
+.s26 .thumb { position: absolute; left: 1px; right: 1px; height: 3px; border-radius: 2px; background: #8b949e; top: 0; }
+
+.stamp { position: absolute; left: 520px; top: 200px; width: 560px; padding: 10px 0 18px; text-align: center; font: 700 200px/1 var(--head); letter-spacing: .04em; color: var(--awake); border: 14px solid var(--awake); border-radius: 26px; transform: rotate(-12deg) scale(3); opacity: 0; text-shadow: 0 0 40px rgba(69,230,160,.5); box-shadow: 0 0 60px rgba(69,230,160,.35), inset 0 0 40px rgba(69,230,160,.2); background: rgba(11,13,16,.55); pointer-events: none; z-index: 5; }
+.stamped .stamp { animation: slam .35s cubic-bezier(.3,1.6,.5,1) forwards; }
+@keyframes slam { to { transform: rotate(-12deg) scale(1); opacity: 1; } }
+.stamped .e3 .scr { animation: shake .3s .25s; }
+@keyframes shake { 25% { transform: translate(-8px, 5px); } 50% { transform: translate(6px, -4px); } 75% { transform: translate(-3px, 2px); } }
 
 .done-lbl .q { color: var(--alien); }
 </style>
@@ -108,7 +113,7 @@ p.lead { color: var(--muted); margin: 0 0 24px; line-height: 1.5; }
 <body>
 <main>
 <h1 class="page">Code review · 50 years</h1>
-<p class="lead">One era per click. The top-right meter shows how many lines a reviewer "reads" per hour; it explodes at the end. Rates marked to verify.</p>
+<p class="lead">One era per click; the top-right meter shows lines read per hour (rates to verify). 2026: the 4,012-line diff scrolls all the way down while the meter counts lines changed. Last click: LGTM stamp.</p>
 <div class="wrap"><div class="slide" id="s">
 
   <div class="era e0"><div class="scr s76">
@@ -184,55 +189,95 @@ all three of them. First ...</span>
     </div>
   </div><div class="lbl"><span class="y">2008</span><span class="n">pull request</span><span class="q">Review moves to the browser.<br>Still read line by line.</span></div></div>
 
-  <div class="era e3"><div class="scr s25">
+  <div class="era e3"><div class="scr s26">
     <div class="top">
       <h2>feat: rewrite billing reconciliation <span>#412</span></h2>
-      <div class="meta"><span class="pill">⑂ Open</span><b>claude[bot]</b> wants to merge 23 commits · <span class="diffstat"><span class="p">+3,412</span> <span class="m">−1,208</span></span> · 47 files</div>
+      <div class="meta"><span class="pill">⑂ Open</span><b>claude[bot]</b> wants to merge 23 commits · <span class="p">+2,804</span> <span class="m">−1,208</span> · 47 files</div>
     </div>
-    <div class="feed" id="feed"></div>
-  </div><div class="lbl done-lbl"><span class="y">2025</span><span class="n">40 bot comments</span><span class="q">And one human.</span></div></div>
+    <div class="view"><div class="code" id="code"></div></div>
+    <div class="sbar"><div class="thumb" id="thumb"></div></div>
+  </div><div class="lbl done-lbl"><span class="y">2026</span><span class="n">Code review · LGTM</span><span class="q">4,012 lines.<br>Nobody typed them.</span></div></div>
 
-  <div class="rate" id="rate">lines read / hour<b id="rv">150</b><small id="rs">Fagan, 1976 (to verify)</small></div>
+  <div class="stamp">LGTM</div>
+  <div class="rate" id="rate"><span id="rl">lines read / hour</span><b id="rv">150</b><small id="rs">Fagan, 1976 (to verify)</small></div>
 </div></div>
 <div class="ctl"><button data-act="prev">Prev</button><button data-act="next">Next</button><button data-act="reset">Reset</button><span class="cap"></span></div>
 </main>
 <script>
-const CAPS = ['1976: Fagan inspection.', '1992: a patch on the mailing list.', '2008: GitHub pull request.', '2025: 40 bot comments, one LGTM.'];
-const RATES = [[150, 'Fagan, 1976 (to verify)'], [300, 'mailing list (guess)'], [400, 'SmartBear/Cisco study (to verify)'], [1116000, '3,100 lines in 11 seconds']];
-const BOTS = [
-  ['🛡', 'security-reviewer', 'Possible SQL injection in <code>reconcile.ts:212</code>'],
-  ['⚡', 'perf-reviewer', 'N+1 query in <code>loadInvoices()</code>'],
-  ['🧪', 'test-reviewer', 'Coverage dropped 4.2% on <code>billing/</code>'],
-  ['🤖', 'copilot', 'Consider extracting this into a helper.'],
-  ['🐰', 'coderabbit', 'Walkthrough: this PR rewrites 47 files…'],
-  ['🔍', 'sonarcloud', 'Quality Gate passed · 12 code smells'],
-  ['✅', 'ci', 'All checks have passed · 31 successful'],
+const CAPS = ['1976: Fagan inspection.', '1992: a patch on the mailing list.', '2008: GitHub pull request.', '2026: 4,012 lines. Scroll.', 'LGTM.'];
+const RATES = [[150, 'Fagan, 1976 (to verify)'], [300, 'mailing list (guess)'], [400, 'SmartBear/Cisco study (to verify)']];
+const LINES = 4012, SCROLL_MS = 9000;
+const FILES = ['src/billing/reconcile.ts', 'src/billing/ledger.ts', 'src/billing/invoice.repo.ts', 'src/billing/currency.ts', 'src/billing/__tests__/reconcile.spec.ts', 'src/db/migrations/0147_reconcile.sql', 'src/billing/events.ts', 'src/billing/retry.ts'];
+const SNIP = [
+  ['a', 'export async function reconcile(batch: Invoice[], opts: ReconcileOpts) {'],
+  ['a', '  const ledger = await loadLedger(opts.accountId, { since: opts.since })'],
+  ['d', '  const ledger = await db.ledger.find(opts.accountId)'],
+  ['a', '  for (const inv of batch) {'],
+  ['a', '    const match = ledger.entries.find(e => e.ref === inv.ref && e.amount.eq(inv.total))'],
+  ['a', '    if (!match) { await queueRetry(inv, RetryReason.NoMatch); continue }'],
+  ['', '    // TODO: handle partial payments'],
+  ['a', '    await markReconciled(inv.id, match.id, { tx })'],
+  ['d', '    await markReconciled(inv.id, match.id)'],
+  ['a', '  }'],
+  ['a', '  return summarize(batch, ledger)'],
+  ['', '}'],
+  ['a', "const rate = await fx.rate(inv.currency, 'EUR', { at: inv.issuedAt })"],
+  ['a', 'const total = inv.lines.reduce((s, l) => s.plus(l.amount.times(rate)), Big(0))'],
+  ['d', 'let total = 0; for (const l of inv.lines) total += l.amount * rate'],
+  ['a', "  it('reconciles a matching invoice', async () => {"],
+  ['a', '    expect(await reconcile([inv], opts)).toMatchSnapshot()'],
+  ['a', 'ALTER TABLE ledger_entries ADD COLUMN reconciled_at timestamptz;'],
+  ['a', 'CREATE INDEX CONCURRENTLY ix_ledger_ref ON ledger_entries (ref);'],
+  ['a', 'export const backoff = (n: number) => Math.min(30_000, 2 ** n * 250)'],
 ];
-const feed = document.getElementById('feed');
-feed.innerHTML = BOTS.map(([a, n, t]) => `<div class="c"><div class="av">${a}</div><div class="bub"><b>${n}</b><span class="bot">bot</span> ${t}</div></div>`).join('')
-  + `<div class="c more">… 33 more bot comments</div>`
-  + `<div class="c human"><div class="av">👤</div><div class="bub"><b>you</b> approved these changes · <b>LGTM</b> 👍</div></div>`;
+const esc = t => t.replace(/&/g, '&amp;').replace(/</g, '&lt;');
+let html = '', r = 0;
+for (let ln = 1; ln <= LINES; ln++) {
+  if (ln % 120 === 1) html += `<div class="f">${FILES[r++ % FILES.length]}</div>`;
+  const [c, t] = SNIP[(ln * 7 + r) % SNIP.length];
+  html += `<div class="${c}"><i>${ln}</i>${c === 'a' ? '+' : c === 'd' ? '-' : ' '} ${esc(t)}</div>`;
+}
+html += '<div class="end">End of diff · 47 files</div>';
+const code = document.getElementById('code'); code.innerHTML = html;
+const thumb = document.getElementById('thumb'), view = code.parentElement;
 const slide = document.getElementById('s'), wrap = slide.parentElement, cap = document.querySelector('.cap');
-const eras = [...slide.querySelectorAll('.era')], rate = document.getElementById('rate'), rv = document.getElementById('rv'), rs = document.getElementById('rs');
+const eras = [...slide.querySelectorAll('.era')], rate = document.getElementById('rate'), rv = document.getElementById('rv'), rs = document.getElementById('rs'), rl = document.getElementById('rl');
 const MAX = CAPS.length - 1;
-let st = 0, timers = [], raf;
+let st = 0, raf, sraf, shown = 150;
+const fmt = n => Math.round(n).toLocaleString('en');
 const count = (from, to) => {
   cancelAnimationFrame(raf);
   const t0 = performance.now(), d = 1400;
-  const tick = t => { const k = Math.min(1, (t - t0) / d), e = 1 - Math.pow(1 - k, 3); rv.textContent = Math.round(from + (to - from) * e).toLocaleString('en'); if (k < 1) raf = requestAnimationFrame(tick); };
+  const tick = t => { const k = Math.min(1, (t - t0) / d), e = 1 - Math.pow(1 - k, 3); shown = from + (to - from) * e; rv.textContent = fmt(shown); if (k < 1) raf = requestAnimationFrame(tick); };
   raf = requestAnimationFrame(tick);
 };
+const setScroll = k => {
+  const H = code.scrollHeight - view.clientHeight;
+  code.style.transform = `translateY(${-H * k}px)`;
+  thumb.style.top = `${k * (thumb.parentElement.clientHeight - 3)}px`;
+  rv.textContent = fmt(LINES * k);
+};
+const scroll = () => {
+  cancelAnimationFrame(sraf);
+  const t0 = performance.now();
+  const tick = t => { const k = Math.min(1, (t - t0) / SCROLL_MS), e = k < .5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2; setScroll(e); if (k < 1) sraf = requestAnimationFrame(tick); };
+  sraf = requestAnimationFrame(tick);
+};
 const go = n => {
-  const prev = st;
   st = Math.max(0, Math.min(MAX, n));
-  eras.forEach((e, i) => e.classList.toggle('show', i === st));
-  timers.forEach(clearTimeout); timers = [];
-  const cs = [...feed.children];
-  cs.forEach(c => c.classList.remove('in'));
-  if (st === MAX) cs.forEach((c, i) => timers.push(setTimeout(() => c.classList.add('in'), 300 + i * (i === cs.length - 1 ? 260 : 180))));
-  count(RATES[prev][0], RATES[st][0]);
-  rs.textContent = RATES[st][1];
-  rate.classList.toggle('hot', st === MAX);
+  eras.forEach((e, i) => e.classList.toggle('show', i === Math.min(st, 3)));
+  cancelAnimationFrame(sraf); cancelAnimationFrame(raf);
+  slide.classList.remove('stamped');
+  if (st < 3) {
+    rl.textContent = 'lines read / hour';
+    count(shown, RATES[st][0]); rs.textContent = RATES[st][1]; rate.classList.remove('hot');
+    setScroll(0); rv.textContent = fmt(shown);
+  } else {
+    rl.textContent = 'lines changed'; rs.textContent = 'PR #412 · one of 40 today'; rate.classList.add('hot');
+    if (st === 3) { setScroll(0); scroll(); }
+    else { setScroll(1); void slide.offsetWidth; slide.classList.add('stamped'); }
+    shown = 0;
+  }
   cap.textContent = `step ${st}/${MAX} · ${CAPS[st]}`;
 };
 window.go = go;
