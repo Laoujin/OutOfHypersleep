@@ -695,7 +695,7 @@ import soCsv from '../data/stackoverflow-questions.csv?raw';
             <g clip-path="url(#so-db-clip)"><rect class="lvl" x="${cx - rx - 5}" y="${top - ry}" width="${rx * 2 + 10}" height="${h + ry * 2 + 5}"/></g>
             <ellipse class="git-top" cx="${cx}" cy="${top}" rx="${rx}" ry="${ry}"/>
             <text class="lbl big" x="${cx}" y="${top + 110}" text-anchor="middle">training set</text>
-            <text class="mono dim" x="${cx}" y="${top + 148}" text-anchor="middle">~24M questions · 15 years of answers</text>
+            <text class="mono dim" x="${cx}" y="${top + 148}" text-anchor="middle"><tspan x="${cx}">~24M questions</tspan><tspan x="${cx}" dy="1.3em">15 years of answers</tspan></text>
           </g>
           <g data-s="3"><path class="ghost" d="${body}"/><ellipse class="ghost" cx="${cx}" cy="${top}" rx="${rx}" ry="${ry}"/>
             <text class="lbl big dim" x="${cx}" y="${top + 110}" text-anchor="middle">training set</text>
