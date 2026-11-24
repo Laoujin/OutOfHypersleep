@@ -32,6 +32,7 @@ pod:
     dead: -40
   frozenBecause: One developer only ever needs one checkout.<br><code>git stash</code> was good enough.
   wokenBecause: "N agents on one repo: each needs its own working directory and branch."
+  takeaway: A worktree is an environment, not a folder.
 layout: hs
 routeAlias: worktrees-thaw
 ---
