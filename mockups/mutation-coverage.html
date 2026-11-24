@@ -48,8 +48,16 @@ pre { margin: 0; padding: 16px 20px; font: 500 21px/1.6 var(--mono); color: var(
 .tag { margin-left: 16px; font: 600 16px var(--mono); color: var(--alien); border: 1px solid var(--alien); background: rgba(40,6,14,.85); border-radius: 8px; padding: 3px 10px; }
 
 /* A: code + two bars */
-.a .code { position: absolute; left: 72px; top: 200px; width: 1030px; }
-.a .bars { position: absolute; right: 72px; top: 200px; width: 400px; display: flex; flex-direction: column; gap: 22px; }
+.a .code { position: absolute; left: 72px; top: 180px; width: 1030px; }
+.a .code pre { font-size: 19px; line-height: 1.55; padding: 12px 20px; }
+.a .tag { font-size: 15px; padding: 2px 9px; }
+.a .di { position: absolute; left: 72px; right: 72px; bottom: 44px; padding: 20px 28px; border-left: 6px solid var(--awake); background: rgba(69,230,160,.08); border-radius: 0 12px 12px 0; font: 600 34px/1.25 var(--sans); color: #fff; }
+.a .di small { display: block; font: 700 16px var(--mono); letter-spacing: .2em; text-transform: uppercase; color: var(--awake); margin-bottom: 6px; }
+.q .qbox { position: absolute; left: 160px; right: 160px; top: 50%; translate: 0 -50%; }
+.q .qbox small { display: block; font: 700 22px var(--mono); letter-spacing: .3em; text-transform: uppercase; color: var(--awake); margin-bottom: 24px; }
+.q .qbox p { margin: 0; font: 700 76px/1.12 var(--head); color: #fff; padding-left: 40px; border-left: 8px solid var(--awake); }
+.q .qbox b { color: var(--alien); } .q .qbox em { font-style: normal; color: var(--awake); }
+.a .bars { position: absolute; right: 72px; top: 180px; width: 400px; display: flex; flex-direction: column; gap: 22px; }
 .bar-card { padding: 18px 22px; }
 .bar-card label { font: 600 17px var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
 .bar-card b { display: block; font: 700 92px/1 var(--head); color: var(--col); margin: 10px 0 12px; }
@@ -102,27 +110,39 @@ pre { margin: 0; padding: 16px 20px; font: 500 21px/1.6 var(--mono); color: var(
 <body>
 <main>
 <h1 class="page">“100% coverage, 0% confidence”</h1>
-<p class="lead">Three takes on the slide before the containment sweep. The agent’s tests are green and cover every line, yet none of them can fail. Click a slide (or <b>next</b>) to step.</p>
+<p class="lead">Going with A. Three takes on the slide before the containment sweep. The agent’s tests are green and cover every line, yet none of them can fail. Click a slide (or <b>next</b>) to step.</p>
 
-<h2>A · The test file</h2>
-<p class="note">The agent’s test file, then red tags on the three cheats, then the mutation score lands next to coverage. Closest to real code.</p>
-<div class="wrap" data-steps="2" data-kind="a"><div class="slide a">
+<h2>A · The test file + defect insertion</h2>
+<p class="note">Four agent-written tests, then red tags, then the mutation score, then the defect-insertion line lands at the bottom as the bridge to the sweep.</p>
+<div class="wrap" data-steps="3" data-kind="a"><div class="slide a">
   <div class="hd"><small>Deck 3 · Verification · Mutation testing</small><h3>100% coverage, 0% confidence</h3></div>
-  <div class="card code"><div class="card-h"><span>cart.test.ts <small>(written by the agent)</small></span><span class="green">3 passed ✓</span></div><pre><span class="k">it</span>(<span class="s">'calculates the total'</span>, () =&gt; {
+  <div class="card code"><div class="card-h"><span>cart.test.ts <small>(written by the agent)</small></span><span class="green">4 passed ✓</span></div><pre><span class="k">it</span>(<span class="s">'calculates the total'</span>, () =&gt; {
   <span class="k">const</span> total = calcTotal(cart)
-  <span class="hlx">expect(total).toEqual(calcTotal(cart))</span><span class="tag" data-s="1">x equals x</span>
+  <span class="hlx">expect(total).toBeDefined()</span><span class="tag" data-s="1">asserts nothing</span>
+})
+<span class="k">it</span>(<span class="s">'applies VAT'</span>, () =&gt; {
+  <span class="hlx">expect(calcTotal(cart)).toEqual(calcTotal(cart))</span><span class="tag" data-s="1">x equals x</span>
 })
 <span class="k">it</span>(<span class="s">'applies the discount'</span>, () =&gt; {
-  vi.mocked(getRate).mockReturnValue(<span class="s">0.1</span>)
-  <span class="hlx">expect(getRate()).toBe(<span class="s">0.1</span>)</span><span class="tag" data-s="1">tests the mock</span>
+  calcTotal(cart)
+  <span class="hlx">expect(getRate).toHaveBeenCalled()</span><span class="tag" data-s="1">tests the mock</span>
 })
 <span class="k">it</span>(<span class="s">'renders the receipt'</span>, () =&gt; {
-  <span class="hlx">expect(render(cart)).toMatchSnapshot()</span><span class="tag" data-s="1">snapshot <code>-u</code>’d</span>
+  <span class="hlx">expect(render(cart)).toMatchSnapshot()</span><span class="tag" data-s="1">pins whatever it printed</span>
 })</pre></div>
   <div class="bars">
     <div class="card bar-card cov"><label>Line coverage</label><b>100%</b><div class="bar"><i></i></div></div>
     <div class="card bar-card mut" data-s="2"><label>Mutation score</label><b>0%</b><div class="bar"><i></i></div><div class="sub" style="margin-top:12px">0 of 6 mutants killed</div></div>
   </div>
+  <div class="di" data-s="3"><small>Defect insertion</small>Your test must be able to fail by changing the production code.</div>
+</div></div>
+<div class="ctl"><button data-act="prev">prev</button><button data-act="next">next</button><button data-act="reset">reset</button><span class="cap"></span></div>
+
+<h2>A′ · Defect insertion as its own slide</h2>
+<p class="note">Alternative: A stops at the mutation score, and the line gets a full statement slide of its own between A and the sweep.</p>
+<div class="wrap" data-steps="0" data-kind="q"><div class="slide q">
+  <div class="hd"><small>Deck 3 · Verification · Mutation testing</small></div>
+  <div class="qbox"><small>Defect insertion</small><p>Your test must be able to <b>fail</b><br>by changing the <em>production code</em>.</p></div>
 </div></div>
 <div class="ctl"><button data-act="prev">prev</button><button data-act="next">next</button><button data-act="reset">reset</button><span class="cap"></span></div>
 
@@ -179,7 +199,8 @@ expect(getRate()).toBe(0.1)</pre><span class="why">tests the mock</span></div>
 
 <script>
 const CAPS = {
-  a: ['The agent wrote the tests. All green. Every line covered.', 'Look closer: <b>none of them can fail.</b>', 'Mutate the code: <b>0 of 6 mutants die.</b> 100% coverage, 0% confidence.'],
+  a: ['The agent wrote the tests. All green. Every line covered.', 'Look closer: <b>none of them can fail.</b>', 'Mutate the code: <b>0 of 6 mutants die.</b>', 'Defect insertion: if breaking the code can’t make it fail, it isn’t a test.'],
+  q: ['Statement slide.'],
   b: ['The agent wrote the tests. Run coverage…', 'Coverage: 100%. Ship it?', 'Here’s what the agent wrote.', '<b>Confidence: zero.</b> Coverage says the line ran, not that anyone checked it.'],
   c: ['Three sensors. All green. Wired into every line of code.', 'Trace the wires. <b>None of them reach the code.</b>', '<b>Confidence: zero.</b> Coverage says the line ran, not that anyone checked it.', 'Mutation testing cuts the code and watches which lights go red.'],
 };
