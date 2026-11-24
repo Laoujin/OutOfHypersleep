@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Survivors Mockups</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@600;700&family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;600&display=swap">
+<style>
+:root {
+  --bg: #0b0d10; --panel: #15191f; --line: #2e3540; --ink: #d9dee6; --muted: #8a93a1; --faint: #565e6b;
+  --awake: #45e6a0; --alien: #ff3b5c; --amber: #ffb547; --phos: #7dffb0;
+  --head: "Chakra Petch", "Eurostile", "Arial Narrow", sans-serif;
+  --sans: "IBM Plex Sans", system-ui, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: #05070a; color: var(--ink); font-family: var(--sans); }
+main { max-width: 1280px; margin: 0 auto; padding: 32px 16px 80px; }
+h1.page { font: 700 32px var(--head); margin: 0 0 6px; }
+p.lead { color: var(--muted); margin: 0 0 24px; line-height: 1.5; }
+h2 { font: 700 20px var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--awake); margin: 44px 0 6px; }
+p.note { color: var(--muted); margin: 0 0 12px; line-height: 1.5; }
+.wrap { position: relative; width: 100%; aspect-ratio: 16 / 9; overflow: hidden; border-radius: 10px; border: 1px solid #222; }
+.slide { position: absolute; left: 0; top: 0; width: 1600px; height: 900px; transform-origin: 0 0; overflow: hidden; background: radial-gradient(1200px 800px at 85% 40%, #1c2530 0%, transparent 65%), var(--bg); }
+
+.hd { position: absolute; left: 72px; top: 56px; }
+.hd small { display: block; font: 600 18px var(--mono); letter-spacing: .2em; text-transform: uppercase; color: var(--awake); }
+.hd h3 { margin: 6px 0 0; font: 700 54px/1.05 var(--head); color: #fff; text-transform: uppercase; }
+.card { background: var(--panel); border: 1px solid var(--line); border-radius: 16px; }
+.card-h { font: 600 18px var(--mono); color: var(--muted); padding: 14px 20px; border-bottom: 1px solid var(--line); display: flex; justify-content: space-between; }
+.red { color: var(--alien); } .green { color: var(--awake); }
+
+.hull { position: absolute; left: 72px; top: 190px; width: var(--hw, 900px); }
+.hull pre { position: relative; margin: 0; padding: 18px 20px 18px 70px; font: 21px/40px var(--mono); color: var(--ink); }
+.ml { position: relative; height: 40px; white-space: pre; }
+.ml.hit::before { content: ""; position: absolute; left: -70px; right: -20px; top: 0; bottom: 0; background: rgba(255,59,92,.12); border-left: 3px solid var(--alien); }
+.ml .ln { position: absolute; left: -66px; width: 52px; text-align: right; color: var(--faint); }
+.ml .sp { position: absolute; right: 6px; top: 0; }
+.bug { width: 40px; height: 40px; overflow: visible; display: block; }
+.bug .bd { fill: #3a0b16; stroke: var(--alien); stroke-width: 2; } .bug line { stroke: var(--alien); stroke-width: 2; stroke-linecap: round; } .bug .ey { fill: var(--alien); }
+.ml .bug, .wig { animation: wig .35s infinite alternate; filter: drop-shadow(0 0 10px rgba(255,59,92,.8)); }
+@keyframes wig { from { transform: rotate(-9deg) translateX(-2px); } to { transform: rotate(9deg) translateX(2px); } }
+
+.side { position: absolute; right: 72px; top: 190px; width: var(--sw, 500px); display: flex; flex-direction: column; gap: 20px; }
+.gauge { padding: 14px 20px; }
+.gauge label { font: 600 16px var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+.gauge .row { display: flex; align-items: center; gap: 16px; margin-top: 8px; }
+.gauge .bar { flex: 1; height: 16px; background: var(--bg); border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+.gauge .bar i { display: block; height: 100%; width: 33%; background: var(--alien); }
+.gauge b { font: 700 40px var(--head); color: var(--alien); }
+.surv .card-h { font-size: 20px; }
+.surv .card-h .red { font-weight: 700; }
+
+/* A: bigger list */
+.va .surv .rows { padding: 10px 0; }
+.va .surv .r { display: grid; grid-template-columns: 52px 110px 1fr; align-items: center; padding: 12px 22px; border-bottom: 1px solid rgba(46,53,64,.6); font: 600 26px var(--mono); }
+.va .surv .r:last-child { border-bottom: 0; }
+.va .surv .r .bug { width: 34px; height: 34px; }
+.va .surv .r .lno { color: var(--alien); font-size: 22px; }
+.va .surv .r s { color: var(--faint); text-decoration-thickness: 2px; }
+.va .surv .r .to { color: var(--muted); margin: 0 12px; }
+.va .surv .r em { font-style: normal; color: var(--alien); }
+
+/* B: mini diffs */
+.vb { --hw: 820px; --sw: 600px; }
+.vb .surv .d { padding: 14px 20px; border-bottom: 1px solid rgba(46,53,64,.6); }
+.vb .surv .d:last-child { border-bottom: 0; }
+.vb .surv .d .h { display: flex; align-items: center; gap: 12px; font: 700 18px var(--mono); color: var(--alien); margin-bottom: 6px; letter-spacing: .06em; }
+.vb .surv .d .h .bug { width: 28px; height: 28px; }
+.vb .surv .d .h span { margin-left: auto; font-weight: 600; color: var(--muted); }
+.vb .surv .d code { display: block; font: 500 19px/1.55 var(--mono); padding: 0 10px; border-radius: 4px; white-space: pre; }
+.vb .surv .d .o { color: var(--muted); }
+.vb .surv .d .o b { color: var(--ink); background: rgba(69,230,160,.15); font-weight: 600; }
+.vb .surv .d .m { color: var(--ink); background: rgba(255,59,92,.1); }
+.vb .surv .d .m b { color: #fff; background: var(--alien); font-weight: 700; padding: 0 3px; border-radius: 3px; }
+.vb .surv .d .m::after { content: "  still green ✓"; color: var(--awake); font-size: 15px; }
+
+/* C: specimen cards */
+.vc { --hw: 820px; --sw: 600px; }
+.vc .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.vc .sc { position: relative; padding: 18px 20px 20px; border: 2px solid rgba(255,59,92,.55); border-radius: 14px; background: rgba(40,6,14,.55); box-shadow: inset 0 0 30px rgba(255,59,92,.12); }
+.vc .sc .bug { position: absolute; right: 16px; top: 14px; width: 54px; height: 54px; }
+.vc .sc small { font: 700 16px var(--mono); letter-spacing: .14em; color: var(--alien); text-transform: uppercase; }
+.vc .sc .op { margin-top: 18px; font: 700 44px var(--mono); color: #fff; }
+.vc .sc .op s { color: var(--faint); text-decoration-thickness: 3px; font-size: 34px; }
+.vc .sc .op i { font-style: normal; color: var(--muted); font-size: 30px; margin: 0 10px; }
+.vc .sc .op em { font-style: normal; color: var(--alien); }
+.vc .sc p { margin: 10px 0 0; font: 500 17px var(--mono); color: var(--muted); }
+.vc .grid-h { display: flex; justify-content: space-between; font: 700 20px var(--mono); color: var(--muted); letter-spacing: .1em; text-transform: uppercase; margin: 4px 2px 0; }
+</style>
+</head>
+<body>
+<main>
+<h1 class="page">Survivors panel</h1>
+<p class="lead">The “Who tests the tests?” sweep, frozen right after the first sweep. The mutation labels next to the bugs are gone (as in the deck now), so the right-hand panel has to explain what each surviving mutant is.</p>
+
+<h2>A · Bigger list</h2>
+<p class="note">Same panel, everything scaled up. One row per survivor: bug, line, original struck through → mutant in red.</p>
+<div class="wrap"><div class="slide va" data-v="a"></div></div>
+
+<h2>B · Mini diffs</h2>
+<p class="note">Each survivor shows the actual mutated line under the original, with the changed token highlighted, and “still green ✓”. The clearest about what a mutant is. Code panel a bit narrower.</p>
+<div class="wrap"><div class="slide vb" data-v="b"></div></div>
+
+<h2>C · Specimen cards</h2>
+<p class="note">2×2 grid of containment cards, one per escaped mutant. Big operator swap, line number, one-line meaning. The most graphic.</p>
+<div class="wrap"><div class="slide vc" data-v="c"></div></div>
+</main>
+<script>
+const SRC = [
+  ['export function calcTotal(items, code) {'],
+  ['  let sum = 0'],
+  ['  for (const i of items) sum += i.price * i.qty'],
+  ['  if (sum >= 100) sum *= 0.9', '>=', '>', 'discount at exactly €100'],
+  ['  if (code === "CREW") sum -= 5', '===', '!==', 'CREW code'],
+  ['  const vat = sum * 0.21'],
+  ['  return round(sum + vat, 2)', 'round(x)', 'x', 'rounding to cents'],
+  ['}'],
+  [''],
+  ['function round(n, d) {'],
+  ['  return Math.round(n * 10 ** d) / 10 ** d', '*', '/', 'rounding math'],
+  ['}'],
+];
+const esc = t => t.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+const BUG = (cls = '') => `<svg class="bug ${cls}" viewBox="-20 -20 40 40">${[[-8, -4, -17, -11], [-9, 2, -18, 3], [-7, 7, -14, 15], [8, -4, 17, -11], [9, 2, 18, 3], [7, 7, 14, 15]].map(([a, b, c, d]) => `<line x1="${a}" y1="${b}" x2="${c}" y2="${d}"/>`).join('')}<ellipse class="bd" rx="10" ry="12"/><circle class="ey" cx="-3.5" cy="-4" r="2"/><circle class="ey" cx="3.5" cy="-4" r="2"/></svg>`;
+const SURV = SRC.map((l, i) => [l, i + 1]).filter(([l]) => l[1]);
+const mutate = (code, from, to) => from === 'round(x)' ? code.replace('round(sum + vat, 2)', '<b>sum + vat</b>') : esc(code).replace(esc(from), `<b>${esc(to)}</b>`);
+const orig = (code, from) => from === 'round(x)' ? esc(code).replace('round(sum + vat, 2)', '<b>round(sum + vat, 2)</b>') : esc(code).replace(esc(from), `<b>${esc(from)}</b>`);
+
+const hull = () => `<div class="card hull"><div class="card-h"><span>cart.ts</span><span>6 mutants planted</span></div><pre>${SRC.map((l, i) => `<div class="ml ${l[1] ? 'hit' : ''}"><span class="ln">${i + 1}</span>${esc(l[0]) || ' '}${l[1] ? `<span class="sp">${BUG()}</span>` : ''}</div>`).join('')}</pre></div>`;
+const gauge = `<div class="card gauge"><label>mutation score</label><div class="row"><div class="bar"><i></i></div><b>33%</b></div></div>`;
+const head = `<div class="hd"><small>Deck 3 · Verification · Mutation testing</small><h3>Who tests the tests?</h3></div>`;
+const V = {
+  a: () => `${gauge}<div class="card surv"><div class="card-h"><span>survivors</span><span class="red">4 mutants</span></div><div class="rows">${SURV.map(([l, n]) => `<div class="r">${BUG('wig')}<span class="lno">line ${n}</span><span><s>${esc(l[1])}</s><span class="to">→</span><em>${esc(l[2])}</em></span></div>`).join('')}</div></div>`,
+  b: () => `${gauge}<div class="card surv"><div class="card-h"><span>survivors</span><span class="red">4 mutants</span></div>${SURV.map(([l, n]) => `<div class="d"><div class="h">${BUG('wig')}LINE ${n}<span>${esc(l[3])}</span></div><code class="o">${orig(l[0].trim(), l[1])}</code><code class="m">${mutate(l[0].trim(), l[1], l[2])}</code></div>`).join('')}</div>`,
+  c: () => `${gauge}<div class="grid-h"><span>escaped</span><span class="red">4 mutants</span></div><div class="grid">${SURV.map(([l, n]) => `<div class="sc">${BUG('wig')}<small>line ${n}</small><div class="op"><s>${esc(l[1])}</s><i>→</i><em>${esc(l[2])}</em></div><p>nobody tests ${esc(l[3])}</p></div>`).join('')}</div>`,
+};
+document.querySelectorAll('.slide').forEach(s => { s.innerHTML = head + hull() + `<div class="side">${V[s.dataset.v]()}</div>`; });
+const wraps = [...document.querySelectorAll('.wrap')];
+const fit = () => wraps.forEach(w => { w.firstElementChild.style.transform = 'scale(' + (w.clientWidth / 1600) + ')'; });
+addEventListener('resize', fit); fit();
+</script>
+</body>
+</html>

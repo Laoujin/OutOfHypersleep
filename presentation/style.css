@@ -826,13 +826,11 @@ header .sub { font-size: 26px; color: var(--muted); margin-top: 6px; }
 .mut-line .ln { position: absolute; left: -66px; width: 52px; text-align: right; color: var(--faint); }
 .mut-spec { position: absolute; right: 6px; top: 0; width: 40px; height: 40px; transition: opacity .3s, transform .3s; }
 .mut-spec svg { width: 40px; height: 40px; overflow: visible; }
-.mut-spec .mt { position: absolute; right: 52px; top: 0; white-space: nowrap; font: 600 15px/40px var(--mono); color: var(--muted); opacity: .8; }
 .mut-spec .bd { fill: #2a3a30; stroke: var(--phos); stroke-width: 2; }
 .mut-spec .lg line { stroke: var(--phos); stroke-width: 2; stroke-linecap: round; }
 .mut-spec .ey { fill: var(--phos); }
 .mut-spec.alive .bd { fill: #3a0b16; stroke: var(--alien); } .mut-spec.alive .lg line { stroke: var(--alien); } .mut-spec.alive .ey { fill: var(--alien); }
 .mut-spec.alive svg { animation: mut-wig .35s infinite alternate; filter: drop-shadow(0 0 10px rgba(255, 59, 92, .8)); }
-.mut-spec.alive .mt { color: var(--alien); opacity: 1; }
 .mut-spec.dead { opacity: 0; transform: scale(1.8); }
 @keyframes mut-wig { from { transform: rotate(-9deg) translateX(-2px); } to { transform: rotate(9deg) translateX(2px); } }
 .mut-scan { position: absolute; left: 0; right: 0; top: 18px; height: 60px; opacity: 0; pointer-events: none; background: linear-gradient(180deg, transparent, rgba(125, 255, 176, .25) 80%, rgba(125, 255, 176, .9)); border-bottom: 2px solid var(--phos); }

@@ -518,7 +518,7 @@ import soCsv from '../data/stackoverflow-questions.csv?raw';
         slug: 'why', title: 'Who tests the tests?', full: true, steps: 4, cls: 'mut',
         body: () => `<div class="mut-stage">
           <div class="card mut-hull"><div class="card-h"><span>cart.ts</span><span>${SRC.filter(l => l[1]).length} mutants planted</span></div>
-            <pre>${SRC.map((l, i) => `<div class="mut-line"><span class="ln">${i + 1}</span>${esc(l[0]) || ' '}${l[1] ? `<div class="mut-spec" data-i="${i}"><span class="mt">${esc(l[1])}</span>${spec}</div>` : ''}</div>`).join('')}<div class="mut-scan"></div></pre></div>
+            <pre>${SRC.map((l, i) => `<div class="mut-line"><span class="ln">${i + 1}</span>${esc(l[0]) || ' '}${l[1] ? `<div class="mut-spec" data-i="${i}">${spec}</div>` : ''}</div>`).join('')}<div class="mut-scan"></div></pre></div>
           <div class="mut-side">
             <div class="card mut-gauge"><label>mutation score</label><div class="row"><div class="bar"><i></i></div><b>–</b></div></div>
             <div class="card mut-surv"><div class="card-h"><span>survivors</span><span class="red mut-sn"></span></div><pre></pre></div>
