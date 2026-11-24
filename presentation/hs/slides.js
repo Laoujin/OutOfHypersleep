@@ -465,63 +465,84 @@ import soCsv from '../data/stackoverflow-questions.csv?raw';
       const SRC = [
         ['export function calcTotal(items, code) {'],
         ['  let sum = 0'],
-        ['  for (const i of items) sum += i.price * i.qty', '+= → -=', true],
-        ['  if (sum >= 100) sum *= 0.9', '>= → >'],
-        ['  if (code === "CREW") sum -= 5', '=== → !=='],
-        ['  const vat = sum * 0.21', '0.21 → 0', true],
-        ['  return round(sum + vat, 2)', 'round → id'],
+        ['  for (const i of items) sum += i.price * i.qty', { from: '+=', to: '-=', killed: true }],
+        ['  if (sum >= 100) sum *= 0.9', { from: '>=', to: '>', what: 'the discount at exactly €100' }],
+        ['  if (code === "CREW") sum -= 5', { from: '===', to: '!==', what: 'the CREW code' }],
+        ['  const vat = sum * 0.21', { from: '0.21', to: '0', killed: true }],
+        ['  return round(sum + vat, 2)', { from: 'round(x)', to: 'x', what: 'rounding to cents' }],
         ['}'],
         [''],
         ['function round(n, d) {'],
-        ['  return Math.round(n * 10 ** d) / 10 ** d', '* → /'],
+        ['  return Math.round(n * 10 ** d) / 10 ** d', { from: '*', to: '/', what: 'the rounding math' }],
         ['}'],
       ];
       const esc = t => t.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
       const LH = 40, SWEEP = 2600;
-      const SURV = SRC.map((l, i) => [l, i]).filter(([l]) => l[1] && !l[2]);
+      const SURV = SRC.map((l, i) => [l[1], i]).filter(([m]) => m && !m.killed);
       const spec = `<svg viewBox="-20 -20 40 40"><g class="lg">${[[-8, -4, -17, -11], [-9, 2, -18, 3], [-7, 7, -14, 15], [8, -4, 17, -11], [9, 2, 18, 3], [7, 7, 14, 15]].map(([a, b, c, d]) => `<line x1="${a}" y1="${b}" x2="${c}" y2="${d}"/>`).join('')}</g><ellipse class="bd" rx="10" ry="12"/><circle class="ey" cx="-3.5" cy="-4" r="2"/><circle class="ey" cx="3.5" cy="-4" r="2"/></svg>`;
       const sleep = ms => new Promise(r => setTimeout(r, ms));
       const render = async (el, st, live) => {
         const tok = el._tok = (el._tok || 0) + 1, ok = () => el._tok === tok && el.isConnected;
         const q = s => el.querySelector(s);
-        const specs = [...el.querySelectorAll('.mut-spec')], scan = q('.mut-scan'), surv = q('.mut-surv pre'), sn = q('.mut-sn');
+        const specs = [...el.querySelectorAll('.mut-spec')], scan = q('.mut-scan'), esc_ = q('.mut-esc');
         const gauge = q('.mut-gauge'), ovR = q('.mut-ov.red'), ovG = q('.mut-ov.green');
         const set = (s, cls) => { s.className = 'mut-spec ' + cls; s.closest('.mut-line').classList.toggle('hit', cls === 'alive'); };
         const score = p => { gauge.style.setProperty('--w', p + '%'); gauge.querySelector('b').textContent = p == null ? '–' : p + '%'; gauge.classList.toggle('ok', p === 100); };
-        const list = () => { surv.innerHTML = SURV.map(([l, i]) => `<span class="red">cart.ts:${i + 1}</span>  ${esc(l[1])}`).join('\n'); sn.textContent = SURV.length + ' mutants'; };
-        const clear = () => { surv.innerHTML = '<span class="green">none</span>'; sn.textContent = ''; };
+        const panel = state => { esc_.className = 'mut-esc ' + state; };
         const flash = async ov => { ov.classList.add('show'); await sleep(2600); if (ok()) ov.classList.remove('show'); };
         const sweep = async fn => {
           scan.animate([{ transform: 'translateY(-60px)', opacity: 1 }, { transform: `translateY(${SRC.length * LH}px)`, opacity: 1 }], { duration: SWEEP, easing: 'linear' });
-          specs.forEach(s => { const i = +s.dataset.i; setTimeout(() => ok() && fn(s, SRC[i]), (i + 1) / SRC.length * SWEEP); });
+          specs.forEach(s => { const i = +s.dataset.i; setTimeout(() => ok() && fn(s, SRC[i][1]), (i + 1) / SRC.length * SWEEP); });
           await sleep(SWEEP + 100);
         };
         ovR.classList.remove('show'); ovG.classList.remove('show');
         scan.getAnimations().forEach(a => a.cancel());
         specs.forEach(s => set(s, ''));
-        surv.innerHTML = ''; sn.textContent = ''; score(null);
-        const after1 = () => { specs.forEach(s => set(s, SRC[s.dataset.i][2] ? 'dead' : 'alive')); list(); score(33); };
+        panel(''); score(null);
+        const after1 = () => { specs.forEach(s => set(s, SRC[s.dataset.i][1].killed ? 'dead' : 'alive')); panel('show'); score(33); };
         if (st === 0) return;
         if (st === 1) {
           if (!live) return after1();
-          await sweep((s, l) => set(s, l[2] ? 'dead' : 'alive')); if (!ok()) return;
-          list(); score(33); await sleep(500); if (ok()) flash(ovR);
+          await sweep((s, m) => set(s, m.killed ? 'dead' : 'alive')); if (!ok()) return;
+          panel('show'); score(33); await sleep(500); if (ok()) flash(ovR);
           return;
         }
         after1();
         if (st === 2) { if (live) flash(ovG); return; }
-        if (!live) { specs.forEach(s => set(s, 'dead')); clear(); return score(100); }
-        await sweep((s, l) => { if (!l[2]) set(s, 'dead'); }); if (!ok()) return;
-        clear(); score(100);
+        if (!live) { specs.forEach(s => set(s, 'dead')); panel('show contained'); return score(100); }
+        await sweep((s, m) => { if (!m.killed) set(s, 'dead'); }); if (!ok()) return;
+        panel('show contained'); score(100);
       };
+      const TESTS = [
+        ['calculates the total', ['<span class="k">const</span> total = calcTotal(cart)'], 'expect(total).toBeDefined()', 'asserts nothing'],
+        ['applies VAT', [], 'expect(calcTotal(cart)).toEqual(calcTotal(cart))', 'x equals x'],
+        ['applies the discount', ['calcTotal(cart)'], 'expect(getRate).toHaveBeenCalled()', 'tests the mock'],
+        ['renders the receipt', [], 'expect(render(cart)).toMatchSnapshot()', 'pins whatever it printed'],
+      ];
       return [{
+        slug: 'coverage', title: '100% coverage, 0% confidence', full: true, steps: 3, cls: 'mut mut-cov',
+        body: () => `<div class="mut-stage">
+          <div class="card mut-code"><div class="card-h"><span>cart.test.ts <small>(written by the agent)</small></span><span class="green">${TESTS.length} passed ✓</span></div>
+            <pre>${TESTS.map(([name, pre, exp, tag]) => `<span class="k">it</span>(<span class="s">'${name}'</span>, () =&gt; {\n${pre.map(l => `  ${l}\n`).join('')}  <span class="hlx">${exp}</span><span class="tag" data-s="1">${tag}</span>\n})`).join('\n')}</pre></div>
+          <div class="mut-bars">
+            <div class="card mut-bar cov"><label>Line coverage</label><b>100%</b><div class="bar"><i></i></div></div>
+            <div class="card mut-bar kill" data-s="2"><label>Mutation score</label><b>0%</b><div class="bar"><i></i></div><div class="sub">0 of 6 mutants killed</div></div>
+          </div>
+        </div>`,
+      }, {
+        slug: 'defect', title: '', full: true, steps: 1, cls: 'mut mut-q',
+        body: () => `<div class="mut-qbox"><small>Defect insertion</small><p>Your test must be able to <b>fail</b><br>by changing the <em>production code</em>.</p></div>`,
+      }, {
         slug: 'why', title: 'Who tests the tests?', full: true, steps: 4, cls: 'mut',
         body: () => `<div class="mut-stage">
           <div class="card mut-hull"><div class="card-h"><span>cart.ts</span><span>${SRC.filter(l => l[1]).length} mutants planted</span></div>
             <pre>${SRC.map((l, i) => `<div class="mut-line"><span class="ln">${i + 1}</span>${esc(l[0]) || ' '}${l[1] ? `<div class="mut-spec" data-i="${i}">${spec}</div>` : ''}</div>`).join('')}<div class="mut-scan"></div></pre></div>
           <div class="mut-side">
             <div class="card mut-gauge"><label>mutation score</label><div class="row"><div class="bar"><i></i></div><b>–</b></div></div>
-            <div class="card mut-surv"><div class="card-h"><span>survivors</span><span class="red mut-sn"></span></div><pre></pre></div>
+            <div class="mut-esc">
+              <div class="mut-esc-h"><span class="t-esc">escaped</span><span class="t-ok">contained</span><span class="n">${SURV.length} mutants</span></div>
+              <div class="mut-grid">${SURV.map(([m, i]) => `<div class="mut-card"><small>line ${i + 1}</small><div class="op"><s>${esc(m.from)}</s><i>→</i><em>${esc(m.to)}</em></div><p><span class="t-esc">nobody tests</span><span class="t-ok">now tests</span> ${esc(m.what)}</p></div>`).join('')}</div>
+            </div>
           </div>
           <div class="mut-ov red"><div class="mut-stamp">${A.alien()}<div>${SURV.length} mutants<br>survived</div></div></div>
           <div class="mut-ov green"><div class="mut-stamp">${A.crew()}<div>Implementing additional tests<small>to contain the mutants</small></div></div></div>

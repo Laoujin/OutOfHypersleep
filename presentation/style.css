@@ -818,7 +818,7 @@ header .sub { font-size: 26px; color: var(--muted); margin-top: 6px; }
 .mut-stage { position: absolute; inset: 0; }
 .mut .card { padding: 0; }
 .mut .card-h { display: flex; justify-content: space-between; padding: 14px 20px; margin: 0; border-bottom: 1px solid var(--line); }
-.mut-hull { position: absolute; left: 72px; top: 190px; width: 900px; }
+.mut-hull { position: absolute; left: 72px; top: 190px; width: 820px; }
 .mut-hull pre { position: relative; margin: 0; padding: 18px 20px 18px 70px; font: 21px/40px var(--mono); color: var(--ink); overflow: hidden; }
 .mut-line { position: relative; height: 40px; white-space: pre; }
 .mut-line::before { content: ""; position: absolute; left: -70px; right: -20px; top: 0; bottom: 0; background: rgba(255, 59, 92, .12); border-left: 3px solid var(--alien); opacity: 0; transition: opacity .3s; }
@@ -834,7 +834,7 @@ header .sub { font-size: 26px; color: var(--muted); margin-top: 6px; }
 .mut-spec.dead { opacity: 0; transform: scale(1.8); }
 @keyframes mut-wig { from { transform: rotate(-9deg) translateX(-2px); } to { transform: rotate(9deg) translateX(2px); } }
 .mut-scan { position: absolute; left: 0; right: 0; top: 18px; height: 60px; opacity: 0; pointer-events: none; background: linear-gradient(180deg, transparent, rgba(125, 255, 176, .25) 80%, rgba(125, 255, 176, .9)); border-bottom: 2px solid var(--phos); }
-.mut-side { position: absolute; right: 72px; top: 190px; width: 500px; display: flex; flex-direction: column; gap: 20px; }
+.mut-side { position: absolute; right: 72px; top: 190px; width: 600px; display: flex; flex-direction: column; gap: 20px; }
 .mut-gauge { padding: 14px 20px !important; --c: var(--alien); }
 .mut-gauge.ok { --c: var(--awake); }
 .mut-gauge label { font: 600 16px var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
@@ -842,7 +842,6 @@ header .sub { font-size: 26px; color: var(--muted); margin-top: 6px; }
 .mut-gauge .bar { flex: 1; height: 16px; background: var(--bg); border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
 .mut-gauge .bar i { display: block; height: 100%; width: var(--w, 0%); background: var(--c); transition: width 1.6s cubic-bezier(.2, .8, .2, 1); }
 .mut-gauge b { font: 700 40px var(--head); width: 110px; text-align: right; color: var(--c); }
-.mut-surv pre { margin: 0; padding: 16px 20px; font: 18px/1.7 var(--mono); color: var(--ink); min-height: 170px; }
 .mut-ov { position: absolute; inset: 0; z-index: 5; display: flex; align-items: center; justify-content: center; pointer-events: none; opacity: 0; background: rgba(5, 7, 10, .55); transition: opacity .35s; }
 .mut-ov.show { opacity: 1; }
 .mut-stamp { display: flex; align-items: center; gap: 36px; padding: 28px 48px; border: 6px solid var(--c); border-radius: 18px; color: var(--c); background: rgba(8, 9, 11, .85);
@@ -854,3 +853,43 @@ header .sub { font-size: 26px; color: var(--muted); margin-top: 6px; }
 .mut-stamp .crew { width: 220px; height: 220px; flex: none; filter: drop-shadow(0 0 30px rgba(69, 230, 160, .6)); }
 .mut-ov.red .mut-stamp { --c: var(--alien); --g: rgba(255, 59, 92, .45); }
 .mut-ov.green .mut-stamp { --c: var(--awake); --g: rgba(69, 230, 160, .4); font-size: 52px; }
+.mut-esc { opacity: 0; transition: opacity .45s; }
+.mut-esc.show { opacity: 1; }
+.mut-esc-h { display: flex; justify-content: space-between; font: 700 20px var(--mono); color: var(--muted); letter-spacing: .1em; text-transform: uppercase; margin: 4px 2px 14px; }
+.mut-esc-h .n { color: var(--alien); }
+.mut-esc .t-ok, .mut-esc.contained .t-esc { display: none; }
+.mut-esc.contained .t-ok { display: inline; }
+.mut-esc.contained .mut-esc-h .n { color: var(--awake); }
+.mut-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.mut-card { padding: 18px 20px 20px; border: 2px solid rgba(255, 59, 92, .55); border-radius: 14px; background: rgba(40, 6, 14, .55); box-shadow: inset 0 0 30px rgba(255, 59, 92, .12); transition: border-color .5s, background .5s, box-shadow .5s; }
+.mut-card small { font: 700 16px var(--mono); letter-spacing: .14em; color: var(--alien); text-transform: uppercase; }
+.mut-card .op { margin-top: 14px; font: 700 44px var(--mono); color: #fff; white-space: nowrap; }
+.mut-card .op s { text-decoration: none; color: var(--faint); font-size: 34px; }
+.mut-card .op i { font-style: normal; color: var(--muted); font-size: 30px; margin: 0 10px; }
+.mut-card .op em { font-style: normal; color: var(--alien); }
+.mut-card p { margin: 10px 0 0; font: 500 17px/1.35 var(--mono); color: var(--muted); }
+.mut-esc.contained .mut-card { border-color: rgba(69, 230, 160, .55); background: rgba(6, 40, 26, .45); box-shadow: inset 0 0 30px rgba(69, 230, 160, .1); }
+.mut-esc.contained .mut-card small, .mut-esc.contained .mut-card .op em { color: var(--awake); }
+
+.mut-cov .mut-code { position: absolute; left: 72px; top: 190px; width: 1030px; }
+.mut-cov .mut-code .card-h small { color: var(--faint); }
+.mut-cov .mut-code pre { margin: 0; padding: 12px 20px; font: 19px/1.55 var(--mono); color: var(--ink); }
+.mut-cov .k { color: var(--int); } .mut-cov .s { color: var(--amber); }
+.mut-cov .hlx { border-radius: 4px; outline: 1px solid transparent; transition: background .4s, outline-color .4s; }
+.mut-cov.s1 .hlx { background: rgba(255, 59, 92, .14); outline-color: rgba(255, 59, 92, .45); }
+.mut-cov .tag { display: inline-block; margin-left: 16px; font: 600 15px var(--mono); color: var(--alien); border: 1px solid var(--alien); background: rgba(40, 6, 14, .85); border-radius: 8px; padding: 2px 9px; }
+.mut-bars { position: absolute; right: 72px; top: 190px; width: 400px; display: flex; flex-direction: column; gap: 22px; }
+.mut-bar { padding: 18px 22px !important; }
+.mut-bar label { font: 600 17px var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+.mut-bar b { display: block; font: 700 92px/1 var(--head); color: var(--c); margin: 10px 0 12px; }
+.mut-bar .bar { height: 14px; background: var(--bg); border: 1px solid var(--line); border-radius: 7px; overflow: hidden; }
+.mut-bar .bar i { display: block; height: 100%; width: var(--w); background: var(--c); }
+.mut-bar .sub { margin-top: 12px; font: 500 17px var(--mono); color: var(--muted); }
+.mut-bar.cov { --c: var(--awake); --w: 100%; }
+.mut-bar.kill { --c: var(--alien); --w: 2%; border-color: var(--alien); box-shadow: 0 0 40px rgba(255, 59, 92, .25); }
+
+.mut-q header h2 { display: none; }
+.mut-qbox { position: absolute; left: 160px; right: 160px; top: 50%; translate: 0 -50%; }
+.mut-qbox small { display: block; font: 700 22px var(--mono); letter-spacing: .3em; text-transform: uppercase; color: var(--awake); margin-bottom: 24px; }
+.mut-qbox p { margin: 0; font: 700 76px/1.12 var(--head); color: #fff; padding-left: 40px; border-left: 8px solid var(--awake); }
+.mut-qbox b { color: var(--alien); } .mut-qbox em { font-style: normal; color: var(--awake); }

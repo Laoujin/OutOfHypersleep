@@ -53,6 +53,32 @@ routeAlias: mutation-froze
 
 ---
 layout: hs
+routeAlias: mutation-coverage
+clicks: 2
+---
+
+<Hs id="mutation-coverage" />
+
+<!--
+The agent wrote the tests. Four passed, every line covered.
+[click] Look closer: none of them can fail. toBeDefined asserts nothing, x equals x, it tests the mock, the snapshot pins whatever it printed.
+[click] Mutate the code: zero mutants die. 100% coverage, 0% confidence.
+-->
+
+---
+layout: hs
+routeAlias: mutation-defect
+---
+
+<Hs id="mutation-defect" />
+
+<!--
+Defect insertion. If breaking the code can't make your test fail, it isn't a test.
+Mutation testing does exactly this, automatically, thousands of times.
+-->
+
+---
+layout: hs
 routeAlias: mutation-why
 clicks: 3
 ---
