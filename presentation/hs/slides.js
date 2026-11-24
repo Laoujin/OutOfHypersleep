@@ -617,8 +617,8 @@ import soCsv from '../data/stackoverflow-questions.csv?raw';
               </g>
               <text class="hk-rl" data-s="${i + 1}" x="${CX}" y="${CY - r - 12}" text-anchor="middle">${LAYERS[i][0].toUpperCase()} · <tspan>${LAYERS[i][1]}</tspan></text>`).join('')}
             <path class="hk-sweep" data-s="1" d="M${CX} ${CY} L${CX + 300} ${CY} A300 300 0 0 0 ${CX + 259.8} ${CY - 150} Z" fill="url(#hkSweep)"/>
-            <circle class="hk-glow" cx="${CX}" cy="${CY}" r="80"/><circle class="hk-core" cx="${CX}" cy="${CY}" r="62"/>
-            <text class="hk-core-t" x="${CX}" y="${CY + 9}" text-anchor="middle">AGENT</text>
+            <circle class="hk-glow" cx="${CX}" cy="${CY}" r="80"/>
+            ${A.crew('hk-agent').replace('<svg ', `<svg x="${CX - 80}" y="${CY - 80}" width="160" height="160" `)}
             <g class="hk-swarm"></g>
           </svg>
           <div class="hk-legend">

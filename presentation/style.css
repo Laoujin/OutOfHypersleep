@@ -1099,11 +1099,15 @@ svg .lbl.spec-w { font-size: 20px; }
 .hk-ci-t { fill: var(--cryo); opacity: .6; font: 700 18px var(--mono); letter-spacing: .14em; }
 .hk-rl { fill: var(--muted); font: 700 18px var(--mono); letter-spacing: .1em; paint-order: stroke; stroke: var(--bg); stroke-width: 6px; }
 .hk-rl tspan { fill: var(--awake); }
-.hk-core { fill: #0f1a15; stroke: var(--awake); stroke-width: 3; }
 .hk-glow { fill: var(--awake); transform-origin: 520px 520px; animation: hk-beat 1.6s ease-in-out infinite; }
 @keyframes hk-beat { 0%, 100% { transform: scale(1); opacity: .12; } 15% { transform: scale(1.18); opacity: .3; } 30% { transform: scale(1.04); opacity: .16; } }
 .hk-sweep { transform-origin: 520px 520px; animation: hk-spin 5s linear infinite; }
-.hk-field .hk-core-t { fill: #fff; font: 700 26px var(--head); letter-spacing: .1em; }
+.hk-agent .c-visor { fill: #0a2e1f; }
+.hk-agent .c-light { animation-duration: .9s; }
+.hk-agent .c-dot { animation: hk-think 1.2s ease-in-out infinite; }
+.hk-agent .c-dot:nth-of-type(5) { animation-delay: .2s; }
+.hk-agent .c-dot:nth-of-type(6) { animation-delay: .4s; }
+@keyframes hk-think { 0%, 60%, 100% { opacity: .25; } 30% { opacity: 1; } }
 .hk-mut { filter: drop-shadow(0 0 6px rgba(255, 59, 92, .8)); }
 .hk-mut .lg line { stroke: var(--alien); stroke-width: 2.4; stroke-linecap: round; }
 .hk-mut .bd { fill: #2a0610; stroke: var(--alien); stroke-width: 2.4; }
