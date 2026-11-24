@@ -12,7 +12,7 @@ HS.art = {
     <g class="lid"><rect class="glass" x="62" y="48" width="316" height="84" rx="42"/>
       <path class="frost" d="M86 72 q20 -10 34 2 t40 -2 t36 6 M92 106 q26 -8 44 4 t52 -2 t40 4 M210 70 q24 -8 40 2 t40 0 M240 112 q22 -6 36 2 t44 -2"/></g>
     <g class="strip">${Array.from({ length: strip }, (_, i) => `<rect x="${(440 - strip * 22) / 2 + i * 22 - 40}" y="152" width="16" height="8" rx="2"/>`).join('')}</g>
-    <rect class="readout" x="300" y="146" width="104" height="24" rx="4"/><text class="readout-t" x="352" y="162" text-anchor="middle">${label}</text>
+    ${label ? `<rect class="readout" x="300" y="146" width="104" height="24" rx="4"/><text class="readout-t" x="352" y="162" text-anchor="middle">${label}</text>` : ''}
   </svg>`,
 
 

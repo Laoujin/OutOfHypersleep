@@ -77,10 +77,9 @@ import soCsv from '../data/stackoverflow-questions.csv?raw';
     const state = woken ? (p.dead ? 'dead' : 'awake') : 'closed';
     const cls = ['pod', `t-${p.deck}`, `is-${state}`, HS.leader() === p.id ? 'lead' : '', p.wip ? 'wip' : ''].join(' ');
     const votes = HS.votesOf(p.id);
-    const label = { closed: 'HYPERSLEEP', awake: 'REVIVED', dead: 'NO SIGNS' }[state];
     return `<div class="${cls}" data-pod="${p.id}">
       ${p.wip ? '<div class="wip-tag">WIP</div>' : ''}
-      <div class="pod-art">${A.cryo(state, label)}</div>
+      <div class="pod-art">${A.cryo(state, '')}</div>
       ${woken ? '' : `<div class="votes"><span class="vn">${votes}</span><small>votes</small></div>`}
       <div class="pod-info"><span class="yr">❄ ${p.frozen}</span><span class="pwr"><svg viewBox="0 0 12 18" aria-hidden="true"><path d="M7 0 0 10h5l-1 8 7-10H6z"/></svg>${A.rel(p.power)}</span></div>
     </div>`;
