@@ -1056,7 +1056,7 @@ svg .lbl.spec-w { font-size: 20px; }
 .cr-er .s26 .sbar { position: absolute; right: 4px; top: 106px; bottom: 4px; width: 10px; background: #161b22; border-radius: 5px; }
 .cr-er .s26 .thumb { position: absolute; left: 1px; right: 1px; height: 3px; border-radius: 2px; background: #8b949e; top: 0; }
 
-.cr-er .cr-stamp { position: absolute; left: 520px; top: 270px; width: 560px; padding: 10px 0 18px; text-align: center; font: 700 200px/1 var(--head); letter-spacing: .04em; color: var(--awake); border: 14px solid var(--awake); border-radius: 26px; transform: rotate(-12deg) scale(3); opacity: 0; text-shadow: 0 0 40px rgba(69,230,160,.5); box-shadow: 0 0 60px rgba(69,230,160,.35), inset 0 0 40px rgba(69,230,160,.2); background: rgba(11,13,16,.55); pointer-events: none; z-index: 5; }
+.cr-er .cr-stamp { position: absolute; left: 0; right: 0; top: 270px; width: fit-content; margin: 0 auto; padding: 10px 56px 18px; text-align: center; font: 700 200px/1 var(--head); letter-spacing: .04em; color: var(--awake); border: 14px solid var(--awake); border-radius: 26px; transform: rotate(-12deg) scale(3); opacity: 0; text-shadow: 0 0 40px rgba(69,230,160,.5); box-shadow: 0 0 60px rgba(69,230,160,.35), inset 0 0 40px rgba(69,230,160,.2); background: rgba(11,13,16,.55); pointer-events: none; z-index: 5; }
 .cr-er.cr-stamped .cr-stamp { animation: cr-slam .35s cubic-bezier(.3,1.6,.5,1) forwards; }
 @keyframes cr-slam { to { transform: rotate(-12deg) scale(1); opacity: 1; } }
 .cr-er.cr-stamped .e3 .scr { animation: cr-shake .3s .25s; }
