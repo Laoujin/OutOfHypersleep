@@ -19,7 +19,6 @@ fonts:
   mono: IBM Plex Mono
   weights: '400,500,600,700'
 pod:
-  wip: true
   id: mutation
   name: Mutation testing
   deck: verification
