@@ -54,20 +54,20 @@ routeAlias: codereview-froze
 
 ---
 layout: hs
-routeAlias: codereview-lgtm
-clicks: 2
+routeAlias: codereview-eras
+clicks: 4
 ---
 
-<Hs id="codereview-lgtm" />
+<Hs id="codereview-eras" />
 
 <!--
-Background: Fagan inspections, IBM 1976 (to verify). GitHub pull requests 2008. Death year placeholder.
-Costs the audience this vote, alien +40.
-
-Ten agents, forty PRs a day.
-[click] Every one of them hundreds of lines nobody typed.
-[click] Approved in eleven seconds. Be honest: who read all of it?
-The real review moved into the gates: tests, types, hooks (see the Hooks pod).
+Fifty years of code review, one era per click. Meter top right: lines read per hour (all rates to verify).
+1976 Fagan inspection at IBM: printout, red pen, moderator, reader, checklist. ~150 lines/hour, max 2 hours.
+[click] 1992: a patch on the mailing list. Quote the diff, argue inline.
+[click] 2008: GitHub pull request. Review moves to the browser, still line by line. ~400 lines/hour.
+[click] 2026: one of forty PRs today. 4,012 lines nobody typed. Let it scroll all the way down.
+[click] LGTM. Be honest: who read all of it?
+Costs the audience this vote, alien +30.
 -->
 
 ---

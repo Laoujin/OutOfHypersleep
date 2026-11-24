@@ -673,14 +673,156 @@ import soCsv from '../data/stackoverflow-questions.csv?raw';
         <div class="timers"><div class="tm" data-s="1"><label>estimation meeting</label><b>45:00</b></div><div class="tm ok" data-s="2"><label>agent builds it</label><b>03:52</b></div></div>`,
       caps: ['How many points is this story?', 'The meeting takes 45 minutes.', 'The build takes four.'],
     }],
-    codereview: [{
-      slug: 'lgtm', title: 'Review requested', cls: 'deadslide',
-      body: `<div class="two">
-        <div class="card"><div class="card-h">review queue <small>(10 agents)</small></div><ul class="check">${[['#409', '+812 −97', 0], ['#410', '+1,904 −340', 0], ['#411', '+455 −1,022', 1], ['#412', '+3,412 −1,208', 1], ['#413', '+2,766 −51', 1], ['… 35 more', '', 1]].map(([n, d, s]) => `<li data-s="${s}"><code>${n}</code> <small>${d}</small></li>`).join('')}</ul></div>
-        <div class="card" data-s="2"><div class="card-h">PR #412 · +3,412 −1,208</div><ul class="check ok"><li>looks good to me</li></ul><div class="timer">⏱ 0:11</div><div class="banner ok">APPROVED · LGTM</div></div>
-      </div>`,
-      caps: ['Ten agents. <b>Forty PRs a day.</b>', 'Every one of them hundreds of lines nobody typed.', 'Approved in eleven seconds.<small>The real review moved into the gates: tests, types, hooks.</small>'],
-    }],
+    codereview: (() => {
+      const LINES = 4012, SCROLL_MS = 9000;
+      const RATES = [[150, 'Fagan, 1976 (to verify)'], [300, 'mailing list (guess)'], [400, 'SmartBear/Cisco study (to verify)']];
+      const FILES = ['src/billing/reconcile.ts', 'src/billing/ledger.ts', 'src/billing/invoice.repo.ts', 'src/billing/currency.ts', 'src/billing/__tests__/reconcile.spec.ts', 'src/db/migrations/0147_reconcile.sql', 'src/billing/events.ts', 'src/billing/retry.ts'];
+      const SNIP = [
+        ['a', 'export async function reconcile(batch: Invoice[], opts: ReconcileOpts) {'],
+        ['a', '  const ledger = await loadLedger(opts.accountId, { since: opts.since })'],
+        ['d', '  const ledger = await db.ledger.find(opts.accountId)'],
+        ['a', '  for (const inv of batch) {'],
+        ['a', '    const match = ledger.entries.find(e => e.ref === inv.ref && e.amount.eq(inv.total))'],
+        ['a', '    if (!match) { await queueRetry(inv, RetryReason.NoMatch); continue }'],
+        ['', '    // TODO: handle partial payments'],
+        ['a', '    await markReconciled(inv.id, match.id, { tx })'],
+        ['d', '    await markReconciled(inv.id, match.id)'],
+        ['a', '  }'],
+        ['a', '  return summarize(batch, ledger)'],
+        ['', '}'],
+        ['a', "const rate = await fx.rate(inv.currency, 'EUR', { at: inv.issuedAt })"],
+        ['a', 'const total = inv.lines.reduce((s, l) => s.plus(l.amount.times(rate)), Big(0))'],
+        ['d', 'let total = 0; for (const l of inv.lines) total += l.amount * rate'],
+        ['a', "  it('reconciles a matching invoice', async () => {"],
+        ['a', '    expect(await reconcile([inv], opts)).toMatchSnapshot()'],
+        ['a', 'ALTER TABLE ledger_entries ADD COLUMN reconciled_at timestamptz;'],
+        ['a', 'CREATE INDEX CONCURRENTLY ix_ledger_ref ON ledger_entries (ref);'],
+        ['a', 'export const backoff = (n: number) => Math.min(30_000, 2 ** n * 250)'],
+      ];
+      const esc = t => t.replace(/&/g, '&amp;').replace(/</g, '&lt;');
+      const diff = () => {
+        let h = '', r = 0;
+        for (let ln = 1; ln <= LINES; ln++) {
+          if (ln % 120 === 1) h += `<div class="f">${FILES[r++ % FILES.length]}</div>`;
+          const [c, t] = SNIP[(ln * 7 + r) % SNIP.length];
+          h += `<div class="${c}"><i>${ln}</i>${c === 'a' ? '+' : c === 'd' ? '-' : ' '} ${esc(t)}</div>`;
+        }
+        return h + '<div class="end">End of diff · 47 files</div>';
+      };
+      const fmt = n => Math.round(n).toLocaleString('en');
+      return [{
+        slug: 'eras', title: '', full: true, steps: 5, cls: 'cr-er',
+        body: () => `  <div class="era e0"><div class="scr s76">
+    <div class="listing">
+<pre>
+ 0010  IDENTIFICATION DIVISION.
+ 0020  PROGRAM-ID. TALLY.
+ 0030  DATA DIVISION.
+ 0040  WORKING-STORAGE SECTION.
+ 0050  01 WS-TOTAL    PIC 9(5) VALUE <span class="circ">ZERO</span>.
+ 0060  01 WS-VOTE     PIC 9(3).
+ 0070  PROCEDURE DIVISION.
+ 0080      PERFORM READ-VOTE
+ 0090          UNTIL WS-EOF = <span class="circ">'Y'</span>.
+ 0100      ADD WS-VOTE TO WS-TOTAL.
+ 0110      DISPLAY 'TOTAL ' WS-TOTAL.
+ 0120      STOP RUN.
+ 0130  READ-VOTE.
+ 0140      READ VOTE-FILE
+ 0150          AT END MOVE 'Y' TO WS-EOF.
+ 0160 <span class="pen">                   ↑ WS-EOF never declared</span>
+ 0170  ...
+</pre>
+      <div class="note" style="left: 380px; top: 268px;">off by one?</div>
+      <div class="note" style="left: 330px; top: 440px; transform: rotate(4deg)">see me — R.H.</div>
+    </div>
+    <div class="room">
+      <h4>INSPECTION · ROOM 4B · 09:00</h4>
+      <div class="roles"><div><b>MODERATOR</b>R. Hale</div><div><b>READER</b>J. Smith</div><div><b>AUTHOR</b>you</div><div><b>INSPECTOR</b>K. Jones</div></div>
+      <h4>CHECKLIST</h4>
+      <ul><li class="x">All data items declared</li><li class="x">Loop terminates</li><li>Boundary values handled</li><li>Error paths covered</li><li>Comments match code</li></ul>
+      <h4>MAX 2 HOURS · 150 LINES/HR</h4>
+    </div>
+  </div><div class="lbl"><span class="y">1976</span><span class="n">Fagan inspection</span><span class="q">Four people. One printout.<br>A red pen.</span></div></div>
+
+  <div class="era e1"><div class="scr s92">
+    <div class="bar">  PINE 3.91   MESSAGE TEXT   Folder: INBOX   Message 214 of 1,187</div>
+    <div class="body">
+<span class="hd">Date: Tue, 12 May 1992 14:02:11
+From: maintainer &lt;maint@kruuna&gt;
+To: linux-activists@joker.cs.hut.fi
+Subject: Re: [PATCH] tally: fix eof handling</span>
+
+<span class="q1">&gt; --- tally.c.orig</span>
+<span class="q1">&gt; +++ tally.c</span>
+<span class="q1">&gt; @@ -12,7 +12,8 @@</span>
+<span class="q1">&gt; </span><span class="del">-   while (!eof)</span>
+<span class="q1">&gt; </span><span class="add">+   while (!eof &amp;&amp; n &lt; MAX)</span>
+<span class="q1">&gt; </span><span class="add">+       total += v[n++];</span>
+
+<span class="me">No. This is wrong in three ways and I'll explain
+all three of them. First ...</span>
+
+<span class="q2">&gt;&gt; Acked-by: someone who read it</span>
+    </div>
+    <div class="bar bot">? Help  &lt; MsgIndex  P PrevMsg  - PrevPage  R Reply  F Forward</div>
+  </div><div class="lbl"><span class="y">1992</span><span class="n">a patch, by mail</span><span class="q">Quote the diff.<br>Argue inline.</span></div></div>
+
+  <div class="era e2"><div class="scr s08">
+    <div class="top">
+      <h2>Fix EOF handling in tally <span>#42</span></h2>
+      <div class="meta"><span class="pill">⑂ Open</span><b>you</b> wants to merge 1 commit into <code>master</code></div>
+    </div>
+    <div class="tabs"><span>Discussion</span><span>Commits 1</span><span class="a">Files changed 1</span></div>
+    <div class="file">
+      <div class="fh">lib/tally.rb <span style="font-weight:400;color:#586069">· +2 −1</span></div>
+      <div class="ln"><i>12</i><span>  def total</span></div>
+      <div class="ln d"><i>13</i><span>-   votes.inject { |a, v| a + v }</span></div>
+      <div class="ln a"><i>13</i><span>+   return 0 if votes.empty?</span></div>
+      <div class="ln a"><i>14</i><span>+   votes.inject(0) { |a, v| a + v }</span></div>
+      <div class="cm"><div class="h"><b>reviewer</b> commented on line 14</div><div class="b">Nice. Could you add a spec for the empty case?</div></div>
+      <div class="ln"><i>15</i><span>  end</span></div>
+    </div>
+  </div><div class="lbl"><span class="y">2008</span><span class="n">pull request</span><span class="q">Review moves to the browser.<br>Still read line by line.</span></div></div>
+
+  <div class="era e3"><div class="scr s26">
+    <div class="top">
+      <h2>feat: rewrite billing reconciliation <span>#412</span></h2>
+      <div class="meta"><span class="pill">⑂ Open</span><b>claude[bot]</b> wants to merge 23 commits · <span class="p">+2,804</span> <span class="m">−1,208</span> · 47 files</div>
+    </div>
+    <div class="view"><div class="code">${diff()}</div></div>
+    <div class="sbar"><div class="thumb"></div></div>
+  </div><div class="lbl done-lbl"><span class="y">2026</span><span class="n">Code review · LGTM</span><span class="q">4,012 lines.<br>Nobody typed them.</span></div></div>
+
+  <div class="cr-stamp">LGTM</div>
+  
+  <div class="rate"><span class="rl">lines read / hour</span><b>150</b><small>Fagan, 1976 (to verify)</small></div>`,
+        step: (el, st) => {
+          const q = s => el.querySelector(s);
+          const code = q('.code'), view = q('.view'), thumb = q('.thumb'), rate = q('.rate'), rv = q('.rate b'), rs = q('.rate small'), rl = q('.rl');
+          const token = (el._tok = (el._tok || 0) + 1);
+          const setScroll = k => {
+            code.style.transform = `translateY(${-(code.scrollHeight - view.clientHeight) * k}px)`;
+            thumb.style.top = `${k * (thumb.parentElement.clientHeight - 3)}px`;
+            rv.textContent = fmt(LINES * k);
+          };
+          const anim = (d, f) => { const t0 = performance.now(); const tick = t => { if (token !== el._tok || !el.isConnected) return; const k = Math.min(1, (t - t0) / d); f(k); if (k < 1) requestAnimationFrame(tick); }; requestAnimationFrame(tick); };
+          el.querySelectorAll('.era').forEach((e, i) => e.classList.toggle('show', i === Math.min(st, 3)));
+          el.classList.remove('cr-stamped');
+          if (st < 3) {
+            const from = el._shown ?? 150, to = RATES[st][0];
+            rl.textContent = 'lines read / hour'; rs.textContent = RATES[st][1]; rate.classList.remove('hot');
+            setScroll(0);
+            anim(1400, k => { el._shown = from + (to - from) * (1 - Math.pow(1 - k, 3)); rv.textContent = fmt(el._shown); });
+            return;
+          }
+          el._shown = 150;
+          rl.textContent = 'lines changed'; rs.textContent = 'PR #412 · one of 40 today'; rate.classList.add('hot');
+          if (st === 3) { setScroll(0); anim(SCROLL_MS, k => setScroll(k < .5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2)); }
+          else { setScroll(1); void el.offsetWidth; el.classList.add('cr-stamped'); }
+        },
+      }];
+    })(),
     ide: [{
       slug: 'fullcircle', title: '', full: true, steps: 6, cls: 'ide-fc',
       body: () => `<div class="era e0"><div class="mon m83">
