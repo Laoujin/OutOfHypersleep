@@ -559,6 +559,23 @@ import soCsv from '../data/stackoverflow-questions.csv?raw';
       </svg>`,
       caps: ['Git hooks gate a commit. Agent hooks gate <b>every edit</b>.', 'After each edit: lint, types, and the language server the IDE used to keep to itself.', 'Errors go straight back to the agent. No human reading red squiggles.', 'A Stop hook: the agent can\'t say "done" until the tests pass.'],
     }],
+    spec: [{
+      slug: 'cascade', title: 'The waterfall, at agent speed',
+      body: (() => {
+        const ST = [['Requirements', 'requirements.md', '3 months', 'spec.md', '8 min'], ['Design', 'design.md', '2 months', 'plan.md', '4 min'], ['Implementation', '', '6 months', 'tasks.md', '2 min'], ['Verification', '', '3 months', 'implement', '25 min'], ['Maintenance', '', 'forever', 'review', '10 min']];
+        const X = i => 30 + i * 190, Y = i => 40 + i * 92;
+        return `<svg viewBox="0 0 1000 560">
+          ${ST.map(([w, , wt, a, at], i) => `<rect class="box" x="${X(i)}" y="${Y(i)}" width="170" height="64" rx="10"/>
+            ${i < 4 ? `<path class="arrow" d="M${X(i) + 170} ${Y(i) + 32} H${X(i) + 205} V${Y(i + 1) - 4}"/>` : ''}
+            <g data-o="2"><text class="lbl" x="${X(i) + 85}" y="${Y(i) + 40}" text-anchor="middle" style="font-size:20px">${w}</text><text class="mono dim" x="${X(i) + 85}" y="${Y(i) + 88}" text-anchor="middle">${wt}</text></g>
+            <g data-s="2"><text class="mono green" x="${X(i) + 85}" y="${Y(i) + 40}" text-anchor="middle">${a}</text><text class="mono dim" x="${X(i) + 85}" y="${Y(i) + 88}" text-anchor="middle">${at}</text></g>`).join('')}
+          <g data-s="1" data-o="2"><text class="lbl red" x="980" y="80" text-anchor="end">2001 · Agile Manifesto</text><text class="mono dim" x="980" y="112" text-anchor="end">working software over</text><text class="mono dim" x="980" y="138" text-anchor="end">comprehensive documentation</text></g>
+          <g data-s="2"><text class="lbl green" x="980" y="80" text-anchor="end">2025 · Spec Kit · Kiro · BMAD</text><text class="mono dim" x="980" y="112" text-anchor="end">the agent does exactly</text><text class="mono dim" x="980" y="138" text-anchor="end">what you wrote down</text></g>
+          <g data-s="3"><text class="lbl big" x="30" y="530">Total: 14 months → 49 minutes</text></g>
+        </svg>`;
+      })(),
+      caps: ['1970: Royce draws the waterfall.<small>Every phase signed off before the next one starts.</small>', '2001: we killed it.<small>Too slow. The requirements changed before the code shipped.</small>', 'Same cascade. Same documents. Different reader: <b>the agent</b>.', 'Big Design Up Front is back.<small>It just doesn\'t take a year anymore.</small>'],
+    }],
     stackoverflow: [{
       slug: 'chart', title: 'New questions per month', cls: 'deadslide',
       body: (() => {
@@ -664,6 +681,7 @@ import soCsv from '../data/stackoverflow-questions.csv?raw';
     mergequeue: { woke: [] },
     worktrees: { woke: [] },
     mutation: { woke: [] },
+    spec: { woke: [] },
     stackoverflow: {
       froze: [{
         slug: 'empire', title: 'The empire', cls: 'beat',

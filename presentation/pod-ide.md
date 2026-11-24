@@ -34,7 +34,8 @@ pod:
     dead: -30
   was: Forty years of features to help a human type code faster.
   diesBecause: Nobody types the code anymore. You read diffs in a terminal.
-  takeaway: Its language server got a new job.
+  logTitle: When was the last time you opened your IDE?
+  takeaway: At least its language server found a new home.
 layout: hs
 routeAlias: ide-thaw
 ---
