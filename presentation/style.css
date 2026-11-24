@@ -500,7 +500,6 @@ pre.code { margin: 0; font: 21px/1.6 var(--mono); color: var(--ink); white-space
 .rv-dates dd.died { color: var(--faint); transition: color .6s; }
 .revive.is-dead .rv-dates dd.died { color: var(--cred); }
 .rv-verdict { margin-top: 30px; font: 800 40px var(--mono); letter-spacing: .04em; opacity: 0; transition: opacity .6s; }
-.rv-verdict small { display: block; font-size: 20px; color: var(--muted); letter-spacing: .08em; margin-top: 6px; }
 .rv-verdict.alive { color: var(--phos); }
 .rv-verdict.dead { color: var(--cred); }
 .revive.s3 .rv-verdict { opacity: 1; }
@@ -555,8 +554,6 @@ pre.code { margin: 0; font: 21px/1.6 var(--mono); color: var(--ink); white-space
 .map .hull path { fill: rgba(5,7,10,.35); }
 .status { --plate-img: url('/plates/bridge.webp');
   --plate-shade: linear-gradient(180deg, rgba(5,7,10,.85) 0%, rgba(5,7,10,.55) 40%, rgba(5,7,10,.6) 100%); }
-.rv-verdict small { font: 800 40px var(--mono); letter-spacing: .02em; margin-top: 10px; color: inherit; }
-.rv-verdict.traitor small { color: var(--alien); }
 
 .launch { --plate-img: url('/plates/launch.webp');
   --plate-shade: linear-gradient(180deg, rgba(0,0,0,.55) 0%, transparent 30%, transparent 50%, rgba(0,0,0,.8) 100%); padding: 0; }
