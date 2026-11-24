@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Worktrees Mockups</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@600;700&family=IBM+Plex+Mono:wght@500;600;700&family=IBM+Plex+Sans:wght@400;600&display=swap">
+<style>
+:root {
+  --bg: #0b0d10; --ink: #d9dee6; --muted: #8a93a1; --line: #2e3540; --panel: #15191f;
+  --cryo: #9fd8f0; --frost: #cfefff; --awake: #45e6a0; --alien: #ff3b5c; --amber: #ffb547; --iso: #6fb6e8;
+  --head: "Chakra Petch", "Eurostile", "Arial Narrow", sans-serif;
+  --sans: "IBM Plex Sans", system-ui, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: #05070a; color: var(--ink); font-family: var(--sans); }
+main { max-width: 1280px; margin: 0 auto; padding: 32px 16px 80px; }
+h1.page { font: 700 32px var(--head); margin: 0 0 6px; }
+p.lead { color: var(--muted); margin: 0 0 24px; line-height: 1.5; }
+h2.opt { font: 700 20px var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--amber); margin: 48px 0 6px; }
+p.note { color: var(--muted); margin: 0 0 12px; line-height: 1.5; }
+.ctl { display: flex; gap: 8px; align-items: center; margin: 10px 0 24px; font: 600 14px var(--mono); color: var(--muted); }
+.ctl button { font: 600 14px var(--mono); background: var(--panel); color: var(--ink); border: 1px solid var(--line); border-radius: 6px; padding: 6px 14px; cursor: pointer; }
+
+.wrap { position: relative; width: 100%; aspect-ratio: 16 / 9; overflow: hidden; border-radius: 10px; border: 1px solid #222; cursor: pointer; }
+.slide { position: absolute; left: 0; top: 0; width: 1600px; height: 900px; transform-origin: 0 0; overflow: hidden;
+  background: radial-gradient(1100px 700px at 80% -20%, #1b2027 0%, transparent 60%), radial-gradient(900px 600px at -10% 120%, #171a1f 0%, transparent 55%), var(--bg); }
+[data-s] { opacity: 0; transition: opacity .45s; }
+[data-s].on { opacity: 1; }
+[data-o].off { opacity: 0; }
+[data-o] { transition: opacity .45s; }
+
+header.h { position: absolute; left: 72px; top: 56px; z-index: 2; }
+.kicker { font: 600 18px var(--mono); letter-spacing: .2em; text-transform: uppercase; color: var(--iso); }
+header.h h3 { margin: 6px 0 0; font: 700 54px/1.05 var(--head); text-transform: uppercase; color: #fff; }
+
+svg text { font-family: var(--sans); }
+.lbl { font: 600 22px var(--sans); fill: var(--ink); }
+.lbl.big { font: 700 30px var(--head); letter-spacing: .04em; }
+.mono { font: 500 20px var(--mono); fill: var(--ink); }
+.dim { fill: var(--muted); }
+.red { fill: var(--alien); }
+.green { fill: var(--awake); }
+.ag { stroke: #fff; stroke-width: 2; } .ag1 { fill: #ff9d5c; } .ag2 { fill: #2dd4bf; } .ag3 { fill: #a78bfa; }
+
+.panel { position: absolute; right: 56px; top: 200px; width: 500px; z-index: 2; background: rgba(8, 10, 14, .82); border: 1px solid var(--line); border-radius: 10px; padding: 16px 20px; font-family: var(--mono); }
+.panel .ph { display: flex; justify-content: space-between; font: 600 13px var(--mono); letter-spacing: .2em; color: var(--muted); border-bottom: 1px solid var(--line); padding-bottom: 8px; margin-bottom: 8px; text-transform: uppercase; }
+.panel .row { padding: 12px 0; border-bottom: 1px dashed rgba(255,255,255,.08); }
+.panel .row:last-child { border-bottom: 0; }
+.panel .t { font: 700 19px var(--mono); letter-spacing: .1em; text-transform: uppercase; display: flex; gap: 12px; align-items: center; }
+.panel .t i { width: 12px; height: 12px; border-radius: 50%; display: inline-block; flex: none; }
+.panel .d { font: 400 19px/1.4 var(--sans); color: var(--ink); margin: 4px 0 0 24px; }
+.panel .d code { font: 500 .9em var(--mono); color: var(--frost); background: rgba(159,216,240,.08); padding: 0 .25em; border-radius: 4px; }
+.panel.bad { border-color: rgba(255,59,92,.5); }
+.panel.bad .t { color: var(--alien); } .panel.bad .t i { background: var(--alien); box-shadow: 0 0 10px var(--alien); animation: blink 1s steps(2) infinite; }
+.panel.good .t { color: var(--awake); } .panel.good .t i { background: var(--awake); box-shadow: 0 0 10px var(--awake); }
+.panel.good .row:not(.on) { opacity: .25; }
+.panel.good .row:not(.on) .t { color: var(--alien); } .panel.good .row:not(.on) .t i { background: var(--alien); box-shadow: none; }
+.panel.good .row:not(.on) .d { visibility: hidden; }
+@keyframes blink { 50% { opacity: .25; } }
+
+.bar { position: absolute; left: 0; right: 0; height: 40px; display: flex; align-items: center; justify-content: space-around; white-space: nowrap; overflow: hidden; z-index: 3;
+  font: 700 17px var(--mono); letter-spacing: .2em; color: #fff; background: repeating-linear-gradient(-45deg, var(--alien) 0 24px, #c2203d 24px 48px); }
+.bar.top { top: 0; } .bar.bottom { bottom: 0; }
+
+.cmd { position: absolute; left: 72px; bottom: 56px; z-index: 2; background: #06080b; border: 1px solid var(--line); border-radius: 10px; padding: 16px 24px; font: 500 24px var(--mono); color: var(--ink); white-space: nowrap; }
+.cmd span { color: var(--muted); }
+
+/* A: hull */
+.hull { fill: rgba(111,182,232,.06); stroke: var(--iso); stroke-width: 3; }
+.hull.bad { stroke: var(--alien); fill: rgba(255,59,92,.06); }
+.rib { stroke: rgba(111,182,232,.18); stroke-width: 1.5; }
+.flood { fill: rgba(255,59,92,.18); }
+.bulk { stroke: var(--iso); stroke-width: 8; stroke-linecap: round; }
+.keel { stroke: var(--awake); stroke-width: 10; stroke-linecap: round; filter: drop-shadow(0 0 8px var(--awake)); }
+.spark { stroke: var(--alien); stroke-width: 3; fill: none; }
+.port { fill: rgba(69,230,160,.12); stroke: var(--awake); stroke-width: 2; }
+.tank { fill: rgba(159,216,240,.12); stroke: var(--cryo); stroke-width: 2; }
+
+/* B: consoles */
+.console { fill: #10141a; stroke: var(--iso); stroke-width: 3; }
+.console.bad { stroke: var(--alien); }
+.screen { fill: #071018; stroke: rgba(111,182,232,.5); stroke-width: 2; }
+.screen.bad { fill: #1a0509; stroke: var(--alien); }
+.helm { fill: none; stroke: var(--ink); stroke-width: 8; }
+.arm { stroke-width: 6; stroke-linecap: round; fill: none; }
+.reactor { fill: rgba(69,230,160,.1); stroke: var(--awake); stroke-width: 3; filter: drop-shadow(0 0 12px rgba(69,230,160,.5)); }
+.wire { stroke: var(--awake); stroke-width: 3; stroke-dasharray: 8 8; fill: none; }
+
+/* C: plate */
+.slide.plate { background: url('../presentation/public/plates/pod-worktrees.webp') center / cover no-repeat; }
+.slide.plate::before { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,.55), rgba(0,0,0,.05) 35%, rgba(0,0,0,.05) 65%, rgba(0,0,0,.55)); }
+.glow { fill: none; stroke: var(--awake); stroke-width: 10; stroke-linecap: round; filter: drop-shadow(0 0 10px var(--awake)) drop-shadow(0 0 24px var(--awake)); opacity: .85; }
+.hubring { fill: none; stroke: var(--frost); stroke-width: 3; stroke-dasharray: 10 8; }
+.hubring.on { stroke: var(--awake); filter: drop-shadow(0 0 10px var(--awake)); }
+.hubtag { position: absolute; z-index: 2; left: 700px; top: 258px; width: 200px; text-align: center; font: 700 40px var(--mono); color: #fff; text-shadow: 0 0 20px #000, 0 0 6px #000; }
+.hubtag small { display: block; font: 500 16px var(--mono); color: var(--frost); letter-spacing: .12em; }
+.card { position: absolute; z-index: 2; width: 360px; background: rgba(4, 12, 10, .82); border: 1px solid var(--awake); border-radius: 10px; padding: 12px 16px; box-shadow: 0 0 24px rgba(69,230,160,.25); }
+.card b { display: block; font: 700 16px var(--mono); letter-spacing: .16em; text-transform: uppercase; color: var(--awake); }
+.card s { display: block; text-decoration: none; font: 400 15px var(--sans); color: var(--muted); margin: 2px 0 6px; }
+.card span { font: 400 20px/1.35 var(--sans); color: #fff; }
+.card code { font: 500 .9em var(--mono); color: var(--frost); }
+.ctitle { position: absolute; left: 72px; top: 56px; z-index: 2; }
+.ctitle h3 { margin: 6px 0 0; font: 700 54px/1.05 var(--head); text-transform: uppercase; color: #fff; text-shadow: 0 0 30px #000; }
+</style>
+</head>
+<body>
+<main>
+<h1 class="page">git worktree: replacing the tombstones</h1>
+<p class="lead">Three options for the slides between <i>froze</i> and <i>woke</i>. Click a slide (or →) to step through it; the buttons step back and reset.<br>All four failures and cures come from the source deck (<code>graves</code> / <code>risen</code> in <code>termScenes.mjs</code>).</p>
+
+<h2 class="opt">A · Bulkheads (2 slides)</h2>
+<p class="note">A1 Damage report: one open hull, three agents, four alarms. A2 Seal the bulkheads: each click fixes one alarm in the hull. Bulkheads (folders), keel (shared .git), ports, testcontainers.</p>
+
+<div class="wrap" data-steps="5"><div class="slide">
+  <div class="bar top" data-s="5"><span>⚠ ALL AGENTS · ONE COMPARTMENT</span><span>⚠ ALL AGENTS · ONE COMPARTMENT</span><span>⚠ ALL AGENTS · ONE COMPARTMENT</span></div>
+  <header class="h"><div class="kicker">Deck 1 · Isolation · git worktree</div><h3>Damage report</h3></header>
+  <svg viewBox="0 0 1600 900" width="1600" height="900" style="position:absolute;inset:0">
+    <path class="hull" d="M90 470 C 90 330, 200 270, 330 270 H 880 C 960 270, 1010 330, 1010 470 C 1010 610, 960 670, 880 670 H 330 C 200 670, 90 610, 90 470 Z"/>
+    
+    <g data-s="1"><path class="flood" d="M100 520 C 120 620, 220 662, 330 662 H 880 C 950 662, 1000 610, 1002 520 Z"/></g>
+    <text class="lbl big" x="200" y="330">~/app</text><text class="mono dim" x="200" y="362">one working tree · branch: ???</text>
+    <circle class="ag ag1" cx="420" cy="470" r="24"/><circle class="ag ag2" cx="560" cy="450" r="24"/><circle class="ag ag3" cx="700" cy="480" r="24"/>
+    <g data-s="1"><path class="spark" d="M470 440 l14 8 l-4 -18 l14 14 l2 -16 l8 18"/><path class="spark" d="M610 500 l12 8 l-2 -16 l12 12 l4 -14 l4 16"/></g>
+    <g data-s="3"><text class="mono red" x="780" y="410">↻ :5173</text></g>
+    <g data-s="4"><text class="mono red" x="240" y="600">✗ 2 failed</text></g>
+  </svg>
+  <div class="panel bad">
+    <div class="ph"><span>damage report</span><span>deck 1</span></div>
+    <div class="row" data-s="1"><div class="t"><i></i>Hull breach · working tree</div><div class="d">Two agents, one file. Last write wins.</div></div>
+    <div class="row" data-s="2"><div class="t"><i></i>Nav failure · git state</div><div class="d">Checkout moves. Commit steals. Stash vanishes.</div></div>
+    <div class="row" data-s="3"><div class="t"><i></i>Reactor unstable · dev server</div><div class="d">It rebuilds &amp; reloads all the time.</div></div>
+    <div class="row" data-s="4"><div class="t"><i></i>Life support · test run</div><div class="d">Red, from the other agent's in-progress work.</div></div>
+  </div>
+  <div class="bar bottom" data-s="5"><span>⚠ ALL AGENTS · ONE COMPARTMENT</span><span>⚠ ALL AGENTS · ONE COMPARTMENT</span><span>⚠ ALL AGENTS · ONE COMPARTMENT</span></div>
+</div></div>
+<div class="ctl"><button data-act="prev">←</button><button data-act="next">→</button><button data-act="reset">reset</button><span class="st"></span></div>
+
+<div class="wrap" data-steps="5"><div class="slide">
+  <header class="h"><div class="kicker">Deck 1 · Isolation · git worktree</div><h3>Seal the bulkheads</h3></header>
+  <svg viewBox="0 0 1600 900" width="1600" height="900" style="position:absolute;inset:0">
+    <path class="hull" d="M90 470 C 90 330, 200 270, 330 270 H 880 C 960 270, 1010 330, 1010 470 C 1010 610, 960 670, 880 670 H 330 C 200 670, 90 610, 90 470 Z"/>
+    <g data-s="1"><line class="bulk" x1="400" y1="276" x2="400" y2="664"/><line class="bulk" x1="700" y1="276" x2="700" y2="664"/></g>
+    <g data-s="2"><line class="keel" x1="200" y1="690" x2="900" y2="690"/><text class="mono green" x="550" y="728" text-anchor="middle">.git · one object store · the keel</text></g>
+    
+    <text class="lbl" x="170" y="350" data-o="1">~/app</text>
+    <g data-s="1"><text class="lbl" x="150" y="350">../app-auth</text><text class="lbl" x="440" y="350">../app-search</text><text class="lbl" x="740" y="350">../app-billing</text>
+      <text class="mono dim" x="150" y="380">auth</text><text class="mono dim" x="440" y="380">search</text><text class="mono dim" x="740" y="380">billing</text></g>
+    <circle class="ag ag1" cx="250" cy="470" r="24"/><circle class="ag ag2" cx="550" cy="470" r="24"/><circle class="ag ag3" cx="850" cy="470" r="24"/>
+    <g data-s="3">
+      <rect class="port" x="190" y="530" width="120" height="40" rx="8"/><text class="mono green" x="250" y="557" text-anchor="middle">:5173</text>
+      <rect class="port" x="490" y="530" width="120" height="40" rx="8"/><text class="mono green" x="550" y="557" text-anchor="middle">:5174</text>
+      <rect class="port" x="790" y="530" width="120" height="40" rx="8"/><text class="mono green" x="850" y="557" text-anchor="middle">:5175</text></g>
+    <g data-s="4">
+      <rect class="tank" x="215" y="590" width="70" height="44" rx="10"/><text class="mono" x="250" y="619" text-anchor="middle" style="font-size:14px">db</text>
+      <rect class="tank" x="515" y="590" width="70" height="44" rx="10"/><text class="mono" x="550" y="619" text-anchor="middle" style="font-size:14px">db</text>
+      <rect class="tank" x="815" y="590" width="70" height="44" rx="10"/><text class="mono" x="850" y="619" text-anchor="middle" style="font-size:14px">db</text></g>
+  </svg>
+  <div class="panel good">
+    <div class="ph"><span>status</span><span>deck 1</span></div>
+    <div class="row" data-r="1"><div class="t"><i></i>Hull sealed · working tree</div><div class="d">Separate directories. <code>.worktreeinclude</code> for <code>.env</code></div></div>
+    <div class="row" data-r="2"><div class="t"><i></i>Nav restored · git state</div><div class="d">One shared <code>.git</code>. Since v2.5, 2015.</div></div>
+    <div class="row" data-r="3"><div class="t"><i></i>Reactor stable · dev server</div><div class="d">Own port. Hardlinked <code>node_modules</code> (pnpm, bun).</div></div>
+    <div class="row" data-r="4"><div class="t"><i></i>Life support · test run</div><div class="d">Own code only. Own testcontainer.</div></div>
+  </div>
+  <div class="cmd" data-s="5">$ git worktree add ../app-auth -b auth   <span># one per agent</span></div>
+</div></div>
+<div class="ctl"><button data-act="prev">←</button><button data-act="next">→</button><button data-act="reset">reset</button><span class="st"></span></div>
+
+<h2 class="opt">B · Three pilots, one helm (2 slides)</h2>
+<p class="note">B1: three agents grab one console. B2: one console each, all wired to the same reactor (.git). Simpler picture, but the four failures map less cleanly.</p>
+
+<div class="wrap" data-steps="4"><div class="slide">
+  <header class="h"><div class="kicker">Deck 1 · Isolation · git worktree</div><h3>Three pilots, one helm</h3></header>
+  <svg viewBox="0 0 1600 900" width="1600" height="900" style="position:absolute;inset:0">
+    <rect class="console" x="260" y="420" width="520" height="260" rx="20"/>
+    <rect class="screen" data-o="1" x="300" y="450" width="440" height="110" rx="8"/>
+    <rect class="screen bad" data-s="1" x="300" y="450" width="440" height="110" rx="8"/>
+    <text class="mono" x="320" y="485">~/app · branch: auth</text>
+    <g data-s="2"><text class="mono red" x="260" y="720">checkout: auth → search → billing → auth ?</text></g>
+    <circle class="helm" cx="520" cy="620" r="44"/>
+    <path class="arm" stroke="#ff9d5c" d="M260 300 C 340 380, 440 520, 480 600"/><circle class="ag ag1" cx="250" cy="290" r="28"/>
+    <path class="arm" stroke="#2dd4bf" d="M520 240 C 520 360, 520 480, 520 576"/><circle class="ag ag2" cx="520" cy="230" r="28"/>
+    <path class="arm" stroke="#a78bfa" d="M790 300 C 700 380, 600 520, 560 600"/><circle class="ag ag3" cx="800" cy="290" r="28"/>
+    <g data-s="1"><path class="spark" d="M470 380 l14 8 l-4 -18 l14 14 l2 -16 l8 18"/><path class="spark" d="M600 400 l12 8 l-2 -16 l12 12 l4 -14 l4 16"/></g>
+  </svg>
+  <div class="panel bad">
+    <div class="ph"><span>helm alarms</span><span>bridge</span></div>
+    <div class="row" data-s="1"><div class="t"><i></i>Working tree</div><div class="d">Two agents, one file. Last write wins.</div></div>
+    <div class="row" data-s="2"><div class="t"><i></i>Git state</div><div class="d">Checkout moves. Commit steals. Stash vanishes.</div></div>
+    <div class="row" data-s="3"><div class="t"><i></i>Dev server</div><div class="d">It rebuilds &amp; reloads all the time.</div></div>
+    <div class="row" data-s="4"><div class="t"><i></i>Test run</div><div class="d">Red, from the other agent's in-progress work.</div></div>
+  </div>
+</div></div>
+<div class="ctl"><button data-act="prev">←</button><button data-act="next">→</button><button data-act="reset">reset</button><span class="st"></span></div>
+
+<div class="wrap" data-steps="5"><div class="slide">
+  <header class="h"><div class="kicker">Deck 1 · Isolation · git worktree</div><h3>A console each</h3></header>
+  <svg viewBox="0 0 1600 900" width="1600" height="900" style="position:absolute;inset:0">
+    
+    <g data-s="2"><ellipse class="reactor" cx="530" cy="720" rx="150" ry="40"/><text class="mono green" x="530" y="728" text-anchor="middle">.git · reactor</text>
+      <path class="wire" d="M200 560 C 200 650, 380 700, 400 712"/><path class="wire" d="M530 560 V 680"/><path class="wire" d="M860 560 C 860 650, 680 700, 660 712"/></g>
+    <g data-s="1">
+      
+      <rect class="console" x="80" y="330" width="240" height="230" rx="16"/><rect class="screen" x="100" y="350" width="200" height="90" rx="6"/><text class="mono" x="114" y="385" style="font-size:17px">../app-auth</text><text class="mono dim" x="114" y="415" style="font-size:17px">auth</text>
+      <rect class="console" x="410" y="330" width="240" height="230" rx="16"/><rect class="screen" x="430" y="350" width="200" height="90" rx="6"/><text class="mono" x="444" y="385" style="font-size:17px">../app-search</text><text class="mono dim" x="444" y="415" style="font-size:17px">search</text>
+      <rect class="console" x="740" y="330" width="240" height="230" rx="16"/><rect class="screen" x="760" y="350" width="200" height="90" rx="6"/><text class="mono" x="774" y="385" style="font-size:17px">../app-billing</text><text class="mono dim" x="774" y="415" style="font-size:17px">billing</text>
+    </g>
+    <circle class="ag ag1" cx="200" cy="270" r="28"/><circle class="ag ag2" cx="530" cy="270" r="28"/><circle class="ag ag3" cx="860" cy="270" r="28"/>
+    <g data-s="3"><text class="mono green" x="200" y="490" text-anchor="middle">:5173</text><text class="mono green" x="530" y="490" text-anchor="middle">:5174</text><text class="mono green" x="860" y="490" text-anchor="middle">:5175</text></g>
+    <g data-s="4"><text class="mono green" x="200" y="530" text-anchor="middle" style="font-size:16px">✓ own testcontainer</text><text class="mono green" x="530" y="530" text-anchor="middle" style="font-size:16px">✓ own testcontainer</text><text class="mono green" x="860" y="530" text-anchor="middle" style="font-size:16px">✓ own testcontainer</text></g>
+  </svg>
+  <div class="panel good">
+    <div class="ph"><span>status</span><span>bridge</span></div>
+    <div class="row" data-r="1"><div class="t"><i></i>Working tree</div><div class="d">Separate directories. <code>.worktreeinclude</code> for <code>.env</code></div></div>
+    <div class="row" data-r="2"><div class="t"><i></i>Git state</div><div class="d">One shared <code>.git</code>. Since v2.5, 2015.</div></div>
+    <div class="row" data-r="3"><div class="t"><i></i>Dev server</div><div class="d">Own port. Hardlinked <code>node_modules</code> (pnpm, bun).</div></div>
+    <div class="row" data-r="4"><div class="t"><i></i>Test run</div><div class="d">Own code only. Own testcontainer.</div></div>
+  </div>
+  <div class="cmd" data-s="5">$ git worktree add ../app-auth -b auth   <span># one per agent</span></div>
+</div></div>
+<div class="ctl"><button data-act="prev">←</button><button data-act="next">→</button><button data-act="reset">reset</button><span class="st"></span></div>
+
+<h2 class="opt">C · The plate thaws (1 slide)</h2>
+<p class="note">The plate is the diagram: the hub is .git, each cable a worktree. Each click thaws one cable, labelled with failure → cure. Could follow A1 (damage report) or stand alone.</p>
+
+<div class="wrap" data-steps="5"><div class="slide plate">
+  <div class="ctitle"><div class="kicker">Deck 1 · Isolation · git worktree</div><h3>One core, a line per agent</h3></div>
+  <svg viewBox="0 0 1600 900" width="1600" height="900" style="position:absolute;inset:0;z-index:1">
+    <ellipse class="hubring" data-o="1" cx="782" cy="355" rx="215" ry="62"/>
+    <ellipse class="hubring on" data-s="1" cx="782" cy="355" rx="215" ry="62"/>
+    <path class="glow" data-s="1" d="M600 420 C 420 470, 220 520, 0 580"/>
+    <path class="glow" data-s="2" d="M965 420 C 1150 470, 1350 520, 1600 560"/>
+    <path class="glow" data-s="3" d="M720 450 C 650 560, 560 700, 480 900"/>
+    <path class="glow" data-s="4" d="M840 450 C 900 560, 980 700, 1060 900"/>
+  </svg>
+  <div class="hubtag">.git<small>frozen since 2015</small></div>
+  <div class="card" data-s="1" style="left:60px;top:620px"><b>working tree</b><s>Last write wins.</s><span>Separate directories. <code>.worktreeinclude</code> for <code>.env</code></span></div>
+  <div class="card" data-s="2" style="left:1180px;top:600px"><b>git state</b><s>Checkout moves. Stash vanishes.</s><span>One shared <code>.git</code>. Since v2.5.</span></div>
+  <div class="card" data-s="3" style="left:120px;top:400px"><b>dev server</b><s>Reloads all the time.</s><span>Own port. Hardlinked <code>node_modules</code>.</span></div>
+  <div class="card" data-s="4" style="left:1120px;top:390px"><b>test run</b><s>Red from the other agent.</s><span>Own code only. Own testcontainer.</span></div>
+  <div class="cmd" data-s="5" style="left:50%;transform:translateX(-50%);bottom:40px">$ git worktree add ../app-auth -b auth   <span># one per agent</span></div>
+</div></div>
+<div class="ctl"><button data-act="prev">←</button><button data-act="next">→</button><button data-act="reset">reset</button><span class="st"></span></div>
+</main>
+<script>
+const wraps = [...document.querySelectorAll('.wrap')];
+const fit = () => wraps.forEach(w => { w.firstElementChild.style.transform = `scale(${w.clientWidth / 1600})`; });
+const show = (w, st) => {
+  const max = +w.dataset.steps;
+  st = Math.max(0, Math.min(max, st));
+  w.dataset.st = st;
+  w.querySelectorAll('[data-s]').forEach(e => e.classList.toggle('on', st >= +e.dataset.s));
+  w.querySelectorAll('[data-o]').forEach(e => e.classList.toggle('off', st >= +e.dataset.o));
+  w.querySelectorAll('[data-r]').forEach(e => e.classList.toggle('on', st >= +e.dataset.r));
+  w.nextElementSibling.querySelector('.st').textContent = `step ${st} / ${max}`;
+};
+let current = wraps[0];
+wraps.forEach(w => {
+  const st = new URLSearchParams(location.search).get('step');
+  show(w, st === 'max' ? +w.dataset.steps : 0);
+  w.addEventListener('click', () => { current = w; show(w, +w.dataset.st + 1); });
+  w.nextElementSibling.addEventListener('click', e => {
+    const a = e.target.dataset.act; if (!a) return; current = w;
+    show(w, a === 'next' ? +w.dataset.st + 1 : a === 'prev' ? +w.dataset.st - 1 : 0);
+  });
+});
+addEventListener('keydown', e => { if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); show(current, +current.dataset.st + 1); } if (e.key === 'ArrowLeft') show(current, +current.dataset.st - 1); });
+addEventListener('resize', fit); fit();
+</script>
+</body>
+</html>
