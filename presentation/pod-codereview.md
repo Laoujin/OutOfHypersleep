@@ -32,7 +32,7 @@ pod:
   score:
     alive: 40
     dead: -30
-  was: A second human reads every line before it lands. Fagan inspections in 1976, pull requests from 2008.
+  was: A second human reads every line before it lands. <br>Fagan Inspections from 1976<br>Pull Requests from 2008
   diesBecause: Ten agents, forty PRs a day. Nobody reads 4,000 lines a day.
   takeaway: LGTM.
 layout: hs
