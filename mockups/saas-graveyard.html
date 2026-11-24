@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SaaS · C · subscription graveyard</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@600;700&family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;600;800&display=swap">
+<style>
+:root {
+  --bg: #0b0d10; --panel: #15191f; --line: #2e3540; --ink: #d9dee6; --muted: #8a93a1; --faint: #565e6b;
+  --cryo: #9fd8f0; --awake: #45e6a0; --alien: #ff3b5c; --amber: #ffb547;
+  --head: "Chakra Petch", "Eurostile", "Arial Narrow", sans-serif;
+  --sans: "IBM Plex Sans", system-ui, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: #05070a; color: var(--ink); font-family: var(--sans); }
+main { max-width: 1280px; margin: 0 auto; padding: 32px 16px 80px; }
+h1.page { font: 700 32px var(--head); margin: 0 0 6px; }
+p.lead { color: var(--muted); margin: 0 0 24px; line-height: 1.5; }
+.wrap { position: relative; width: 100%; aspect-ratio: 16 / 9; overflow: hidden; border-radius: 10px; border: 1px solid #222; cursor: pointer; }
+.slide { position: absolute; left: 0; top: 0; width: 1600px; height: 900px; transform-origin: 0 0; overflow: hidden; background: radial-gradient(1200px 800px at 85% 40%, #251a1e 0%, transparent 65%), var(--bg); }
+.ctl { display: flex; gap: 8px; align-items: center; margin-top: 8px; font: 600 13px var(--mono); color: var(--muted); }
+.ctl button { font: 600 13px var(--mono); background: var(--panel); color: var(--ink); border: 1px solid var(--line); border-radius: 6px; padding: 6px 12px; cursor: pointer; }
+.hd { position: absolute; left: 72px; top: 56px; z-index: 5; }
+.hd small { display: block; font: 600 18px var(--mono); letter-spacing: .2em; text-transform: uppercase; color: var(--alien); }
+.hd h3 { margin: 6px 0 0; font: 700 54px/1.05 var(--head); color: #fff; text-transform: uppercase; }
+[data-s] { opacity: 0; transition: opacity .6s; }
+.on-1 [data-s="1"], .on-2 [data-s="1"], .on-2 [data-s="2"] { opacity: 1; }
+
+.subs { position: absolute; left: 72px; top: 210px; width: 1000px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.sub { position: relative; height: 118px; border-radius: 12px; background: var(--panel); border: 1px solid var(--line); border-left: 4px solid var(--alien); padding: 16px 20px; transition: opacity .5s, filter .5s, border-color .4s; }
+.sub h5 { margin: 0; font: 700 24px var(--head); color: #fff; text-transform: uppercase; letter-spacing: .03em; }
+.sub p { margin: 4px 0 0; font: 15px var(--mono); color: var(--muted); }
+.sub .pr { position: absolute; right: 20px; top: 18px; font: 700 22px var(--mono); color: var(--alien); }
+.sub .rip { position: absolute; inset: 0; display: flex; align-items: flex-end; justify-content: flex-end; padding: 14px 20px; font: 700 18px var(--mono); color: var(--awake); opacity: 0; transition: opacity .4s; }
+.sub.dead { border-left-color: var(--faint); }
+.sub.dead h5, .sub.dead p { opacity: .35; }
+.sub.dead .pr { color: var(--faint); text-decoration: line-through; }
+.sub.dead .rip { opacity: 1; }
+.erp { position: absolute; left: 1120px; top: 210px; width: 410px; height: 386px; border-radius: 14px; background: var(--panel); border: 2px solid var(--amber); padding: 28px 32px; box-shadow: 0 0 40px rgba(255, 181, 71, .15); }
+.erp h5 { margin: 0; font: 700 40px var(--head); color: #fff; text-transform: uppercase; }
+.erp p { margin: 8px 0 0; font: 17px/1.5 var(--mono); color: var(--muted); }
+.erp .pr { margin-top: 26px; font: 700 52px var(--mono); color: var(--amber); }
+.erp .keep { margin-top: 22px; font: 700 24px var(--head); color: var(--amber); letter-spacing: .1em; text-transform: uppercase; }
+.total { position: absolute; left: 72px; top: 770px; font: 700 22px var(--mono); color: var(--muted); letter-spacing: .1em; text-transform: uppercase; }
+.total b { display: inline-block; min-width: 230px; font-size: 64px; color: var(--alien); letter-spacing: 0; vertical-align: -10px; margin-right: 14px; font-variant-numeric: tabular-nums; transition: color .4s; }
+.total.zero b { color: var(--awake); }
+</style>
+</head>
+<body>
+<main>
+  <h1 class="page">SaaS · C · subscription graveyard</h1>
+  <p class="lead">Not tied to Stirling PDF. Step 0: the small tools a team pays for each month. Step 1: one by one, an agent builds each in an afternoon, and the total drains to €0. Step 2: the ERP stays. "Not for your ERP."</p>
+  <div class="wrap" data-steps="2"><div class="slide" id="slide">
+    <div class="hd"><small>Cargo deck · Small SaaS tools</small><h3>One subscription per button</h3></div>
+    <div class="subs" id="subs"></div>
+    <div class="total" id="total"><b id="sum"></b>per month</div>
+    <div class="erp" data-s="2">
+      <h5>Your ERP</h5>
+      <p>accounting · payroll · compliance<br>20 years of edge cases<br>someone to call at 3am</p>
+      <div class="pr">€4,800<small style="font-size:22px;color:var(--muted)"> /mo</small></div>
+      <div class="keep">Keep paying.</div>
+    </div>
+  </div></div>
+  <div class="ctl"><button data-act="prev">◀ Prev</button><button data-act="next">Next ▶</button><button data-act="reset">Reset</button><span id="cap"></span></div>
+</main>
+<script>
+const SUBS = [
+  ['PDF tools', 'merge · split · compress', 12, '2 h'], ['Link shortener', 'go/ links', 9, '1 h'], ['Forms', 'a signup form', 29, '3 h'],
+  ['Scheduling', 'book a call', 15, '4 h'], ['Status page', 'is it up?', 29, '2 h'], ['Screenshot API', 'og:images', 19, '1 h'],
+  ['QR codes', 'one for the poster', 7, '20 min'], ['Feature flags', 'five booleans', 75, '3 h'], ['Changelog widget', 'what\'s new', 49, '2 h'],
+  ['Uptime ping', 'every 5 min', 10, '30 min'], ['Image resize', 'thumbnails', 25, '1 h'], ['Feedback board', 'upvote ideas', 49, '4 h'],
+];
+const subs = document.getElementById('subs');
+subs.innerHTML = SUBS.map(([n, d, p, t]) => `<div class="sub"><h5>${n}</h5><p>${d}</p><span class="pr">€${p}</span><span class="rip">✔ built · ${t}</span></div>`).join('');
+const cards = [...subs.children], sumEl = document.getElementById('sum'), totalEl = document.getElementById('total');
+const full = SUBS.reduce((s, x) => s + x[2], 0);
+let sum = full, killT, tickT;
+const show = () => { sumEl.textContent = '€' + Math.round(sum); totalEl.classList.toggle('zero', sum <= 0); };
+const drain = on => {
+  clearInterval(killT); clearInterval(tickT);
+  if (!on) { cards.forEach(c => c.classList.remove('dead')); sum = full; show(); return; }
+  let i = 0, target = full;
+  killT = setInterval(() => {
+    if (i >= cards.length) return clearInterval(killT);
+    cards[i].classList.add('dead'); target -= SUBS[i][2]; i++;
+  }, 380);
+  tickT = setInterval(() => { if (sum > target) { sum = Math.max(target, sum - 4); show(); } else if (i >= cards.length) clearInterval(tickT); }, 20);
+};
+
+const wrap = document.querySelector('.wrap'), slide = document.getElementById('slide'), cap = document.getElementById('cap'), max = +wrap.dataset.steps;
+let st = 0;
+const go = n => {
+  const prev = st;
+  st = Math.max(0, Math.min(max, n));
+  slide.classList.remove('on-1', 'on-2'); if (st) slide.classList.add('on-' + st);
+  cap.textContent = `step ${st}/${max}`;
+  if (st === 0 || (prev === 0 && st >= 1)) drain(st >= 1);
+};
+wrap.addEventListener('click', () => go(st + 1));
+document.querySelector('.ctl').addEventListener('click', e => { const a = e.target.dataset.act; if (a === 'next') go(st + 1); if (a === 'prev') go(st - 1); if (a === 'reset') go(0); });
+go(0);
+const fit = () => { slide.style.transform = 'scale(' + (wrap.clientWidth / 1600) + ')'; };
+addEventListener('resize', fit); fit();
+</script>
+</body>
+</html>

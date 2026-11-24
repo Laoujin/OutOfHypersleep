@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SaaS · A · meter vs timer</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@600;700&family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;600;800&display=swap">
+<style>
+:root {
+  --bg: #0b0d10; --panel: #15191f; --line: #2e3540; --ink: #d9dee6; --muted: #8a93a1; --faint: #565e6b;
+  --cryo: #9fd8f0; --awake: #45e6a0; --alien: #ff3b5c; --amber: #ffb547;
+  --head: "Chakra Petch", "Eurostile", "Arial Narrow", sans-serif;
+  --sans: "IBM Plex Sans", system-ui, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: #05070a; color: var(--ink); font-family: var(--sans); }
+main { max-width: 1280px; margin: 0 auto; padding: 32px 16px 80px; }
+h1.page { font: 700 32px var(--head); margin: 0 0 6px; }
+p.lead { color: var(--muted); margin: 0 0 24px; line-height: 1.5; }
+.wrap { position: relative; width: 100%; aspect-ratio: 16 / 9; overflow: hidden; border-radius: 10px; border: 1px solid #222; cursor: pointer; }
+.slide { position: absolute; left: 0; top: 0; width: 1600px; height: 900px; transform-origin: 0 0; overflow: hidden; background: radial-gradient(1200px 800px at 85% 40%, #251a1e 0%, transparent 65%), var(--bg); }
+.ctl { display: flex; gap: 8px; align-items: center; margin-top: 8px; font: 600 13px var(--mono); color: var(--muted); }
+.ctl button { font: 600 13px var(--mono); background: var(--panel); color: var(--ink); border: 1px solid var(--line); border-radius: 6px; padding: 6px 12px; cursor: pointer; }
+.hd { position: absolute; left: 72px; top: 56px; z-index: 5; }
+.hd small { display: block; font: 600 18px var(--mono); letter-spacing: .2em; text-transform: uppercase; color: var(--alien); }
+.hd h3 { margin: 6px 0 0; font: 700 54px/1.05 var(--head); color: #fff; text-transform: uppercase; }
+[data-s] { opacity: 0; transition: opacity .6s; }
+.on-1 [data-s="1"], .on-2 [data-s="1"], .on-3 [data-s="1"], .on-2 [data-s="2"], .on-3 [data-s="2"], .on-3 [data-s="3"] { opacity: 1; }
+
+.col { position: absolute; top: 220px; width: 640px; height: 600px; padding: 32px 40px; border-radius: 14px; background: var(--panel); border: 1px solid var(--line); }
+.col.host { left: 72px; border-top: 4px solid var(--alien); }
+.col.build { left: 888px; border-top: 4px solid var(--awake); }
+.col h4 { margin: 0; font: 700 30px var(--head); text-transform: uppercase; letter-spacing: .04em; color: #fff; }
+.col h4 span { display: block; font: 600 18px var(--mono); color: var(--muted); letter-spacing: .1em; margin-top: 4px; }
+.meter { margin-top: 28px; font: 700 96px/1 var(--mono); font-variant-numeric: tabular-nums; }
+.host .meter { color: var(--alien); text-shadow: 0 0 24px rgba(255, 59, 92, .45); }
+.build .meter { color: var(--awake); text-shadow: 0 0 24px rgba(69, 230, 160, .45); }
+.unit { font: 600 18px var(--mono); color: var(--muted); letter-spacing: .14em; text-transform: uppercase; margin-top: 8px; }
+ul { list-style: none; margin: 28px 0 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 10px 24px; }
+li { font: 500 20px var(--mono); color: var(--ink); opacity: 0; transform: translateY(6px); transition: opacity .4s, transform .4s; }
+li.in { opacity: 1; transform: none; }
+.host li::before { content: "↻ "; color: var(--alien); }
+.build li::before { content: "✔ "; color: var(--awake); }
+.build ul { grid-template-columns: 1fr; }
+.done { position: absolute; right: 40px; top: 120px; font: 700 26px var(--head); color: var(--awake); border: 3px solid var(--awake); border-radius: 8px; padding: 6px 16px; transform: rotate(-6deg); opacity: 0; transition: opacity .3s; }
+.done.in { opacity: 1; }
+.stamp { position: absolute; left: 150px; top: 520px; font: 700 64px var(--head); color: var(--alien); border: 6px solid var(--alien); border-radius: 10px; padding: 4px 26px; transform: rotate(-10deg) scale(1.6); opacity: 0; transition: transform .25s cubic-bezier(.3, 1.6, .5, 1), opacity .15s; text-transform: uppercase; }
+.on-3 .stamp { opacity: .92; transform: rotate(-10deg) scale(1); }
+.on-3 .host .meter { animation: flicker 1.2s steps(2) infinite; }
+@keyframes flicker { 50% { opacity: .5; } }
+</style>
+</head>
+<body>
+<main>
+  <h1 class="page">SaaS · A · meter vs timer</h1>
+  <p class="lead">Left meter starts ticking on slide entry and never stops. Step 1: the chores pile up. Step 2: the build timer runs to 2 h and stops. Step 3: stamp.</p>
+  <div class="wrap" data-steps="3"><div class="slide" id="slide">
+    <div class="hd"><small>Cargo deck · Small SaaS tools</small><h3>I needed three PDF operations</h3></div>
+    <div class="col host">
+      <h4>Host it<span>Stirling PDF · 50+ features</span></h4>
+      <div class="meter" id="hostM">0 h</div>
+      <div class="unit">spent keeping it alive · and counting</div>
+      <ul id="chores"></ul>
+    </div>
+    <div class="col build" data-s="2">
+      <h4>Build it<span>ask an agent · exactly what I need</span></h4>
+      <div class="meter" id="buildM">0:00</div>
+      <div class="unit">from prompt to done</div>
+      <ul id="feats"></ul>
+      <div class="done" id="done">DONE</div>
+    </div>
+    <div class="stamp">Unsubscribed</div>
+  </div></div>
+  <div class="ctl"><button data-act="prev">◀ Prev</button><button data-act="next">Next ▶</button><button data-act="reset">Reset</button><span id="cap"></span></div>
+</main>
+<script>
+const CHORES = ['docker compose', 'reverse proxy', 'TLS certs', 'auth in front', 'backups', 'image updates', 'CVE watching', 'disk full', 'breaking upgrade', 'login broke'];
+const FEATS = ['merge', 'split', 'compress'];
+const chores = document.getElementById('chores'), feats = document.getElementById('feats');
+chores.innerHTML = CHORES.map(c => `<li>${c}</li>`).join('');
+feats.innerHTML = FEATS.map(c => `<li>${c}</li>`).join('');
+const hostM = document.getElementById('hostM'), buildM = document.getElementById('buildM'), done = document.getElementById('done');
+
+let hostH = 0, hostT, buildT, choreT;
+const startHost = () => { clearInterval(hostT); hostT = setInterval(() => { hostH += .5; hostM.textContent = Math.floor(hostH) + ' h'; }, 90); };
+const showChores = on => {
+  clearInterval(choreT);
+  const li = [...chores.children];
+  li.forEach(l => l.classList.remove('in'));
+  if (!on) return;
+  let i = 0; choreT = setInterval(() => { if (i < li.length) li[i++].classList.add('in'); else clearInterval(choreT); }, 260);
+};
+const runBuild = st => {
+  clearInterval(buildT);
+  const li = [...feats.children];
+  if (st < 2) { buildM.textContent = '0:00'; li.forEach(l => l.classList.remove('in')); done.classList.remove('in'); return; }
+  let m = 0;
+  buildT = setInterval(() => {
+    m = Math.min(120, m + 3);
+    buildM.textContent = `${Math.floor(m / 60)}:${String(m % 60).padStart(2, '0')}`;
+    li.forEach((l, i) => l.classList.toggle('in', m >= (i + 1) * 35));
+    if (m >= 120) { clearInterval(buildT); done.classList.add('in'); }
+  }, 40);
+};
+
+const wrap = document.querySelector('.wrap'), slide = document.getElementById('slide'), cap = document.getElementById('cap'), max = +wrap.dataset.steps;
+let st = 0;
+const go = n => {
+  const prev = st;
+  st = Math.max(0, Math.min(max, n));
+  slide.classList.remove('on-1', 'on-2', 'on-3'); if (st) slide.classList.add('on-' + st);
+  cap.textContent = `step ${st}/${max}`;
+  if (st === 0) { hostH = 0; hostM.textContent = '0 h'; }
+  startHost();
+  if ((st >= 1) !== (prev >= 1) || st === 0) showChores(st >= 1);
+  if ((st >= 2) !== (prev >= 2) || st < 2) runBuild(st);
+};
+wrap.addEventListener('click', () => go(st + 1));
+document.querySelector('.ctl').addEventListener('click', e => { const a = e.target.dataset.act; if (a === 'next') go(st + 1); if (a === 'prev') go(st - 1); if (a === 'reset') go(0); });
+go(0);
+const fit = () => { slide.style.transform = 'scale(' + (wrap.clientWidth / 1600) + ')'; };
+addEventListener('resize', fit); fit();
+</script>
+</body>
+</html>
