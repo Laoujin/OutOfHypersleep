@@ -64,7 +64,7 @@ pod:
   power: 5             # 1–5 bars on the map
   fate: dead           # alive | dead
   score:
-    alive: 50          # crew points if it lives (the + on the map)
+    alive: 50          # crew points if it lives (the + on the map); negative = it lives but scores for the alien (commit trailers)
     dead: -40          # alien points if it dies (the − on the map)
   diesBecause: ...     # dead pods
   # frozenBecause / wokenBecause for pods that live

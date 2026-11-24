@@ -133,7 +133,7 @@ import soCsv from '../data/stackoverflow-questions.csv?raw';
           <div class="kicker">crew member · ${deckOf(p)}</div>
           <h1>${p.name}</h1>
           <dl class="rv-dates"><dt>BORN</dt><dd>${p.born}</dd><dt class="died">DIED</dt><dd class="died">${p.died ?? '?'}</dd></dl>
-          <div class="rv-verdict ${p.dead ? 'dead' : 'alive'}">${p.dead ? `NO LIFE SIGNS<small>alien +${Math.abs(p.score.dead)}</small><span class="rv-sub">eaten by the alien AI</span>` : `LIFE SIGNS: STABLE<small>crew ${pts > 0 ? '+' : ''}${pts}</small>`}</div>
+          <div class="rv-verdict ${p.dead ? 'dead' : pts < 0 ? 'alive traitor' : 'alive'}">${p.dead ? `NO LIFE SIGNS<small>alien +${Math.abs(p.score.dead)}</small><span class="rv-sub">eaten by the alien AI</span>` : `LIFE SIGNS: STABLE<small>${pts < 0 ? `alien +${-pts}` : `crew +${pts}`}</small>${pts < 0 ? '<span class="rv-sub">it works for the alien</span>' : ''}`}</div>
           <button class="rv-open" data-act="open-slides">Open the slides ↗</button>
         </div>
         <canvas class="rv-ecg ${p.dead ? 'dead' : 'alive'}" width="1760" height="240"></canvas>
@@ -332,8 +332,8 @@ import soCsv from '../data/stackoverflow-questions.csv?raw';
         </div>
         <div class="term-block" data-s="2"><div class="mono">$ git log --format='%(trailers:key=Co-Authored-By,valueonly)' | sort | uniq -c</div>
           <div class="mono green">&nbsp;&nbsp;&nbsp;&nbsp;45 Claude &lt;noreply@anthropic.com&gt;</div><div class="mono dim">&nbsp;&nbsp;&nbsp;&nbsp;# this talk's repo: 48 commits. 3 are mine.</div></div>
-        <div class="stamp" data-s="3">ALIEN MARK<br><span>crew −10</span></div>`,
-      caps: ['Recognise the last line?', 'It has a name: a <b>commit trailer</b>. Key: value, at the end of the message.', 'Trailers are queryable. Who wrote <b>this talk</b>?', 'The twist: every one is <b>the alien\'s mark</b>. This crew member costs points.'],
+        <div class="stamp" data-s="3">ALIEN MARK<br><span>alien +10</span></div>`,
+      caps: ['Recognise the last line?', 'It has a name: a <b>commit trailer</b>. Key: value, at the end of the message.', 'Trailers are queryable. Who wrote <b>this talk</b>?', 'The twist: every one is <b>the alien\'s mark</b>. Revived, but it scores <b>for the alien</b>.'],
     }],
     bisect: [{
       slug: 'why', title: '64 commits, nobody watching',
@@ -561,7 +561,7 @@ decode(encode("123"))   <span class="green">✓</span></pre></div>
     log: p => `${bg(p)}<div class="log">
       <div class="log-h">Crew log · ${p.name}</div>
       <div class="log-line">&gt; ${todo(p.takeaway)}</div>
-      <div class="log-score ${p.dead || p.score.alive < 0 ? 'red' : ''}">${p.dead ? `alien +${Math.abs(p.score.dead)}` : `crew ${p.score.alive < 0 ? '−' : '+'}${Math.abs(p.score.alive)}`}</div>
+      <div class="log-score ${p.dead || p.score.alive < 0 ? 'red' : ''}">${p.dead ? `alien +${Math.abs(p.score.dead)}` : p.score.alive < 0 ? `alien +${-p.score.alive}` : `crew +${p.score.alive}`}</div>
     </div>`,
   };
   HS.FRAME_BEFORE = ['thaw', 'froze'];

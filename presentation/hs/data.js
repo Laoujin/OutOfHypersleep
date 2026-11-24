@@ -50,6 +50,7 @@ HS.score = st => {
   let alien = 0;
   for (const p of woken) {
     if (p.dead) alien += Math.abs(p.score.dead);
+    else if (p.score.alive < 0) alien += -p.score.alive;
     else crew += p.score.alive;
   }
   for (const k of ['twist', 'intermezzo']) if (st.events[k]) alien += HS.alienEvents[k].reduce((a, e) => a + e[1], 0);

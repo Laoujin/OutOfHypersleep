@@ -67,7 +67,7 @@ The count is real: this talk's own repo, 48 commits, 45 co-authored by Claude (N
 Ask the room: who recognises the last line? Everyone has seen it, almost nobody knows it is called a trailer.
 [click] git interpret-trailers, since 2014. Signed-off-by is the famous one.
 [click] They are structured: git log can filter and count them. This is the repo of this talk.
-[click] Scoring twist: commit trailers give the crew NEGATIVE points. The alien's mark on every commit.
+[click] Scoring twist: revived, but it scores for the alien: alien +10. The alien's mark on every commit.
 -->
 
 ---
