@@ -8,7 +8,7 @@ const decks = ['slides.md', ...readdirSync('.').filter(f => f.endsWith('.md') &&
     return { file, prefix: `${base}${name ? name + '/' : ''}`, port: 3100 + i }
   })
 
-const procs = decks.map(d => Bun.spawn(['bunx', 'slidev', d.file, '--port', String(d.port), '--base', d.prefix], { stdout: 'ignore', stderr: 'inherit' }))
+const procs = decks.map(d => Bun.spawn(['bunx', 'slidev', d.file, '--port', String(d.port), '--base', d.prefix], { stdout: 'ignore', stderr: 'inherit', env: { ...process.env, VITE_CACHE_DIR: `node_modules/.vite/${d.file}` } }))
 const stop = () => { procs.forEach(p => p.kill()); process.exit() }
 process.on('SIGINT', stop)
 process.on('SIGTERM', stop)
