@@ -82,13 +82,6 @@ A red one would bounce back to its agent and the next one rolls in.
 
 ---
 layout: hs
-routeAlias: mergequeue-woke
----
-
-<Hs id="mergequeue-woke" />
-
----
-layout: hs
 routeAlias: mergequeue-log
 ---
 
