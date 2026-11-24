@@ -51,21 +51,19 @@ routeAlias: mergequeue-froze
 
 ---
 layout: hs
-routeAlias: mergequeue-race
-clicks: 4
+routeAlias: mergequeue-landing
+clicks: 2
 ---
 
-<Hs id="mergequeue-race" />
+<Hs id="mergequeue-landing" />
 
 <!--
 Background: bors (Rust, 2013) after Graydon Hoare's "not rocket science rule": keep main always green. Zuul (OpenStack) around the same time. GitHub merge queue GA: 2023. All to verify.
 "Only Google-scale needed this." Google-scale used to mean 1000 engineers. Now it means you plus 20 agents.
 
-The agent is green and wants to land.
-[click] Fast-forward fails: another agent landed fix/i18n.
-[click] Rebase: no textual conflict. Build breaks anyway: feat/discount renamed calcTotals to computeTotals. Semantic conflict.
-[click] Fixed, green again. main moved again.
-[click] The agent gives up: "tell me when nobody else is landing". This is how the Dark Factory talk started: I needed a merge queue.
+Ten agents, ten green branches, all ready to land.
+[click] They all land at once. main is red. Whose fault? Nobody's. Everybody's. This is how the Dark Factory talk started: I needed a merge queue.
+[click] One lane. One at a time.
 -->
 
 ---

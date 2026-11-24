@@ -779,16 +779,7 @@ header .sub { font-size: 26px; color: var(--muted); margin-top: 6px; }
 .mq-commit.ok circle { stroke: var(--awake); }
 .mq-commit.ok text { fill: var(--ink); }
 .mq-commit.ok.new circle { fill: var(--awake); }
-.mq-rename { font: 500 17px var(--mono); fill: var(--alien); }
-.mq-base path { stroke: var(--int); stroke-width: 3; stroke-dasharray: 6 6; }
-.mq-base text { font: 500 18px var(--mono); fill: var(--int); }
-.mq-term { position: absolute; left: 70px; top: 250px; width: 900px; padding: 26px 30px; background: #06080b; border: 1px solid var(--line); border-radius: 12px; font: 500 22px/1.6 var(--mono); color: var(--ink); }
-.mq-term span { color: var(--muted); }
-.mq-term .you { color: var(--int); }
-.mq-term .ok { color: var(--awake); }
-.mq-term .bad, .mq-term .bad span { color: var(--alien); }
-.mq-term .big { font-weight: 700; font-size: 25px; margin-top: 6px; }
-.mq-race .alarm-bar, .mq-jam .alarm-bar { padding: 0; height: 40px; display: flex; align-items: center; color: #fff; text-shadow: 0 1px 2px rgba(0,0,0,.6); font: 700 17px var(--mono); letter-spacing: .2em; background: repeating-linear-gradient(-45deg, var(--alien) 0 24px, #c2203d 24px 48px); animation: none; }
+.mq-jam .alarm-bar { padding: 0; height: 40px; display: flex; align-items: center; color: #fff; text-shadow: 0 1px 2px rgba(0,0,0,.6); font: 700 17px var(--mono); letter-spacing: .2em; background: repeating-linear-gradient(-45deg, var(--alien) 0 24px, #c2203d 24px 48px); animation: none; }
 .mq-tunnel { fill: rgba(111, 182, 232, .04); stroke: var(--line); stroke-width: 3; }
 .mq-lamp { stroke: #cfefff; stroke-width: 5; stroke-linecap: round; filter: drop-shadow(0 0 8px #9fd8f0); opacity: .8; }
 .mq-floor { stroke: #3a4350; stroke-width: 3; stroke-dasharray: 18 12; }
@@ -820,3 +811,10 @@ header .sub { font-size: 26px; color: var(--muted); margin-top: 6px; }
 .mq-ft .cost { color: var(--amber); }
 .mq-ft .keep { color: var(--awake); }
 .s2 .mq-batch { stroke: var(--alien); fill: rgba(255, 59, 92, .06); }
+.mq-crawler.ok .bd { stroke: var(--awake); stroke-width: 3; }
+.mq-okdot { fill: var(--awake); filter: drop-shadow(0 0 6px var(--awake)); }
+.mq-path { fill: none; stroke: var(--alien); stroke-width: 3; stroke-dasharray: 10 8; opacity: .8; }
+.mq-port.ok { fill: rgba(179, 154, 224, .06); stroke: var(--int); stroke-width: 4; }
+.mq-port.bad { fill: rgba(255, 59, 92, .14); stroke: var(--alien); stroke-width: 4; filter: drop-shadow(0 0 14px var(--alien)); }
+.mq-rail.bad { stroke: var(--alien); filter: drop-shadow(0 0 8px var(--alien)); }
+.mq-beam { fill: rgba(159, 216, 240, .08); stroke: var(--cryo); stroke-width: 2; stroke-dasharray: 4 6; }

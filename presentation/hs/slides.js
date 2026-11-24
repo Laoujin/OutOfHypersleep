@@ -332,38 +332,25 @@ import soCsv from '../data/stackoverflow-questions.csv?raw';
         <circle class="lp" cx="103" cy="46" r="4"/>
       </g></g>`;
       const tag = (x, y, t, cls = '', attr = '') => `<text class="mq-tag ${cls}" ${attr} x="${x}" y="${y}" text-anchor="middle">${t}</text>`;
-      const commit = (y, t, cls = '', attr = '') => `<g class="mq-commit ${cls}" ${attr}><circle cx="1130" cy="${y}" r="13"/><text x="1162" y="${y + 7}">${t}</text></g>`;
-      const line = (s, t, cls = '') => `<div class="l ${cls}" data-s="${s}">${t}</div>`;
       const CONVOY = ['fix/totals', 'chore/deps', 'feat/wishlist', 'fix/i18n', 'feat/gift-cards'];
       const STATIONS = ['rebase onto main', 'build', 'test', 'merge --ff-only'];
       const cap = (s, t, last) => `<div class="mq-cap" data-s="${s}" ${last ? '' : `data-o="${s + 1}"`}>${t}</div>`;
       return [{
-        slug: 'race', title: 'main moved under me', full: true, steps: 5, cls: 'mq mq-race',
-        body: () => `<div data-s="4">${HS.marquee('⚠ MAIN MOVED · AGAIN ·')}</div>
-          <div class="mq-term">
-            ${line(0, '❯ finish the checkout refactor and land it on main', 'you')}
-            ${line(0, '● bun test <span>⎿ 128 pass, 0 fail</span>')}
-            ${line(0, '✓ Green. Ready to land.', 'ok')}
-            ${line(1, '● git merge --ff-only feat/checkout')}
-            ${line(1, '<span>⎿ fatal: Not possible to fast-forward</span>', 'bad')}
-            ${line(2, '● git rebase main <span>⎿ no conflicts</span>')}
-            ${line(2, '● bun run build <span>⎿ Cannot find name \'calcTotals\'</span>', 'bad')}
-            ${line(2, '✗ No conflict. Still broken.', 'bad')}
-            ${line(3, '● fix 3 call sites · rebase · test <span>⎿ green</span>')}
-            ${line(3, '● git merge --ff-only <span>⎿ fatal: Not possible to fast-forward</span>', 'bad')}
-            ${line(4, '✗ main moves faster than I can rebase onto it.', 'bad big')}
-          </div>
-          <svg class="mq-svg" viewBox="0 0 1600 900">
-            <line class="mq-rail" x1="1130" y1="830" x2="1130" y2="250"/>
-            <text class="mq-railtag" x="1105" y="838" text-anchor="end">main</text>
-            ${commit(800, 'chore/lockfile')}${commit(735, 'fix/cart')}${commit(670, 'feat/auth')}
-            <g class="mq-base"><path d="M1060 670 H1112"/><text x="1050" y="677" text-anchor="end">based here</text></g>
-            ${commit(605, 'fix/i18n', 'new', 'data-s="1"')}
-            ${commit(540, 'feat/discount', 'new', 'data-s="2"')}
-            <text class="mq-rename" data-s="2" x="1162" y="578">calcTotals → computeTotals</text>
-            ${commit(475, 'chore/deps', 'new', 'data-s="3"')}${commit(410, 'fix/tax', 'new', 'data-s="3"')}
-            ${commit(345, 'feat/wishlist', 'new', 'data-s="4"')}${commit(280, 'fix/stale-cart', 'new', 'data-s="4"')}
-          </svg>`,
+        slug: 'landing', title: 'Ten agents, one main', full: true, steps: 3, cls: 'mq mq-landing',
+        body: () => {
+          const AG = ['auth', 'pdf-export', 'user-prefs', 'search', 'dark-mode', 'fix-i18n', 'checkout', 'discount', 'wishlist', 'tax'];
+          const pts = AG.map((n, i) => { const a = (-62 + i * 13.8) * Math.PI / 180; return [300 + Math.cos(a) * 220, 520 + Math.sin(a) * 290, n]; });
+          const port = cls => `<rect class="mq-port ${cls}" x="1180" y="400" width="140" height="160" rx="16"/><line class="mq-rail ${cls}" x1="1360" y1="480" x2="1560" y2="480"/>`;
+          return `<svg class="mq-svg" viewBox="0 0 1600 900">
+            <g data-o="1">${port('ok')}</g><g data-s="1" data-o="2">${port('bad')}</g><g data-s="2">${port('ok')}</g>
+            <text class="mq-locktag" x="1250" y="385" text-anchor="middle">port</text>
+            <text class="mq-railtag" x="1460" y="520" text-anchor="middle">main</text>
+            <g data-o="2">${pts.map(([x, y, n]) => `${crawler(x - 42, y - 30, .8, 'ok')}<circle class="mq-okdot" cx="${x + 46}" cy="${y - 34}" r="9"/><text class="mq-tag" x="${x - 55}" y="${y + 6}" text-anchor="end">${n}</text>`).join('')}</g>
+            <g data-s="1" data-o="2">${pts.map(([x, y]) => `<path class="mq-path" d="M${x + 45} ${y} C ${x + 400} ${y}, 1000 480, 1175 480"/>`).join('')}
+              ${[0, 1, 2, 3].map(i => `<g transform="rotate(${i % 2 ? 12 : -14} ${1090 - i * 24} ${450 + (i % 2 ? 40 : -10)})">${crawler(1048 - i * 24, 420 + (i % 2 ? 40 : -10), .8, 'bad')}</g>`).join('')}</g>
+            <g data-s="2"><path class="mq-beam" d="M60 420 H1175 V540 H60 Z"/>${AG.map((n, i) => `${crawler(1068 - i * 108, 450, .8, 'ok')}<text class="mq-tag ${i ? '' : 'in'}" x="${1110 - i * 108}" y="${i % 2 ? 405 : 380}" text-anchor="middle">${n}</text>`).join('')}</g>
+          </svg>`;
+        },
       }, {
         slug: 'lander', title: 'One lane to main', full: true, steps: 7, cls: 'mq mq-lander',
         body: () => `<svg class="mq-svg" viewBox="0 0 1600 900">
