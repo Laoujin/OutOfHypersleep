@@ -726,11 +726,11 @@ import soCsv from '../data/stackoverflow-questions.csv?raw';
 2243 	}
 </pre>
       <div class="note" style="left: 340px; top: 290px;">then explain it!</div>
-      <div class="note" style="left: 330px; top: 440px; transform: rotate(4deg)">see me — R.H.</div>
+      <div class="note" style="left: 330px; top: 440px; transform: rotate(4deg)">see me — M.F.</div>
     </div>
     <div class="room">
       <h4>INSPECTION · ROOM 4B</h4>
-      <div class="roles"><div><b>MODERATOR</b>R. Hale</div><div><b>READER</b>J. Smith</div><div><b>AUTHOR</b>you</div><div><b>INSPECTOR</b>K. Jones</div></div>
+      <div class="roles"><div><b>MODERATOR</b>M. Fagan</div><div><b>READER</b>J. Lions</div><div><b>AUTHOR</b>K. Thompson</div><div><b>INSPECTOR</b>D. Ritchie</div></div>
       <h4>CHECKLIST</h4>
       <ul><li class="x">All data items declared</li><li class="x">Loop terminates</li><li>Boundary values handled</li><li>Error paths covered</li><li>Comments match code</li></ul>
     </div>
