@@ -570,6 +570,22 @@ expect(canVote(5)).toBe(false)   <span class="green">✓</span>
         <div class="timers"><div class="tm" data-s="1"><label>estimation meeting</label><b>45:00</b></div><div class="tm ok" data-s="2"><label>agent builds it</label><b>03:52</b></div></div>`,
       caps: ['How many points is this story?', 'The meeting takes 45 minutes.', 'The build takes four.'],
     }],
+    codereview: [{
+      slug: 'lgtm', title: 'Review requested', cls: 'deadslide',
+      body: `<div class="two">
+        <div class="card"><div class="card-h">review queue <small>(10 agents)</small></div><ul class="check">${[['#409', '+812 −97', 0], ['#410', '+1,904 −340', 0], ['#411', '+455 −1,022', 1], ['#412', '+3,412 −1,208', 1], ['#413', '+2,766 −51', 1], ['… 35 more', '', 1]].map(([n, d, s]) => `<li data-s="${s}"><code>${n}</code> <small>${d}</small></li>`).join('')}</ul></div>
+        <div class="card" data-s="2"><div class="card-h">PR #412 · +3,412 −1,208</div><ul class="check ok"><li>looks good to me</li></ul><div class="timer">⏱ 0:11</div><div class="banner ok">APPROVED · LGTM</div></div>
+      </div>`,
+      caps: ['Ten agents. <b>Forty PRs a day.</b>', 'Every one of them hundreds of lines nobody typed.', 'Approved in eleven seconds.<small>The real review moved into the gates: tests, types, hooks.</small>'],
+    }],
+    ide: [{
+      slug: 'features', title: 'Built for a human at a keyboard', cls: 'deadslide',
+      body: `<div class="two">
+        <div class="card"><div class="card-h">the IDE · 40 years of features</div><ul class="check">${['autocomplete', 'refactor › rename', 'go to definition', 'debugger', 'file tree', 'find usages'].map(t => `<li>${t}</li>`).join('')}</ul><div class="stamp" data-s="1">AGENT<br><span>does this now</span></div></div>
+        <div class="card" data-s="2"><div class="card-h">what's left</div><ul class="check ok"><li>a terminal</li><li>git diff</li><li>LSP <small>→ feeds the agent</small></li></ul></div>
+      </div>`,
+      caps: ['Forty years of features. All for a human typing code.', 'The agent does all of it itself.', 'What\'s left: a terminal and a diff.<small>One survivor: the language server got a new job.</small>'],
+    }],
   };
 
   const SO_SITES = ['Super User', 'ServerFault', 'Ask Ubuntu', 'Math', 'English', 'Cooking', 'Bicycles', 'Arqade', 'Travel', 'Photo', 'Physics', 'Unix', 'CodeReview', 'Security', 'DBA', 'TeX', 'Android', 'Apple', 'WordPress', 'GIS', 'Movies', 'Music', 'Law', 'History', 'Chess', 'Gardening', 'Pets', 'Space'];
