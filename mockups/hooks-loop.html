@@ -1,0 +1,324 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hooks · fast feedback loop mockups</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@600;700&family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;600;800&display=swap">
+<style>
+:root {
+  --bg: #0b0d10; --panel: #15191f; --panel2: #1e232b; --line: #2e3540; --ink: #d9dee6; --muted: #8a93a1; --faint: #565e6b;
+  --cryo: #9fd8f0; --frost: #cfefff; --awake: #45e6a0; --alien: #ff3b5c; --amber: #ffb547; --iso: #6fb6e8; --ver: #45e6a0;
+  --head: "Chakra Petch", "Eurostile", "Arial Narrow", sans-serif;
+  --sans: "IBM Plex Sans", system-ui, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: #05070a; color: var(--ink); font-family: var(--sans); }
+main { max-width: 1280px; margin: 0 auto; padding: 32px 16px 80px; }
+h1.page { font: 700 32px var(--head); margin: 0 0 6px; }
+p.lead { color: var(--muted); margin: 0 0 24px; line-height: 1.5; }
+h2 { font: 700 20px var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--iso); margin: 48px 0 6px; }
+p.note { color: var(--muted); margin: 0 0 12px; line-height: 1.5; }
+.wrap { position: relative; width: 100%; aspect-ratio: 16 / 9; overflow: hidden; border-radius: 10px; border: 1px solid #222; cursor: pointer; }
+.slide { position: absolute; left: 0; top: 0; width: 1600px; height: 900px; transform-origin: 0 0; overflow: hidden; background: radial-gradient(1200px 800px at 85% 40%, #1c2530 0%, transparent 65%), var(--bg); }
+.ctl { display: flex; gap: 8px; align-items: center; margin-top: 8px; font: 600 13px var(--mono); color: var(--muted); flex-wrap: wrap; }
+.ctl button { font: 600 13px var(--mono); background: var(--panel); color: var(--ink); border: 1px solid var(--line); border-radius: 6px; padding: 6px 12px; cursor: pointer; }
+.ctl .cap { margin-left: 12px; }
+.hd { position: absolute; left: 72px; top: 56px; z-index: 5; }
+.hd small { display: block; font: 600 18px var(--mono); letter-spacing: .2em; text-transform: uppercase; color: var(--ver); }
+.hd h3 { margin: 6px 0 0; font: 700 54px/1.05 var(--head); color: #fff; text-transform: uppercase; }
+.capline { position: absolute; left: 72px; right: 72px; bottom: 40px; font: 500 26px var(--sans); color: var(--ink); z-index: 5; }
+[data-s] { opacity: 0; transition: opacity .5s, transform .5s; }
+.on-1 [data-s="1"], .on-2 [data-s="1"], .on-3 [data-s="1"], .on-4 [data-s="1"],
+.on-2 [data-s="2"], .on-3 [data-s="2"], .on-4 [data-s="2"],
+.on-3 [data-s="3"], .on-4 [data-s="3"], .on-4 [data-s="4"] { opacity: 1; }
+svg text { font-family: var(--mono); }
+
+/* ─────────── 1 · Defence rings ─────────── */
+.r1 svg { position: absolute; inset: 0; }
+.r1 .ring { fill: none; stroke: var(--line); stroke-width: 2; stroke-dasharray: 4 10; transition: stroke .6s, stroke-width .6s, filter .6s; }
+.r1 .ring.ci { stroke: var(--cryo); opacity: .35; stroke-dasharray: 2 14; }
+.r1 .on-1 .ring.l1, .r1 .on-2 .ring.l1, .r1 .on-3 .ring.l1, .r1 .on-4 .ring.l1,
+.r1 .on-2 .ring.l2, .r1 .on-3 .ring.l2, .r1 .on-4 .ring.l2,
+.r1 .on-3 .ring.l3, .r1 .on-4 .ring.l3 { stroke: var(--awake); stroke-width: 4; stroke-dasharray: none; filter: drop-shadow(0 0 10px rgba(69, 230, 160, .7)); }
+.r1 .core { fill: #0f1a15; stroke: var(--awake); stroke-width: 3; }
+.r1 .core-t { fill: #fff; font: 700 26px var(--head); letter-spacing: .1em; }
+.r1 .rl { fill: var(--muted); font: 700 18px var(--mono); letter-spacing: .1em; }
+.r1 .rl b, .r1 .rl tspan.ms { fill: var(--awake); }
+.r1 .ci-t { fill: var(--cryo); opacity: .6; font: 700 18px var(--mono); letter-spacing: .1em; }
+.r1 .legend { position: absolute; left: 1030px; top: 230px; width: 500px; display: flex; flex-direction: column; gap: 18px; }
+.r1 .lg { padding: 16px 20px; border-left: 4px solid var(--awake); background: rgba(69, 230, 160, .06); border-radius: 0 10px 10px 0; }
+.r1 .lg h4 { margin: 0; display: flex; justify-content: space-between; font: 700 24px var(--head); color: #fff; text-transform: uppercase; letter-spacing: .04em; }
+.r1 .lg h4 span { font: 700 18px var(--mono); color: var(--awake); }
+.r1 .lg p { margin: 6px 0 0; font: 17px/1.4 var(--mono); color: var(--muted); }
+.r1 .lg.ci { border-color: var(--cryo); background: rgba(159, 216, 240, .04); opacity: .55; }
+.r1 .lg.ci h4, .r1 .lg.ci h4 span { color: var(--cryo); }
+.r1 .b { opacity: 0; }
+.r1 .bug { fill: var(--alien); filter: drop-shadow(0 0 6px var(--alien)); }
+.r1 .zap { fill: none; stroke: var(--awake); stroke-width: 3; opacity: 0; }
+.r1 .nit { fill: var(--alien); font: 600 15px var(--mono); opacity: 0; }
+.r1 .on-4 .b { animation: fly 1.1s cubic-bezier(.4, 0, .9, .6) var(--d) both; }
+.r1 .on-4 .zap { animation: zap .7s ease-out calc(var(--d) + 1.05s) both; }
+.r1 .on-4 .nit { animation: nit 2.6s ease-out calc(var(--d) + 1.05s) both; }
+@keyframes fly { from { transform: translate(var(--fx), var(--fy)); opacity: 0; } 15% { opacity: 1; } 97% { opacity: 1; } to { transform: translate(0, 0); opacity: 0; } }
+@keyframes zap { from { opacity: 1; r: 4; } to { opacity: 0; r: 28; } }
+@keyframes nit { 0% { opacity: 0; } 10% { opacity: 1; } 70% { opacity: 1; } 100% { opacity: .25; } }
+
+/* ─────────── 2 · Decontamination airlocks ─────────── */
+.r2 svg { position: absolute; left: 0; top: 0; }
+.r2 .agent { fill: #0f1a15; stroke: var(--awake); stroke-width: 3; }
+.r2 .ch { fill: #10141a; stroke: var(--line); stroke-width: 2; transition: stroke .5s, fill .5s; }
+.r2 .door { fill: #39414d; transition: transform .6s cubic-bezier(.6, 0, .2, 1), fill .5s; transform-box: fill-box; transform-origin: center; }
+.r2 .chn { fill: #fff; font: 700 24px var(--head); letter-spacing: .06em; text-transform: uppercase; }
+.r2 .chl { fill: var(--awake); font: 700 18px var(--mono); }
+.r2 .chw { fill: var(--muted); font: 16px var(--mono); }
+.r2 .repo { fill: var(--panel); stroke: var(--line); stroke-width: 2; }
+.r2 .scan { fill: url(#scanG); opacity: 0; }
+.r2 .pkt rect { fill: #2a0d15; stroke: var(--alien); stroke-width: 2; }
+.r2 .pkt text { fill: #fff; font: 600 17px var(--mono); }
+.r2 .pkt { transition: transform .9s cubic-bezier(.6, 0, .2, 1); }
+.r2 .bounce { fill: none; stroke: var(--alien); stroke-width: 3; stroke-dasharray: 8 8; marker-end: url(#ahR); }
+.r2 .err { fill: var(--alien); font: 600 18px var(--mono); }
+.r2 .lat { fill: var(--amber); font: 700 16px var(--mono); }
+.r2 .on-1 .ch.c1, .r2 .on-2 .ch.c2, .r2 .on-3 .ch.c3 { stroke: var(--alien); fill: #1c0710; }
+.r2 .on-1 .scan.s1, .r2 .on-2 .scan.s2, .r2 .on-3 .scan.s3 { animation: scan 1.2s ease-in-out .2s 2 both; }
+@keyframes scan { 0% { opacity: 0; transform: translateY(0); } 20% { opacity: 1; } 80% { opacity: 1; } 100% { opacity: 0; transform: translateY(230px); } }
+.r2 .on-1 .pkt { transform: translateX(270px); }
+.r2 .on-2 .pkt { transform: translateX(570px); }
+.r2 .on-3 .pkt { transform: translateX(870px); }
+.r2 .on-4 .pkt { transform: translateX(1298px); }
+.r2 .on-4 .pkt rect { fill: #0b2a1d; stroke: var(--awake); }
+.r2 .on-4 .ch { stroke: rgba(69, 230, 160, .7); }
+.r2 .on-4 .door { fill: var(--awake); transform: scaleY(.04); }
+.r2 .on-4 .repo { stroke: var(--awake); }
+.r2 [data-only] { opacity: 0; transition: opacity .4s; }
+.r2 .on-1 [data-only="1"], .r2 .on-2 [data-only="2"], .r2 .on-3 [data-only="3"] { opacity: 1; }
+
+/* ─────────── 3 · Ship's computer checklist ─────────── */
+.r3 .term { position: absolute; left: 72px; top: 200px; width: 1456px; height: 560px; border: 1px solid var(--line); border-radius: 12px; background: #07090b; overflow: hidden; box-shadow: 0 0 60px rgba(69, 230, 160, .06) inset; }
+.r3 .tbar { height: 40px; display: flex; align-items: center; gap: 10px; padding: 0 16px; border-bottom: 1px solid var(--line); background: #10141a; font: 600 15px var(--mono); color: var(--muted); letter-spacing: .12em; text-transform: uppercase; }
+.r3 .tbar i { width: 10px; height: 10px; border-radius: 50%; background: var(--awake); box-shadow: 0 0 8px var(--awake); }
+.r3 .tbar .cnt { margin-left: auto; color: var(--awake); letter-spacing: .04em; }
+.r3 .tbar .cnt b { color: #fff; }
+.r3 .log { position: absolute; left: 0; right: 0; bottom: 0; top: 40px; padding: 10px 24px; display: flex; flex-direction: column; justify-content: flex-end; font: 19px/1.62 var(--mono); }
+.r3 .ln { display: grid; grid-template-columns: 90px 90px 30px 1fr auto; gap: 10px; color: var(--muted); white-space: nowrap; }
+.r3 .ln .src { font-weight: 700; }
+.r3 .ln .src.LSP { color: var(--iso); } .r3 .ln .src.HOOK { color: var(--awake); } .r3 .ln .src.GIT { color: var(--amber); }
+.r3 .ln .t { color: var(--faint); text-align: right; }
+.r3 .ln .ok { color: var(--awake); }
+.r3 .ln .f { color: var(--faint); }
+.r3 .ln.bad { color: #fff; background: rgba(255, 59, 92, .12); }
+.r3 .ln.bad .ok { color: var(--alien); }
+.r3 .ln.fix { color: #fff; background: rgba(69, 230, 160, .1); }
+.r3 .stamp { position: absolute; right: 120px; top: 360px; transform: rotate(-6deg) scale(1.3); padding: 18px 34px; border: 5px solid var(--awake); border-radius: 12px; font: 700 52px/1.05 var(--head); text-transform: uppercase; color: var(--awake); background: rgba(7, 20, 14, .9); text-align: center; box-shadow: 0 0 40px rgba(69, 230, 160, .35); }
+.r3 .stamp small { display: block; font: 600 20px var(--mono); letter-spacing: .1em; color: var(--muted); margin-top: 8px; text-transform: none; }
+.r3 .on-3 .stamp { transform: rotate(-6deg) scale(1); }
+
+/* ─────────── 4 · Sensor range ─────────── */
+.r4 svg { position: absolute; inset: 0; }
+.r4 .ax { stroke: var(--line); stroke-width: 2; }
+.r4 .tk { stroke: var(--line); stroke-width: 2; }
+.r4 .tkl { fill: var(--faint); font: 600 17px var(--mono); }
+.r4 .band { fill: url(#sweep); }
+.r4 .agent { fill: #0f1a15; stroke: var(--awake); stroke-width: 3; }
+.r4 .agent-t { fill: #fff; font: 700 22px var(--head); letter-spacing: .1em; }
+.r4 .loop { fill: none; stroke-width: 3; marker-end: url(#ah4); }
+.r4 .loop.old { stroke: var(--alien); stroke-dasharray: 8 8; opacity: .8; }
+.r4 .loop.new { stroke: var(--awake); filter: drop-shadow(0 0 8px rgba(69, 230, 160, .6)); }
+.r4 .blip { stroke-width: 3; }
+.r4 .blip.old { fill: #1c0710; stroke: var(--alien); }
+.r4 .blip.new { fill: #0b2a1d; stroke: var(--awake); }
+.r4 .bn { fill: #fff; font: 700 22px var(--head); text-transform: uppercase; letter-spacing: .04em; }
+.r4 .bt { font: 700 18px var(--mono); }
+.r4 .bt.old { fill: var(--alien); } .r4 .bt.new { fill: var(--awake); }
+.r4 .ping { fill: none; stroke: var(--awake); stroke-width: 2; opacity: 0; }
+.r4 .on-1 .p1, .r4 .on-2 .p2, .r4 .on-3 .p3 { animation: ping 1.6s ease-out .3s 2; }
+@keyframes ping { from { opacity: .9; r: 20; } to { opacity: 0; r: 90; } }
+.r4 .old-grp { transition: opacity .6s; }
+.r4 .on-4 .old-grp { opacity: .25; }
+.r4 .big { position: absolute; right: 90px; top: 150px; text-align: right; }
+.r4 .big b { display: block; font: 800 120px/1 var(--sans); color: var(--awake); text-shadow: 0 0 30px rgba(69, 230, 160, .4); }
+.r4 .big span { font: 600 22px var(--mono); color: var(--muted); letter-spacing: .08em; }
+</style>
+</head>
+<body>
+<main>
+  <h1 class="page">Hooks · the fast feedback loop</h1>
+  <p class="lead">Four takes on the page that replaces "A gate on every edit". Click a slide (or Next) to step through it.</p>
+
+  <h2>1 · Defence rings</h2>
+  <p class="note">The agent at the core. Each check layer is a shield ring; the closer to the core, the faster. CI is far out, frozen. Last step: nitpicks fly in and get zapped.</p>
+  <div class="wrap" data-kind="r1" data-steps="4"><div class="slide r1">
+    <div class="hd"><small>Verification deck · Hooks</small><h3>Tighten the loop</h3></div>
+    <svg viewBox="0 0 1600 900">
+      <circle class="ring ci" cx="520" cy="520" r="350"/>
+      <text class="ci-t" x="520" y="160" text-anchor="middle">CI · 10 min · FROZEN</text>
+      <circle class="ring l3" cx="520" cy="520" r="265"/>
+      <circle class="ring l2" cx="520" cy="520" r="190"/>
+      <circle class="ring l1" cx="520" cy="520" r="118"/>
+      <g data-s="1"><text class="rl" x="520" y="392" text-anchor="middle">LSP · <tspan class="ms">ms</tspan></text></g>
+      <g data-s="2"><text class="rl" x="520" y="320" text-anchor="middle">AGENT HOOKS · <tspan class="ms">s</tspan></text></g>
+      <g data-s="3"><text class="rl" x="520" y="245" text-anchor="middle">GIT HOOKS · <tspan class="ms">commit</tspan></text></g>
+      <circle class="core" cx="520" cy="520" r="62"/>
+      <text class="core-t" x="520" y="529" text-anchor="middle">AGENT</text>
+      <g id="bugs"></g>
+    </svg>
+    <div class="legend">
+      <div class="lg" data-s="1"><h4>LSP <span>~50 ms</span></h4><p>every keystroke · types, unknown symbols</p></div>
+      <div class="lg" data-s="2"><h4>Agent hooks <span>~2 s</span></h4><p>every edit · format, lint, typecheck</p></div>
+      <div class="lg" data-s="3"><h4>Git hooks <span>commit</span></h4><p>every commit · tests, commit message</p></div>
+      <div class="lg ci"><h4>CI <span>~10 min</span></h4><p>after the push · too late, too far</p></div>
+    </div>
+    <div class="capline"></div>
+  </div></div>
+  <div class="ctl"><button data-act="prev">◀ Prev</button><button data-act="next">Next ▶</button><button data-act="reset">Reset</button><span class="cap"></span></div>
+
+  <h2>2 · Decontamination airlocks</h2>
+  <p class="note">The agent's edit passes three airlocks. Each one scans and bounces it straight back with the error and the latency. Last step: clean code walks through to the repo.</p>
+  <div class="wrap" data-kind="r2" data-steps="4"><div class="slide r2">
+    <div class="hd"><small>Verification deck · Hooks</small><h3>Decontamination</h3></div>
+    <svg viewBox="0 0 1600 900" width="1600" height="900">
+      <defs>
+        <linearGradient id="scanG" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#45e6a0" stop-opacity="0"/><stop offset=".5" stop-color="#45e6a0" stop-opacity=".9"/><stop offset="1" stop-color="#45e6a0" stop-opacity="0"/></linearGradient>
+        <marker id="ahR" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#ff3b5c"/></marker>
+      </defs>
+      <rect class="agent" x="72" y="370" width="170" height="130" rx="14"/>
+      <text class="chn" x="157" y="445" text-anchor="middle" style="fill:#fff">Agent</text>
+      <g id="chambers"></g>
+      <rect class="repo" x="1380" y="370" width="150" height="130" rx="14"/>
+      <text class="chn" x="1455" y="445" text-anchor="middle">Repo</text>
+      <g class="pkt"><rect x="92" y="200" width="130" height="44" rx="8"/><text x="157" y="228" text-anchor="middle">vote.ts</text></g>
+      <g data-only="1"><path class="bounce" d="M425 560 C 425 660, 157 660, 157 510"/><text class="err" x="290" y="700" text-anchor="middle">'total' is possibly undefined</text><text class="lat" x="290" y="728" text-anchor="middle">⟲ 50 ms</text></g>
+      <g data-only="2"><path class="bounce" d="M725 560 C 725 700, 157 700, 157 510"/><text class="err" x="440" y="740" text-anchor="middle">no-explicit-any · import order</text><text class="lat" x="440" y="768" text-anchor="middle">⟲ 2 s</text></g>
+      <g data-only="3"><path class="bounce" d="M1025 560 C 1025 740, 157 740, 157 510"/><text class="err" x="590" y="780" text-anchor="middle">✗ vote.test.ts · 1 failing</text><text class="lat" x="590" y="808" text-anchor="middle">⟲ 15 s</text></g>
+      <g data-s="4"><text class="chn" x="1455" y="540" text-anchor="middle" style="fill:var(--awake)">✓ clean</text></g>
+    </svg>
+    <div class="capline"></div>
+  </div></div>
+  <div class="ctl"><button data-act="prev">◀ Prev</button><button data-act="next">Next ▶</button><button data-act="reset">Reset</button><span class="cap"></span></div>
+
+  <h2>3 · Ship's computer checklist</h2>
+  <p class="note">A terminal streaming checks at machine speed, each tagged with the layer that ran it. One nitpick fails and is fixed in seconds. "No detail too small" lands as a stamp.</p>
+  <div class="wrap" data-kind="r3" data-steps="3"><div class="slide r3">
+    <div class="hd"><small>Verification deck · Hooks</small><h3>The machine checks everything</h3></div>
+    <div class="term">
+      <div class="tbar"><i></i>ship computer · verification<span class="cnt"><b id="r3n">0</b> checks · <b>0</b> humans</span></div>
+      <div class="log" id="r3log"></div>
+    </div>
+    <div class="stamp" data-s="3">No detail<br>too small<small>not even the tiniest nitpick</small></div>
+    <div class="capline"></div>
+  </div></div>
+  <div class="ctl"><button data-act="prev">◀ Prev</button><button data-act="next">Next ▶</button><button data-act="reset">Reset</button><span class="cap"></span></div>
+
+  <h2>4 · Sensor range</h2>
+  <p class="note">A sonar sweep on a log time axis. The old loop goes out to CI and code review, days away. Each step pings a faster layer in, closer to the agent.</p>
+  <div class="wrap" data-kind="r4" data-steps="4"><div class="slide r4">
+    <div class="hd"><small>Verification deck · Hooks</small><h3>Feedback range</h3></div>
+    <svg viewBox="0 0 1600 900">
+      <defs>
+        <linearGradient id="sweep" x1="0" x2="1"><stop offset="0" stop-color="#45e6a0" stop-opacity=".18"/><stop offset="1" stop-color="#45e6a0" stop-opacity="0"/></linearGradient>
+        <marker id="ah4" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#8a93a1"/></marker>
+      </defs>
+      <g id="axis"></g>
+    </svg>
+    <div class="big" data-s="4"><b>50 ms</b><span>feedback, not a review comment</span></div>
+    <div class="capline"></div>
+  </div></div>
+  <div class="ctl"><button data-act="prev">◀ Prev</button><button data-act="next">Next ▶</button><button data-act="reset">Reset</button><span class="cap"></span></div>
+</main>
+<script>
+const CAPS = {
+  r1: ['The agent at the core. CI is out there: minutes away, frozen.', 'LSP: every keystroke, milliseconds.', 'Agent hooks: every edit, seconds.', 'Git hooks: every commit.', 'Nothing gets through. Not even the tiniest nitpick.'],
+  r2: ['The agent writes vote.ts.', 'Airlock 1 · LSP: bounced in 50 ms.', 'Airlock 2 · agent hooks: bounced in 2 s.', 'Airlock 3 · git hooks: bounced in 15 s.', 'Clean. It only reaches the repo once every check is green.'],
+  r3: ['The agent will run every check you give it.', 'Thousands of checks. No human would sit through this.', 'One nitpick fails. Fixed before you even notice.', 'No detail is too small.'],
+  r4: ['The old loop: CI in minutes, code review in days.', 'Git hooks: seconds after the commit.', 'Agent hooks: seconds after every edit.', 'LSP: milliseconds after every keystroke.', 'That is the fast feedback loop.'],
+};
+
+/* 1 · rings: bugs fly in from outside and are zapped at a ring */
+const NITS = [['unused import', 118, -150], ['trailing space', 118, -40], ['missing await', 118, 70], ['prefer const', 190, -110], ['import order', 190, 20], ['no any', 190, 150], ['max-len 120', 190, 205], ['commit msg', 265, -70], ['failing test', 265, 110], ['TODO left in', 265, 175]];
+document.getElementById('bugs').innerHTML = NITS.map(([t, r, a], i) => {
+  const rad = a * Math.PI / 180, x = 520 + Math.cos(rad) * r, y = 520 + Math.sin(rad) * r;
+  const fx = Math.cos(rad) * (420 - r), fy = Math.sin(rad) * (420 - r);
+  const tx = 520 + Math.cos(rad) * (r + 16), ty = 520 + Math.sin(rad) * (r + 16);
+  const anchor = Math.cos(rad) < -0.2 ? 'end' : Math.cos(rad) > 0.2 ? 'start' : 'middle';
+  return `<g style="--d:${(i * 0.18).toFixed(2)}s"><g transform="translate(${x.toFixed(1)} ${y.toFixed(1)})"><g class="b" style="--fx:${fx.toFixed(1)}px;--fy:${fy.toFixed(1)}px"><circle class="bug" r="7"/></g><circle class="zap" r="4"/></g><text class="nit" x="${tx.toFixed(1)}" y="${(ty + 5).toFixed(1)}" text-anchor="${anchor}">${t}</text></g>`;
+}).join('');
+
+/* 2 · airlocks */
+const CH = [['LSP', '~50 ms', 'every keystroke'], ['Agent hooks', '~2 s', 'every edit'], ['Git hooks', '~15 s', 'every commit']];
+document.getElementById('chambers').innerHTML = CH.map(([n, l, w], i) => {
+  const x = 330 + i * 300;
+  return `<rect class="ch c${i + 1}" x="${x}" y="320" width="190" height="240" rx="14"/>
+    <rect class="door" x="${x - 6}" y="340" width="12" height="200" rx="4"/><rect class="door" x="${x + 184}" y="340" width="12" height="200" rx="4"/>
+    <rect class="scan s${i + 1}" x="${x + 6}" y="320" width="178" height="10"/>
+    <text class="chn" x="${x + 95}" y="285" text-anchor="middle">${n}</text>
+    <text class="chl" x="${x + 95}" y="590" text-anchor="middle">${l}</text>
+    <text class="chw" x="${x + 95}" y="612" text-anchor="middle">${w}</text>`;
+}).join('');
+
+/* 3 · checklist stream */
+const CHECKS = [['LSP', 'types resolve'], ['LSP', 'no unknown symbols'], ['HOOK', 'prettier'], ['HOOK', 'eslint: no-unused-vars'], ['HOOK', 'eslint: prefer-const'], ['HOOK', 'max 1 blank line'], ['LSP', 'no implicit any'], ['HOOK', 'no trailing whitespace'], ['HOOK', 'tsc --noEmit'], ['GIT', 'commit message ≤ 72 chars'], ['HOOK', 'no console.log'], ['LSP', 'missing await'], ['HOOK', 'filenames kebab-case'], ['GIT', 'vote.test.ts'], ['HOOK', 'no TODO without ticket'], ['HOOK', 'import order'], ['HOOK', 'no default export'], ['GIT', 'no secrets in diff'], ['LSP', 'unreachable code'], ['HOOK', 'tailwind class order']];
+const FILES = ['vote.ts', 'tally.ts', 'pods.ts', 'map.ts', 'hub.ts'];
+const T = { LSP: () => (8 + Math.random() * 60 | 0) + 'ms', HOOK: () => (0.4 + Math.random() * 2).toFixed(1) + 's', GIT: () => (4 + Math.random() * 12 | 0) + 's' };
+const log = document.getElementById('r3log'), cnt = document.getElementById('r3n');
+let n3 = 0, timer3, k3 = 0;
+const line = (src, txt, cls = '', mark = '✓', t = T[src](), f = FILES[k3 % FILES.length]) => {
+  const d = document.createElement('div'); d.className = 'ln ' + cls;
+  d.innerHTML = `<span class="src ${src}">[${src}]</span><span class="t">${t}</span><span class="ok">${mark}</span><span>${txt}</span><span class="f">${f}</span>`;
+  log.appendChild(d); while (log.children.length > 18) log.firstChild.remove();
+};
+const stream3 = on => {
+  clearInterval(timer3);
+  if (!on) return;
+  timer3 = setInterval(() => { const [s, t] = CHECKS[k3++ % CHECKS.length]; line(s, t); n3 += 37 + (Math.random() * 40 | 0); cnt.textContent = n3.toLocaleString('en'); }, 90);
+};
+const step3 = st => {
+  if (st === 0) { stream3(false); log.innerHTML = ''; n3 = 0; cnt.textContent = '0'; }
+  if (st === 1) stream3(true);
+  if (st === 2) { stream3(false); line('HOOK', 'import order: "./tally" before "./pods"', 'bad', '✗', '0.9s', 'vote.ts'); setTimeout(() => { line('HOOK', 'agent reordered imports · re-check', 'fix', '✓', '1.8s', 'vote.ts'); setTimeout(() => stream3(true), 900); }, 1100); }
+  if (st === 3) stream3(true);
+};
+
+/* 4 · sensor range: log axis from 10ms to 1 week */
+const X0 = 300, X1 = 1500, Y = 600, lo = Math.log10(0.01), hi = Math.log10(7 * 86400);
+const px = s => X0 + (Math.log10(s) - lo) / (hi - lo) * (X1 - X0);
+const TICKS = [[0.01, '10ms'], [0.1, '100ms'], [1, '1s'], [10, '10s'], [60, '1min'], [600, '10min'], [3600, '1h'], [86400, '1d'], [7 * 86400, '1w']];
+const OLD = [['CI', 600, '10 min'], ['Code review', 2 * 86400, '2 days']];
+const NEW = [['Git hooks', 15, '15 s', 1], ['Agent hooks', 2, '2 s', 2], ['LSP', 0.05, '50 ms', 3]];
+const blip = ([n, s, t, step], kind, i) => {
+  const x = px(s), y = Y - 130 - (i % 2) * 110;
+  return `<g ${step ? `data-s="${step}"` : ''}><path class="loop ${kind}" d="M${X0 - 120} ${Y - 30} C ${X0 - 60} ${y - 120}, ${x - 40} ${y - 140}, ${x} ${y - 32}"/>
+    <circle class="blip ${kind}" cx="${x}" cy="${y}" r="26"/>${step ? `<circle class="ping p${step}" cx="${x}" cy="${y}" r="20"/>` : ''}
+    <line class="tk" x1="${x}" x2="${x}" y1="${y + 26}" y2="${Y}" stroke-dasharray="4 6"/>
+    <text class="bn" x="${x}" y="${y + 70}" text-anchor="middle" style="paint-order:stroke;stroke:#0b0d10;stroke-width:8px">${n}</text>
+    <text class="bt ${kind}" x="${x}" y="${y + 6}" text-anchor="middle" dy="-40">${t}</text></g>`;
+};
+document.getElementById('axis').innerHTML = `
+  <rect class="band" x="${X0}" y="${Y - 330}" width="${px(20) - X0}" height="330"/>
+  <line class="ax" x1="${X0}" x2="${X1}" y1="${Y}" y2="${Y}"/>
+  ${TICKS.map(([s, l]) => `<line class="tk" x1="${px(s)}" x2="${px(s)}" y1="${Y}" y2="${Y + 14}"/><text class="tkl" x="${px(s)}" y="${Y + 40}" text-anchor="middle">${l}</text>`).join('')}
+  <circle class="agent" cx="${X0 - 140}" cy="${Y}" r="56"/><text class="agent-t" x="${X0 - 140}" y="${Y + 8}" text-anchor="middle">AGENT</text>
+  <g class="old-grp">${OLD.map((b, i) => blip(b, 'old', i)).join('')}</g>
+  ${NEW.map((b, i) => blip(b, 'new', i)).join('')}`;
+
+const wraps = [...document.querySelectorAll('.wrap')];
+wraps.forEach(w => {
+  const kind = w.dataset.kind, max = +w.dataset.steps, slide = w.firstElementChild, ctl = w.nextElementSibling, cap = ctl.querySelector('.cap'), capline = slide.querySelector('.capline');
+  let st = 0;
+  const go = n => {
+    st = Math.max(0, Math.min(max, n));
+    slide.classList.remove('on-1', 'on-2', 'on-3', 'on-4'); if (st) slide.classList.add('on-' + st);
+    cap.textContent = `step ${st}/${max}`;
+    capline.textContent = CAPS[kind][st];
+    if (kind === 'r3') step3(st);
+  };
+  w.addEventListener('click', () => go(st + 1));
+  ctl.addEventListener('click', e => { const a = e.target.dataset.act; if (a === 'next') go(st + 1); if (a === 'prev') go(st - 1); if (a === 'reset') go(0); });
+  go(0);
+});
+const fit = () => wraps.forEach(w => { w.firstElementChild.style.transform = 'scale(' + (w.clientWidth / 1600) + ')'; });
+addEventListener('resize', fit); fit();
+</script>
+</body>
+</html>

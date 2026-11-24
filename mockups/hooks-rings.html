@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hooks · defence rings</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@600;700&family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;600;800&display=swap">
+<style>
+:root {
+  --bg: #0b0d10; --panel: #15191f; --line: #2e3540; --ink: #d9dee6; --muted: #8a93a1; --faint: #565e6b;
+  --cryo: #9fd8f0; --awake: #45e6a0; --alien: #ff3b5c; --iso: #6fb6e8; --ver: #45e6a0;
+  --head: "Chakra Petch", "Eurostile", "Arial Narrow", sans-serif;
+  --sans: "IBM Plex Sans", system-ui, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: #05070a; color: var(--ink); font-family: var(--sans); }
+main { max-width: 1280px; margin: 0 auto; padding: 32px 16px 80px; }
+h1.page { font: 700 32px var(--head); margin: 0 0 6px; }
+p.lead { color: var(--muted); margin: 0 0 24px; line-height: 1.5; }
+.wrap { position: relative; width: 100%; aspect-ratio: 16 / 9; overflow: hidden; border-radius: 10px; border: 1px solid #222; cursor: pointer; }
+.slide { position: absolute; left: 0; top: 0; width: 1600px; height: 900px; transform-origin: 0 0; overflow: hidden; background: radial-gradient(900px 700px at 520px 520px, #0f1a17 0%, transparent 60%), radial-gradient(1200px 800px at 85% 40%, #1c2530 0%, transparent 65%), var(--bg); }
+.ctl { display: flex; gap: 8px; align-items: center; margin-top: 8px; font: 600 13px var(--mono); color: var(--muted); }
+.ctl button { font: 600 13px var(--mono); background: var(--panel); color: var(--ink); border: 1px solid var(--line); border-radius: 6px; padding: 6px 12px; cursor: pointer; }
+.hd { position: absolute; left: 72px; top: 56px; z-index: 5; }
+.hd small { display: block; font: 600 18px var(--mono); letter-spacing: .2em; text-transform: uppercase; color: var(--ver); }
+.hd h3 { margin: 6px 0 0; font: 700 54px/1.05 var(--head); color: #fff; text-transform: uppercase; }
+[data-s] { opacity: 0; transition: opacity .6s; }
+.on-1 [data-s="1"], .on-2 [data-s="1"], .on-3 [data-s="1"], .on-4 [data-s="1"],
+.on-2 [data-s="2"], .on-3 [data-s="2"], .on-4 [data-s="2"],
+.on-3 [data-s="3"], .on-4 [data-s="3"], .on-4 [data-s="4"] { opacity: 1; }
+
+svg.field { position: absolute; inset: 0; }
+svg text { font-family: var(--mono); }
+.star { fill: #fff; }
+
+/* rings: an idle dashed guide, plus a shield that draws itself in when its step arrives */
+.guide { fill: none; stroke: var(--line); stroke-width: 2; stroke-dasharray: 4 10; }
+.shield { opacity: 0; transition: opacity .3s; }
+.shield .draw { fill: none; stroke: var(--awake); stroke-width: 4; stroke-dasharray: var(--c); stroke-dashoffset: var(--c); filter: drop-shadow(0 0 10px rgba(69, 230, 160, .8)); }
+.shield .hum { fill: none; stroke: var(--awake); stroke-width: 10; opacity: .18; stroke-dasharray: 40 22; transform-origin: 520px 520px; animation: spin 24s linear infinite; }
+.shield .hum.rev { stroke-width: 2; opacity: .55; stroke-dasharray: 2 16; animation-duration: 40s; animation-direction: reverse; }
+.shield .flare { fill: none; stroke: #fff; stroke-width: 10; opacity: 0; filter: blur(4px); }
+.on-1 .sh1, .on-2 .sh1, .on-3 .sh1, .on-4 .sh1, .on-2 .sh2, .on-3 .sh2, .on-4 .sh2, .on-3 .sh3, .on-4 .sh3 { opacity: 1; }
+.on-1 .sh1 .draw, .on-2 .sh1 .draw, .on-3 .sh1 .draw, .on-4 .sh1 .draw,
+.on-2 .sh2 .draw, .on-3 .sh2 .draw, .on-4 .sh2 .draw,
+.on-3 .sh3 .draw, .on-4 .sh3 .draw { transition: stroke-dashoffset 1.1s cubic-bezier(.6, 0, .2, 1); stroke-dashoffset: 0; }
+.on-1 .sh1 .flare, .on-2 .sh2 .flare, .on-3 .sh3 .flare { animation: flare 1s ease-out 1s both; }
+@keyframes flare { from { opacity: .9; stroke-width: 14; } to { opacity: 0; stroke-width: 40; } }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.ci { fill: none; stroke: var(--cryo); stroke-width: 2; stroke-dasharray: 2 12; opacity: .4; transform-origin: 520px 520px; animation: spin 180s linear infinite; }
+.ci-frost { fill: none; stroke: var(--cryo); stroke-width: 14; opacity: .05; }
+.ci-t { fill: var(--cryo); opacity: .6; font: 700 18px var(--mono); letter-spacing: .14em; }
+.rl { fill: var(--muted); font: 700 18px var(--mono); letter-spacing: .1em; paint-order: stroke; stroke: #0b0d10; stroke-width: 6px; }
+.rl tspan { fill: var(--awake); }
+
+.core { fill: #0f1a15; stroke: var(--awake); stroke-width: 3; }
+.core-glow { fill: var(--awake); opacity: .15; transform-origin: 520px 520px; animation: beat 1.6s ease-in-out infinite; }
+@keyframes beat { 0%, 100% { transform: scale(1); opacity: .12; } 15% { transform: scale(1.18); opacity: .3; } 30% { transform: scale(1.04); opacity: .16; } }
+.sweep { transform-origin: 520px 520px; animation: spin 5s linear infinite; }
+.core-t { fill: #fff; font: 700 26px var(--head); letter-spacing: .1em; }
+
+/* swarm */
+.mut .lg line { stroke: var(--alien); stroke-width: 2.4; stroke-linecap: round; }
+.mut .bd { fill: #2a0610; stroke: var(--alien); stroke-width: 2.4; }
+.mut .ey { fill: var(--alien); }
+.mut { filter: drop-shadow(0 0 6px rgba(255, 59, 92, .8)); }
+.hit { fill: none; stroke: #fff; stroke-width: 6; stroke-linecap: round; filter: drop-shadow(0 0 8px var(--awake)); }
+.spark { stroke: var(--awake); stroke-width: 3; stroke-linecap: round; }
+.nit { fill: #fff; font: 600 16px var(--mono); paint-order: stroke; stroke: #0b0d10; stroke-width: 6px; }
+
+/* legend */
+.legend { position: absolute; left: 1030px; top: 200px; width: 500px; display: flex; flex-direction: column; gap: 16px; }
+.lg-c { position: relative; padding: 16px 20px; border-left: 4px solid var(--awake); background: rgba(69, 230, 160, .06); border-radius: 0 10px 10px 0; transition: background .15s; }
+.lg-c.flash { background: rgba(69, 230, 160, .22); transition: none; }
+.lg-c h4 { margin: 0; display: flex; justify-content: space-between; font: 700 24px var(--head); color: #fff; text-transform: uppercase; letter-spacing: .04em; }
+.lg-c h4 span { font: 700 18px var(--mono); color: var(--awake); }
+.lg-c p { margin: 6px 0 0; font: 17px/1.4 var(--mono); color: var(--muted); }
+.lg-c .n { position: absolute; right: 20px; bottom: 14px; font: 700 18px var(--mono); color: var(--awake); opacity: 0; transition: opacity .4s; }
+.on-4 .lg-c .n { opacity: 1; }
+.lg-c.ci { border-color: var(--cryo); background: rgba(159, 216, 240, .04); opacity: .5; }
+.lg-c.ci h4, .lg-c.ci h4 span { color: var(--cryo); }
+.tally { position: absolute; left: 1030px; top: 760px; width: 500px; font: 700 20px var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+.tally b { color: var(--awake); font-size: 30px; margin-right: 8px; }
+.tally .z { color: var(--alien); }
+</style>
+</head>
+<body>
+<main>
+  <h1 class="page">Hooks · defence rings v2</h1>
+  <p class="lead">Click the slide (or Next) to step. Step 4 keeps running: the swarm never stops, neither do the checks.</p>
+  <div class="wrap" data-steps="4"><div class="slide" id="slide">
+    <div class="hd"><small>Verification deck · Hooks</small><h3>Tighten the loop</h3></div>
+    <svg class="field" viewBox="0 0 1600 900">
+      <defs>
+        <radialGradient id="sweepG" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(520 520) scale(300)"><stop offset="0" stop-color="#45e6a0" stop-opacity=".35"/><stop offset="1" stop-color="#45e6a0" stop-opacity="0"/></radialGradient>
+      </defs>
+      <g id="stars"></g>
+      <circle class="ci-frost" cx="520" cy="520" r="350"/>
+      <circle class="ci" cx="520" cy="520" r="350"/>
+      <text class="ci-t" x="520" y="158" text-anchor="middle">❄ CI · 10 MIN · FROZEN</text>
+      <g id="rings"></g>
+      <path class="sweep" d="M520 520 L820 520 A300 300 0 0 0 779.8 370 Z" fill="url(#sweepG)" data-s="1"/>
+      <circle class="core-glow" cx="520" cy="520" r="80"/>
+      <circle class="core" cx="520" cy="520" r="62"/>
+      <text class="core-t" x="520" y="529" text-anchor="middle">AGENT</text>
+      <g id="swarm"></g>
+    </svg>
+    <div class="legend">
+      <div class="lg-c" data-s="1" id="lg1"><h4>LSP <span>~50 ms</span></h4><p>every keystroke · types, unknown symbols</p><span class="n">0</span></div>
+      <div class="lg-c" data-s="2" id="lg2"><h4>Agent hooks <span>~2 s</span></h4><p>every edit · format, lint, typecheck</p><span class="n">0</span></div>
+      <div class="lg-c" data-s="3" id="lg3"><h4>Git hooks <span>commit</span></h4><p>every commit · tests, commit message</p><span class="n">0</span></div>
+      <div class="lg-c ci"><h4>❄ CI <span>~10 min</span></h4><p>after the push · too late, too far</p></div>
+    </div>
+    <div class="tally" data-s="4"><b id="tot">0</b>nitpicks caught · <span class="z">0</span> reached CI</div>
+  </div></div>
+  <div class="ctl"><button data-act="prev">◀ Prev</button><button data-act="next">Next ▶</button><button data-act="reset">Reset</button><span id="cap"></span></div>
+</main>
+<script>
+const CX = 520, CY = 520, NS = 'http://www.w3.org/2000/svg';
+const R = [118, 190, 265];
+const LABELS = [['LSP', 'ms'], ['AGENT HOOKS', 's'], ['GIT HOOKS', 'commit']];
+
+document.getElementById('stars').innerHTML = Array.from({ length: 140 }, () => {
+  const x = Math.random() * 1600, y = Math.random() * 900;
+  return `<circle class="star" cx="${x.toFixed(0)}" cy="${y.toFixed(0)}" r="${(Math.random() * 1.3 + .3).toFixed(2)}" opacity="${(Math.random() * .35 + .05).toFixed(2)}"/>`;
+}).join('');
+
+document.getElementById('rings').innerHTML = R.map((r, i) => {
+  const c = (2 * Math.PI * r).toFixed(1);
+  return `<circle class="guide" cx="${CX}" cy="${CY}" r="${r}"/>
+  <g class="shield sh${i + 1}" style="--c:${c}">
+    <circle class="hum" cx="${CX}" cy="${CY}" r="${r}"/><circle class="hum rev" cx="${CX}" cy="${CY}" r="${r + 9}"/>
+    <circle class="draw" cx="${CX}" cy="${CY}" r="${r}" transform="rotate(-90 ${CX} ${CY})"/>
+    <circle class="flare" cx="${CX}" cy="${CY}" r="${r}"/>
+  </g>
+  <text class="rl" data-s="${i + 1}" x="${CX}" y="${CY - r - 12}" text-anchor="middle">${LABELS[i][0]} · <tspan>${LABELS[i][1]}</tspan></text>`;
+}).join('');
+
+/* layer each nitpick is caught by: 0 = LSP, 1 = agent hooks, 2 = git hooks */
+const NITS = [
+  ['unused import', 0], ['missing await', 0], ['unknown symbol', 0], ['implicit any', 0], ['unreachable code', 0], ['wrong arg type', 0],
+  ['import order', 1], ['prefer const', 1], ['trailing space', 1], ['no console.log', 1], ['max 1 blank line', 1], ['no any', 1], ['prettier', 1], ['kebab-case file', 1],
+  ['failing test', 2], ['commit msg > 72', 2], ['secret in diff', 2], ['TODO w/o ticket', 2],
+];
+const SPIDER = `<g class="lg">${[[-8, -4, -17, -11], [-9, 2, -18, 3], [-7, 7, -14, 15], [8, -4, 17, -11], [9, 2, 18, 3], [7, 7, 14, 15]].map(([a, b, c, d]) => `<line x1="${a}" y1="${b}" x2="${c}" y2="${d}"/>`).join('')}</g><ellipse class="bd" rx="10" ry="12"/><circle class="ey" cx="-3.5" cy="-4" r="2"/><circle class="ey" cx="3.5" cy="-4" r="2"/>`;
+const swarm = document.getElementById('swarm');
+const el = (tag, attrs, html) => { const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); if (html) e.innerHTML = html; return e; };
+const counts = [0, 0, 0];
+let total = 0, spawnTimer, lastAngle = 0;
+
+const arc = (r, a, span) => {
+  const p = d => [CX + Math.cos(d) * r, CY + Math.sin(d) * r].map(v => v.toFixed(1)).join(' ');
+  return `M${p(a - span)} A${r} ${r} 0 0 1 ${p(a + span)}`;
+};
+
+const spawn = () => {
+  const [name, layer] = NITS[Math.random() * NITS.length | 0];
+  lastAngle += 1.3 + Math.random() * 2.2;
+  const a = lastAngle % (2 * Math.PI), r = R[layer], from = 480 + Math.random() * 60;
+  const deg = a * 180 / Math.PI + 270;
+  const m = el('g', { class: 'mut' }, `<g transform="rotate(${deg.toFixed(1)}) scale(.95)">${SPIDER}</g>`);
+  swarm.appendChild(m);
+  const dur = 1400 + Math.random() * 900;
+  const pos = d => `translate(${(CX + Math.cos(a) * d).toFixed(1)}px, ${(CY + Math.sin(a) * d).toFixed(1)}px)`;
+  const wob = Math.sin(a * 7) * 6;
+  m.animate([{ transform: pos(from), opacity: 0 }, { transform: pos(from - 40), opacity: 1, offset: .12 }, { transform: `${pos((from + r) / 2)} translateX(${wob}px)` }, { transform: pos(r + 14), opacity: 1 }], { duration: dur, easing: 'cubic-bezier(.3, 0, .8, .7)' })
+    .onfinish = () => { m.remove(); hit(a, layer, name); };
+};
+
+const hit = (a, layer, name) => {
+  const r = R[layer];
+  const h = el('path', { class: 'hit', d: arc(r, a, .14) });
+  swarm.appendChild(h);
+  h.animate([{ opacity: 1, strokeWidth: 8 }, { opacity: 0, strokeWidth: 2 }], { duration: 700, easing: 'ease-out' }).onfinish = () => h.remove();
+  for (let i = 0; i < 7; i++) {
+    const d = a + (Math.random() - .5) * 1.6, x = CX + Math.cos(a) * (r + 6), y = CY + Math.sin(a) * (r + 6);
+    const len = 22 + Math.random() * 30;
+    const s = el('line', { class: 'spark', x1: x, y1: y, x2: x + Math.cos(d) * 8, y2: y + Math.sin(d) * 8 });
+    swarm.appendChild(s);
+    s.animate([{ transform: 'translate(0,0)', opacity: 1 }, { transform: `translate(${Math.cos(d) * len}px, ${Math.sin(d) * len}px)`, opacity: 0 }], { duration: 500 + Math.random() * 300, easing: 'ease-out' }).onfinish = () => s.remove();
+  }
+  const tr = r + 34, tx = CX + Math.cos(a) * tr, ty = CY + Math.sin(a) * tr + 5;
+  const anchor = Math.cos(a) < -.3 ? 'end' : Math.cos(a) > .3 ? 'start' : 'middle';
+  const t = el('text', { class: 'nit', x: tx.toFixed(1), y: ty.toFixed(1), 'text-anchor': anchor });
+  t.textContent = name;
+  swarm.appendChild(t);
+  t.animate([{ opacity: 0, transform: 'translateY(4px)' }, { opacity: 1, transform: 'translateY(0)', offset: .12 }, { opacity: 1, offset: .7 }, { opacity: 0 }], { duration: 1800 }).onfinish = () => t.remove();
+  counts[layer]++; total++;
+  const card = document.getElementById('lg' + (layer + 1));
+  card.querySelector('.n').textContent = counts[layer] + ' caught';
+  card.classList.add('flash'); setTimeout(() => card.classList.remove('flash'), 120);
+  document.getElementById('tot').textContent = total;
+};
+
+const swarmOn = on => {
+  clearInterval(spawnTimer);
+  if (!on) { swarm.innerHTML = ''; counts.fill(0); total = 0; document.getElementById('tot').textContent = 0; document.querySelectorAll('.lg-c .n').forEach(n => n.textContent = '0'); return; }
+  spawn(); spawnTimer = setInterval(spawn, 260);
+};
+
+const wrap = document.querySelector('.wrap'), slide = document.getElementById('slide'), cap = document.getElementById('cap'), max = +wrap.dataset.steps;
+let st = 0;
+const go = n => {
+  st = Math.max(0, Math.min(max, n));
+  slide.classList.remove('on-1', 'on-2', 'on-3', 'on-4'); if (st) slide.classList.add('on-' + st);
+  cap.textContent = `step ${st}/${max}`;
+  swarmOn(st === 4);
+};
+wrap.addEventListener('click', () => go(st + 1));
+document.querySelector('.ctl').addEventListener('click', e => { const a = e.target.dataset.act; if (a === 'next') go(st + 1); if (a === 'prev') go(st - 1); if (a === 'reset') go(0); });
+go(0);
+const fit = () => { slide.style.transform = 'scale(' + (wrap.clientWidth / 1600) + ')'; };
+addEventListener('resize', fit); fit();
+</script>
+</body>
+</html>
