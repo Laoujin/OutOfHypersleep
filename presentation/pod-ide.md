@@ -19,7 +19,6 @@ fonts:
   mono: IBM Plex Mono
   weights: '400,500,600,700'
 pod:
-  wip: true
   id: ide
   name: The IDE
   sub: Eclipse · Visual Studio · IntelliJ
@@ -28,11 +27,11 @@ pod:
   frozen: 1983
   born: 1983
   died: 2025
-  power: 4
+  power: 5
   fate: dead
   score:
-    alive: 40
-    dead: -40
+    alive: 50
+    dead: -30
   was: Forty years of features to help a human type code faster.
   diesBecause: Nobody types the code anymore. You read diffs in a terminal.
   takeaway: Its language server got a new job.
@@ -63,7 +62,7 @@ clicks: 2
 
 <!--
 Background: Turbo Pascal, 1983, as the first popular IDE (to verify). Death year placeholder.
-Costs the audience this vote, alien +40.
+Costs the audience this vote, alien +30.
 
 Forty years of features, all built for a human at a keyboard.
 [click] The agent does all of that itself.
