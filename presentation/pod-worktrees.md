@@ -52,7 +52,7 @@ routeAlias: worktrees-froze
 ---
 layout: hs
 routeAlias: worktrees-damage
-clicks: 5
+clicks: 11
 ---
 
 <Hs id="worktrees-damage" />
@@ -66,21 +66,9 @@ What changed: several agents in one checkout trample each other.
 [click] Reactor unstable: the dev server rebuilds and reloads on every save of every agent.
 [click] Life support: the test run is red because of another agent's half-finished work.
 [click] All agents, one compartment.
--->
-
----
-layout: hs
-routeAlias: worktrees-sealed
-clicks: 5
----
-
-<Hs id="worktrees-sealed" />
-
-<!--
-Seal the bulkheads: one worktree per agent.
-
+[click] Sealing the bulkheads: one worktree per agent.
 [click] Working tree: separate directories. .worktreeinclude (Claude Code, not git) copies .env and friends into the new worktree.
-[click] Git state: all worktrees share one .git: one object store, no re-clone. The keel of the ship.
+[click] Git state: all worktrees share one .git: one object store, no re-clone.
 [click] Dev server: each worktree its own port. pnpm or bun hardlink node_modules, so N installs cost almost nothing.
 [click] Test run: each agent only runs its own code, against its own testcontainer.
 [click] git worktree add. That's it.

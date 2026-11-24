@@ -260,16 +260,14 @@ import soCsv from '../data/stackoverflow-questions.csv?raw';
         ['Reactor unstable', 'Reactor stable', 'dev server', 'It rebuilds &amp; reloads all the time.', 'Own port.<br>Hardlinked <code>node_modules</code> (pnpm, bun).'],
         ['Life support', 'Life support', 'test run', 'Red, from the other agent\'s in-progress work.', 'Own code only.<br>Own testcontainer.'],
       ];
-      const hull = (id, zones, walls, extra = '') => `<svg class="wt-hull" viewBox="0 0 1600 900">
-        <defs><clipPath id="${id}"><path d="${HULL}"/></clipPath></defs>
-        <g clip-path="url(#${id})">${zones}</g>
+      const hull = () => `<svg class="wt-hull" viewBox="0 0 1600 900">
+        <defs><clipPath id="wt-clip"><path d="${HULL}"/></clipPath></defs>
+        <g clip-path="url(#wt-clip)">${XS.map((x, i) => `<rect class="wt-zone bad" data-s="${i + 1}" x="${x}" y="240" width="370" height="520"/><rect class="wt-zone ok z${i + 1}" x="${x}" y="240" width="370" height="520"/>`).join('')}</g>
         <path class="wt-shell" d="${HULL}"/>
-        ${[430, 800, 1170].map(x => `<line class="${walls}" x1="${x}" y1="256" x2="${x}" y2="744"/>`).join('')}
-        ${extra}
+        ${[430, 800, 1170].map((x, i) => `<line class="wt-wall w${i + 1}" x1="${x}" y1="256" x2="${x}" y2="744"/>`).join('')}
       </svg>`;
-      const zone = (i, cls, s = '') => `<rect class="wt-zone ${cls}" ${s ? `data-s="${s}"` : ''} x="${XS[i]}" y="240" width="370" height="520"/>`;
-      const sec = (i, cls, title, desc, attr) => `<div class="wt-sec ${cls}" ${attr} style="left:${POS[i][0]}px;width:${POS[i][1]}px">
-        <div class="t"><i></i><span>${title}<small>${SECS[i][2]}</small></span></div><div class="d">${desc}</div></div>`;
+      const sec = (s, i) => `<div class="wt-sec z${i + 1}" data-s="${i + 1}" style="left:${POS[i][0]}px;width:${POS[i][1]}px">
+        <div class="t"><i></i><span><b class="r">${s[0]}</b><b class="g">${s[1]}</b><small>${s[2]}</small></span></div><div class="d"><span class="r">${s[3]}</span><span class="g">${s[4]}</span></div></div>`;
       const BADGES = [
         ['auth', '#ff9d5c', 'M600 420 C 420 470, 220 520, 0 580', 'left:70px;top:540px'],
         ['pdf-export', '#2dd4bf', 'M965 420 C 1150 470, 1350 520, 1600 560', 'right:30px;top:500px'],
@@ -279,17 +277,11 @@ import soCsv from '../data/stackoverflow-questions.csv?raw';
         ['fix-i18n', '#60a5fa', 'M965 385 C 1130 385, 1340 395, 1600 420', 'right:30px;top:330px'],
       ];
       return [{
-        slug: 'damage', title: 'Damage report', full: true, steps: 6, cls: 'wt wt-damage',
-        body: () => `<div data-s="5">${HS.marquee('⚠ ALL AGENTS · ONE COMPARTMENT ·')}</div>
-          ${hull('wt-c1', SECS.map((_, i) => zone(i, 'bad', i + 1)).join(''), 'wt-open')}
-          ${SECS.map((s, i) => sec(i, 'bad', s[0], s[3], `data-s="${i + 1}"`)).join('')}`,
-      }, {
-        slug: 'sealed', title: 'Seal the bulkheads', full: true, steps: 6, cls: 'wt wt-sealed',
-        body: () => `${hull('wt-c2', SECS.map((_, i) => zone(i, 'bad') + zone(i, 'ok', i + 1)).join(''), 'wt-bulk',
-            '<line class="wt-keel" data-s="2" x1="300" y1="772" x2="1300" y2="772"/>')}
-          <div class="wt-keeltag" data-s="2">.git · one object store · the keel</div>
-          ${SECS.map((s, i) => sec(i, 'flip', s[1], s[4], `data-z="${i + 1}"`)).join('')}
-          <div class="wt-cmd" data-s="5">$ git worktree add ../app-auth -b auth   <span># one per agent</span></div>`,
+        slug: 'damage', title: '<span class="wt-ta">Damage report</span><span class="wt-tb">Sealing the bulkheads</span>', full: true, steps: 12, cls: 'wt wt-damage',
+        body: () => `<div class="wt-bars">${HS.marquee('⚠ ALL AGENTS · ONE COMPARTMENT ·')}</div>
+          ${hull()}
+          ${SECS.map(sec).join('')}
+          <div class="wt-cmd">$ git worktree add ../app-auth -b auth   <span># one per agent</span></div>`,
       }, {
         slug: 'core', title: 'One .git, a worktree per agent', full: true, steps: 1, cls: 'wt wt-core',
         body: () => `<div class="wt-plate" style="--plate-img: url('${import.meta.env.BASE_URL}plates/pod-worktrees.webp')"></div>
