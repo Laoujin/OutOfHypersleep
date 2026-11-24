@@ -96,7 +96,7 @@ routeAlias: spec-cascade
 
 <!--
 Same cascade, same documents. The reader is an agent and does exactly what's written. Hours are illustrative.
-14 months → 10 hours. Big Design Up Front is cheap now; a vague prompt is the expensive part.
+14 months → under 10 hours. Big Design Up Front is cheap now; a vague prompt is the expensive part.
 -->
 
 ---

@@ -584,7 +584,7 @@ import soCsv from '../data/stackoverflow-questions.csv?raw';
         caps: [],
       }, {
         slug: 'cascade', title: 'The waterfall, at agent speed',
-        body: `${cascade([['spec.md', '2 hours'], ['plan.md', '1 hour'], ['tasks.md', '1 hour'], ['implement', '4 hours'], ['review', '2 hours']], 'mono green')}</svg>`,
+        body: `${cascade([['spec.md', '3 hours'], ['plan.md', '20 min'], ['tasks.md', '20 min'], ['implement', '4 hours'], ['review', '2 hours']], 'mono green')}</svg>`,
       }];
     })(),
     stackoverflow: [{
