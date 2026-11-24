@@ -323,16 +323,106 @@ import soCsv from '../data/stackoverflow-questions.csv?raw';
       </svg>`,
       caps: ['One agent, one terminal.', 'The dev server needs a pane.', 'Four panes: two agents, a dev server, a test watcher.', 'The surprise: the agent <b>reads the other panes itself</b>.'],
     }],
-    mergequeue: [{
-      slug: 'why', title: 'Green alone, red together',
-      body: `<svg viewBox="0 0 1000 560">
-        <path class="main" d="M40 470 H960"/><text class="lbl" x="40" y="520">main</text>
-        <g data-s="1">${[0, 1, 2, 3, 4].map(i => `<path class="branch" d="M${100 + i * 120} 470 C ${100 + i * 120} 380, ${150 + i * 120} 360, ${170 + i * 120} ${300 - i * 40}"/><circle class="ok-dot" cx="${170 + i * 120}" cy="${300 - i * 40}" r="16"/><text class="lbl green" x="${170 + i * 120}" y="${300 - i * 40 + 6}" text-anchor="middle">✓</text><text class="mono dim" x="${170 + i * 120}" y="${270 - i * 40}" text-anchor="middle">agent-${i + 1}</text>`).join('')}</g>
-        <g data-s="2" data-o="3">${[0, 1, 2, 3, 4].map(i => `<path class="merge" d="M${170 + i * 120} ${300 - i * 40} C ${600 + i * 20} 300, 760 420, 820 470"/>`).join('')}<circle class="bad-dot" cx="840" cy="470" r="26"/><text class="lbl red" x="840" y="478" text-anchor="middle">✗</text><text class="lbl red" x="840" y="430" text-anchor="middle">main is red</text></g>
-        <g data-s="3">${['#1', '#1+2', '#1+2+3', '#1+2+4', '#1+2+4+5'].map((t, i) => `<rect class="qbox ${i === 2 ? 'bad' : 'ok'}" x="${700}" y="${40 + i * 70}" width="250" height="54" rx="10"/><text class="mono ${i === 2 ? 'red' : 'green'}" x="${720}" y="${74 + i * 70}">${i === 2 ? '✗' : '✓'} main + ${t.slice(1)}</text>`).join('')}<circle class="ok-dot" cx="940" cy="470" r="20"/><text class="lbl green" x="940" y="477" text-anchor="middle">✓</text><text class="lbl dim" x="950" y="420" text-anchor="end">#3 bounced, main stays green</text></g>
-      </svg>`,
-      caps: ['main is green.', 'Five agents, five green branches.', 'Each green alone. Merged together: <b>main is red</b>.', 'A merge queue tests each PR <b>on top of the ones before it</b>. main never breaks.'],
-    }],
+    mergequeue: (() => {
+      const crawler = (x, y, s = 1, cls = '', attr = '') => `<g ${attr}><g class="mq-crawler ${cls}" transform="translate(${x} ${y}) scale(${s})">
+        <rect class="tr" x="0" y="50" width="104" height="18" rx="9"/>
+        <path class="bd" d="M6 52 L12 16 L70 6 L98 22 L106 52 Z"/>
+        <path class="wn" d="M74 13 L94 24 L91 32 L72 28 Z"/>
+        <rect class="st" x="10" y="38" width="92" height="6"/>
+        <circle class="lp" cx="103" cy="46" r="4"/>
+      </g></g>`;
+      const tag = (x, y, t, cls = '', attr = '') => `<text class="mq-tag ${cls}" ${attr} x="${x}" y="${y}" text-anchor="middle">${t}</text>`;
+      const commit = (y, t, cls = '', attr = '') => `<g class="mq-commit ${cls}" ${attr}><circle cx="1130" cy="${y}" r="13"/><text x="1162" y="${y + 7}">${t}</text></g>`;
+      const line = (s, t, cls = '') => `<div class="l ${cls}" data-s="${s}">${t}</div>`;
+      const CONVOY = ['fix/totals', 'chore/deps', 'feat/wishlist', 'fix/i18n', 'feat/gift-cards'];
+      const STATIONS = ['rebase onto main', 'build', 'test', 'merge --ff-only'];
+      const cap = (s, t, last) => `<div class="mq-cap" data-s="${s}" ${last ? '' : `data-o="${s + 1}"`}>${t}</div>`;
+      return [{
+        slug: 'race', title: 'main moved under me', full: true, steps: 5, cls: 'mq mq-race',
+        body: () => `<div data-s="4">${HS.marquee('⚠ MAIN MOVED · AGAIN ·')}</div>
+          <div class="mq-term">
+            ${line(0, '❯ finish the checkout refactor and land it on main', 'you')}
+            ${line(0, '● bun test <span>⎿ 128 pass, 0 fail</span>')}
+            ${line(0, '✓ Green. Ready to land.', 'ok')}
+            ${line(1, '● git merge --ff-only feat/checkout')}
+            ${line(1, '<span>⎿ fatal: Not possible to fast-forward</span>', 'bad')}
+            ${line(2, '● git rebase main <span>⎿ no conflicts</span>')}
+            ${line(2, '● bun run build <span>⎿ Cannot find name \'calcTotals\'</span>', 'bad')}
+            ${line(2, '✗ No conflict. Still broken.', 'bad')}
+            ${line(3, '● fix 3 call sites · rebase · test <span>⎿ green</span>')}
+            ${line(3, '● git merge --ff-only <span>⎿ fatal: Not possible to fast-forward</span>', 'bad')}
+            ${line(4, '✗ main moves faster than I can rebase onto it.', 'bad big')}
+          </div>
+          <svg class="mq-svg" viewBox="0 0 1600 900">
+            <line class="mq-rail" x1="1130" y1="830" x2="1130" y2="250"/>
+            <text class="mq-railtag" x="1105" y="838" text-anchor="end">main</text>
+            ${commit(800, 'chore/lockfile')}${commit(735, 'fix/cart')}${commit(670, 'feat/auth')}
+            <g class="mq-base"><path d="M1060 670 H1112"/><text x="1050" y="677" text-anchor="end">based here</text></g>
+            ${commit(605, 'fix/i18n', 'new', 'data-s="1"')}
+            ${commit(540, 'feat/discount', 'new', 'data-s="2"')}
+            <text class="mq-rename" data-s="2" x="1162" y="578">calcTotals → computeTotals</text>
+            ${commit(475, 'chore/deps', 'new', 'data-s="3"')}${commit(410, 'fix/tax', 'new', 'data-s="3"')}
+            ${commit(345, 'feat/wishlist', 'new', 'data-s="4"')}${commit(280, 'fix/stale-cart', 'new', 'data-s="4"')}
+          </svg>`,
+      }, {
+        slug: 'lander', title: 'One lane to main', full: true, steps: 7, cls: 'mq mq-lander',
+        body: () => `<svg class="mq-svg" viewBox="0 0 1600 900">
+            <path class="mq-tunnel" d="M30 700 V400 Q30 300 130 300 H700 V700 Z"/>
+            ${[120, 240, 360, 480, 600].map(x => `<line class="mq-lamp" x1="${x}" y1="312" x2="${x + 60}" y2="312"/>`).join('')}
+            <line class="mq-floor" x1="30" y1="660" x2="700" y2="660"/>
+            <g data-s="1">${CONVOY.map((n, i) => `<g ${i ? '' : 'data-o="6"'}>${crawler(560 - i * 130, 560, 1, i === 0 ? 'next' : '')}${tag(613 - i * 130, i % 2 ? 700 : 540, n)}</g>`).join('')}</g>
+            <rect class="mq-lock" x="720" y="300" width="400" height="400" rx="18"/>
+            <text class="mq-locktag" x="920" y="282" text-anchor="middle">the airlock</text>
+            ${crawler(860, 330, 1.15, 'in', 'data-o="6"')}${tag(920, 435, 'feat/checkout', 'in', 'data-o="6"')}
+            ${crawler(860, 330, 1.15, 'bad', 'data-s="6"')}${tag(920, 435, 'fix/totals', 'red', 'data-s="6"')}
+            ${STATIONS.map((t, i) => `<g class="mq-station" data-z="${i + 2}"><circle cx="770" cy="${490 + i * 52}" r="10"/><text x="796" y="${498 + i * 52}">${t}</text></g>`).join('')}
+            <g class="mq-x" data-s="6"><circle cx="770" cy="594" r="10"/><text x="1000" y="602">✗ red</text></g>
+            <path class="mq-bounce" data-s="6" d="M920 700 C 920 760, 820 780, 640 780"/>
+            <text class="mq-tag red" data-s="6" x="625" y="787" text-anchor="end">back to its agent</text>
+            <path class="mq-arrow" d="M1130 500 H1210"/>
+            <line class="mq-rail ok" x1="1330" y1="760" x2="1330" y2="300"/>
+            <text class="mq-railtag" x="1330" y="800" text-anchor="middle">main · always green</text>
+            ${['chore/lockfile', 'fix/cart', 'feat/auth', 'fix/i18n'].map((t, i) => `<g class="mq-commit ok"><circle cx="1330" cy="${720 - i * 70}" r="13"/><text x="1360" y="${727 - i * 70}">${t}</text></g>`).join('')}
+            <g class="mq-commit ok new" data-s="5"><circle cx="1330" cy="440" r="13"/><text x="1360" y="447">feat/checkout</text></g>
+          </svg>
+          ${cap(1, 'Every branch joins one queue.')}
+          ${cap(2, 'Rebase onto the <b>latest</b> main.')}
+          ${cap(3, 'Build that exact commit.')}
+          ${cap(4, 'Test the commit that <b>will</b> land.')}
+          ${cap(5, 'Fast-forward. Nobody else lands in between.')}
+          ${cap(6, 'Red? Bounce it back to its agent. The queue keeps moving.', true)}`,
+      }, {
+        slug: 'jam', title: 'The next bottleneck', full: true, steps: 4, cls: 'mq mq-jam',
+        body: () => `<svg class="mq-svg" viewBox="0 0 1600 900">
+            <line class="mq-floor" x1="40" y1="390" x2="1400" y2="390"/>
+            ${Array.from({ length: 14 }, (_, i) => crawler(1310 - i * 92, 330, 0.8)).join('')}
+            <rect class="mq-lock" x="1420" y="290" width="150" height="120" rx="14"/>
+            <text class="mq-locktag" x="1495" y="440" text-anchor="middle">airlock</text>
+            <g data-s="1" data-o="3">
+              <rect class="mq-batch" x="80" y="500" width="620" height="180" rx="16"/>
+              ${['A', 'B', 'C', 'D'].map((t, i) => crawler(110 + i * 145, 560, 0.9) + tag(160 + i * 145, 545, t)).join('')}
+              <text class="mq-tag big" x="390" y="730" text-anchor="middle">main + A + B + C + D · one run</text>
+            </g>
+            <g data-s="2" data-o="3" class="mq-bisect">
+              <rect class="node bad" x="1000" y="490" width="240" height="56" rx="10"/><text x="1120" y="527" text-anchor="middle">✗ A B C D</text>
+              <path d="M1080 546 L 960 600 M1160 546 L 1280 600"/>
+              <rect class="node ok" x="860" y="600" width="200" height="56" rx="10"/><text x="960" y="637" text-anchor="middle">✓ A B</text>
+              <rect class="node bad" x="1180" y="600" width="200" height="56" rx="10"/><text x="1280" y="637" text-anchor="middle">✗ C D</text>
+              <path d="M1240 656 L 1190 710 M1320 656 L 1370 710"/>
+              <rect class="node bad" x="1120" y="710" width="140" height="56" rx="10"/><text x="1190" y="747" text-anchor="middle">✗ C</text>
+              <rect class="node ok" x="1300" y="710" width="140" height="56" rx="10"/><text x="1370" y="747" text-anchor="middle">✓ D</text>
+            </g>
+          </svg>
+          <div class="mq-big" data-o="1">20 agents × 10 min pipeline<small>the last one lands after 3h20</small></div>
+          ${cap(1, 'Batch: test four at once. Green? All four land.')}
+          ${cap(2, 'Red? Bisect the batch, bounce the culprit.')}
+          <div class="mq-ft" data-s="3">
+            <div class="drop">✗ run the full suite on every merge</div>
+            <div class="cost">! main is red. A lot.</div>
+            <div class="keep">✓ a dedicated fix-forward agent</div>
+          </div>`,
+      }];
+    })(),
     trailers: [{
       slug: 'why', title: 'We all hate them', sub: 'Since our agent made its first commit',
       body: `<div class="term-block cmd"><div class="mono">$ git commit -m "feat: let the audience vote on pods" \\</div><div class="mono">    <span class="trailer-hl">--trailer "Co-Authored-By: Claude &lt;noreply@anthropic.com&gt;"</span></div></div>

@@ -49,7 +49,7 @@ code, .mono-i { font-family: var(--mono); font-size: .88em; color: var(--frost);
 svg [data-s] { transform: none; }
 [data-s="0"] { opacity: 1; transform: none; }
 .s1 [data-s="1"], .s2 [data-s="2"], .s3 [data-s="3"], .s4 [data-s="4"], .s5 [data-s="5"], .s6 [data-s="6"], .s7 [data-s="7"], .s8 [data-s="8"], .s9 [data-s="9"] { opacity: 1; transform: none; }
-.s1 [data-o="1"], .s2 [data-o="2"], .s3 [data-o="3"], .s4 [data-o="4"] { opacity: 0 !important; pointer-events: none; }
+.s1 [data-o="1"], .s2 [data-o="2"], .s3 [data-o="3"], .s4 [data-o="4"], .s5 [data-o="5"], .s6 [data-o="6"], .s7 [data-o="7"], .s8 [data-o="8"], .s9 [data-o="9"] { opacity: 0 !important; pointer-events: none; }
 [data-o] { transition: opacity .45s ease; }
 
 /* pod artwork */
@@ -748,3 +748,67 @@ header .sub { font-size: 26px; color: var(--muted); margin-top: 6px; }
 .wt-ring { fill: none; stroke: var(--awake); stroke-width: 3; stroke-dasharray: 10 8; filter: drop-shadow(0 0 10px var(--awake)); }
 .wt-badge { position: absolute; display: flex; align-items: center; gap: 8px; padding: 6px 14px 6px 10px; border-radius: 999px; background: rgba(4, 14, 10, .86); border: 1.5px solid var(--awake); box-shadow: 0 0 16px rgba(69, 230, 160, .35); font: 600 20px var(--mono); color: #fff; white-space: nowrap; }
 .wt-badge b { width: 22px; height: 22px; border-radius: 50%; border: 2px solid #fff; flex: none; }
+.mq-svg { position: absolute; left: 0; top: 0; width: 1600px; height: 900px; }
+.mq-crawler .tr { fill: #1c2228; stroke: #0c0f12; stroke-width: 2; }
+.mq-crawler .bd { fill: #46525e; stroke: #222a32; stroke-width: 2; }
+.mq-crawler .wn { fill: #ffcf7a; opacity: .55; }
+.mq-crawler .st { fill: #d9822b; }
+.mq-crawler .lp { fill: var(--amber); filter: drop-shadow(0 0 6px var(--amber)); }
+.mq-crawler.in .bd, .mq-crawler.next .bd { stroke: var(--int); stroke-width: 3; }
+.mq-crawler.bad .bd { stroke: var(--alien); stroke-width: 3; }
+.mq-crawler.bad .st, .mq-crawler.bad .lp { fill: var(--alien); }
+.mq-tag { font: 500 17px var(--mono); fill: var(--ink); }
+.mq-tag.in { fill: var(--int); font-weight: 700; }
+.mq-tag.red { fill: var(--alien); font-weight: 700; }
+.mq-tag.big { font-size: 24px; fill: var(--int); }
+.mq-rail { stroke: var(--muted); stroke-width: 6; stroke-linecap: round; }
+.mq-rail.ok { stroke: var(--awake); filter: drop-shadow(0 0 6px var(--awake)); }
+.mq-railtag { font: 700 20px var(--mono); fill: var(--muted); letter-spacing: .1em; text-transform: uppercase; }
+.mq-commit circle { fill: #1a1f26; stroke: var(--muted); stroke-width: 4; }
+.mq-commit text { font: 500 20px var(--mono); fill: var(--muted); }
+.mq-commit.new circle { stroke: var(--amber); fill: #3a2a10; }
+.mq-commit.new text { fill: var(--amber); }
+.mq-commit.ok circle { stroke: var(--awake); }
+.mq-commit.ok text { fill: var(--ink); }
+.mq-commit.ok.new circle { fill: var(--awake); }
+.mq-rename { font: 500 17px var(--mono); fill: var(--alien); }
+.mq-base path { stroke: var(--int); stroke-width: 3; stroke-dasharray: 6 6; }
+.mq-base text { font: 500 18px var(--mono); fill: var(--int); }
+.mq-term { position: absolute; left: 70px; top: 250px; width: 900px; padding: 26px 30px; background: #06080b; border: 1px solid var(--line); border-radius: 12px; font: 500 22px/1.6 var(--mono); color: var(--ink); }
+.mq-term span { color: var(--muted); }
+.mq-term .you { color: var(--int); }
+.mq-term .ok { color: var(--awake); }
+.mq-term .bad, .mq-term .bad span { color: var(--alien); }
+.mq-term .big { font-weight: 700; font-size: 25px; margin-top: 6px; }
+.mq-race .alarm-bar, .mq-jam .alarm-bar { padding: 0; height: 40px; display: flex; align-items: center; color: #fff; text-shadow: 0 1px 2px rgba(0,0,0,.6); font: 700 17px var(--mono); letter-spacing: .2em; background: repeating-linear-gradient(-45deg, var(--alien) 0 24px, #c2203d 24px 48px); animation: none; }
+.mq-tunnel { fill: rgba(111, 182, 232, .04); stroke: var(--line); stroke-width: 3; }
+.mq-lamp { stroke: #cfefff; stroke-width: 5; stroke-linecap: round; filter: drop-shadow(0 0 8px #9fd8f0); opacity: .8; }
+.mq-floor { stroke: #3a4350; stroke-width: 3; stroke-dasharray: 18 12; }
+.mq-lock { fill: rgba(179, 154, 224, .06); stroke: var(--int); stroke-width: 4; }
+.mq-locktag { font: 700 20px var(--mono); fill: var(--int); letter-spacing: .14em; text-transform: uppercase; }
+.mq-station circle { fill: #1a1f26; stroke: var(--muted); stroke-width: 3; transition: fill .4s, stroke .4s; }
+.mq-station text { font: 500 24px var(--mono); fill: var(--muted); transition: fill .4s; }
+.s2 .mq-station[data-z="2"] circle, .s3 .mq-station[data-z="3"] circle, .s4 .mq-station[data-z="4"] circle, .s5 .mq-station[data-z="5"] circle { fill: var(--awake); stroke: var(--awake); filter: drop-shadow(0 0 6px var(--awake)); }
+.s2 .mq-station[data-z="2"] text, .s3 .mq-station[data-z="3"] text, .s4 .mq-station[data-z="4"] text, .s5 .mq-station[data-z="5"] text { fill: var(--ink); }
+.s6 .mq-station[data-z="4"] text { fill: var(--alien); }
+.s6 .mq-station[data-z="5"] circle { fill: #1a1f26; stroke: var(--muted); filter: none; }
+.s6 .mq-station[data-z="5"] text { fill: var(--muted); }
+.mq-x circle { fill: var(--alien); filter: drop-shadow(0 0 6px var(--alien)); }
+.mq-x text { font: 700 24px var(--mono); fill: var(--alien); }
+.mq-bounce { fill: none; stroke: var(--alien); stroke-width: 4; stroke-dasharray: 10 8; }
+.mq-arrow { stroke: var(--int); stroke-width: 5; marker-end: none; }
+.mq-cap { position: absolute; left: 0; right: 0; bottom: 30px; text-align: center; font: 400 32px var(--sans); color: var(--ink); }
+.mq-cap b { color: var(--int); }
+.mq-batch { fill: rgba(69, 230, 160, .06); stroke: var(--awake); stroke-width: 3; stroke-dasharray: 12 8; }
+.mq-bisect path { fill: none; stroke: var(--muted); stroke-width: 3; }
+.mq-bisect .node { fill: #06080b; stroke-width: 3; }
+.mq-bisect .node.ok { stroke: var(--awake); }
+.mq-bisect .node.bad { stroke: var(--alien); }
+.mq-bisect text { font: 600 22px var(--mono); fill: var(--ink); }
+.mq-big { position: absolute; left: 0; right: 0; top: 520px; text-align: center; font: 700 56px var(--head); text-transform: uppercase; color: var(--ink); }
+.mq-big small { display: block; font: 400 30px var(--sans); text-transform: none; color: var(--amber); margin-top: 12px; }
+.mq-ft { position: absolute; left: 0; right: 0; top: 490px; display: flex; flex-direction: column; align-items: center; gap: 22px; font: 500 32px var(--mono); }
+.mq-ft .drop { color: var(--muted); text-decoration: line-through; }
+.mq-ft .cost { color: var(--amber); }
+.mq-ft .keep { color: var(--awake); }
+.s2 .mq-batch { stroke: var(--alien); fill: rgba(255, 59, 92, .06); }
