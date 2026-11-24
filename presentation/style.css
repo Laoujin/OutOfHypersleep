@@ -714,7 +714,9 @@ header .sub { font-size: 26px; color: var(--muted); margin-top: 6px; }
 .wt-tb { display: none; }
 .wt.s6 .wt-ta { display: none; } .wt.s6 .wt-tb { display: inline; }
 .wt-bars { opacity: 0; transition: opacity .55s ease; }
-.wt.s5 .wt-bars { opacity: 1; }
+.wt.s5 .wt-bars:not(.done) { opacity: 1; }
+.wt.s10 .wt-bars:not(.done) { opacity: 0; }
+.wt.s10 .wt-bars.done { opacity: 1; }
 .wt-damage .wt-bars .alarm-bar { transition: color .8s, text-shadow .8s; }
 .wt-damage.s7 .wt-bars .alarm-bar { color: #06120c; text-shadow: none; }
 .wt-damage .alarm-bar { padding: 0; height: 40px; display: flex; align-items: center; color: #fff; text-shadow: 0 1px 2px rgba(0,0,0,.6); font: 700 17px var(--mono); letter-spacing: .2em; animation: none;

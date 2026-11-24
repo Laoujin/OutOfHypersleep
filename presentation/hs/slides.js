@@ -278,7 +278,7 @@ import soCsv from '../data/stackoverflow-questions.csv?raw';
       ];
       return [{
         slug: 'damage', title: '<span class="wt-ta">Damage report</span><span class="wt-tb">Sealing the bulkheads</span>', full: true, steps: 12, cls: 'wt wt-damage',
-        body: () => `<div class="wt-bars">${HS.marquee('⚠ ALL AGENTS · ONE COMPARTMENT ·')}</div>
+        body: () => `<div class="wt-bars">${HS.marquee('⚠ ALL AGENTS · ONE COMPARTMENT ·')}</div><div class="wt-bars done">${HS.marquee('✓ ALL COMPARTMENTS SEALED · ALL AGENTS GREEN ·')}</div>
           ${hull()}
           ${SECS.map(sec).join('')}
           <div class="wt-cmd">$ git worktree add ../app-auth -b auth</div>`,
