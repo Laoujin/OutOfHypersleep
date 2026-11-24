@@ -604,7 +604,7 @@ import soCsv from '../data/stackoverflow-questions.csv?raw';
       };
 
       return [{
-        slug: 'loop', title: 'Tighten the loop', full: true, steps: 4, cls: 'hk',
+        slug: 'loop', title: 'Tighten the loop', full: true, steps: 5, cls: 'hk',
         body: () => `<div class="hk-stage">
           <svg class="hk-field" viewBox="0 0 1600 900">
             <defs><radialGradient id="hkSweep" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(${CX} ${CY}) scale(300)"><stop offset="0" stop-color="#45e6a0" stop-opacity=".35"/><stop offset="1" stop-color="#45e6a0" stop-opacity="0"/></radialGradient></defs>
