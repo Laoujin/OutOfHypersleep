@@ -682,7 +682,7 @@ import soCsv from '../data/stackoverflow-questions.csv?raw';
       })(),
       caps: ['2008–2014: the place every developer went.', 'Then a long, slow plateau.', 'Nov 2022: questions move <b>inside the agent</b>.', 'Fewer questions than in <b>its very first month</b>.'],
     }, {
-      slug: 'irony', title: 'It absorbed all the knowledge of the crew', cls: 'deadslide so-absorb',
+      slug: 'irony', title: 'It absorbed all the knowledge of the crew', cls: 'deadslide so-absorb', steps: 4,
       body: (() => {
         const cx = 500, top = 280, rx = 250, ry = 50, h = 210;
         const body = `M${cx - rx} ${top} v${h} a${rx} ${ry} 0 0 0 ${rx * 2} 0 v-${h}`;
@@ -703,7 +703,6 @@ import soCsv from '../data/stackoverflow-questions.csv?raw';
           <g data-s="1"><svg class="alien-host alien" x="${cx - 100}" y="0" width="200" height="200" viewBox="-100 -100 200 200">${A.alien().replace(/^<svg[^>]*>|<\/svg>$/g, '')}</svg></g>
         </svg>`;
       })(),
-      caps: ['Fifteen years of crew knowledge: <b>~24M questions</b>, answered and voted.', 'Then the alien found it.', 'It absorbed <b>everything</b>.', 'Stack Overflow even <b>sold</b> it the meal.<small>2024: licensing deals with Google and OpenAI.</small>'],
     }],
     saas: [{
       slug: 'story', title: 'I needed three PDF operations', cls: 'deadslide',
