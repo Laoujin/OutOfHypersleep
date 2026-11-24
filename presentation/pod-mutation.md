@@ -30,7 +30,7 @@ pod:
   score:
     alive: 50
     dead: -40
-  frozenBecause: "Too slow and too expensive: run the whole suite once per mutant."
+  frozenBecause: Too slow and too expensive<br>it ran the whole suite for each mutant
   wokenBecause: Compute is cheap and agents write the tests. Who tests the tests?
 layout: hs
 routeAlias: mutation-thaw
