@@ -700,7 +700,8 @@ import soCsv from '../data/stackoverflow-questions.csv?raw';
           <g data-s="3"><path class="ghost" d="${body}"/><ellipse class="ghost" cx="${cx}" cy="${top}" rx="${rx}" ry="${ry}"/>
             <text class="lbl big dim" x="${cx}" y="${top + 110}" text-anchor="middle">training set</text>
             <text class="mono red" x="${cx}" y="${top + 148}" text-anchor="middle">0 rows</text></g>
-          <g data-s="1"><svg class="alien-host alien" x="${cx - 100}" y="0" width="200" height="200" viewBox="-100 -100 200 200">${A.alien().replace(/^<svg[^>]*>|<\/svg>$/g, '')}</svg></g>
+          <g data-s="1"><g class="so-ufo"><svg class="alien-host alien" x="${cx - 100}" y="0" width="200" height="200" viewBox="-100 -100 200 200">${A.alien().replace(/^<svg[^>]*>|<\/svg>$/g, '')}</svg></g>
+            <text class="so-huh h1" x="${cx + 110}" y="60">!</text><text class="so-huh h2" x="${cx + 140}" y="50">?</text></g>
         </svg>`;
       })(),
     }],

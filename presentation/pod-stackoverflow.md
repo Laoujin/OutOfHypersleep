@@ -103,7 +103,7 @@ clicks: 3
 
 <!--
 Fifteen years of crew knowledge in one database: ~24M questions (to verify).
-[click] The alien finds it.
+[click] The alien sweeps in and finds it. !?
 [click] Tractor beam: it absorbs everything. The answers went into the training sets.
 [click] And Stack Overflow sold it the meal: 2024 OverflowAPI deals with Google (Feb) and OpenAI (May). To verify.
 -->
