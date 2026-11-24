@@ -19,7 +19,6 @@ fonts:
   mono: IBM Plex Mono
   weights: '400,500,600,700'
 pod:
-  wip: true
   id: codereview
   name: Code review
   sub: line by line, by a human
@@ -27,12 +26,12 @@ pod:
   order: 3
   frozen: 1976
   born: 1976
-  died: 2025
+  died: 2027
   power: 4
   fate: dead
   score:
     alive: 40
-    dead: -40
+    dead: -30
   was: A second human reads every line before it lands. Fagan inspections in 1976, pull requests from 2008.
   diesBecause: Ten agents, forty PRs a day. Nobody reads 4,000 lines a day.
   takeaway: LGTM.
