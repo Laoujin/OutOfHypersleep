@@ -759,7 +759,7 @@ React is a JavaScript library for building user interfaces.
         ['PDF tools', 'merge · split · compress', 12, '2 h'], ['Link shortener', 'go/ links', 9, '1 h'], ['Forms', 'a signup form', 29, '3 h'],
         ['Scheduling', 'book a call', 15, '4 h'], ['Status page', 'is it up?', 29, '2 h'], ['Screenshot API', 'og:images', 19, '1 h'],
         ['QR codes', 'one for the poster', 7, '20 min'], ['Feature flags', 'five booleans', 75, '3 h'], ['Changelog', 'what\'s new', 49, '2 h'],
-        ['Analytics', 'page views', 14, '2 h'], ['Image resize', 'thumbnails', 25, '1 h'], ['Feedback board', 'upvote ideas', 49, '4 h'],
+        ['Analytics', 'page views', 14, '2 h'], ['Image resize', 'thumbnails', 25, '1 h'], ['Feedback', 'upvote ideas', 49, '4 h'],
       ];
       const FULL = SUBS.reduce((s, x) => s + x[2], 0);
       const total = (el, sum) => {

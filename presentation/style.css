@@ -1179,7 +1179,7 @@ svg .lbl.spec-w { font-size: 20px; }
 .sg-stage { position: absolute; inset: 0; }
 .sg-subs { position: absolute; left: 72px; top: 210px; width: 1000px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
 .sg-sub { position: relative; height: 118px; border-radius: 12px; background: var(--panel); border: 1px solid var(--line); border-left: 4px solid var(--alien); padding: 16px 20px; transition: filter .6s; }
-.sg-sub h5 { margin: 0; padding-right: 64px; font: 700 24px var(--head); color: #fff; text-transform: uppercase; letter-spacing: .03em; }
+.sg-sub h5 { margin: 0; padding-right: 52px; font: 700 24px var(--head); color: #fff; text-transform: uppercase; letter-spacing: .03em; }
 .sg-sub p { margin: 4px 0 0; font: 15px var(--mono); color: var(--muted); }
 .sg-pr { position: absolute; right: 20px; top: 18px; font: 700 22px var(--mono); color: var(--alien); }
 .sg-lamp { position: absolute; left: 20px; bottom: 14px; width: 10px; height: 10px; border-radius: 50%; background: var(--alien); box-shadow: 0 0 10px var(--alien); transition: background .4s, box-shadow .4s; }
