@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SaaS · big suite box</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@600;700&family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;600;800&display=swap">
+<style>
+:root {
+  --bg: #0b0d10; --panel: #15191f; --line: #2e3540; --ink: #d9dee6; --muted: #8a93a1; --faint: #565e6b;
+  --cryo: #9fd8f0; --awake: #45e6a0; --alien: #ff3b5c; --amber: #ffb547;
+  --head: "Chakra Petch", "Eurostile", "Arial Narrow", sans-serif;
+  --sans: "IBM Plex Sans", system-ui, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+  --noise: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' seed='4'/%3E%3CfeColorMatrix values='0 0 0 0 .9 0 0 0 0 .97 0 0 0 0 1 0 0 0 2.2 -1'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23f)'/%3E%3C/svg%3E");
+}
+@property --fr { syntax: '<percentage>'; inherits: false; initial-value: 0%; }
+* { box-sizing: border-box; }
+body { margin: 0; background: #05070a; color: var(--ink); font-family: var(--sans); }
+main { max-width: 1280px; margin: 0 auto; padding: 32px 16px 80px; }
+h1.page { font: 700 32px var(--head); margin: 0 0 6px; }
+p.lead { color: var(--muted); margin: 0 0 24px; line-height: 1.5; }
+.wrap { position: relative; width: 100%; aspect-ratio: 16 / 9; overflow: hidden; border-radius: 10px; border: 1px solid #222; cursor: pointer; }
+.slide { position: absolute; left: 0; top: 0; width: 1600px; height: 900px; transform-origin: 0 0; overflow: hidden; background: radial-gradient(1200px 800px at 85% 40%, #251a1e 0%, transparent 65%), var(--bg); }
+.ctl { display: flex; gap: 8px; align-items: center; margin-top: 8px; font: 600 13px var(--mono); color: var(--muted); }
+.ctl button { font: 600 13px var(--mono); background: var(--panel); color: var(--ink); border: 1px solid var(--line); border-radius: 6px; padding: 6px 12px; cursor: pointer; }
+.ctl button.on { border-color: var(--cryo); color: var(--cryo); }
+.vsw { margin-left: 24px; }
+.hd { position: absolute; left: 72px; top: 56px; z-index: 5; }
+.hd small { display: block; font: 600 18px var(--mono); letter-spacing: .2em; text-transform: uppercase; color: var(--alien); }
+.hd h3 { margin: 6px 0 0; font: 700 54px/1.05 var(--head); color: #fff; text-transform: uppercase; }
+[data-s] { opacity: 0; transition: opacity .6s; }
+.on-1 [data-s="1"], .on-2 [data-s="1"], .on-3 [data-s="1"], .on-2 [data-s="2"], .on-3 [data-s="2"], .on-3 [data-s="3"] { opacity: 1; }
+
+.subs { position: absolute; left: 72px; top: 210px; width: 1000px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.sub { position: relative; height: 118px; border-radius: 12px; background: var(--panel); border: 1px solid var(--line); border-left: 4px solid var(--alien); padding: 16px 20px; overflow: hidden; transition: background 1s, border-color 1s, box-shadow 1s, transform 1s; }
+.sub h5 { margin: 0; padding-right: 52px; font: 700 24px var(--head); color: #fff; text-transform: uppercase; letter-spacing: .03em; transition: color 1s, filter 1s; }
+.sub p { margin: 4px 0 0; font: 15px var(--mono); color: var(--muted); transition: color 1s, filter 1s; }
+.pr { position: absolute; right: 20px; top: 18px; font: 700 22px var(--mono); color: var(--alien); transition: color 1s, filter 1s; }
+.lamp { position: absolute; left: 20px; bottom: 14px; width: 10px; height: 10px; border-radius: 50%; background: var(--alien); box-shadow: 0 0 10px var(--alien); transition: background .4s, box-shadow .4s; }
+
+/* "built" markers, shown just before the freeze; .mk stays on top of the ice */
+.mk { position: absolute; z-index: 4; pointer-events: none; opacity: 0; transition: opacity .3s; }
+.sub.flash .mk, .sub.dead .mk { opacity: 1; }
+
+/* 1 · price swap: the red price turns into a green build time */
+.m1 .mk { right: 20px; top: 18px; font: 700 22px var(--mono); color: var(--awake); text-shadow: 0 0 10px rgba(69, 230, 160, .7); transform: translateY(-8px); transition: opacity .3s, transform .3s; }
+.m1 .sub.flash .mk, .m1 .sub.dead .mk { transform: none; }
+.m1 .sub.flash .pr { opacity: 0; transition: opacity .2s; }
+.m1 .sub.flash { border-left-color: var(--awake); }
+.sub .pr { transition: color 1s, filter 1s, opacity .2s; }
+.m1 .sub.dead .pr { opacity: 0; }
+.m1 .sub.dead .mk { color: #e8f6ff; text-shadow: none; }
+
+/* 2 · scan line: a thin green beam sweeps the card, leaves a small tag */
+.m2 .mk { right: 18px; bottom: 12px; font: 700 15px var(--mono); color: var(--awake); }
+.m2 .sub.dead .mk { color: #e8f6ff; }
+.scan { position: absolute; top: 0; bottom: 0; left: 0; width: 3px; z-index: 4; background: var(--awake); box-shadow: 0 0 16px 4px rgba(69, 230, 160, .6); opacity: 0; pointer-events: none; }
+.m2 .sub.flash .scan { animation: scan .7s ease-in-out both; }
+@keyframes scan { 0% { left: 0; opacity: 1; } 90% { opacity: 1; } 100% { left: 100%; opacity: 0; } }
+
+/* 3 · stamp: a small rotated rubber stamp lands in the corner */
+.m3 .mk { right: 14px; bottom: 10px; padding: 2px 10px; border: 3px solid var(--awake); border-radius: 6px; font: 700 18px var(--head); color: var(--awake); letter-spacing: .08em; text-transform: uppercase; transform: rotate(-8deg) scale(1.8); transition: opacity .12s, transform .25s cubic-bezier(.3, 1.6, .5, 1); }
+.m3 .sub.flash .mk, .m3 .sub.dead .mk { transform: rotate(-8deg); }
+.m3 .sub.dead .mk { color: #e8f6ff; border-color: #e8f6ff; filter: blur(1.6px); transition: color 1s, border-color 1s, filter 1s; }
+
+/* 4 · terminal line: the agent types its build log into the card */
+.m4 .mk { left: 40px; bottom: 10px; font: 600 15px var(--mono); color: var(--awake); white-space: nowrap; }
+.m4 .mk i { display: inline-block; width: 8px; height: 15px; margin-left: 3px; background: var(--awake); vertical-align: -2px; animation: blink .8s steps(1) infinite; }
+.m4 .sub.dead .mk { color: #e8f6ff; } .m4 .sub.dead .mk i { display: none; }
+@keyframes blink { 50% { opacity: 0; } }
+
+/* shared frozen state: everything turns ice-white/blue, the lamp dies */
+.sub.dead { border-color: rgba(220, 242, 255, .7); background: #1b2c3a; }
+.sub.dead h5 { color: #e8f6ff; }
+.sub.dead p { color: #9fc4d8; }
+.sub.dead .pr { color: #bfe3f5; }
+.sub.dead .lamp { background: #b9dcef; box-shadow: none; opacity: .4; }
+.glaze { position: absolute; inset: 0; pointer-events: none; z-index: 2; }
+
+/* B · ice block: encased, glossy, contents blurred under the ice */
+.glaze { opacity: 0; border-radius: 12px; background: linear-gradient(115deg, transparent 20%, rgba(255, 255, 255, .35) 30%, transparent 42%, transparent 62%, rgba(255, 255, 255, .15) 68%, transparent 74%), linear-gradient(180deg, rgba(220, 242, 255, .35), rgba(159, 216, 240, .12)); box-shadow: inset 0 0 0 2px rgba(240, 250, 255, .85), inset 0 0 28px rgba(200, 235, 255, .7); transition: opacity .9s; }
+.sub.dead .glaze { opacity: 1; }
+.sub.dead { box-shadow: 0 0 24px rgba(159, 216, 240, .45); transform: scale(1.02); }
+.sub.dead h5, .sub.dead p, .sub.dead .pr { filter: blur(1.6px); }
+
+.coin { position: absolute; z-index: 9; font: 700 22px var(--mono); color: var(--alien); pointer-events: none; }
+.erp { position: absolute; left: 1120px; top: 210px; width: 410px; border-radius: 14px; background: var(--panel); border: 2px solid var(--amber); padding: 28px 32px; box-shadow: 0 0 40px rgba(255, 181, 71, .15); }
+.erp h5 { margin: 0; font: 700 40px var(--head); color: #fff; text-transform: uppercase; }
+.erp p { margin: 8px 0 0; font: 17px/1.5 var(--mono); color: var(--muted); }
+.erp .epr { margin-top: 26px; font: 700 52px var(--mono); color: var(--amber); }
+.erp .epr small { font-size: 22px; color: var(--muted); }
+.erp .keep { margin-top: 22px; font: 700 24px var(--head); color: var(--amber); letter-spacing: .1em; text-transform: uppercase; }
+.erp .now { margin-top: 6px; font: italic 600 20px var(--mono); color: var(--muted); opacity: 0; transition: opacity .8s 1.6s; }
+.on-2 .erp .now, .on-3 .erp .now { opacity: 1; }
+.suite { position: absolute; left: 1120px; top: 610px; width: 410px; height: 220px; border-radius: 14px; background: var(--panel); border: 2px dashed var(--cryo); padding: 20px 28px; box-shadow: 0 0 40px rgba(159, 216, 240, .12); }
+.suite h5 { margin: 0; font: 700 30px var(--head); color: #fff; text-transform: uppercase; }
+.suite .spr { position: absolute; right: 28px; top: 26px; font: 700 26px var(--mono); color: var(--alien); }
+.suite .spr small { font-size: 16px; color: var(--muted); }
+.suite p { margin: 2px 0 0; font: 15px var(--mono); color: var(--muted); }
+.suite .use { margin-top: 14px; font: 700 15px var(--mono); color: var(--muted); letter-spacing: .1em; text-transform: uppercase; display: flex; justify-content: space-between; }
+.suite .use b { color: var(--cryo); }
+.suite .bar { margin-top: 6px; height: 14px; border-radius: 7px; background: #0e1116; border: 1px solid var(--line); overflow: hidden; }
+.suite .bar i { display: block; height: 100%; width: 0; background: var(--cryo); box-shadow: 0 0 10px var(--cryo); transition: width 1s .6s; }
+.on-3 .suite .bar i { width: 5%; }
+.suite .dots { margin-top: 8px; display: grid; grid-template-columns: repeat(25, 1fr); gap: 3px; }
+.suite .dots i { aspect-ratio: 1; border-radius: 2px; background: #2a313c; transition: background .4s, box-shadow .4s; }
+.on-3 .suite .dots i.u { background: var(--cryo); box-shadow: 0 0 6px var(--cryo); transition-delay: .6s; }
+.sa .dots, .sb .bar, .sb .use { display: none; }
+.suite .next { margin-top: 14px; font: 700 22px var(--head); color: var(--cryo); letter-spacing: .06em; text-transform: uppercase; opacity: 0; transition: opacity .8s 1.4s; }
+.on-3 .suite .next { opacity: 1; }
+.total { position: absolute; left: 72px; top: 770px; font: 700 22px var(--mono); color: var(--muted); letter-spacing: .1em; text-transform: uppercase; }
+.total b { display: inline-block; min-width: 230px; margin-right: 14px; font-size: 64px; color: var(--alien); letter-spacing: 0; vertical-align: -10px; font-variant-numeric: tabular-nums; transition: color .4s; }
+.total.zero b { color: var(--awake); }
+</style>
+</head>
+<body>
+<main>
+  <h1 class="page">SaaS · big suite box</h1>
+  <p class="lead">Step 3 adds the big suite under the ERP: "you use 5%, time to start building it". Switch the box style below the slide: A usage bar, B dot grid.</p>
+  <div class="wrap" data-steps="3"><div class="slide" id="slide">
+    <div class="hd"><small>Build deck · Small SaaS tools</small><h3>One subscription per feature</h3></div>
+    <div class="subs" id="subs"></div>
+    <div class="suite" data-s="3"><h5>The big suite</h5><span class="spr">€2,000<small> /mo</small></span><p>400 features · 3 consultants</p>
+      <div class="use"><span>features you use</span><b>5%</b></div><div class="bar"><i></i></div>
+      <div class="dots"></div>
+      <div class="next">Time to start building it.</div></div>
+    <div class="total" id="total"><b id="sum"></b>per month</div>
+    <div class="erp" data-s="2"><h5>Your ERP</h5><p>accounting · payroll · compliance<br>20 years of edge cases<br>someone to call at 3am</p>
+      <div class="epr">€4,800<small> /mo</small></div><div class="keep">Keep paying.</div><div class="now">… for now …</div></div>
+  </div></div>
+  <div class="ctl"><button data-act="prev">◀ Prev</button><button data-act="next">Next ▶</button><button data-act="reset">Reset</button><span id="cap"></span>
+    <span class="vsw">suite: <button data-v="sa" class="on">A usage bar</button> <button data-v="sb">B dot grid</button></span></div>
+</main>
+<script>
+const SUBS = [
+  ['PDF tools', 'merge · split · compress', 12, '2 h'], ['Link shortener', 'go/ links', 9, '1 h'], ['Forms', 'a signup form', 29, '3 h'],
+  ['Scheduling', 'book a call', 15, '4 h'], ['Status page', 'is it up?', 29, '2 h'], ['Screenshot API', 'og:images', 19, '1 h'],
+  ['QR codes', 'one for the poster', 7, '20 min'], ['Feature flags', 'five booleans', 75, '3 h'], ['Changelog', 'what\'s new', 49, '2 h'],
+  ['Analytics', 'page views', 14, '2 h'], ['Image resize', 'thumbnails', 25, '1 h'], ['Feedback', 'upvote ideas', 49, '4 h'],
+];
+const FULL = SUBS.reduce((s, x) => s + x[2], 0);
+
+const subs = document.getElementById('subs');
+subs.innerHTML = SUBS.map(([n, d, p, t]) => `<div class="sub"><h5>${n}</h5><p>${d}</p><span class="pr">€${p}</span><span class="lamp"></span>
+  <div class="glaze"></div><div class="scan"></div><div class="mk" data-t="${t}">✔ ${t}</div></div></div>`).join('');
+
+const slide = document.getElementById('slide'), cards = [...subs.children], sumEl = document.getElementById('sum'), totalEl = document.getElementById('total');
+document.querySelector('.suite .dots').innerHTML = Array.from({ length: 100 }, (_, i) => `<i class="${[7, 31, 52, 68, 94].includes(i) ? 'u' : ''}"></i>`).join('');
+const MK = { 1: t => `✔ ${t}`, 2: t => `✔ built · ${t}`, 3: t => `built ${t}`, 4: t => `$ build ✔ ${t}<i></i>` };
+const mark = v => { slide.className = 'slide m' + v + ' ' + suiteV; cards.forEach(c => { const m = c.querySelector('.mk'); m.innerHTML = MK[v](m.dataset.t); }); };
+let suiteV = 'sa';
+mark(3);
+let run = 0;
+const total = sum => { sumEl.textContent = '€' + Math.round(sum); totalEl.classList.toggle('zero', sum <= 0); };
+const at = n => { const r = n.getBoundingClientRect(), s = slide.getBoundingClientRect(), k = s.width / 1600; return [(r.left - s.left) / k, (r.top - s.top) / k]; };
+const settle = dead => { run++; cards.forEach(c => { c.classList.remove('flash'); c.classList.toggle('dead', dead); }); total(dead ? 0 : FULL); };
+const freeze = () => {
+  settle(false);
+  const me = run;
+  let sum = FULL, target = FULL;
+  cards.forEach((card, i) => {
+    setTimeout(() => { if (run === me) card.classList.add('flash'); }, i * 520);
+    setTimeout(() => {
+      if (run !== me) return;
+      card.classList.remove('flash'); card.classList.add('dead');
+      const pr = card.querySelector('.pr'), [x0, y0] = at(pr), [x1, y1] = at(totalEl);
+      const coin = slide.appendChild(Object.assign(document.createElement('div'), { className: 'coin', textContent: '−' + pr.textContent }));
+      Object.assign(coin.style, { left: x0 + 'px', top: y0 + 'px' });
+      coin.animate([{ transform: 'none', opacity: 1 }, { transform: `translate(${x1 + 60 - x0}px, ${y1 - y0}px) scale(.7)`, opacity: .2 }], { duration: 700, easing: 'cubic-bezier(.5, 0, .7, 1)' })
+        .onfinish = () => { coin.remove(); target -= SUBS[i][2]; };
+    }, i * 520 + 750);
+  });
+  const tick = setInterval(() => { if (run !== me) return clearInterval(tick); if (sum > target) total(sum = Math.max(target, sum - 4)); else if (sum <= 0) clearInterval(tick); }, 20);
+};
+
+const wrap = document.querySelector('.wrap'), cap = document.getElementById('cap'), max = +wrap.dataset.steps;
+let st = 0;
+const go = n => {
+  const prev = st;
+  st = Math.max(0, Math.min(max, n));
+  slide.classList.remove('on-1', 'on-2', 'on-3'); if (st) slide.classList.add('on-' + st);
+  cap.textContent = `step ${st}/${max}`;
+  if (st >= 1 && prev === 0) freeze(); else if (st === 0) settle(false);
+};
+wrap.addEventListener('click', () => go(st + 1));
+document.querySelector('.ctl').addEventListener('click', e => {
+  const v = e.target.dataset.v;
+  if (v) { suiteV = v; mark(3); document.querySelectorAll('.vsw button').forEach(b => b.classList.toggle('on', b === e.target)); go(0); return; }
+  const a = e.target.dataset.act; if (a === 'next') go(st + 1); if (a === 'prev') go(st - 1); if (a === 'reset') go(0);
+});
+go(0); total(FULL);
+const fit = () => { slide.style.transform = 'scale(' + (wrap.clientWidth / 1600) + ')'; };
+addEventListener('resize', fit); fit();
+</script>
+</body>
+</html>
