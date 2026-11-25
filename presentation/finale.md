@@ -55,7 +55,7 @@ Waking the Captain, 60–90 seconds, lighthearted. The future of developers is i
 ---
 layout: hs
 routeAlias: vitals
-clicks: 6
+clicks: 7
 ---
 
 <Hs id="vitals" />
@@ -63,7 +63,7 @@ clicks: 6
 <!--
 Vitals instead of slides: pros and cons in one glance.
 [click] Typing code: flatlined. Memorizing APIs: weak.
-Analysis: strong. [click] Full-screen stamp flashes: business has no clue, we're safe.
+Analysis: strong. Domain knowledge: strong. [click] Full-screen stamp flashes: business has no clue, we're safe.
 Security: critical. The homelab .lan story: asked for local only, it was public for 60 days.
 Architecture: stable. Meridian, five failed attempts at a dead-simple design until I explained it in detail.
 -->

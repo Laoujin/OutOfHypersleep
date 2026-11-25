@@ -1205,16 +1205,17 @@ Subject: Re: SCO: "thread creation is about a thousand times faster
   });
 
   add({
-    id: 'vitals', seq: 'final', steps: 7, cls: 'vitals',
+    id: 'vitals', seq: 'final', steps: 8, cls: 'vitals',
     html: () => `<div class="kicker vt-kicker">pod screen · vitals · Schrödinger's developer</div>
       <h1 class="vt-title"><span class="alive">Alive</span><span class="or">or</span><span class="dead">Dead?</span></h1>
       <div class="vit">${[
         ['Typing code', 'flat', 'Flatlined', 'bad'],
         ['Memorizing APIs', 'weak', 'Weak', 'warn'],
         ['Analysis', 'strong', 'Strong', 'ok'],
+        ['Domain knowledge', 'strong', 'Strong', 'ok'],
         ['Security', 'pulse', 'Critical', 'ok'],
         ['Architecture', 'pulse', 'Stable', 'ok'],
-      ].map(([n, k, w, c], i) => `<div class="vrow ${c}" data-s="${i < 3 ? i + 1 : i + 2}"><div class="vn">${n}</div>${A.ecg(k)}<div class="vstamp">${w}</div></div>`).join('')}</div>
+      ].map(([n, k, w, c], i) => `<div class="vrow ${c}" data-s="${i < 4 ? i + 1 : i + 2}"><div class="vn">${n}</div>${A.ecg(k)}<div class="vstamp">${w}</div></div>`).join('')}</div>
       <div class="vit-big">Business has no clue.<br>We're safe!</div>`,
   });
 
