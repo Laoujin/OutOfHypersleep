@@ -1261,8 +1261,7 @@ svg .lbl.spec-w { font-size: 20px; }
 .md-ways { position: absolute; left: 828px; top: 545px; width: 700px; display: grid; gap: 18px; }
 .md-way { margin: 0; display: flex; gap: 18px; align-items: baseline; padding: 6px 20px 16px; border: 1px solid var(--line); border-radius: 12px; background: rgba(21, 25, 31, .8); opacity: 0; transform: translateX(20px); transition: opacity .5s, transform .5s; }
 .md-way legend { padding: 0 8px; font: 600 15px var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
-.md-way b { font: 600 24px var(--mono); color: var(--awake); min-width: 330px; }
-.md-way span { font: 500 20px var(--sans); color: var(--muted); }
+.md-way b { font: 600 24px var(--mono); color: var(--awake); }
 .s2 .md-way { opacity: 1; transform: none; }
 .s2 .md-way:nth-child(2) { transition-delay: .25s; }
 .md-xml { left: 72px; top: 200px; width: 860px; height: 600px; }
