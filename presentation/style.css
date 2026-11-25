@@ -438,9 +438,15 @@ pre.code { margin: 0; font: 21px/1.6 var(--mono); color: var(--ink); white-space
 .map .pod .votes { top: 6px; bottom: auto; right: 10px; }
 .map .pod .pod-name { display: none; position: absolute; inset: 0; z-index: 3; place-items: center; padding: 12px; text-align: center; font: 700 24px var(--head); color: var(--ink); background: rgba(8, 12, 16, .85); border-radius: inherit; pointer-events: none; }
 .peek .map .pod .pod-name { display: grid; }
+.map .pod.is-awake, .map .pod.is-dead { padding-top: 40px; }
+.map .pod.is-awake .pod-art, .map .pod.is-dead .pod-art { margin-top: -12px; }
+.map .pod .pod-plate { position: absolute; left: 0; right: 0; top: 0; height: 30px; padding: 0 12px; display: flex; align-items: center; justify-content: space-between; font: 700 16px var(--head); letter-spacing: .06em; text-transform: uppercase; border-radius: 13px 13px 0 0; }
+.map .pod .pod-plate small { font: 700 12px var(--mono); }
+.map .pod.is-awake .pod-plate { background: var(--awake); color: #06100b; }
+.map .pod.is-dead .pod-plate { background: var(--alien); color: #1a0508; }
 .map .pod .votes .vn { font-size: 46px; }
-.map .pod.is-awake { border-color: rgba(125, 255, 176, .45); border-top: 3px solid var(--awake); background: linear-gradient(180deg, #0c1a14, #080c10); }
-.map .pod.is-dead { border-color: rgba(255, 59, 59, .5); border-top: 3px solid var(--alien); background: linear-gradient(180deg, #1a0a0c, #080c10); }
+.map .pod.is-awake { border-color: rgba(125, 255, 176, .45); background: linear-gradient(180deg, #0c1a14, #080c10); }
+.map .pod.is-dead { border-color: rgba(255, 59, 59, .5); background: linear-gradient(180deg, #1a0a0c, #080c10); }
 
 /* revival sequence (pod opening slide) */
 .revive { padding: 0; background: radial-gradient(900px 500px at 35% 55%, #0b1714, transparent 70%); }
