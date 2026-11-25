@@ -630,14 +630,13 @@ Let a returning customer pay in one click.
         ? `<div class="md-f" style="--i: ${lit++}">${f}<span>${l}</span></div>`
         : `<div>${f}</div>`).join('');
       const web = {
-        slug: 'web', title: 'Now written for agents', full: true, steps: 3, cls: 'md md-web',
-        body: () => `<div class="card md-html"><div class="card-h">GET /docs/install <b>${tok(PAGE_HTML)}</b></div><pre>${tags(PAGE_HTML)}</pre></div>
+        slug: 'web', title: 'The web, for agents', full: true, steps: 3, cls: 'md md-web',
+        body: () => `<div class="card md-html"><div class="card-h">GET /docs/install.html <b>${tok(PAGE_HTML)}</b></div><pre>${tags(PAGE_HTML)}</pre></div>
           <div class="md-arrow" data-s="1">→</div>
           <div class="card md-page" data-s="1"><div class="card-h">GET /docs/install.md <b>${tok(PAGE_MD)}</b></div><pre>${heads(PAGE_MD)}</pre></div>
           <div class="md-ways">
-            <div class="md-way"><b>/llms.txt</b><span>a Markdown map of the site</span></div>
-            <div class="md-way"><b>Copy page as Markdown</b><span>the button on every docs site</span></div>
-            <div class="md-way"><b>Accept: text/markdown</b><span>the CDN converts on the fly</span></div>
+            <fieldset class="md-way"><legend>llmstxt.org</legend><b>/llms.txt</b><span>a Markdown map of the site</span></fieldset>
+            <fieldset class="md-way"><legend>Cloudflare</legend><b>Accept: text/markdown</b><span>HTML converted on the fly</span></fieldset>
           </div>`,
       };
       const word = {
