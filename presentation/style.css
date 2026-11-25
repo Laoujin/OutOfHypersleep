@@ -1148,3 +1148,16 @@ svg .lbl.spec-w { font-size: 20px; }
 .map .bow-hatch.open .ring { border: 3px solid var(--amber); color: var(--amber); }
 .map .bow-hatch.open .t { color: var(--amber); }
 @keyframes bow-pulse { 0%, 100% { box-shadow: 0 0 0 3px rgba(255, 181, 71, .35), 0 0 60px rgba(255, 181, 71, .3); } 50% { box-shadow: 0 0 0 6px rgba(255, 181, 71, .2), 0 0 90px rgba(255, 181, 71, .45); } }
+
+/* finale: pods woken tonight */
+.woken-log header { position: relative; }
+.woken-log .count { position: absolute; right: 0; bottom: 0; font: 700 34px var(--mono); color: var(--muted); }
+.woken-log .count b { color: var(--ink); }
+.woken-log .cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+.woken-log .card { height: 206px; position: relative; overflow: hidden; display: flex; flex-direction: column; justify-content: flex-end; gap: 4px; padding: 16px 20px; border-radius: 14px;
+  border: 1px solid rgba(69, 230, 160, .5); border-top: 4px solid var(--awake);
+  background: linear-gradient(180deg, rgba(11, 13, 16, .1) 0%, rgba(11, 13, 16, .75) 55%, rgba(11, 13, 16, .95) 100%), var(--card-img) center / cover, var(--panel); }
+.woken-log .card.dead { border-color: rgba(255, 59, 92, .55); border-top-color: var(--alien); }
+.woken-log .card .nm { font: 700 26px var(--head); text-transform: uppercase; }
+.woken-log .card .yr { font: 600 17px var(--mono); color: var(--cryo); }
+.woken-log .card .tk { color: var(--muted); font-style: italic; font-size: 18px; line-height: 1.3; }

@@ -1057,6 +1057,16 @@ Subject: Re: SCO: "thread creation is about a thousand times faster
 
   // ───────────────────────── FINAL ─────────────────────────
   add({
+    id: 'woken', seq: 'final', cls: 'woken-log',
+    html: c => {
+      const woken = c.state.woken.map(HS.podById).filter(Boolean);
+      return `${head('ship\'s log · pods opened tonight', 'What we woke', `<div class="count"><b>${woken.length}</b> / ${HS.pods.length}</div>`)}
+        <div class="cards">${woken.map(p => `<div class="card${p.dead ? ' dead' : ''}" style="--card-img: url('${BASE}woken/${p.id}.webp')">
+          <div class="nm">${p.dead ? '✝ ' : ''}${p.name}</div><div class="yr">❄ ${p.born}</div><div class="tk">${p.takeaway}</div></div>`).join('')}</div>`;
+    },
+  });
+
+  add({
     id: 'final', seq: 'final', steps: 3, cls: 'thaw final',
     html: () => `<div class="thaw-pod">${A.pod('dying big')}</div>
       <div class="thaw-info">

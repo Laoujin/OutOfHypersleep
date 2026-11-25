@@ -19,6 +19,17 @@ fonts:
   mono: IBM Plex Mono
   weights: '400,500,600,700'
 layout: hs
+routeAlias: woken
+---
+
+<Hs id="woken" />
+
+<!--
+The pods we opened tonight, one card each. No scores here: the scoreboard comes at the end.
+-->
+
+---
+layout: hs
 routeAlias: final
 clicks: 2
 ---
