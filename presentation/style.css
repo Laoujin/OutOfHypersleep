@@ -1309,3 +1309,17 @@ svg .lbl.spec-w { font-size: 20px; }
 .brooks { justify-content: center; padding: 0 160px; }
 .brooks-q { margin: 0; padding-left: 40px; border-left: 6px solid var(--amber); font: italic 400 46px/1.4 var(--sans); color: var(--ink); }
 .brooks-q cite { display: block; margin-top: 30px; font: normal 600 24px var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--amber); }
+
+/* vitals: Alive or Dead? */
+.vitals { padding-top: 48px; }
+.vt-kicker { text-align: center; }
+.vt-title { margin: 6px 0 18px; display: flex; justify-content: center; align-items: baseline; gap: 34px; font: 700 160px/1 var(--head); text-transform: uppercase; }
+.vt-title .alive { color: var(--awake); text-shadow: 0 0 40px rgba(69, 230, 160, .45); animation: vt-alive 3s infinite; }
+.vt-title .or { font-size: 60px; color: var(--muted); }
+.vt-title .dead { color: var(--alien); text-shadow: 0 0 40px rgba(255, 59, 92, .45); animation: vt-dead 3s infinite; }
+@keyframes vt-alive { 0%, 45%, 100% { opacity: 1; } 50%, 95% { opacity: .25; } }
+@keyframes vt-dead { 0%, 45%, 100% { opacity: .25; } 50%, 95% { opacity: 1; } }
+.vitals .vit { gap: 10px; }
+.vitals .vrow { padding: 6px 22px; }
+.vitals .ecg { height: 70px; }
+.vitals .vstamp { font-size: 30px; }

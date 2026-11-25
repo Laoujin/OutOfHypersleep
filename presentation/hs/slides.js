@@ -1206,7 +1206,8 @@ Subject: Re: SCO: "thread creation is about a thousand times faster
 
   add({
     id: 'vitals', seq: 'final', steps: 6, cls: 'vitals',
-    html: () => `${head('pod screen · vitals', 'Schrödinger\'s developer')}
+    html: () => `<div class="kicker vt-kicker">pod screen · vitals · Schrödinger's developer</div>
+      <h1 class="vt-title"><span class="alive">Alive</span><span class="or">or</span><span class="dead">Dead?</span></h1>
       <div class="vit">${[
         ['Typing code', 'flat', 'Flatlined', 'bad'],
         ['Memorizing APIs', 'weak', 'Weak', 'warn'],
