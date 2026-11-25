@@ -1140,12 +1140,12 @@ svg .lbl.spec-w { font-size: 20px; }
 .md-count small { font: 600 26px var(--mono); color: var(--muted); }
 
 /* map: hatch at the bow, sealed → open → launches the finale */
-.map .bow-hatch { position: absolute; right: 110px; top: 360px; z-index: 2; width: 250px; height: 290px; padding: 0; border-radius: 125px 125px 24px 24px; border: 2px solid var(--line);
-  background: linear-gradient(180deg, #11151a, #0b0d10); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; transition: border-color .4s, box-shadow .4s; }
-.map .bow-hatch .ring { width: 100px; height: 100px; border-radius: 50%; border: 3px dashed var(--faint); display: grid; place-items: center; font-size: 42px; color: var(--faint); }
-.map .bow-hatch .t { font: 700 28px var(--head); text-transform: uppercase; color: var(--muted); }
+.map .bow-hatch { position: absolute; right: 170px; top: 270px; z-index: 2; width: 220px; padding: 20px 10px 18px; border-radius: 18px; border: 1px solid var(--line);
+  background: linear-gradient(180deg, #0d141a, #080c10); display: flex; flex-direction: column; align-items: center; gap: 16px; transition: border-color .4s, box-shadow .4s; }
+.map .bow-hatch .capt-pod { position: relative; width: 156px; height: 380px; }
+.map .bow-hatch .cryo { position: absolute; left: 50%; top: 50%; width: 380px; transform: translate(-50%, -50%) rotate(90deg); }
+.map .bow-hatch .t { font: 700 26px/1.15 var(--head); text-transform: uppercase; text-align: center; color: var(--muted); }
 .map .bow-hatch.open { border-color: var(--amber); animation: bow-pulse 2s infinite; }
-.map .bow-hatch.open .ring { border: 3px solid var(--amber); color: var(--amber); }
 .map .bow-hatch.open .t { color: var(--amber); }
 @keyframes bow-pulse { 0%, 100% { box-shadow: 0 0 0 3px rgba(255, 181, 71, .35), 0 0 60px rgba(255, 181, 71, .3); } 50% { box-shadow: 0 0 0 6px rgba(255, 181, 71, .2), 0 0 90px rgba(255, 181, 71, .45); } }
 

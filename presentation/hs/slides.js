@@ -169,7 +169,7 @@ import soCsv from '../data/stackoverflow-questions.csv?raw';
         <div class="map-grid">
           ${Object.keys(HS.TYPES).map(t => `<div class="deck-lbl t-${t}"><b>Deck ${HS.TYPES[t].n}</b>${HS.TYPES[t].label}</div><div class="deck-row">${row(t)}</div>`).join('')}
         </div>
-        <button class="bow-hatch${bowOpen ? ' open' : ''}" data-act="bow"><span class="ring">⏻</span><span class="t">The bow</span></button>
+        <button class="bow-hatch${bowOpen ? ' open' : ''}" data-act="bow"><span class="capt-pod">${A.cryo(bowOpen ? 'awake' : 'closed', '')}</span><span class="t">Wake the Captain</span></button>
 `;
     },
     init: (el, c) => {
@@ -228,6 +228,7 @@ import soCsv from '../data/stackoverflow-questions.csv?raw';
         if (bow) {
           if (bowOpen) return window.open(HS.deckUrl('finale'), '_blank');
           bowOpen = true;
+          bow.querySelector('.cryo').classList.replace('closed', 'awake');
           return bow.classList.add('open');
         }
         const pod = e.target.closest('.pod[data-pod]');
