@@ -8,7 +8,7 @@ Allow me to take you on the first starship humanity has built. On its way to col
 
 The evil alien AI has infiltrated the ship. Using my amazing vibe-coded mobile app, I need you to wake the right crew out of cryosleep.
 
-Some of our strongest fighters have been on ice for decades. But beware! Deception all around! Some of the crew have been converted by the evil AI and will fight the crew.
+The crew is our tooling. Some of our strongest fighters have been on ice for decades. But beware! Deception all around! Some of them have been secretly converted by the evil AI: habits we've trusted for years, now fighting against you.
 
 At this crucial point in human development, the stakes have never been higher.
 
