@@ -26,11 +26,9 @@ pod:
   order: 1
   frozen: 1970
   born: 1970
-  power: 5
+  power: 4
   fate: alive
-  score:
-    alive: 40
-    dead: -40
+  score: 40
   frozenBecause: "The Agile Manifesto, 2001.<small>Working software over comprehensive documentation.</small>"
   frozenSub: Did it ever truly disappear though?
   wokenBecause: Agents do exactly what you write. So write it down first.

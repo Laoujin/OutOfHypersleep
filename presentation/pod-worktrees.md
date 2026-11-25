@@ -27,9 +27,7 @@ pod:
   born: 2015
   power: 5
   fate: alive
-  score:
-    alive: 50
-    dead: -40
+  score: 50
   frozenBecause: One developer only ever needs one checkout.<br><code>git stash</code> was good enough.
   wokenBecause: "N agents on one repo: each needs its own working directory and branch."
   logTitle: A worktree is an environment

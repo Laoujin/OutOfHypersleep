@@ -29,9 +29,7 @@ pod:
   died: 2027
   power: 4
   fate: dead
-  score:
-    alive: 40
-    dead: -30
+  score: -40
   was: A second human reads every line before it lands. <br>Fagan Inspections from 1976<br>Pull Requests from 2008
   diesBecause: Ten agents, forty PRs a day. Nobody reads 4,000 lines a day.
   takeaway: LGTM.

@@ -28,9 +28,7 @@ pod:
   died: 2023
   power: 5
   fate: dead
-  score:
-    alive: 40
-    dead: -40
+  score: -40
   takeaway: Closed as duplicate.
   diesBecause: Questions are answered inside the agent now. Volume collapsed after 2023.
 layout: hs

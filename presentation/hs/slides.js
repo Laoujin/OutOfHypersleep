@@ -80,7 +80,7 @@ import soCsv from '../data/stackoverflow-questions.csv?raw';
   const podCard = (p, st) => {
     const woken = st.woken.includes(p.id);
     const state = woken ? (p.dead ? 'dead' : 'awake') : 'closed';
-    const pts = HS.points(p);
+    const pts = p.score;
     const tone = woken ? (pts < 0 ? 'tone-alien' : 'tone-crew') : '';
     const cls = ['pod', `t-${p.deck}`, `is-${state}`, tone, HS.leader() === p.id ? 'lead' : '', p.wip ? 'wip' : ''].join(' ');
     const votes = HS.votesOf(p.id);
@@ -133,7 +133,7 @@ import soCsv from '../data/stackoverflow-questions.csv?raw';
 
   const revive = {
     html: p => {
-      const pts = p.score.alive;
+      const pts = p.score;
       return `<button class="rv-close" data-act="close-pod" title="Close without waking this pod">×</button><div class="rv-alarm"><span>REVIVAL SEQUENCE · REVIVAL SEQUENCE · REVIVAL SEQUENCE · REVIVAL SEQUENCE</span></div>
         <div class="rv-pod">${A.cryo('closed', 'HYPERSLEEP', 9)}</div>
         <div class="rv-steam">${Array.from({ length: 12 }, (_, i) => `<i style="left:${140 + i * 64}px;top:${330 + (i % 3) * 30}px;--dx:${(i % 2 ? 1 : -1) * (20 + i * 4)}px;animation-delay:${(i * 0.12).toFixed(2)}s"></i>`).join('')}</div>
@@ -1113,7 +1113,7 @@ Subject: Re: SCO: "thread creation is about a thousand times faster
       ? statement(p, 'What killed it', p.diesBecause, A.cryo('dead', 'NO SIGNS'))
       : statement(p, 'What woke it', p.wokenBecause, A.cryo('awake', 'REVIVED')),
     log: p => {
-      const pts = HS.points(p), red = pts < 0;
+      const pts = p.score, red = pts < 0;
       const score = red ? `alien +${-pts}` : `crew +${pts}`;
       return `${bg(p)}${p.logTitle ? head(deckOf(p) + ' · ' + p.name, p.logTitle) : ''}<div class="log ${p.logTitle ? 'titled' : ''}">
         <div class="log-h">Crew log</div>
@@ -1136,7 +1136,7 @@ Subject: Re: SCO: "thread creation is about a thousand times faster
   }
 
   // ───────────────────────── FINAL ─────────────────────────
-  const good = p => (p.dead ? p.score.dead : p.score.alive) > 0;
+  const good = p => p.score > 0;
   const podCardBig = (p, cls) => `<div class="card ${cls}">
       <div class="bar"><span class="nm">${p.name}</span><span class="yr">❄ ${p.frozen}</span></div>
       <div class="img" style="--card-img: url('${BASE}woken/${p.id}.webp')"><div class="tk">${p.takeaway}</div></div>

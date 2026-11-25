@@ -27,9 +27,7 @@ pod:
   born: 2014
   power: 1
   fate: alive
-  score:
-    alive: -10
-    dead: -10
+  score: -10
   frozenBecause: "No one had ever heard of this niche git feature.<small>Even now you're thinking: what the hell is he talking about?</small>"
   wokenBecause: "Every agent commit carries <code>Co-Authored-By</code>. Suddenly <code>git log</code> knows who really wrote main."
   takeaway: The alien signs its work.

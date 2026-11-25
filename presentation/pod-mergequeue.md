@@ -27,9 +27,7 @@ pod:
   born: 2013
   power: 3
   fate: alive
-  score:
-    alive: 30
-    dead: -40
+  score: 30
   frozenBecause: '"Only Google-scale needed this."'
   wokenBecause: 20 green branches at once. Each is green alone; together they break main.
   takeaway: Google-scale is you and ten agents.

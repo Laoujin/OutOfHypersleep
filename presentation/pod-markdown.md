@@ -27,9 +27,7 @@ pod:
   born: 2004
   power: 5
   fate: alive
-  score:
-    alive: 50
-    dead: -40
+  score: 50
   frozenBecause: A plain-text format for READMEs.<br>The real docs lived in Word and Confluence.
   frozenSub: Nobody read the README anyway.
   wokenBecause: Agents read it, write it and think in it.<br>Every prompt, plan, skill and answer is Markdown.

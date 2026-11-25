@@ -25,11 +25,9 @@ pod:
   order: 1
   frozen: 1978
   born: 1978
-  power: 5
+  power: 4
   fate: alive
-  score:
-    alive: 50
-    dead: -40
+  score: 40
   frozenBecause: Too slow and too expensive<br>It ran the whole suite for each mutant
   wokenBecause: Compute is cheap and agents write the tests. Who tests the tests?
   logTitle: Agents write the tests

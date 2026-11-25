@@ -28,9 +28,7 @@ pod:
   born: 2005
   power: 4
   fate: alive
-  score:
-    alive: 40
-    dead: -40
+  score: 40
   frozenBecause: Everyone bypassed them with <code>--no-verify</code>.<br>Ain't nobody got time for that
   frozenSub: The checks were executed on the CI only.
   wokenBecause: Agent hooks run the checks on every edit and feed the errors straight back to the agent.

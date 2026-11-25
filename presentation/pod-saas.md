@@ -29,9 +29,7 @@ pod:
   died: 2025
   power: 2
   fate: dead
-  score:
-    alive: 30
-    dead: 30
+  score: 30
   was: One small problem,<br>One startup,<br>One monthly credit card charge.
   diesBecause: Building beats buying. A PDF tool in 2 hours instead of hosting Stirling PDF.
   logTitle: Build vs buy, flipped

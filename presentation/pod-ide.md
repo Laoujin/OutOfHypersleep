@@ -29,9 +29,7 @@ pod:
   died: 2026
   power: 5
   fate: dead
-  score:
-    alive: 50
-    dead: -30
+  score: -30
   was: Forty years of features to help a human type code faster.
   diesBecause: Nobody types the code anymore. You read diffs in a terminal.
   logTitle: When was the last time you opened your IDE?

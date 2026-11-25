@@ -45,7 +45,7 @@ Game state (woken pods, score) is in `localStorage`, shared by all decks on the 
 
 ## Voting app (pods.sangu.be)
 
-`voting/` is a small Node app, deployed by Coolify from `voting/Dockerfile` (build context = repo root). It reads the `pod:` headers of `presentation/pod-*.md` and shows the pods anonymously (deck, freeze year, power, score), like the map. One vote per pod per browser (localStorage), tap again to undo. Votes persist in `/data/votes.json`.
+`voting/` is a small Node app, deployed by Coolify from `voting/Dockerfile` (build context = repo root). It reads the `pod:` headers of `presentation/pod-*.md` and shows the pods anonymously (deck, freeze year, power, ±power×10), like the map. One vote per pod per browser (localStorage), tap again to undo. Votes persist in `/data/votes.json`.
 
 The `ask` slide ends with "→ to the cryo chamber" (the map). Reset the live votes before the talk: `POST /api/reset` with `Authorization: Bearer <ADMIN_TOKEN>` (the token is in the Home repo's Coolify config, not here).
 
@@ -64,9 +64,7 @@ pod:
   died: 2023           # shown when it dies (fate: dead)
   power: 5             # 1–5 bars on the map
   fate: dead           # alive | dead
-  score:
-    alive: 50          # crew points if it lives (the + on the map); negative = it lives but scores for the alien (commit trailers)
-    dead: -40          # alien points if it dies (the − on the map)
+  score: -40           # applied when opened: positive = crew, negative = alien. Voters only see ±power×10
   diesBecause: ...     # dead pods
   # frozenBecause / wokenBecause for pods that live; frozenSub: optional subtitle on the froze slide
   was: ...             # dead pods: what it was in its prime
@@ -114,12 +112,12 @@ Everything below is a default; change pods in the `pod:` header of `presentation
 | Crew size | 11 pods in 4 decks, by stage of the agent's work: Plan (Waterfall: spec-driven development, Markdown, Stack Overflow), Build (git worktree, the IDE, small SaaS tools), Check (mutation testing, hooks, code review), Ship (merge queue, commit trailers). Parked candidates are GitHub issues labelled `parked pod`. ArchUnit left for the architecture spin-off, as the source suggests. |
 | Dead pods | 4: Stack Overflow ⭐ (plan), the IDE and small SaaS tools (build), code review (check). |
 | Context column | Left out (goes to the Memento talk). Markdown sits in Plan, next to spec-driven development. |
-| Crew score | `relevance today × 10` (30–50 per pod). Commit trailers: **−10** (the alien's mark). TDD + unit testing are already awake (on duty, no points): the crew starts at 0. |
-| Alien score | Fixed event: the twist (lethal trifecta 20, hallucinations 15, slop at scale 10, bias 10, environmental cost 5: +60). +30–40 per dead pod opened. |
+| Crew score | `relevance today × 10` (30–50 per live pod). Commit trailers: **−10** (the alien's mark). Small SaaS tools: **+30** (dead, good riddance). TDD + unit testing are already awake (on duty, no points): the crew starts at 0. |
+| Alien score | Fixed event: the twist (lethal trifecta 20, hallucinations 15, slop at scale 10, bias 10, environmental cost 5: +60). +30–40 per dead pod opened (code review, the IDE, Stack Overflow). |
 | Rigged? | Crew-leaning. Four live pods + two dead pods: crew ≈ 150–190 vs alien ≈ 120–140. The alien only wins with three or more dead pods or few live pods opened. The speaker notes have a closing line for both outcomes. |
 | Message map vs random order | Free vote. |
 | Already awake | Shown in the medbay as open pods (on duty); not selectable, no points. |
-| Do voters know a pod is dead? | No hint on the pod itself: a dead pod shows a normal power and positive score, and its freeze year is the year it died (Stack Overflow ❄ 2023). |
+| Do voters know a pod is dead? | No hint on the pod itself: a dead pod shows a normal power and ±power×10, and its freeze year is the year it died (Stack Overflow ❄ 2023). |
 | Voting | Only in the deployed voting app; the map shows the live counts. |
 | Crew manifest photo | Slide removed from the intro. The final pod shows a placeholder crowd for now. |
 | Surprising moment | Kept the source's main pick: the average age of the woken tooling, revealed on the scoreboard. |

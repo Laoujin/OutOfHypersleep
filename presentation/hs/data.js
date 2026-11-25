@@ -29,20 +29,18 @@ HS.alienEvents = {
 HS.pods = Object.values(podFiles)
   .map(src => frontmatter(src).pod)
   .filter(Boolean)
-  .map(p => ({ ...p, dead: p.fate === 'dead', score: { alive: 0, dead: 0, ...p.score } }))
+  .map(p => ({ ...p, dead: p.fate === 'dead', score: p.score ?? 0 }))
   .sort((a, b) => DECKS.indexOf(a.deck) - DECKS.indexOf(b.deck) || (a.order ?? 99) - (b.order ?? 99));
 
 HS.podById = id => HS.pods.find(p => p.id === id);
 HS.thisYear = new Date().getFullYear();
-
-HS.points = p => (p.dead ? p.score.dead : p.score.alive);
 
 HS.score = st => {
   const woken = st.woken.map(HS.podById).filter(Boolean);
   let crew = 0;
   let alien = 0;
   for (const p of woken) {
-    const pts = HS.points(p);
+    const pts = p.score;
     if (pts < 0) alien -= pts;
     else crew += pts;
   }
