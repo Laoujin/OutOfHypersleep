@@ -25,7 +25,7 @@ routeAlias: woken
 <Hs id="woken" />
 
 <!--
-The pods we opened tonight, one card each. No scores here: The Verdict comes after Still on Ice.
+The pods we opened tonight, one card each. No scores here: The Verdict comes right before the end.
 -->
 
 ---
@@ -37,18 +37,6 @@ routeAlias: iced
 
 <!--
 The crew we didn't wake. Iced over: what's inside stays hidden. Their slides are online.
--->
-
----
-layout: hs
-routeAlias: verdict
-clicks: 1
----
-
-<Hs id="verdict" />
-
-<!--
-Click: both scores race up, the winner takes the stage. SUCCESS: we tamed the LLM. FAILURE: we crumbled under AI slop.
 -->
 
 ---
@@ -91,6 +79,18 @@ clicks: 1
 
 <!--
 Diagnosis line. Do not linger.
+-->
+
+---
+layout: hs
+routeAlias: verdict
+clicks: 1
+---
+
+<Hs id="verdict" />
+
+<!--
+Click: both scores race up, the winner takes the stage. SUCCESS: we tamed the LLM. FAILURE: we crumbled under AI slop.
 -->
 
 ---
