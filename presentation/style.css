@@ -170,7 +170,6 @@ button:hover, .btn:hover { border-color: var(--cryo); }
 .map-grid { position: relative; z-index: 2; display: grid; grid-template-columns: 150px 1fr; gap: 14px 18px; margin-top: 34px; width: 1160px; }
 .deck-lbl { display: flex; flex-direction: column; justify-content: center; font-size: 19px; color: var(--muted); border-left: 4px solid; padding-left: 14px; }
 .deck-lbl b { color: var(--ink); font-size: 22px; }
-.deck-lbl small { font: 13px var(--mono); color: var(--faint); margin-top: 4px; }
 .deck-lbl.t-isolation { border-color: var(--iso); } .deck-lbl.t-integration { border-color: var(--int); } .deck-lbl.t-verification { border-color: var(--ver); } .deck-lbl.t-dead { border-color: var(--faint); }
 .deck-row { display: flex; gap: 12px; }
 .pod { position: relative; width: 226px; height: 142px; background: var(--panel); border: 1px solid var(--line); border-radius: 14px; display: flex; gap: 12px; padding: 12px; cursor: pointer; transition: transform .2s, border-color .2s, box-shadow .3s; }

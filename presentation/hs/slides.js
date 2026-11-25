@@ -158,11 +158,10 @@ import soCsv from '../data/stackoverflow-questions.csv?raw';
     html: c => {
       const st = c.state;
       const row = deck => HS.pods.filter(p => p.deck === deck).map(p => podCard(p, st)).join('');
-      const cov = deck => HS.pods.filter(p => p.deck === deck && st.woken.includes(p.id)).length;
       return `<div class="map-head"><div><div class="kicker">cryo chamber · vote at <b>${HS.VOTE_URL.replace('https://', '')}</b></div><h2>Which pod do we open?</h2></div></div>
         <svg class="hull" viewBox="0 0 1500 720" preserveAspectRatio="none"><path d="M20 60 L1180 40 Q1460 120 1480 360 Q1460 600 1180 680 L20 660 Q0 360 20 60Z"/></svg>
         <div class="map-grid">
-          ${['isolation', 'integration', 'verification'].map(t => `<div class="deck-lbl t-${t}"><b>Deck ${HS.TYPES[t].n}</b>${HS.TYPES[t].label}<small>${cov(t)} awake</small></div><div class="deck-row">${row(t)}</div>`).join('')}
+          ${['isolation', 'integration', 'verification'].map(t => `<div class="deck-lbl t-${t}"><b>Deck ${HS.TYPES[t].n}</b>${HS.TYPES[t].label}</div><div class="deck-row">${row(t)}</div>`).join('')}
           <div class="deck-lbl t-dead"><b>Cargo</b>unmarked pods</div>
           <div class="deck-row">${row('cargo')}</div>
         </div>
