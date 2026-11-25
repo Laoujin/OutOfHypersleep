@@ -1137,9 +1137,13 @@ Subject: Re: SCO: "thread creation is about a thousand times faster
     id: 'woken', seq: 'final', cls: 'woken-log',
     html: c => {
       const woken = c.state.woken.map(HS.podById).filter(Boolean);
-      return `${head('', 'Who Made It', `<div class="count"><b>${woken.length}</b> / ${HS.pods.length}</div>`)}
-        <div class="cards">${woken.map(p => `<div class="card${p.dead ? ' dead' : ''}" style="--card-img: url('${BASE}woken/${p.id}.webp')">
-          <div class="nm">${p.dead ? '✝ ' : ''}${p.name}</div><div class="yr">❄ ${p.born}</div><div class="tk">${p.takeaway}</div></div>`).join('')}</div>`;
+      const card = p => `<div class="card${p.dead ? ' dead' : ''}">
+          <div class="bar"><span class="nm">${p.name}</span><span class="yr">❄ ${p.frozen}</span></div>
+          <div class="img" style="--card-img: url('${BASE}woken/${p.id}.webp')"><div class="tk">${p.takeaway}</div></div></div>`;
+      const group = dead => woken.filter(p => p.dead === dead).map(card).join('');
+      return `${head('', 'Roll Call', `<div class="count"><b>${woken.length}</b> / ${HS.pods.length}</div>`)}
+        <div class="cards">${group(false)}</div>
+        <div class="cards">${group(true)}</div>`;
     },
   });
 
