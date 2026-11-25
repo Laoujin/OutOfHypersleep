@@ -25,6 +25,9 @@ pod:
   order: 1
   frozen: 2013
   born: 2013
+  clue:
+    name: Hoare
+    full: Graydon Hoare (bors)
   power: 3
   fate: alive
   score: 30

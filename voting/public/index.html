@@ -67,7 +67,7 @@ function render() {
           ${voteSpan(votes[p.id] || 0)}
           <button class="down" data-act="down" ${on ? '' : 'disabled'} aria-label="Undo vote">−</button>
         </div>
-        <div class="pod-info"><span class="yr">❄ ${esc(p.frozen)}</span><span class="pwr">${BOLT}${rel(p.power)}</span></div>
+        <div class="pod-info"><span class="yr">❄ ${esc(p.frozen)}</span>${p.clue ? `<span class="clue" title="${esc(p.clue.full)}">${esc(p.clue.name)}</span>` : ''}<span class="pwr">${BOLT}${rel(p.power)}</span></div>
       </div>`
     }).join('')}</div>`
   }).join('')

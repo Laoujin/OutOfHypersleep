@@ -26,6 +26,9 @@ pod:
   frozen: 2008
   born: 2008
   died: 2023
+  clue:
+    name: Spolsky
+    full: Atwood, Spolsky
   power: 5
   fate: dead
   score: -40
