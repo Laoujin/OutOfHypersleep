@@ -1221,3 +1221,29 @@ svg .lbl.spec-w { font-size: 20px; }
 .woken-log .card.iced .img { filter: blur(3px) saturate(.5); }
 .woken-log .card.iced .sg-glaze { opacity: 1; top: 30px; border-radius: 0 0 14px 14px; }
 .woken-log .card.iced .tk { display: none; }
+
+/* finale: the verdict */
+.vd-side { position: absolute; top: 190px; width: 360px; display: flex; flex-direction: column; align-items: center; gap: 10px; transition: transform 1.2s cubic-bezier(.5, 0, .2, 1), opacity 1s, filter 1s, left 1.2s cubic-bezier(.5, 0, .2, 1); }
+.vd-side.crew { left: 200px; } .vd-side.alien { left: 1040px; }
+.vd-side svg { width: 260px; height: 260px; }
+.vd-side .nm { font: 600 18px var(--mono); letter-spacing: .2em; text-transform: uppercase; color: var(--muted); transition: opacity .3s; }
+.vd-side .n { font: 800 96px/1 var(--mono); transition: opacity .3s; }
+.vd-side.crew .n { color: var(--awake); } .vd-side.alien .n { color: var(--alien); }
+.vd-side.lose { opacity: .25; filter: grayscale(1); }
+.vd-side.lose svg * { animation-play-state: paused !important; }
+.vd.won-crew .vd-side.crew, .vd.won-alien .vd-side.alien { left: 620px; transform: scale(1.25) translateY(-30px); z-index: 2; }
+.vd.won-crew .vd-side.alien, .vd.won-alien .vd-side.crew { transform: scale(.7); }
+.vd.won-crew .vd-side.alien { left: 1220px; } .vd.won-alien .vd-side.crew { left: 20px; }
+.vd.final .vd-side .n, .vd.final .vd-side .nm { opacity: 0; }
+.vd-side svg.dance { animation: vd-dance 1.6s ease-in-out infinite; }
+@keyframes vd-dance { 0%, 100% { transform: translateY(0) rotate(0); } 15% { transform: translateY(-34px) rotate(-12deg); } 30% { transform: translateY(0) rotate(0); }
+  45% { transform: translateY(-34px) rotate(12deg); } 60% { transform: translateY(0) rotate(0); } 75% { transform: translateY(-18px) scale(1.12); } 90% { transform: translateY(0) scale(1); } }
+.vd-stamp { position: absolute; left: 50%; bottom: 120px; z-index: 6; text-align: center; white-space: nowrap; font: 700 130px/1 var(--head); letter-spacing: .12em; padding: 10px 56px; border: 10px solid; border-radius: 18px;
+  background: rgba(11, 13, 16, .85); opacity: 0; transform: translateX(-50%) scale(3) rotate(-4deg); pointer-events: none; }
+.vd-stamp small { display: block; margin-top: 14px; font: 600 34px var(--sans); letter-spacing: .02em; text-transform: none; color: var(--ink); }
+.vd-stamp.on { animation: vd-slam .45s cubic-bezier(.5, 0, .7, 1.4) forwards; }
+.vd-stamp.win { color: var(--awake); border-color: var(--awake); box-shadow: 0 0 80px rgba(69, 230, 160, .35), inset 0 0 40px rgba(69, 230, 160, .2); }
+.vd-stamp.lose { color: var(--alien); border-color: var(--alien); box-shadow: 0 0 80px rgba(255, 59, 92, .35), inset 0 0 40px rgba(255, 59, 92, .2); }
+@keyframes vd-slam { to { opacity: 1; transform: translateX(-50%) scale(1) rotate(-4deg); } }
+.vd.shake { animation: vd-shake .35s; }
+@keyframes vd-shake { 20% { translate: -8px 4px; } 40% { translate: 7px -5px; } 60% { translate: -5px 3px; } 80% { translate: 3px -2px; } }

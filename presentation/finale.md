@@ -41,6 +41,18 @@ The crew we didn't wake. Iced over: what's inside stays hidden. Their slides are
 
 ---
 layout: hs
+routeAlias: verdict
+clicks: 1
+---
+
+<Hs id="verdict" />
+
+<!--
+Click: both scores race up, the winner takes the stage. SUCCESS: we tamed the LLM. FAILURE: we crumbled under AI slop.
+-->
+
+---
+layout: hs
 routeAlias: final
 clicks: 2
 ---

@@ -1162,6 +1162,38 @@ Subject: Re: SCO: "thread creation is about a thousand times faster
   });
 
   add({
+    id: 'verdict', seq: 'final', steps: 2, cls: 'vd',
+    html: () => `${head('', 'The Verdict')}
+      <div class="vd-side crew">${A.crew()}<div class="nm">Crew</div><div class="n" data-n="crew">0</div></div>
+      <div class="vd-side alien">${A.alien()}<div class="nm">Alien AI</div><div class="n" data-n="alien">0</div></div>
+      <div class="vd-stamp"></div>`,
+    step: (el, st, c) => {
+      const run = el._run = (el._run || 0) + 1;
+      const { crew, alien } = c.score;
+      const win = crew >= alien;
+      const later = (ms, fn) => setTimeout(() => el._run === run && el.isConnected && fn(), ms);
+      const cr = el.querySelector('[data-n=crew]'), al = el.querySelector('[data-n=alien]');
+      const stamp = el.querySelector('.vd-stamp');
+      const phases = [
+        () => { el.classList.add(win ? 'won-crew' : 'won-alien'); el.querySelector(win ? '.vd-side.alien' : '.vd-side.crew').classList.add('lose'); },
+        () => { el.classList.add('final'); stamp.className = `vd-stamp ${win ? 'win' : 'lose'} on`; },
+        () => el.classList.add('shake'),
+        () => el.querySelector(win ? '.vd-side.crew svg' : '.vd-side.alien svg').classList.add('dance'),
+      ];
+      el.classList.remove('won-crew', 'won-alien', 'final', 'shake');
+      el.querySelectorAll('.lose, .dance').forEach(n => n.classList.remove('lose', 'dance'));
+      stamp.className = 'vd-stamp';
+      stamp.innerHTML = win ? 'SUCCESS<small>We tamed the LLM</small>' : 'FAILURE<small>We crumbled under AI slop</small>';
+      cr.textContent = al.textContent = 0;
+      if (st < 1) return;
+      if (!c.active) { cr.textContent = crew; al.textContent = alien; return phases.forEach(f => f()); }
+      A.countUp(cr, 0, crew, 3200);
+      A.countUp(al, 0, alien, 3200);
+      [3900, 5200, 5580, 5980].forEach((ms, i) => later(ms, phases[i]));
+    },
+  });
+
+  add({
     id: 'final', seq: 'final', steps: 3, cls: 'thaw final',
     html: () => `<div class="thaw-pod">${A.pod('dying big')}</div>
       <div class="thaw-info">
