@@ -13,7 +13,7 @@ const VOTES_FILE = path.join(DATA_DIR, 'votes.json')
 const DECKS = ['plan', 'build', 'check', 'ship']
 const CLUES = {
   spec: 'Royce', markdown: 'Gruber', stackoverflow: 'Spolsky',
-  worktrees: 'Duy', ide: 'Hejlsberg',
+  worktrees: 'Duy', ide: 'Hejlsberg', saas: 'Benioff',
   mutation: 'DeMillo', hooks: 'Torvalds', codereview: 'Fagan',
   mergequeue: 'Hoare', trailers: 'Couder',
 }
