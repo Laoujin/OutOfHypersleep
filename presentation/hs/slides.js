@@ -158,6 +158,7 @@ import soCsv from '../data/stackoverflow-questions.csv?raw';
   };
   HS.revive = revive;
 
+  let bowOpen = false;
   add({
     id: 'map', seq: 'map', cls: 'map plate',
     html: c => {
@@ -168,6 +169,7 @@ import soCsv from '../data/stackoverflow-questions.csv?raw';
         <div class="map-grid">
           ${Object.keys(HS.TYPES).map(t => `<div class="deck-lbl t-${t}"><b>Deck ${HS.TYPES[t].n}</b>${HS.TYPES[t].label}</div><div class="deck-row">${row(t)}</div>`).join('')}
         </div>
+        <button class="bow-hatch${bowOpen ? ' open' : ''}" data-act="bow"><span class="ring">⏻</span><span class="t">The bow</span></button>
 `;
     },
     init: (el, c) => {
@@ -222,6 +224,12 @@ import soCsv from '../data/stackoverflow-questions.csv?raw';
       });
       el.addEventListener('click', e => {
         if (e.target.closest('.rv-overlay')) return;
+        const bow = e.target.closest('[data-act=bow]');
+        if (bow) {
+          if (bowOpen) return window.open(HS.deckUrl('finale'), '_blank');
+          bowOpen = true;
+          return bow.classList.add('open');
+        }
         const pod = e.target.closest('.pod[data-pod]');
         if (pod && !c.state.woken.includes(pod.dataset.pod)) show(pod.dataset.pod);
       });
