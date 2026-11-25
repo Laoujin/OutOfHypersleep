@@ -71,7 +71,7 @@ Architecture: stable. Meridian, five failed attempts at a dead-simple design unt
 ---
 layout: hs
 routeAlias: diagnosis
-clicks: 3
+clicks: 4
 ---
 
 <Hs id="diagnosis" />
@@ -81,6 +81,7 @@ Coding was never the job: IDC 2024, developers spend 16% of their time building 
 [click] AI makes that slice 5× faster. The day barely shrinks.
 [click] Amdahl's law: 5× faster coding is a 1.15× faster developer.
 [click] The other 84% is the job: communication, building the right thing, debugging and verification.
+[click] Fred Brooks saw it coming in 1986: no silver bullet.
 -->
 
 ---

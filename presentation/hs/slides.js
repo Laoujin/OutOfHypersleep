@@ -1218,12 +1218,13 @@ Subject: Re: SCO: "thread creation is about a thousand times faster
   });
 
   add({
-    id: 'diagnosis', seq: 'final', steps: 4, cls: 'dg',
+    id: 'diagnosis', seq: 'final', steps: 5, cls: 'dg',
     html: () => `${head('', 'Schrödinger\'s Developer')}<div class="dg-sub">Coding was never the job.</div>
       <div class="dg-day"><div class="dg-cap">a developer's working time</div>
         <div class="dg-bar"><div class="code">coding 16%</div><div class="rest"><span>communication</span><span>building the right thing</span><span>debugging &amp; verification</span></div></div>
         <div class="dg-fast" data-s="1">← coding with AI: 5× faster</div></div>
-      <div class="dg-math" data-s="2"><span>5× faster coding</span><span>=</span><b>1.15×</b><em>faster developer</em></div>`,
+      <div class="dg-math" data-s="2"><span>5× faster coding</span><span>=</span><b>1.15×</b><em>faster developer</em></div>
+      <blockquote class="dg-quote" data-s="4">"There is no single development, in either technology or management technique, which by itself promises even one order-of-magnitude improvement within a decade in productivity, in reliability, in simplicity."<cite>Fred Brooks · No Silver Bullet · 1986</cite></blockquote>`,
   });
 
   add({
