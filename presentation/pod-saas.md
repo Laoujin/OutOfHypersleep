@@ -32,7 +32,7 @@ pod:
   score:
     alive: 30
     dead: 30
-  was: A monthly subscription for one button on someone else's website.
+  was: One small problem, one startup, one monthly credit card charge.
   diesBecause: Building beats buying. A PDF tool in 2 hours instead of hosting Stirling PDF.
   logTitle: Build vs buy, flipped
   takeaway: Unsubscribed.
