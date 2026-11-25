@@ -6,7 +6,7 @@ const HS = window.HS
 const KEY = 'hypersleep-state-v1'
 const fresh = () => ({ woken: [], events: {}, shown: { crew: 0, alien: 0 } })
 
-const DEBUG_RESET_ON_RELOAD = true
+const DEBUG_RESET_ON_RELOAD = false
 const isReload = () => { try { return performance.getEntriesByType('navigation')[0]?.type === 'reload' } catch { return false } }
 if (DEBUG_RESET_ON_RELOAD && isReload()) { try { localStorage.removeItem(KEY) } catch {} }
 
