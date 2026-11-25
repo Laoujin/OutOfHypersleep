@@ -83,7 +83,7 @@ import soCsv from '../data/stackoverflow-questions.csv?raw';
     const pts = p.score;
     const tone = woken ? (pts < 0 ? 'tone-alien' : 'tone-crew') : '';
     const cls = ['pod', `t-${p.deck}`, `is-${state}`, tone, HS.leader() === p.id ? 'lead' : '', p.wip ? 'wip' : ''].join(' ');
-    const votes = HS.votesOf(p.id);
+    const votes = HS.voteLabel(HS.votesOf(p.id));
     return `<div class="${cls}" data-pod="${p.id}">
       ${p.wip ? '<div class="wip-tag">WIP</div>' : ''}
       ${woken ? `<div class="pod-plate">${p.name}<small>${p.dead ? `✝ ${p.died}` : 'REVIVED'}</small></div>` : ''}
@@ -180,7 +180,7 @@ import soCsv from '../data/stackoverflow-questions.csv?raw';
     init: (el, c) => {
       const syncVotes = () => {
         if (!el.isConnected) return;
-        el.querySelectorAll('.pod[data-pod] .votes .vn').forEach(n => { n.textContent = HS.votesOf(n.closest('.pod').dataset.pod); });
+        el.querySelectorAll('.pod[data-pod] .votes .vn').forEach(n => { n.textContent = HS.voteLabel(HS.votesOf(n.closest('.pod').dataset.pod)); });
         const lead = HS.leader();
         el.querySelectorAll('.pod').forEach(p => p.classList.toggle('lead', p.dataset.pod === lead));
       };

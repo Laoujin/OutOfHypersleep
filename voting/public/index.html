@@ -50,6 +50,7 @@ const cryo = `<svg class="cryo closed" viewBox="0 0 440 180" aria-hidden="true">
     <path class="frost" d="M86 72 q20 -10 34 2 t40 -2 t36 6 M92 106 q26 -8 44 4 t52 -2 t40 4 M210 70 q24 -8 40 2 t40 0 M240 112 q22 -6 36 2 t44 -2"/></g>
   <g class="strip">${Array.from({ length: 7 }, (_, i) => `<rect x="${(440 - 7 * 22) / 2 + i * 22 - 40}" y="152" width="16" height="8" rx="2"/>`).join('')}</g>
 </svg>`
+const voteLabel = n => (n > 999 ? '∞' : n)
 const BOLT = '<svg viewBox="0 0 12 18" aria-hidden="true"><path d="M7 0 0 10h5l-1 8 7-10H6z"/></svg>'
 const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c])
 
@@ -63,7 +64,7 @@ function render() {
         <div class="pod-art">${cryo}</div>
         <div class="votes">
           <button class="up" data-act="up" ${on ? 'disabled' : ''} aria-label="Vote">+</button>
-          <span class="vn">${votes[p.id] || 0}</span>
+          <span class="vn">${voteLabel(votes[p.id] || 0)}</span>
           <button class="down" data-act="down" ${on ? '' : 'disabled'} aria-label="Undo vote">−</button>
         </div>
         <div class="pod-info"><span class="yr">❄ ${esc(p.frozen)}</span><span class="pwr">${BOLT}${rel(p.power)}</span></div>
