@@ -1221,4 +1221,4 @@ svg .lbl.spec-w { font-size: 20px; }
 .ss-mine h4 span { display: block; margin-top: 4px; font: 600 16px var(--mono); color: var(--muted); letter-spacing: .1em; }
 .ss-btn { height: 74px; margin-bottom: 12px; border-radius: 10px; border: 2px solid var(--awake); background: rgba(69, 230, 160, .1); display: flex; align-items: center; padding: 0 22px; font: 700 26px var(--mono); color: #fff; }
 .ss-btn::before { content: "▸"; color: var(--awake); margin-right: 14px; }
-.ss-next { margin-top: auto; font: 700 30px/1.15 var(--head); color: var(--cryo); text-transform: uppercase; letter-spacing: .04em; }
+.ss-next { flex: 1; margin-top: 4px; display: flex; align-items: center; justify-content: center; text-align: center; border: 2px dashed var(--cryo); border-radius: 10px; background: rgba(159, 216, 240, .06); font: 700 40px/1.15 var(--head); color: var(--cryo); text-transform: uppercase; letter-spacing: .04em; }
