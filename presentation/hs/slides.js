@@ -83,13 +83,12 @@ import soCsv from '../data/stackoverflow-questions.csv?raw';
     const pts = p.score;
     const tone = woken ? (pts < 0 ? 'tone-alien' : 'tone-crew') : '';
     const cls = ['pod', `t-${p.deck}`, `is-${state}`, tone, HS.leader() === p.id ? 'lead' : '', p.wip ? 'wip' : ''].join(' ');
-    const votes = HS.voteLabel(HS.votesOf(p.id));
     return `<div class="${cls}" data-pod="${p.id}">
       ${p.wip ? '<div class="wip-tag">WIP</div>' : ''}
       ${woken ? `<div class="pod-plate">${p.name}<small>${p.dead ? `✝ ${p.died}` : 'REVIVED'}</small></div>` : ''}
       <div class="pod-art">${A.cryo(state, '')}</div>
       ${woken ? `<div class="pod-name pts ${pts < 0 ? 'neg' : 'pos'}">${pts < 0 ? '−' : '+'}${Math.abs(pts)}</div>` : `<div class="pod-name">${p.name}</div>`}
-      ${woken ? '' : `<div class="votes"><span class="vn">${votes}</span><small>votes</small></div>`}
+      ${woken ? '' : `<div class="votes">${HS.voteSpan(HS.votesOf(p.id))}<small>votes</small></div>`}
       <div class="pod-info"><span class="yr">❄ ${p.frozen}</span><span class="pwr"><svg viewBox="0 0 12 18" aria-hidden="true"><path d="M7 0 0 10h5l-1 8 7-10H6z"/></svg>${A.rel(p.power)}</span></div>
     </div>`;
   };
@@ -180,7 +179,7 @@ import soCsv from '../data/stackoverflow-questions.csv?raw';
     init: (el, c) => {
       const syncVotes = () => {
         if (!el.isConnected) return;
-        el.querySelectorAll('.pod[data-pod] .votes .vn').forEach(n => { n.textContent = HS.voteLabel(HS.votesOf(n.closest('.pod').dataset.pod)); });
+        el.querySelectorAll('.pod[data-pod] .votes .vn').forEach(n => { n.outerHTML = HS.voteSpan(HS.votesOf(n.closest('.pod').dataset.pod)); });
         const lead = HS.leader();
         el.querySelectorAll('.pod').forEach(p => p.classList.toggle('lead', p.dataset.pod === lead));
       };

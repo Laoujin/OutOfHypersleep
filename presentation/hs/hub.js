@@ -70,7 +70,7 @@ HS.ctx = (active, refresh) => ({ state, score: HS.score(state), save: HS.save, a
 
 HS.live = {}
 HS.votesOf = id => HS.live[id] || 0
-HS.voteLabel = n => (n > 999 ? '∞' : n)
+HS.voteSpan = n => (n > 999 ? `<span class="vn inf" title="${n}">∞</span>` : `<span class="vn">${n}</span>`)
 
 HS.leader = () => {
   let best = null, max = 0
