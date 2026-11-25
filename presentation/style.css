@@ -1302,7 +1302,7 @@ svg .lbl.spec-w { font-size: 20px; }
 .dg-learn i::before { content: ""; position: absolute; left: 50%; top: -4px; transform: translateX(-50%); border: 12px solid transparent; border-top: 0; border-bottom: 16px solid var(--amber); }
 .dg-learn span { position: absolute; right: 0; top: 88px; font: 700 34px var(--head); text-transform: uppercase; color: var(--amber); white-space: nowrap; }
 .dg-math { flex: 1; margin-top: 150px; display: flex; align-items: center; justify-content: center; gap: 30px; font: 700 64px/1 var(--head); text-transform: uppercase; }
-.dg-math .arr { display: flex; align-items: center; color: var(--amber); font: 700 72px/1 var(--sans); transform: translateY(-4px); }
+.dg-math .arr { width: 80px; height: 48px; flex: none; fill: none; stroke: var(--amber); stroke-width: 6; stroke-linecap: round; stroke-linejoin: round; }
 .dg-badge { padding: 10px 34px; border-radius: 999px; font: 800 56px var(--mono); color: #1a1204; background: var(--amber); box-shadow: 0 0 40px rgba(255, 181, 71, .4); text-transform: none; }
 
 /* finale: Brooks quote */

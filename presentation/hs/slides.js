@@ -1223,7 +1223,7 @@ Subject: Re: SCO: "thread creation is about a thousand times faster
       <div class="dg-day"><div class="dg-cap">a developer's working time</div>
         <div class="dg-bar"><div class="code">coding 16%</div><div class="rest"><span>communication</span><span>scrum<br>ceremonies</span><span>building the<br>right thing</span><span>context<br>switching</span><span>debugging &amp;<br>verification</span></div><div class="new"></div></div>
         <div class="dg-learn" data-s="1"><i></i><span>Learning to work effectively with AI agents?</span></div></div>
-      <div class="dg-math" data-s="2"><span>5× faster coding</span><span class="arr">⇒</span><b class="dg-badge">+15% productivity</b></div>`,
+      <div class="dg-math" data-s="2"><span>5× faster coding</span><svg class="arr" viewBox="0 0 80 48" aria-hidden="true"><path d="M4 16h52M4 32h52M48 6l24 18-24 18"/></svg><b class="dg-badge">+15% productivity</b></div>`,
   });
 
   add({
