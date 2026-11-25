@@ -29,20 +29,39 @@ p.lead { color: var(--muted); margin: 0 0 24px; line-height: 1.5; }
 .on-1 [data-s="1"], .on-2 [data-s="1"], .on-2 [data-s="2"] { opacity: 1; }
 
 .subs { position: absolute; left: 72px; top: 210px; width: 1000px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-.sub { position: relative; height: 118px; border-radius: 12px; background: var(--panel); border: 1px solid var(--line); border-left: 4px solid var(--alien); padding: 16px 20px; transition: opacity .5s, filter .5s, border-color .4s; }
+.sub { position: relative; height: 118px; perspective: 900px; }
 .sub h5 { margin: 0; font: 700 24px var(--head); color: #fff; text-transform: uppercase; letter-spacing: .03em; }
 .sub p { margin: 4px 0 0; font: 15px var(--mono); color: var(--muted); }
 .sub .pr { position: absolute; right: 20px; top: 18px; font: 700 22px var(--mono); color: var(--alien); }
-.sub .rip { position: absolute; inset: 0; display: flex; align-items: flex-end; justify-content: flex-end; padding: 14px 20px; font: 700 18px var(--mono); color: var(--awake); opacity: 0; transition: opacity .4s; }
-.sub.dead { border-left-color: var(--faint); }
-.sub.dead h5, .sub.dead p { opacity: .35; }
-.sub.dead .pr { color: var(--faint); text-decoration: line-through; }
-.sub.dead .rip { opacity: 1; }
+.face { position: absolute; inset: 0; border-radius: 12px; background: var(--panel); border: 1px solid var(--line); border-left: 4px solid var(--alien); padding: 16px 20px; backface-visibility: hidden; transition: transform .7s cubic-bezier(.5, 0, .2, 1), opacity .5s, filter .6s; }
+.face.back { border-left-color: var(--awake); transform: rotateY(180deg); background: rgba(69, 230, 160, .07); }
+.face.back h5::before { content: "✔ "; color: var(--awake); }
+.face.back .pr { color: var(--awake); }
+.lamp { position: absolute; left: 20px; bottom: 14px; width: 10px; height: 10px; border-radius: 50%; background: var(--alien); box-shadow: 0 0 10px var(--alien); transition: background .4s, box-shadow .4s; }
+.ice { position: absolute; inset: 0; border-radius: 12px; pointer-events: none; opacity: 0; transition: opacity .9s; background: linear-gradient(150deg, rgba(159, 216, 240, .38), rgba(159, 216, 240, .08) 55%, rgba(159, 216, 240, .25)); border: 1px solid rgba(159, 216, 240, .6); display: flex; align-items: flex-end; justify-content: flex-end; padding: 12px 18px; font: 700 18px var(--mono); color: var(--cryo); }
+.ghost { position: absolute; inset: 0; border-radius: 12px; border: 2px dashed var(--line); display: flex; align-items: center; justify-content: center; font: 700 18px var(--mono); color: var(--awake); opacity: 0; transition: opacity .5s .4s; }
+/* flip: the card turns over into the thing I built */
+.v-flip .sub.dead .front { transform: rotateY(-180deg); }
+.v-flip .sub.dead .back { transform: rotateY(0); }
+/* freeze: the subscription goes into cryo, lamp dies */
+.v-freeze .sub .back { display: none; }
+.v-freeze .sub.dead .front { filter: grayscale(1) brightness(.55); }
+.v-freeze .sub.dead .lamp { background: #2a2f37; box-shadow: none; }
+.v-freeze .sub.dead .ice { opacity: 1; }
+/* fall: the card drops off the wall, leaving the outline of what replaced it */
+.v-fall .sub .back { display: none; }
+.v-fall .sub.dead .front { transform: translateY(900px) rotate(var(--rot)); opacity: 0; transition: transform 1.1s cubic-bezier(.5, 0, .9, .5), opacity .3s .8s; }
+.v-fall .sub.dead .ghost { opacity: 1; }
+.coin { position: absolute; z-index: 9; font: 700 22px var(--mono); color: var(--alien); pointer-events: none; }
+.vsw { margin-left: 24px; }
+.vsw button.on { border-color: var(--awake); color: var(--awake); }
 .erp { position: absolute; left: 1120px; top: 210px; width: 410px; height: 386px; border-radius: 14px; background: var(--panel); border: 2px solid var(--amber); padding: 28px 32px; box-shadow: 0 0 40px rgba(255, 181, 71, .15); }
 .erp h5 { margin: 0; font: 700 40px var(--head); color: #fff; text-transform: uppercase; }
 .erp p { margin: 8px 0 0; font: 17px/1.5 var(--mono); color: var(--muted); }
 .erp .pr { margin-top: 26px; font: 700 52px var(--mono); color: var(--amber); }
 .erp .keep { margin-top: 22px; font: 700 24px var(--head); color: var(--amber); letter-spacing: .1em; text-transform: uppercase; }
+.fornow { margin-top: 6px; font: 600 20px var(--mono); color: var(--muted); font-style: italic; opacity: 0; transition: opacity .8s 1.6s; }
+.on-2 .fornow { opacity: 1; }
 .total { position: absolute; left: 72px; top: 770px; font: 700 22px var(--mono); color: var(--muted); letter-spacing: .1em; text-transform: uppercase; }
 .total b { display: inline-block; min-width: 230px; font-size: 64px; color: var(--alien); letter-spacing: 0; vertical-align: -10px; margin-right: 14px; font-variant-numeric: tabular-nums; transition: color .4s; }
 .total.zero b { color: var(--awake); }
@@ -51,9 +70,9 @@ p.lead { color: var(--muted); margin: 0 0 24px; line-height: 1.5; }
 <body>
 <main>
   <h1 class="page">SaaS · C · subscription graveyard</h1>
-  <p class="lead">Not tied to Stirling PDF. Step 0: the small tools a team pays for each month. Step 1: one by one, an agent builds each in an afternoon, and the total drains to €0. Step 2: the ERP stays. "Not for your ERP."</p>
+  <p class="lead">Not tied to Stirling PDF. Step 0: the small tools a team pays for each month. Step 1: one by one, an agent builds each in an afternoon, and the total drains to €0. Switch the death animation below the slide. Step 2: the ERP stays. "Not for your ERP."</p>
   <div class="wrap" data-steps="2"><div class="slide" id="slide">
-    <div class="hd"><small>Cargo deck · Small SaaS tools</small><h3>One subscription per button</h3></div>
+    <div class="hd"><small>Cargo deck · Small SaaS tools</small><h3>One subscription per feature</h3></div>
     <div class="subs" id="subs"></div>
     <div class="total" id="total"><b id="sum"></b>per month</div>
     <div class="erp" data-s="2">
@@ -61,9 +80,10 @@ p.lead { color: var(--muted); margin: 0 0 24px; line-height: 1.5; }
       <p>accounting · payroll · compliance<br>20 years of edge cases<br>someone to call at 3am</p>
       <div class="pr">€4,800<small style="font-size:22px;color:var(--muted)"> /mo</small></div>
       <div class="keep">Keep paying.</div>
+      <div class="fornow">… for now …</div>
     </div>
   </div></div>
-  <div class="ctl"><button data-act="prev">◀ Prev</button><button data-act="next">Next ▶</button><button data-act="reset">Reset</button><span id="cap"></span></div>
+  <div class="ctl"><button data-act="prev">◀ Prev</button><button data-act="next">Next ▶</button><button data-act="reset">Reset</button><span id="cap"></span><span class="vsw">death: <button data-v="flip" class="on">flip</button> <button data-v="freeze">freeze</button> <button data-v="fall">fall</button></span></div>
 </main>
 <script>
 const SUBS = [
@@ -72,8 +92,22 @@ const SUBS = [
   ['QR codes', 'one for the poster', 7, '20 min'], ['Feature flags', 'five booleans', 75, '3 h'], ['Changelog widget', 'what\'s new', 49, '2 h'],
   ['Uptime ping', 'every 5 min', 10, '30 min'], ['Image resize', 'thumbnails', 25, '1 h'], ['Feedback board', 'upvote ideas', 49, '4 h'],
 ];
+const slide = document.getElementById('slide');
+slide.classList.add('v-flip');
 const subs = document.getElementById('subs');
-subs.innerHTML = SUBS.map(([n, d, p, t]) => `<div class="sub"><h5>${n}</h5><p>${d}</p><span class="pr">€${p}</span><span class="rip">✔ built · ${t}</span></div>`).join('');
+subs.innerHTML = SUBS.map(([n, d, p, t], i) => `<div class="sub" style="--rot:${(i % 2 ? 1 : -1) * (8 + i * 3 % 14)}deg">
+  <div class="ghost">✔ built · ${t}</div>
+  <div class="face front"><h5>${n}</h5><p>${d}</p><span class="pr">€${p}</span><span class="lamp"></span><div class="ice">❄ ${t} to replace</div></div>
+  <div class="face back"><h5>${n}</h5><p>built by an agent · ${t}</p><span class="pr">€0</span></div>
+</div>`).join('');
+const coin = card => {
+  const pr = card.querySelector('.front .pr'), c = document.createElement('div');
+  c.className = 'coin'; c.textContent = '−' + pr.textContent;
+  const x0 = subs.offsetLeft + card.offsetLeft + pr.offsetLeft, y0 = subs.offsetTop + card.offsetTop + pr.offsetTop;
+  const x1 = totalEl.offsetLeft + 60, y1 = totalEl.offsetTop;
+  c.style.left = x0 + 'px'; c.style.top = y0 + 'px'; slide.appendChild(c);
+  c.animate([{ transform: 'translate(0,0)', opacity: 1 }, { transform: `translate(${x1 - x0}px, ${y1 - y0}px) scale(.7)`, opacity: .2 }], { duration: 700, easing: 'cubic-bezier(.5, 0, .7, 1)' }).onfinish = () => c.remove();
+};
 const cards = [...subs.children], sumEl = document.getElementById('sum'), totalEl = document.getElementById('total');
 const full = SUBS.reduce((s, x) => s + x[2], 0);
 let sum = full, killT, tickT;
@@ -84,12 +118,12 @@ const drain = on => {
   let i = 0, target = full;
   killT = setInterval(() => {
     if (i >= cards.length) return clearInterval(killT);
-    cards[i].classList.add('dead'); target -= SUBS[i][2]; i++;
-  }, 380);
-  tickT = setInterval(() => { if (sum > target) { sum = Math.max(target, sum - 4); show(); } else if (i >= cards.length) clearInterval(tickT); }, 20);
+    cards[i].classList.add('dead'); coin(cards[i]); const d = SUBS[i][2]; setTimeout(() => { target -= d; }, 650); i++;
+  }, 520);
+  tickT = setInterval(() => { if (sum > target) { sum = Math.max(target, sum - 4); show(); } else if (i >= cards.length && sum <= 0) clearInterval(tickT); }, 20);
 };
 
-const wrap = document.querySelector('.wrap'), slide = document.getElementById('slide'), cap = document.getElementById('cap'), max = +wrap.dataset.steps;
+const wrap = document.querySelector('.wrap'), cap = document.getElementById('cap'), max = +wrap.dataset.steps;
 let st = 0;
 const go = n => {
   const prev = st;
@@ -99,7 +133,10 @@ const go = n => {
   if (st === 0 || (prev === 0 && st >= 1)) drain(st >= 1);
 };
 wrap.addEventListener('click', () => go(st + 1));
-document.querySelector('.ctl').addEventListener('click', e => { const a = e.target.dataset.act; if (a === 'next') go(st + 1); if (a === 'prev') go(st - 1); if (a === 'reset') go(0); });
+document.querySelector('.ctl').addEventListener('click', e => {
+  const v = e.target.dataset.v;
+  if (v) { slide.classList.remove('v-flip', 'v-freeze', 'v-fall'); slide.classList.add('v-' + v); document.querySelectorAll('.vsw button').forEach(b => b.classList.toggle('on', b === e.target)); go(0); return; }
+  const a = e.target.dataset.act; if (a === 'next') go(st + 1); if (a === 'prev') go(st - 1); if (a === 'reset') go(0); });
 go(0);
 const fit = () => { slide.style.transform = 'scale(' + (wrap.clientWidth / 1600) + ')'; };
 addEventListener('resize', fit); fit();
