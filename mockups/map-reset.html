@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Ship map · subtle reset button</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@600;700&family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;600;800&display=swap">
+<link rel="stylesheet" href="../presentation/style.css">
+<script src="../presentation/hs/art.js"></script>
+<style>
+body { margin: 0; background: #05070a; color: var(--ink); font-family: var(--sans); }
+main { max-width: 1280px; margin: 0 auto; padding: 32px 16px 80px; }
+h1.page { font: 700 32px var(--head); margin: 0 0 6px; }
+h2.v { font: 700 24px var(--head); margin: 44px 0 4px; }
+p.lead { color: var(--muted); margin: 0 0 14px; line-height: 1.5; }
+.wrap { position: relative; width: 100%; aspect-ratio: 16 / 9; overflow: hidden; border-radius: 10px; border: 1px solid #222; }
+.slide { position: absolute; left: 0; top: 0; width: 1600px; height: 900px; transform-origin: 0 0; overflow: hidden; }
+.map { --plate-img: url('../presentation/public/plates/map-table.webp'); }
+.map .pod .pod-name { display: none; }
+
+/* shared: the reset arms on the first click, resets on the second */
+.rst { font: 600 14px var(--mono); color: var(--faint); background: none; border: 0; cursor: pointer; padding: 6px 8px; letter-spacing: .06em; transition: color .2s, opacity .3s; z-index: 5; }
+.rst:hover { color: var(--muted); }
+.rst.armed { color: var(--alien); }
+.rst .sure { display: none; } .rst.armed .sure { display: inline; } .rst.armed .idle { display: none; }
+
+/* A · text link, bottom-right */
+.va .rst { position: absolute; right: 28px; bottom: 18px; }
+
+/* B · round icon, top-right next to the title */
+.vb .rst { position: absolute; right: 48px; top: 44px; width: 40px; height: 40px; padding: 0; border: 1px solid var(--line); border-radius: 50%; font-size: 20px; }
+.vb .rst.armed { width: auto; padding: 0 14px; border-radius: 20px; border-color: var(--alien); font-size: 14px; }
+
+/* C · invisible until the mouse reaches the bottom-left corner */
+.vc .corner { position: absolute; left: 0; bottom: 0; width: 220px; height: 90px; z-index: 5; }
+.vc .rst { position: absolute; left: 28px; bottom: 18px; opacity: 0; }
+.vc .corner:hover .rst, .vc .rst.armed { opacity: 1; }
+
+/* D · in the kicker line, after the vote URL */
+.vd .rst { display: inline; padding: 0; font: inherit; letter-spacing: inherit; text-transform: inherit; }
+</style>
+</head>
+<body>
+<main>
+<h1 class="page">Ship map · subtle reset button</h1>
+<p class="lead">The first click arms the button ("reset? click again"), the second click resets. It disarms after 3 s. Hover and click to try it.</p>
+<div id="out"></div>
+</main>
+<script>
+const A = HS.art;
+const ROWS = [
+  ['plan', 'Plan', [['Waterfall', 1970, 5, 'awake'], ['Markdown', 2004, 5, 'closed', 4], ['Stack Overflow', 2023, 5, 'dead', 0, 2023]]],
+  ['build', 'Build', [['git worktree', 2015, 5, 'awake'], ['The IDE', 2026, 5, 'closed', 9], ['Small SaaS tools', 2025, 3, 'closed', 2]]],
+  ['check', 'Check', [['Mutation testing', 1978, 5, 'closed', 12], ['Hooks', 2005, 4, 'closed', 3], ['Code review', 2027, 4, 'closed', 6]]],
+  ['ship', 'Ship', [['Merge queue', 2013, 3, 'closed', 1], ['Commit trailers', 2014, 1, 'closed', 0]]],
+];
+const pod = ([name, yr, pwr, state, votes, died]) => `<div class="pod is-${state}">
+  ${state === 'closed' ? '' : `<div class="pod-plate">${name}<small>${state === 'dead' ? '✝ ' + died : 'REVIVED'}</small></div>`}
+  <div class="pod-art">${A.cryo(state, '')}</div>
+  ${state === 'closed' ? `<div class="votes"><span class="vn">${votes}</span><small>votes</small></div>` : ''}
+  <div class="pod-info"><span class="yr">❄ ${yr}</span><span class="pwr"><svg viewBox="0 0 12 18"><path d="M7 0 0 10h5l-1 8 7-10H6z"/></svg>${A.rel(pwr)}</span></div></div>`;
+const btn = icon => `<button class="rst"><span class="idle">${icon}</span><span class="sure">reset? click again</span></button>`;
+const slide = v => {
+  const reset = { a: btn('↺ reset'), b: btn('↺'), c: `<div class="corner">${btn('↺ reset')}</div>`, d: '' }[v];
+  const kick = v === 'd' ? ` · ${btn('↺ reset')}` : '';
+  return `<div class="wrap"><section class="slide hs-root map plate v${v}">
+    <div class="map-head"><div><div class="kicker">cryo chamber · vote at <b>pods.sangu.be</b>${kick}</div><h2>Which pod do we open?</h2></div></div>
+    <svg class="hull" viewBox="0 0 1500 720" preserveAspectRatio="none"><path d="M20 60 L1180 40 Q1460 120 1480 360 Q1460 600 1180 680 L20 660 Q0 360 20 60Z"/></svg>
+    <div class="map-grid">${ROWS.map(([t, l, ps], i) => `<div class="deck-lbl t-${t}"><b>Deck ${i + 1}</b>${l}</div><div class="deck-row">${ps.map(pod).join('')}</div>`).join('')}</div>
+    ${reset}
+  </section></div>`;
+};
+const V = [
+  ['a', 'A · Text link, bottom-right', 'Always there, very faint. Brightens on hover.'],
+  ['b', 'B · Round icon, top-right', 'An icon next to the title. It widens when armed.'],
+  ['c', 'C · Hidden in the bottom-left corner', 'Invisible until the mouse reaches the corner. The audience never sees it.'],
+  ['d', 'D · In the kicker line', 'Part of the header text, after the vote URL.'],
+];
+document.getElementById('out').innerHTML = V.map(([v, t, d]) => `<h2 class="v">${t}</h2><p class="lead">${d}</p>${slide(v)}`).join('');
+const fit = () => document.querySelectorAll('.wrap').forEach(w => { w.firstElementChild.style.transform = `scale(${w.clientWidth / 1600})`; });
+addEventListener('resize', fit); fit();
+document.querySelectorAll('.rst').forEach(b => {
+  let t;
+  b.addEventListener('click', () => {
+    if (b.classList.contains('armed')) { clearTimeout(t); b.classList.remove('armed'); b.closest('.slide').querySelectorAll('.pod').forEach(p => p.style.opacity = .3); setTimeout(() => b.closest('.slide').querySelectorAll('.pod').forEach(p => p.style.opacity = ''), 600); return; }
+    b.classList.add('armed'); t = setTimeout(() => b.classList.remove('armed'), 3000);
+  });
+});
+</script>
+</body>
+</html>
