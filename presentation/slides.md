@@ -90,7 +90,7 @@ routeAlias: map
 Run the vote: live counts from pods.sangu.be. Click a pod, or → for the vote leader: the pod opens fullscreen.
 Fullscreen pod plays by itself (~5 s): venting · lid opens: name + born · it lives or dies (score applied). → or a click skips ahead. Then → or the button: opens the pod's slides in a new tab and returns here. ← steps back / closes the pod.
 Aim for 5–6 pods.
-Click the bow hatch to unseal it, click again to open the finale in a new tab (or press E).
+Click the bow hatch to unseal it, click again to open the finale in a new tab.
 Pods are anonymous until opened: the audience votes on year and power only.
-Keys: E final pod · M map · X reset game.
+Keys: M map · X reset game.
 -->

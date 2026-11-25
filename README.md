@@ -39,7 +39,7 @@ The talk is split into **separate Slidev decks**:
    → venting · → the lid opens: name and born year · → it lives or dies (died year, score applied).
 3. **Open the slides ↗** (or → once more) opens that pod's deck in a **new tab**, closes the fullscreen pod and the map updates: score counts up, the pod shows revived or dead. At the end of the pod deck, → closes the tab.
 4. Click an opened pod to show it fullscreen again, straight on its end screen.
-5. E opens the finale.
+5. The bow hatch opens the finale: click once to unseal it, again to open the finale in a new tab.
 
 Game state (woken pods, score) is in `localStorage`, shared by all decks on the same origin; it survives a reload. Reset it with X or the faint ↺ button bottom-right on the map (it turns red on the first click; click again within 3 s to reset).
 
@@ -84,7 +84,6 @@ Game-wide rules (the alien events at the twist) are in the `game:` block of `pre
 | ← / PageUp                     | back                                                         |
 | ↑ / ↓                          | previous / next slide (skip clicks)                          |
 | M                              | ship map                                                     |
-| E                              | final pod (Schrödinger's developer)                          |
 | X                              | reset the game (do this before the talk)                     |
 | hold Ctrl (map)                | show the names of the closed pods                            |
 | Ctrl+click a pod (map)         | open it straight on its end screen (score applied)           |
