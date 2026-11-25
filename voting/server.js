@@ -16,7 +16,7 @@ const pods = fs.readdirSync(PODS_DIR)
   .filter(f => /^pod-.+\.md$/.test(f))
   .map(f => frontmatter(fs.readFileSync(path.join(PODS_DIR, f), 'utf8')).pod)
   .filter(Boolean)
-  .map(({ id, deck, order, frozen, power }) => ({ id, deck, order, frozen, power }))
+  .map(({ id, deck, order, frozen, power, clue }) => ({ id, deck, order, frozen, power, clue }))
   .sort((a, b) => DECKS.indexOf(a.deck) - DECKS.indexOf(b.deck) || (a.order ?? 99) - (b.order ?? 99))
 const podIds = new Set(pods.map(p => p.id))
 

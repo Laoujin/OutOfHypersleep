@@ -25,6 +25,9 @@ pod:
   order: 1
   frozen: 1978
   born: 1978
+  clue:
+    name: DeMillo
+    full: DeMillo, Lipton, Sayward
   power: 4
   fate: alive
   score: 40

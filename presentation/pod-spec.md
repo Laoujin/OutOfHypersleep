@@ -26,6 +26,9 @@ pod:
   order: 1
   frozen: 1970
   born: 1970
+  clue:
+    name: Royce
+    full: Winston W. Royce
   power: 4
   fate: alive
   score: 40
