@@ -1226,5 +1226,13 @@ Subject: Re: SCO: "thread creation is about a thousand times faster
       <div class="small quote" data-s="1">"The coder is dying. The developer was never just a coder."</div></div>`,
   });
 
+  const SLIDES_URL = 'https://laoujin.github.io/OutOfHypersleep/';
+  add({
+    id: 'thanks', seq: 'final', cls: 'thanks plate',
+    html: () => `<div class="thanks-big">Thank you!</div>
+      <div class="thanks-qr">${qrSvg(SLIDES_URL)}<div class="vote-badge">${SLIDES_URL.replace('https://', '')}</div></div>`,
+    step: (el, st, c) => el.classList.toggle('lose', c.score.crew < c.score.alien),
+  });
+
   HS.slides = S;
 })();

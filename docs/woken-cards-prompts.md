@@ -71,3 +71,15 @@ A grand abandoned workshop cathedral full of giant frozen tool racks and dead ma
 ```
 A ghost town main street on a mining colony, a long row of tiny shops with their shutters pulled down, blank faded signboards, one broken neon tube flickering, drifting dust, a smooth glossy red alien megastore glowing at the end of the street, subject in the upper half, lower half dark and empty, 1979 industrial science fiction, cassette futurism, worn painted steel, low-key cinematic lighting, anamorphic 35mm film grain, muted desaturated palette --ar 5:3 --style raw --s 150 --v 7 --no text, letters, logos, people's faces
 ```
+
+## Thank you · crew wins · `plates/thanks-win.webp`
+
+```
+An old industrial starship seen from behind, arriving at the Alpha Centauri system, two bright suns side by side, one golden and one pale orange, warm light catching the worn hull, a small blue-green planet ahead, the ship small in the right half of the frame, left half deep dark space, 1979 industrial science fiction, cassette futurism, worn painted steel, low-key cinematic lighting, anamorphic 35mm film grain, muted desaturated palette --ar 16:9 --style raw --s 150 --v 7 --no text, letters, logos, people's faces --sref HERO_URL
+```
+
+## Thank you · alien wins · `plates/thanks-lose.webp`
+
+```
+A derelict industrial starship adrift in cold deep space, hull breached and torn open, running lights dead, a slow tumble, debris and frozen vapour trailing behind, glossy blood-red organic growth spreading over the hull and glowing from inside the breaches, the ship in the right half of the frame, left half deep dark space, 1979 industrial science fiction, cassette futurism, worn painted steel, low-key cinematic lighting, anamorphic 35mm film grain, muted desaturated palette --ar 16:9 --style raw --s 150 --v 7 --no text, letters, logos, people's faces --sref HERO_URL
+```

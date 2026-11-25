@@ -90,5 +90,16 @@ clicks: 1
 <Hs id="diagnosis" />
 
 <!--
-Diagnosis line. Then questions.
+Diagnosis line. Do not linger.
+-->
+
+---
+layout: hs
+routeAlias: thanks
+---
+
+<Hs id="thanks" />
+
+<!--
+QR: the slides, including every pod we didn't open. Questions.
 -->
