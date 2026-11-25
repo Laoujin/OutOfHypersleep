@@ -85,10 +85,6 @@ Game-wide rules (the alien events at the twist) are in the `game:` block of `pre
 | ↑ / ↓                          | previous / next slide (skip clicks)                          |
 | M                              | ship map                                                     |
 | E                              | final pod (Schrödinger's developer)                          |
-| S                              | scoreboard                                                   |
-| A                              | about slide                                                  |
-| R                              | replay the current slide's animation                         |
-| F                              | fullscreen                                                   |
 | X                              | reset the game (do this before the talk)                     |
 | hold Ctrl (map)                | show the names of the closed pods                            |
 | Ctrl+click a pod (map)         | open it straight on its end screen (score applied)           |

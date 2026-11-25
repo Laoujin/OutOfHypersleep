@@ -1220,16 +1220,5 @@ Subject: Re: SCO: "thread creation is about a thousand times faster
       <div class="small" data-s="1">Go wake one on Monday. ❄ → 💚</div></div>`,
   });
 
-  add({
-    id: 'about', seq: 'outro', cls: 'about',
-    html: () => `${head('about this talk', 'Out of Hypersleep')}
-      <div class="about-grid">
-        <div><h3>Source</h3><p>Talk idea, message map and open questions:<br><a href="${HS.SOURCE}" target="_blank">${HS.SOURCE.replace('https://', '')}</a></p>
-          <h3>The how</h3><p><i>Git Worktrees: One Repo, N Coding Agents</i><br><i>Guardrails &amp; Backpressure</i><br><a href="https://github.com/itenium-be/git-worktrees" target="_blank">github.com/itenium-be/git-worktrees</a></p></div>
-        <div><h3>Related</h3><p><i>I Needed a Merge Queue. I Ended Up With a Dark Factory</i><br><i>I've Stopped Reviewing the Code</i><br><i>Who Goes There?</i> (mutation testing)</p>
-          <h3>Credits</h3><p>All artwork drawn in SVG/CSS for this deck. A theme, not a recreation: no film stills, logos or likenesses.<br>Dates marked "to verify" in the notes still need checking.</p></div>
-      </div>`,
-  });
-
   HS.slides = S;
 })();

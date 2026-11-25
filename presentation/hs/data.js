@@ -8,7 +8,6 @@ const intro = Object.values(import.meta.glob('../slides.md', { query: '?raw', im
 const DECKS = ['plan', 'build', 'check', 'ship'];
 
 HS.VOTE_URL = 'https://pods.sangu.be';
-HS.SOURCE = 'https://github.com/itenium-be/git-worktrees/issues/3';
 
 HS.TYPES = {
   plan: { label: 'Plan', n: 1 },

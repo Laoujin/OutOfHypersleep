@@ -365,12 +365,6 @@ pre.code { margin: 0; font: 21px/1.6 var(--mono); color: var(--ink); white-space
 .verdict { font-size: 72px; font-family: var(--head); font-weight: 700; text-transform: uppercase; margin-top: 40px; }
 .verdict.ok { color: var(--awake); } .verdict.bad { color: var(--alien); }
 
-/* about */
-.about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; font-size: 26px; line-height: 1.45; }
-.about h3 { font-size: 22px; font-family: var(--mono); color: var(--cryo); text-transform: uppercase; letter-spacing: .12em; margin-top: 26px; }
-.about p { margin: 8px 0; color: #cfdaea; }
-.about a { color: var(--frost); }
-
 .alarm-bar { z-index: 3; }
 .alarm-bar.bottom { top: auto; bottom: 0; }
 .alarm-bar .marquee { display: inline-flex; white-space: nowrap; animation: marquee 18s linear infinite; }

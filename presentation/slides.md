@@ -92,5 +92,5 @@ Fullscreen pod plays by itself (~5 s): venting · lid opens: name + born · it l
 Aim for 5–6 pods.
 Click the bow hatch to unseal it, click again to open the finale in a new tab (or press E).
 Pods are anonymous until opened: the audience votes on year and power only.
-Keys: E final pod · M map · S scoreboard · A about · X reset game · R replay · F fullscreen.
+Keys: E final pod · M map · X reset game.
 -->

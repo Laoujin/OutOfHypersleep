@@ -105,17 +105,5 @@ clicks: 1
 
 <!--
 Close on the headline. Then: which pod do you wake on Monday?
-Questions. The about slide has links (press A).
--->
-
----
-layout: hs
-routeAlias: about
----
-
-<Hs id="about" />
-
-<!--
-Source of the talk: https://github.com/itenium-be/git-worktrees/issues/3
-Keys: → next · ← back · N notes · F fullscreen · R replay · M map · S scoreboard · A about · X reset game.
+Questions.
 -->
