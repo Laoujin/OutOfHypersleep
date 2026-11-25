@@ -21,8 +21,8 @@ fonts:
 pod:
   id: stackoverflow
   name: Stack Overflow
-  deck: cargo
-  order: 1
+  deck: plan
+  order: 3
   frozen: 2008
   born: 2008
   died: 2023

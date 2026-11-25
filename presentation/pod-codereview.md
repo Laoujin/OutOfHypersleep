@@ -22,7 +22,7 @@ pod:
   id: codereview
   name: Code review
   sub: line by line, by a human
-  deck: integration
+  deck: check
   order: 3
   frozen: 1976
   born: 1976

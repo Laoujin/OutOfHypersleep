@@ -21,7 +21,7 @@ fonts:
 pod:
   id: trailers
   name: Commit trailers
-  deck: integration
+  deck: ship
   order: 2
   frozen: 2014
   born: 2014

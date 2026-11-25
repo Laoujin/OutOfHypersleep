@@ -11,7 +11,7 @@ import soCsv from '../data/stackoverflow-questions.csv?raw';
     return `<svg class="qr" viewBox="0 0 ${n + q * 2} ${n + q * 2}" shape-rendering="crispEdges"><rect width="100%" height="100%" fill="#fff"/><path d="${d}" fill="#04070b"/></svg>`;
   };
   HS.marquee = t => `<div class="alarm-bar"><div class="marquee">${Array(8).fill(`<span>${t}</span>`).join('')}</div></div><div class="alarm-bar bottom"><div class="marquee rev">${Array(8).fill(`<span>${t}</span>`).join('')}</div></div>`;
-  const deckOf = p => (p.deck === 'cargo' ? 'Cargo deck' : `Deck ${HS.TYPES[p.deck].n} · ${HS.TYPES[p.deck].label}`);
+  const deckOf = p => `Deck ${HS.TYPES[p.deck].n} · ${HS.TYPES[p.deck].label}`;
   const head = (kicker, title, extra = '') => `<header><div class="kicker">${kicker}</div><h2>${title}</h2>${extra}</header>`;
   const S = [];
   const add = s => S.push(s);
@@ -161,9 +161,7 @@ import soCsv from '../data/stackoverflow-questions.csv?raw';
       return `<div class="map-head"><div><div class="kicker">cryo chamber · vote at <b>${HS.VOTE_URL.replace('https://', '')}</b></div><h2>Which pod do we open?</h2></div></div>
         <svg class="hull" viewBox="0 0 1500 720" preserveAspectRatio="none"><path d="M20 60 L1180 40 Q1460 120 1480 360 Q1460 600 1180 680 L20 660 Q0 360 20 60Z"/></svg>
         <div class="map-grid">
-          ${['isolation', 'integration', 'verification'].map(t => `<div class="deck-lbl t-${t}"><b>Deck ${HS.TYPES[t].n}</b>${HS.TYPES[t].label}</div><div class="deck-row">${row(t)}</div>`).join('')}
-          <div class="deck-lbl t-dead"><b>Cargo</b>unmarked pods</div>
-          <div class="deck-row">${row('cargo')}</div>
+          ${Object.keys(HS.TYPES).map(t => `<div class="deck-lbl t-${t}"><b>Deck ${HS.TYPES[t].n}</b>${HS.TYPES[t].label}</div><div class="deck-row">${row(t)}</div>`).join('')}
         </div>
 `;
     },

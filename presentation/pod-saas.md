@@ -22,8 +22,8 @@ pod:
   id: saas
   name: Small SaaS tools
   sub: build vs buy
-  deck: cargo
-  order: 2
+  deck: build
+  order: 3
   frozen: 2010
   born: 2010
   died: 2025

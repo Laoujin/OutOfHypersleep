@@ -22,7 +22,7 @@ pod:
   id: ide
   name: The IDE
   sub: Eclipse · Visual Studio · IntelliJ
-  deck: isolation
+  deck: build
   order: 2
   frozen: 1983
   born: 1983

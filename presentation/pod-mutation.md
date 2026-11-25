@@ -21,7 +21,7 @@ fonts:
 pod:
   id: mutation
   name: Mutation testing
-  deck: verification
+  deck: check
   order: 1
   frozen: 1978
   born: 1978

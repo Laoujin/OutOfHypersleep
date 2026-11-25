@@ -21,8 +21,8 @@ fonts:
 pod:
   id: markdown
   name: Markdown
-  deck: verification
-  order: 4
+  deck: plan
+  order: 2
   frozen: 2004
   born: 2004
   power: 5

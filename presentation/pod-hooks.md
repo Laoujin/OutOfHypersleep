@@ -22,7 +22,7 @@ pod:
   id: hooks
   name: Hooks
   sub: git hooks · agent hooks
-  deck: verification
+  deck: check
   order: 2
   frozen: 2005
   born: 2005

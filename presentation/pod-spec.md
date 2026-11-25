@@ -22,8 +22,8 @@ pod:
   id: spec
   name: Waterfall
   sub: spec-driven development
-  deck: verification
-  order: 3
+  deck: plan
+  order: 1
   frozen: 1970
   born: 1970
   power: 5

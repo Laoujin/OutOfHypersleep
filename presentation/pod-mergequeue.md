@@ -21,7 +21,7 @@ fonts:
 pod:
   id: mergequeue
   name: Merge queue
-  deck: integration
+  deck: ship
   order: 1
   frozen: 2013
   born: 2013

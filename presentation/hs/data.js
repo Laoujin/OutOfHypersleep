@@ -5,16 +5,16 @@ window.HS = window.HS || {};
 const frontmatter = src => parse(src.split(/^---\s*$/m)[1] || '') || {};
 const podFiles = import.meta.glob('../pod-*.md', { query: '?raw', import: 'default', eager: true });
 const intro = Object.values(import.meta.glob('../slides.md', { query: '?raw', import: 'default', eager: true }))[0];
-const DECKS = ['isolation', 'integration', 'verification', 'cargo'];
+const DECKS = ['plan', 'build', 'check', 'ship'];
 
 HS.VOTE_URL = 'https://pods.sangu.be';
 HS.SOURCE = 'https://github.com/itenium-be/git-worktrees/issues/3';
 
 HS.TYPES = {
-  isolation: { label: 'Isolation', n: 1 },
-  integration: { label: 'Integration', n: 2 },
-  verification: { label: 'Verification', n: 3 },
-  cargo: { label: 'Cargo', n: 4 },
+  plan: { label: 'Plan', n: 1 },
+  build: { label: 'Build', n: 2 },
+  check: { label: 'Check', n: 3 },
+  ship: { label: 'Ship', n: 4 },
 };
 
 HS.awake = [

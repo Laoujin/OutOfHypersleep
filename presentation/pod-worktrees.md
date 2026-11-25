@@ -21,7 +21,7 @@ fonts:
 pod:
   id: worktrees
   name: git worktree
-  deck: isolation
+  deck: build
   order: 1
   frozen: 2015
   born: 2015

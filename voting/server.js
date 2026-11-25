@@ -10,7 +10,7 @@ const DATA_DIR = process.env.DATA_DIR || path.join(here, 'data')
 const ADMIN_TOKEN = process.env.ADMIN_TOKEN || ''
 const VOTES_FILE = path.join(DATA_DIR, 'votes.json')
 
-const DECKS = ['isolation', 'integration', 'verification', 'cargo']
+const DECKS = ['plan', 'build', 'check', 'ship']
 const frontmatter = src => parse(src.split(/^---\s*$/m)[1] || '') || {}
 const pods = fs.readdirSync(PODS_DIR)
   .filter(f => /^pod-.+\.md$/.test(f))
