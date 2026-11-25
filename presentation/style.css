@@ -436,6 +436,8 @@ pre.code { margin: 0; font: 21px/1.6 var(--mono); color: var(--ink); white-space
 .map .pod .pod-info .rel i { width: 9px; height: 16px; }
 .map .pod .pod-info .rel i.on { background: var(--phos); box-shadow: 0 0 6px rgba(125, 255, 176, .45); }
 .map .pod .votes { top: 6px; bottom: auto; right: 10px; }
+.map .pod .pod-name { display: none; position: absolute; inset: 0; z-index: 3; place-items: center; padding: 12px; text-align: center; font: 700 24px var(--head); color: var(--ink); background: rgba(8, 12, 16, .85); border-radius: inherit; pointer-events: none; }
+.peek .map .pod .pod-name { display: grid; }
 .map .pod .votes .vn { font-size: 46px; }
 .map .pod.is-awake { border-color: rgba(125, 255, 176, .45); border-top: 3px solid var(--awake); background: linear-gradient(180deg, #0c1a14, #080c10); }
 .map .pod.is-dead { border-color: rgba(255, 59, 59, .5); border-top: 3px solid var(--alien); background: linear-gradient(180deg, #1a0a0c, #080c10); }

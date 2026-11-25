@@ -72,6 +72,10 @@ import soCsv from '../data/stackoverflow-questions.csv?raw';
   });
 
   // ───────────────────────── MAP ─────────────────────────
+  const peek = on => document.body.classList.toggle('peek', on);
+  window.addEventListener('keydown', e => { if (e.key === 'Control') peek(true); });
+  window.addEventListener('keyup', e => { if (e.key === 'Control') peek(false); });
+  window.addEventListener('blur', () => peek(false));
   const podCard = (p, st) => {
     const woken = st.woken.includes(p.id);
     const state = woken ? (p.dead ? 'dead' : 'awake') : 'closed';
@@ -80,6 +84,7 @@ import soCsv from '../data/stackoverflow-questions.csv?raw';
     return `<div class="${cls}" data-pod="${p.id}">
       ${p.wip ? '<div class="wip-tag">WIP</div>' : ''}
       <div class="pod-art">${A.cryo(state, '')}</div>
+      <div class="pod-name">${p.name}</div>
       ${woken ? '' : `<div class="votes"><span class="vn">${votes}</span><small>votes</small></div>`}
       <div class="pod-info"><span class="yr">❄ ${p.frozen}</span><span class="pwr"><svg viewBox="0 0 12 18" aria-hidden="true"><path d="M7 0 0 10h5l-1 8 7-10H6z"/></svg>${A.rel(p.power)}</span></div>
     </div>`;
