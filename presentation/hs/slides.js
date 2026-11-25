@@ -635,7 +635,7 @@ Let a returning customer pay in one click.
           <div class="md-arrow" data-s="1">→</div>
           <div class="card md-page" data-s="1"><div class="card-h">GET /docs/install.md <b>${tok(PAGE_MD)}</b></div><pre>${heads(PAGE_MD)}</pre></div>
           <div class="md-ways">
-            <fieldset class="md-way"><legend>llmstxt.org</legend><b>/llms.txt</b><span>a Markdown map of the site</span></fieldset>
+            <fieldset class="md-way"><legend>Barely adopted</legend><b>/llms.txt</b><span>a Markdown map of the site</span></fieldset>
             <fieldset class="md-way"><legend>Cloudflare</legend><b>Accept: text/markdown</b><span>HTML converted on the fly</span></fieldset>
           </div>`,
       };
