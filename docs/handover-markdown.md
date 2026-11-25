@@ -25,14 +25,14 @@ A live pod for **Markdown**: born 2004 (John Gruber, Daring Fireball, with Aaron
 | `d94e772` | Plate `public/plates/pod-markdown.webp`                   |
 | `4957ce6` | Speaker notes on ADRs and Markdown vs docx                |
 
-Slides: thaw → froze → `markdown-web` → `markdown-word` → `markdown-tree` → log (log subtitle via `logSub`). Mockups: `mockups/markdown.html`. No *woke* slide (`podFrame.markdown = { woke: [] }`, like the other live pods).
+Slides: thaw → froze → `markdown-web` → `markdown-word` → `markdown-everything` → log (log subtitle via `logSub`). Mockups: `mockups/markdown.html`. No *woke* slide (`podFrame.markdown = { woke: [] }`, like the other live pods).
 
 
 ## Open / next
 
 - Wouter hasn't reviewed the slides visually yet; expect many small tweaks (do each, build, commit, one-line report).
 - Frame lines are drafts; Wouter may rewrite them.
-- `markdown-readme` (React CLAUDE.md + 60k AGENTS.md) and `markdown-announce` were killed by Wouter. ADR note moved to `markdown-tree`, docx notes on `markdown-word`.
+- `markdown-readme` (React CLAUDE.md + 60k AGENTS.md) and `markdown-announce` were killed by Wouter. ADR note moved to `markdown-everything`, docx notes on `markdown-word`.
 - To verify: the 60k+ count, Nygard ADRs 2011, llms.txt 2024 (in speaker notes). Cloudflare Markdown for Agents (Feb 2026) confirmed by Wouter.
 - README rows (Crew size, Rigged?) need rechecking against the new decks and scores.
 

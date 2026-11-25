@@ -85,17 +85,17 @@ And in a lot of Word docs a "heading" is just bold, bigger text. The structure i
 
 ---
 layout: hs
-routeAlias: markdown-tree
-clicks: 2
+routeAlias: markdown-everything
+clicks: 1
 ---
 
-<Hs id="markdown-tree" />
+<Hs id="markdown-everything" />
 
 <!--
-A typical repo today, the files an agent reads before touching the code.
+Markdown is pretty much code today.
+[click] Instructions, skills, subagents, slash commands, rules, memory, specs, plans, ADRs, tasks, PRs and issues, every answer: all Markdown.
+Skills, subagents and commands are YAML frontmatter + prose: the agent runs them like a program.
 ADRs: architecture decisions as Markdown files in the repo (Michael Nygard, 2011, to verify). Agents read why the code is the way it is, not just what it is.
-[click] Instructions, skills, slash commands, ADRs, specs, plans, memory: every one of them is Markdown.
-[click] The agent's config, memory and playbook live in the format Gruber made for blog posts.
 -->
 
 ---

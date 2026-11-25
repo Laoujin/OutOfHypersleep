@@ -1116,9 +1116,6 @@ svg .lbl.spec-w { font-size: 20px; }
 .hk-tally b { color: var(--awake); font-size: 30px; margin-right: 8px; }
 .hk-tally span { color: var(--alien); }
 
-.md-count { position: absolute; right: 140px; top: 50%; translate: 0 -50%; text-align: right; }
-.md-count b { display: block; font: 800 150px/1 var(--mono); color: var(--awake); }
-.md-count small { font: 600 26px var(--mono); color: var(--muted); }
 
 /* map: hatch at the bow, sealed → open → launches the finale */
 .map .bow-hatch { position: absolute; right: 170px; top: 270px; z-index: 2; width: 220px; padding: 20px 10px 18px; border-radius: 18px; border: 1px solid var(--line);
@@ -1270,11 +1267,9 @@ svg .lbl.spec-w { font-size: 20px; }
 .md-spec { left: 980px; top: 200px; width: 548px; height: 600px; border-color: rgba(69, 230, 160, .5); }
 .md-spec .card-h .ok { color: var(--awake); }
 .md .md-spec pre { font-size: 20px; line-height: 1.5; word-break: normal; }
-.md-files { position: absolute; left: 72px; top: 190px; font: 500 25px/1.42 var(--mono); color: var(--faint); }
-.md-files div { white-space: pre; }
-.md-f { transition: color .5s, text-shadow .5s; }
-.md-f span { font: 500 21px var(--sans); color: var(--muted); margin-left: 24px; opacity: 0; transition: opacity .5s; }
-.s1 .md-f { color: var(--awake); text-shadow: 0 0 14px rgba(69, 230, 160, .45); transition-delay: calc(var(--i) * .28s); }
-.s1 .md-f span { opacity: 1; text-shadow: none; transition-delay: calc(var(--i) * .28s); }
-.md-tree .md-count { top: 300px; translate: none; right: 120px; }
-.md-tree .md-count b { font-size: 130px; }
+.md-tiles { position: absolute; left: 72px; right: 72px; top: 240px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+.md-tile { padding: 20px 22px; border: 1px solid var(--line); border-radius: 14px; background: rgba(21, 25, 31, .85); opacity: 0; transform: translateY(10px) scale(.97); transition: opacity .45s, transform .45s; }
+.s1 .md-tile { opacity: 1; transform: none; transition-delay: calc(var(--i) * .14s); }
+.md-tile b { display: block; font: 700 28px var(--head); color: #fff; text-transform: uppercase; letter-spacing: .03em; }
+.md-tile code { display: block; margin-top: 8px; font: 500 18px var(--mono); color: var(--awake); background: none; padding: 0; }
+.md-tile span { display: block; margin-top: 6px; font: 400 18px var(--sans); color: var(--muted); }

@@ -596,26 +596,20 @@ Let a returning customer pay in one click.
 - Store the last used payment method per customer
 - Show a **Pay now** button on the cart page
 - Fall back to the full checkout when the card is expired`;
-      const TREE = [
-        ['acme-shop/'],
-        ['├─ CLAUDE.md', 'instructions'],
-        ['├─ AGENTS.md', 'instructions, any agent'],
-        ['├─ README.md', 'what it is'],
-        ['├─ .claude/'],
-        ['│  ├─ skills/release/SKILL.md', 'a skill'],
-        ['│  └─ commands/review.md', 'a slash command'],
-        ['├─ docs/'],
-        ['│  ├─ adr/0007-event-sourcing.md', 'why the code is like this'],
-        ['│  └─ specs/checkout-v2.md', 'what to build'],
-        ['├─ plans/checkout-v2.md', 'how to build it'],
-        ['├─ memory/deploy-notes.md', 'what it learned last time'],
-        ['├─ src/'],
-        ['└─ package.json'],
+      const TILES = [
+        ['Instructions', 'AGENTS.md', 'CLAUDE.md, GEMINI.md'],
+        ['Skills', 'SKILL.md', 'know-how, loaded on demand'],
+        ['Subagents', 'agents/*.md', 'a reviewer, a tester'],
+        ['Commands', 'commands/*.md', '/fix-issue, /release'],
+        ['Rules', '.cursor/rules/*.mdc', 'scoped to a folder'],
+        ['Memory', 'memory/*.md', 'what it learned last time'],
+        ['Specs', 'specs/*.md', 'what to build'],
+        ['Plans', 'plans/*.md', 'how to build it'],
+        ['ADRs', 'docs/adr/*.md', 'why the code is like this'],
+        ['Tasks', 'TODO.md', 'the checklist it ticks off'],
+        ['PRs & issues', 'GitHub-flavored', 'what it reads and writes'],
+        ['Every answer', 'text/markdown', 'the chat itself'],
       ];
-      let lit = 0;
-      const tree = TREE.map(([f, l]) => f.endsWith('.md')
-        ? `<div class="md-f" style="--i: ${lit++}">${f}<span>${l}</span></div>`
-        : `<div>${f}</div>`).join('');
       const web = {
         slug: 'web', title: 'The web, for agents', full: true, steps: 3, cls: 'md md-web',
         body: () => `<div class="card md-html"><div class="card-h">GET /docs/install.html <b>${tok(PAGE_HTML)}</b></div><pre>${tags(PAGE_HTML)}</pre></div>
@@ -631,12 +625,11 @@ Let a returning customer pay in one click.
         body: () => `<div class="card md-xml"><div class="card-h">spec.docx › word/document.xml <span>1 of 11 files</span></div><pre>${tags(DOCX_XML)}</pre></div>
           <div class="card md-spec"><div class="card-h">spec.md <b class="ok">✓ Guaranteed structured</b></div><pre>${heads(SPEC_MD)}</pre></div>`,
       };
-      const files = {
-        slug: 'tree', title: 'What the agent reads first', full: true, steps: 3, cls: 'md md-tree',
-        body: () => `<div class="md-files">${tree}</div>
-          <div class="md-count" data-s="2"><b>9 / 11</b><small>files the agent cares about:<br>Markdown</small></div>`,
+      const everything = {
+        slug: 'everything', title: 'Everything your agent works with is Markdown', sub: "Markdown, it's pretty much code today", full: true, steps: 2, cls: 'md md-everything',
+        body: () => `<div class="md-tiles">${TILES.map(([b, c, t], i) => `<div class="md-tile" style="--i: ${i}"><b>${b}</b><code>${c}</code><span>${t}</span></div>`).join('')}</div>`,
       };
-      return [web, word, files];
+      return [web, word, everything];
     })(),
     hooks: (() => {
       const CX = 520, CY = 520, R = [118, 190, 265];
