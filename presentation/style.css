@@ -439,11 +439,11 @@ pre.code { margin: 0; font: 21px/1.6 var(--mono); color: var(--ink); white-space
 .map .pod.is-awake .pod-art, .map .pod.is-dead .pod-art { margin-top: -12px; }
 .map .pod .pod-plate { position: absolute; left: 0; right: 0; top: 0; height: 30px; padding: 0 12px; display: flex; align-items: center; justify-content: space-between; font: 700 16px var(--head); letter-spacing: .06em; text-transform: uppercase; border-radius: 13px 13px 0 0; }
 .map .pod .pod-plate small { font: 700 12px var(--mono); }
-.map .pod.is-awake .pod-plate { background: var(--awake); color: #06100b; }
-.map .pod.is-dead .pod-plate { background: var(--alien); color: #1a0508; }
+.map .pod.tone-crew .pod-plate { background: var(--awake); color: #06100b; }
+.map .pod.tone-alien .pod-plate { background: var(--alien); color: #1a0508; }
 .map .pod .votes .vn { font-size: 46px; }
-.map .pod.is-awake { border-color: rgba(125, 255, 176, .45); background: linear-gradient(180deg, #0c1a14, #080c10); }
-.map .pod.is-dead { border-color: rgba(255, 59, 59, .5); background: linear-gradient(180deg, #1a0a0c, #080c10); }
+.map .pod.tone-crew { border-color: rgba(125, 255, 176, .45); background: linear-gradient(180deg, #0c1a14, #080c10); }
+.map .pod.tone-alien { border-color: rgba(255, 59, 59, .5); background: linear-gradient(180deg, #1a0a0c, #080c10); }
 
 /* revival sequence (pod opening slide) */
 .revive { padding: 0; background: radial-gradient(900px 500px at 35% 55%, #0b1714, transparent 70%); }

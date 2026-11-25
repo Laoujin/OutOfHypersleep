@@ -80,7 +80,8 @@ import soCsv from '../data/stackoverflow-questions.csv?raw';
   const podCard = (p, st) => {
     const woken = st.woken.includes(p.id);
     const state = woken ? (p.dead ? 'dead' : 'awake') : 'closed';
-    const cls = ['pod', `t-${p.deck}`, `is-${state}`, HS.leader() === p.id ? 'lead' : '', p.wip ? 'wip' : ''].join(' ');
+    const tone = woken ? (HS.points(p) < 0 ? 'tone-alien' : 'tone-crew') : '';
+    const cls = ['pod', `t-${p.deck}`, `is-${state}`, tone, HS.leader() === p.id ? 'lead' : '', p.wip ? 'wip' : ''].join(' ');
     const votes = HS.votesOf(p.id);
     return `<div class="${cls}" data-pod="${p.id}">
       ${p.wip ? '<div class="wip-tag">WIP</div>' : ''}
