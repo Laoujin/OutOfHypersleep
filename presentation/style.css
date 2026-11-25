@@ -336,17 +336,20 @@ pre.code { margin: 0; font: 21px/1.6 var(--mono); color: var(--ink); white-space
 .final .manifest-reveal .placeholder { padding: 20px 24px 0; gap: 10px; grid-template-columns: repeat(9, 1fr); height: 304px; }
 .final .manifest-reveal video { position: absolute; left: 12px; top: 12px; width: calc(100% - 24px); height: 304px; object-fit: cover; opacity: 0; transition: opacity .6s; }
 .final.live .manifest-reveal video { opacity: 1; }
-.final .big-line { font-size: 56px; font-family: var(--head); font-weight: 700; text-transform: uppercase; color: var(--cryo); margin-top: 26px; }
 .final .thaw-info h1 { font-size: 72px; }
-.final .meta { margin: 14px 0; }
+.final .manifest-reveal .cap-line { left: 0; right: 0; bottom: 8px; text-align: center; font: 700 26px var(--mono); }
 .vit { display: flex; flex-direction: column; gap: 14px; flex: 1; justify-content: center; }
 .vrow { display: grid; grid-template-columns: 360px 420px 1fr; gap: 26px; align-items: center; background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 12px 22px; }
 .vn { font-size: 26px; font-weight: 700; }
-.vr { font-size: 21px; color: var(--muted); }
 .ecg { width: 420px; height: 90px; }
 .ecg path { fill: none; stroke-width: 3; stroke-linejoin: round; stroke-dasharray: 2000; stroke-dashoffset: 2000; animation: trace 3.5s linear infinite; }
 .vrow.ok .ecg path { stroke: var(--awake); } .vrow.warn .ecg path { stroke: var(--amber); } .vrow.bad .ecg path { stroke: var(--alien); }
-.vrow.bad .vr { color: var(--alien); } .vrow.ok .vr { color: #bfeedd; }
+.vstamp { justify-self: center; padding: 4px 22px; border: 4px solid; border-radius: 10px; font: 700 34px var(--head); letter-spacing: .1em; text-transform: uppercase; transform: rotate(-6deg); }
+.vrow.ok .vstamp { color: var(--awake); } .vrow.warn .vstamp { color: var(--amber); } .vrow.bad .vstamp { color: var(--alien); }
+.vit-big { position: absolute; inset: 0; z-index: 5; display: grid; place-items: center; text-align: center; pointer-events: none; opacity: 0;
+  font: 700 120px/1.05 var(--head); text-transform: uppercase; color: var(--awake); text-shadow: 0 0 60px rgba(69, 230, 160, .5); background: rgba(5, 7, 10, .8); }
+.s4:not(.s5) .vit-big { animation: vit-big 2.8s ease-out; }
+@keyframes vit-big { 0% { opacity: 0; transform: scale(2.4) rotate(-6deg); } 12% { opacity: 1; transform: scale(1) rotate(-6deg); } 75% { opacity: 1; transform: scale(1) rotate(-6deg); } 100% { opacity: 0; transform: scale(1.1) rotate(-6deg); } }
 @keyframes trace { to { stroke-dashoffset: 0; } }
 
 .alarm-bar { z-index: 3; }
@@ -1278,3 +1281,45 @@ svg .lbl.spec-w { font-size: 20px; }
 .md-tok.green { --c: var(--awake); --r: -10deg; left: 1340px; top: 150px; }
 .s1 .md-tok.green { animation: md-slam .45s cubic-bezier(.3, 1.6, .5, 1) .3s forwards; }
 @keyframes md-slam { from { opacity: 0; transform: rotate(var(--r)) scale(1.8); } to { opacity: 1; transform: rotate(var(--r)) scale(1); } }
+
+/* finale: Schrödinger's developer, Amdahl bar */
+.dg h2 { font-size: 72px; }
+.dg-sub { font: 400 34px var(--sans); color: var(--cryo); margin-top: -14px; }
+.dg-day { position: relative; margin-top: 80px; }
+.dg-cap { font: 600 18px var(--mono); color: var(--muted); letter-spacing: .15em; text-transform: uppercase; margin-bottom: 12px; }
+.dg-bar { display: flex; height: 130px; width: 100%; transition: width 1.4s cubic-bezier(.5, 0, .2, 1); }
+.dg-bar > div { display: grid; place-items: center; font: 700 26px var(--head); text-transform: uppercase; overflow: hidden; white-space: nowrap; transition: flex-basis 1.4s cubic-bezier(.5, 0, .2, 1), background .6s, font-size .4s; }
+.dg-bar .code { flex: 0 0 16%; background: linear-gradient(180deg, #2f6f8a, #1d4658); color: var(--frost); border-radius: 12px 0 0 12px; }
+.dg-bar .rest { flex: 1 1 auto; display: flex; align-items: stretch; gap: 3px; padding-left: 3px; font-size: 32px; line-height: 1.05; }
+.dg-bar .rest span { flex: 1 1 auto; display: grid; place-items: center; padding: 0 10px; text-align: center; background: var(--panel2); color: var(--muted); }
+.dg-bar .rest span:last-child { border-radius: 0 12px 12px 0; }
+.dg.s1 .dg-bar .code { flex-basis: 3.2%; font-size: 0; }
+.dg-bar .new { flex: 0 0 0%; border-radius: 0 12px 12px 0; }
+.dg.s1 .dg-bar .new { flex-basis: 12.8%; margin-left: 3px; border: 3px dashed var(--amber); background: rgba(255, 181, 71, .12); }
+.dg.s1 .dg-bar .rest span:last-child { border-radius: 0; }
+.dg-learn { position: absolute; left: 0; right: 0; top: 100%; height: 150px; transition-delay: 1.2s; }
+.dg-learn i { position: absolute; right: 6.4%; top: 10px; width: 3px; height: 70px; background: var(--amber); transform: translateX(50%); }
+.dg-learn i::before { content: ""; position: absolute; left: 50%; top: -4px; transform: translateX(-50%); border: 12px solid transparent; border-top: 0; border-bottom: 16px solid var(--amber); }
+.dg-learn span { position: absolute; right: 0; top: 88px; font: 700 34px var(--head); text-transform: uppercase; color: var(--amber); white-space: nowrap; }
+.dg-math { flex: 1; margin-top: 150px; display: flex; align-items: center; justify-content: center; gap: 30px; font: 700 64px/1 var(--head); text-transform: uppercase; }
+.dg-math .arr { width: 80px; height: 48px; flex: none; fill: none; stroke: var(--amber); stroke-width: 6; stroke-linecap: round; stroke-linejoin: round; }
+.dg-badge { padding: 10px 34px; border-radius: 999px; font: 800 56px var(--mono); color: #1a1204; background: var(--amber); box-shadow: 0 0 40px rgba(255, 181, 71, .4); text-transform: none; }
+
+/* finale: Brooks quote */
+.brooks { justify-content: center; padding: 0 160px; }
+.brooks-q { margin: 0; padding-left: 40px; border-left: 6px solid var(--amber); font: italic 400 46px/1.4 var(--sans); color: var(--ink); }
+.brooks-q cite { display: block; margin-top: 30px; font: normal 600 24px var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--amber); }
+
+/* vitals: Alive or Dead? */
+.vitals { padding-top: 48px; }
+.vt-kicker { text-align: center; }
+.vt-title { margin: 6px 0 18px; display: flex; justify-content: center; align-items: baseline; gap: 34px; font: 700 160px/1 var(--head); text-transform: uppercase; }
+.vt-title .alive { color: var(--awake); text-shadow: 0 0 40px rgba(69, 230, 160, .45); animation: vt-alive 3s infinite; }
+.vt-title .or { font-size: 60px; color: var(--muted); }
+.vt-title .dead { color: var(--alien); text-shadow: 0 0 40px rgba(255, 59, 92, .45); animation: vt-dead 3s infinite; }
+@keyframes vt-alive { 0%, 45%, 100% { opacity: 1; } 50%, 95% { opacity: .25; } }
+@keyframes vt-dead { 0%, 45%, 100% { opacity: .25; } 50%, 95% { opacity: 1; } }
+.vitals .vit { gap: 10px; }
+.vitals .vrow { padding: 6px 22px; }
+.vitals .ecg { height: 70px; }
+.vitals .vstamp { font-size: 30px; }

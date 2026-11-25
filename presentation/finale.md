@@ -42,43 +42,55 @@ The crew we didn't wake. Iced over: what's inside stays hidden. Their slides are
 ---
 layout: hs
 routeAlias: final
-clicks: 2
+clicks: 1
 ---
 
 <Hs id="final" />
 
 <!--
-Final pod, 60–90 seconds, lighthearted. The future of developers is its own talk.
-[click] The pod opens on the crew: live feed of the audience from the crowd camera (test it with C before the talk; placeholder crowd if there is none).
-[click] "It's you."
+Waking the Captain, 60–90 seconds, lighthearted. The future of developers is its own talk.
+[click] The pod opens on the Captain: live feed of the audience from the crowd camera (test it with C before the talk; placeholder crowd if there is none). It's you: Schrödinger's developer.
 -->
 
 ---
 layout: hs
 routeAlias: vitals
-clicks: 4
+clicks: 6
 ---
 
 <Hs id="vitals" />
 
 <!--
 Vitals instead of slides: pros and cons in one glance.
-Typing code: flatlined. Memorizing APIs: weak.
-Specs from vague requirements: strong pulse.
-Security: the homelab .lan story: asked for local only, it was public for 60 days.
-Architecture: Meridian, five failed attempts at a dead-simple design until I explained it in detail.
+[click] Typing code: flatlined. Memorizing APIs: weak.
+Analysis: strong. [click] Full-screen stamp flashes: business has no clue, we're safe.
+Security: critical. The homelab .lan story: asked for local only, it was public for 60 days.
+Architecture: stable. Meridian, five failed attempts at a dead-simple design until I explained it in detail.
 -->
 
 ---
 layout: hs
 routeAlias: diagnosis
-clicks: 1
+clicks: 2
 ---
 
 <Hs id="diagnosis" />
 
 <!--
-Diagnosis line. Do not linger.
+Coding was never the job: IDC 2024, developers spend 16% of their time building the application.
+[click] AI makes that slice 5× faster. The time it frees goes straight into a new box: learning to work effectively with AI agents.
+[click] Amdahl's law: 5× faster coding is a 15% productivity gain.
+-->
+
+---
+layout: hs
+routeAlias: brooks
+---
+
+<Hs id="brooks" />
+
+<!--
+Fred Brooks saw it coming in 1986: no silver bullet.
 -->
 
 ---

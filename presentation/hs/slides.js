@@ -1194,41 +1194,47 @@ Subject: Re: SCO: "thread creation is about a thousand times faster
   });
 
   add({
-    id: 'final', seq: 'final', steps: 3, cls: 'thaw final',
+    id: 'final', seq: 'final', steps: 2, cls: 'thaw final',
     html: () => `<div class="thaw-pod">${A.pod('dying big')}</div>
       <div class="thaw-info">
-        <div class="kicker">the bow · final pod</div>
-        <h1>Schrödinger's developer</h1>
-        <div class="meta"><span>half alive · half dead</span></div>
-        <div class="manifest-reveal" data-s="1"><div class="placeholder">${Array.from({ length: 18 }, () => '<i></i>').join('')}</div><video autoplay playsinline muted></video><div class="cap-line">CREW MANIFEST · ALL HANDS</div></div>
-        <div class="big-line" data-s="2">It's you.</div>
+        <h1>Waking the Captain</h1>
+        <div class="manifest-reveal" data-s="1"><div class="placeholder">${Array.from({ length: 18 }, () => '<i></i>').join('')}</div><video autoplay playsinline muted></video><div class="cap-line">IT'S YOU · SCHRÖDINGER'S DEVELOPER</div></div>
       </div>`,
     init: async el => { if (await HS.camera.attach(el.querySelector('.manifest-reveal video'))) el.classList.add('live'); },
     step: (el, st) => { const s = el.querySelector('.podsvg'); s.classList.toggle('open', st >= 1); s.classList.toggle('dying', st < 1); },
   });
 
   add({
-    id: 'vitals', seq: 'final', steps: 5, cls: 'vitals',
-    html: () => `${head('pod screen · vitals', 'Schrödinger\'s developer')}
+    id: 'vitals', seq: 'final', steps: 7, cls: 'vitals',
+    html: () => `<div class="kicker vt-kicker">pod screen · vitals · Schrödinger's developer</div>
+      <h1 class="vt-title"><span class="alive">Alive</span><span class="or">or</span><span class="dead">Dead?</span></h1>
       <div class="vit">${[
-        ['Typing code', 'flat', 'flatlined', 'bad'],
-        ['Memorizing APIs', 'weak', 'weak', 'warn'],
-        ['Turning vague requirements into a spec', 'strong', 'strong pulse: business can\'t describe what it wants', 'ok'],
-        ['Security', 'pulse', 'pulse: asked for <code>.lan</code> (local only), got 60 days public', 'ok'],
-        ['Architecture', 'pulse', 'pulse: Meridian, 5 failed attempts at a dead-simple design until explained in detail', 'ok'],
-      ].map(([n, k, r, c], i) => `<div class="vrow ${c}" data-s="${i}"><div class="vn">${n}</div>${A.ecg(k)}<div class="vr">${r}</div></div>`).join('')}</div>`,
+        ['Typing code', 'flat', 'Flatlined', 'bad'],
+        ['Memorizing APIs', 'weak', 'Weak', 'warn'],
+        ['Analysis', 'strong', 'Strong', 'ok'],
+        ['Security', 'pulse', 'Critical', 'ok'],
+        ['Architecture', 'pulse', 'Stable', 'ok'],
+      ].map(([n, k, w, c], i) => `<div class="vrow ${c}" data-s="${i < 3 ? i + 1 : i + 2}"><div class="vn">${n}</div>${A.ecg(k)}<div class="vstamp">${w}</div></div>`).join('')}</div>
+      <div class="vit-big">Business has no clue.<br>We're safe!</div>`,
   });
 
   add({
-    id: 'diagnosis', seq: 'final', steps: 2,
-    html: () => `<div class="statement"><div class="kicker">diagnosis</div><div class="big">Condition: <em class="cyan">Schrödinger</em>.</div>
-      <div class="small">Outcome depends on what you do next.</div>
-      <div class="small quote" data-s="1">"The coder is dying. The developer was never just a coder."</div></div>`,
+    id: 'diagnosis', seq: 'final', steps: 3, cls: 'dg',
+    html: () => `${head('', 'Schrödinger\'s Developer')}<div class="dg-sub">Coding was never the job.</div>
+      <div class="dg-day"><div class="dg-cap">a developer's working time</div>
+        <div class="dg-bar"><div class="code">coding 16%</div><div class="rest"><span>communication</span><span>scrum<br>ceremonies</span><span>building the<br>right thing</span><span>context<br>switching</span><span>debugging &amp;<br>verification</span></div><div class="new"></div></div>
+        <div class="dg-learn" data-s="1"><i></i><span>Learning to work effectively with AI agents?</span></div></div>
+      <div class="dg-math" data-s="2"><span>5× faster coding</span><svg class="arr" viewBox="0 0 80 48" aria-hidden="true"><path d="M4 16h52M4 32h52M48 6l24 18-24 18"/></svg><b class="dg-badge">+15% productivity</b></div>`,
+  });
+
+  add({
+    id: 'brooks', seq: 'final', cls: 'brooks',
+    html: () => `<blockquote class="brooks-q">"There is no single development, in either technology or management technique, which by itself promises even one order-of-magnitude improvement within a decade in productivity, in reliability, in simplicity."<cite>Fred Brooks · No Silver Bullet · 1986</cite></blockquote>`,
   });
 
   add({
     id: 'verdict', seq: 'final', steps: 2, cls: 'vd',
-    html: () => `${head('', 'The Verdict')}
+    html: () => `${head('', 'The Final Verdict')}
       <div class="vd-side crew">${A.crew()}<div class="nm">Crew</div><div class="n" data-n="crew">0</div></div>
       <div class="vd-side alien">${A.alien()}<div class="nm">Alien AI</div><div class="n" data-n="alien">0</div></div>
       <div class="vd-stamp"></div>`,
