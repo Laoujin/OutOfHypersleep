@@ -1170,9 +1170,9 @@ svg .lbl.spec-w { font-size: 20px; }
 .woken-log .cards + .cards { margin-top: 18px; }
 .woken-log .cards:empty { display: none; }
 .woken-log .card { height: 206px; display: flex; flex-direction: column; overflow: hidden; border-radius: 14px; border: 1px solid rgba(125, 255, 176, .45); background: linear-gradient(180deg, #0c1a14, #080c10); }
-.woken-log .card.dead { border-color: rgba(255, 59, 59, .5); background: linear-gradient(180deg, #1a0a0c, #080c10); }
+.woken-log .card.bad { border-color: rgba(255, 59, 59, .5); background: linear-gradient(180deg, #1a0a0c, #080c10); }
 .woken-log .card .bar { flex: none; height: 30px; padding: 0 12px; display: flex; align-items: center; justify-content: space-between; gap: 12px; font: 700 16px var(--head); letter-spacing: .06em; text-transform: uppercase; background: var(--awake); color: #06100b; }
-.woken-log .card.dead .bar { background: var(--alien); color: #1a0508; }
+.woken-log .card.bad .bar { background: var(--alien); color: #1a0508; }
 .woken-log .card .nm { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .woken-log .card .yr { font: 700 12px var(--mono); flex: none; }
 .woken-log .card .img { flex: 1; position: relative; background: var(--card-img) center / cover; }
