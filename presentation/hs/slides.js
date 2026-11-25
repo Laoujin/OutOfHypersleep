@@ -1218,10 +1218,13 @@ Subject: Re: SCO: "thread creation is about a thousand times faster
   });
 
   add({
-    id: 'diagnosis', seq: 'final', steps: 2,
-    html: () => `<div class="statement"><div class="kicker">diagnosis</div><div class="big">Condition: <em class="cyan">Schrödinger</em>.</div>
-      <div class="small">Outcome depends on what you do next.</div>
-      <div class="small quote" data-s="1">"The coder is dying. The developer was never just a coder."</div></div>`,
+    id: 'diagnosis', seq: 'final', steps: 4, cls: 'dg',
+    html: () => `${head('', 'Schrödinger\'s Developer')}<div class="dg-sub">Coding was never the job.</div>
+      <div class="dg-day"><div class="dg-cap">a developer's working time</div>
+        <div class="dg-bar"><div class="code">coding 16%</div><div class="rest"><span>communication</span><span>building the right thing</span><span>debugging &amp; verification</span></div></div>
+        <div class="dg-fast" data-s="1">← coding with AI: 5× faster</div></div>
+      <div class="dg-math" data-s="2"><span>5× faster coding</span><span>=</span><b>1.15×</b><em>faster developer</em></div>
+      <div class="dg-src">IDC, "How do software developers spend their time?" (2024): application development is 16% of the time · Amdahl's law: 1 / (0.84 + 0.16 / 5) ≈ 1.15</div>`,
   });
 
   add({
