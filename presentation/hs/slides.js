@@ -740,13 +740,59 @@ React is a JavaScript library for building user interfaces.
         </svg>`;
       })(),
     }],
-    saas: [{
-      slug: 'story', title: 'I needed three PDF operations', steps: 3, cls: 'deadslide',
-      body: `<div class="two">
-        <div class="card"><div class="card-h">buy / host: Stirling PDF</div><ul class="check">${['docker compose', 'reverse proxy + TLS', 'auth in front of it', 'updates', 'CVE watching', '50 features I don\'t need'].map((t, i) => `<li data-s="${i < 3 ? 0 : 1}">${t}</li>`).join('')}</ul></div>
-        <div class="card" data-s="2"><div class="card-h">build: ask an agent</div><ul class="check ok"><li>merge</li><li>split</li><li>compress</li></ul><div class="timer">⏱ 2 h</div></div>
-      </div>`,
-    }],
+    saas: (() => {
+      const SUBS = [
+        ['PDF tools', 'merge · split · compress', 12, '2 h'], ['Link shortener', 'go/ links', 9, '1 h'], ['Forms', 'a signup form', 29, '3 h'],
+        ['Scheduling', 'book a call', 15, '4 h'], ['Status page', 'is it up?', 29, '2 h'], ['Screenshot API', 'og:images', 19, '1 h'],
+        ['QR codes', 'one for the poster', 7, '20 min'], ['Feature flags', 'five booleans', 75, '3 h'], ['Changelog widget', 'what\'s new', 49, '2 h'],
+        ['Uptime ping', 'every 5 min', 10, '30 min'], ['Image resize', 'thumbnails', 25, '1 h'], ['Feedback board', 'upvote ideas', 49, '4 h'],
+      ];
+      const FULL = SUBS.reduce((s, x) => s + x[2], 0);
+      const total = (el, sum) => {
+        el.querySelector('.sg-sum').textContent = '€' + Math.round(sum);
+        el.querySelector('.sg-total').classList.toggle('zero', sum <= 0);
+      };
+      const settle = (el, dead) => {
+        el._run = (el._run || 0) + 1;
+        el.querySelectorAll('.sg-sub').forEach(c => c.classList.toggle('dead', dead));
+        total(el, dead ? 0 : FULL);
+      };
+      const freeze = el => {
+        settle(el, false);
+        const run = el._run;
+        const stage = el.querySelector('.sg-stage'), tot = el.querySelector('.sg-total'), cards = [...el.querySelectorAll('.sg-sub')];
+        let sum = FULL, target = FULL;
+        const at = n => { const r = n.getBoundingClientRect(), s = stage.getBoundingClientRect(), k = s.width / 1600; return [(r.left - s.left) / k, (r.top - s.top) / k]; };
+        cards.forEach((card, i) => setTimeout(() => {
+          if (el._run !== run) return;
+          card.classList.add('dead');
+          const pr = card.querySelector('.sg-pr'), [x0, y0] = at(pr), [x1, y1] = at(tot);
+          const coin = stage.appendChild(Object.assign(document.createElement('div'), { className: 'sg-coin', textContent: '−' + pr.textContent }));
+          Object.assign(coin.style, { left: x0 + 'px', top: y0 + 'px' });
+          coin.animate([{ transform: 'none', opacity: 1 }, { transform: `translate(${x1 + 60 - x0}px, ${y1 - y0}px) scale(.7)`, opacity: .2 }], { duration: 700, easing: 'cubic-bezier(.5, 0, .7, 1)' })
+            .onfinish = () => { coin.remove(); target -= SUBS[i][2]; };
+        }, i * 520));
+        const tick = setInterval(() => {
+          if (el._run !== run || !el.isConnected) return clearInterval(tick);
+          if (sum > target) total(el, sum = Math.max(target, sum - 4));
+          else if (sum <= 0) clearInterval(tick);
+        }, 20);
+      };
+      return [{
+        slug: 'graveyard', title: 'One subscription per feature', full: true, steps: 3, cls: 'sg',
+        body: () => `<div class="sg-stage">
+          <div class="sg-subs">${SUBS.map(([n, d, p, t]) => `<div class="sg-sub"><h5>${n}</h5><p>${d}</p><span class="sg-pr">€${p}</span><span class="sg-lamp"></span><div class="sg-ice">❄ ${t} to replace</div></div>`).join('')}</div>
+          <div class="sg-total"><b class="sg-sum">€${FULL}</b>per month</div>
+          <div class="sg-erp" data-s="2"><h5>Your ERP</h5><p>accounting · payroll · compliance<br>20 years of edge cases<br>someone to call at 3am</p>
+            <div class="sg-erp-pr">€4,800<small> /mo</small></div><div class="sg-keep">Keep paying.</div><div class="sg-now">… for now …</div></div>
+        </div>`,
+        step: (el, st, c) => {
+          const prev = el._st; el._st = st;
+          if (st >= 1 && prev === 0 && c.active) freeze(el);
+          else if (st === 0 || prev === undefined || prev === 0) settle(el, st >= 1);
+        },
+      }];
+    })(),
     codereview: (() => {
       const LINES = 4012, SCROLL_MS = 9000;
       const RATES = [[150, ''], [300, ''], [400, '']];

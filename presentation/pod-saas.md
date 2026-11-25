@@ -55,20 +55,17 @@ routeAlias: saas-froze
 
 ---
 layout: hs
-routeAlias: saas-story
+routeAlias: saas-graveyard
 clicks: 2
 ---
 
-<Hs id="saas-story" />
+<Hs id="saas-graveyard" />
 
 <!--
-Background: Dies because: Building beats buying. A PDF tool in 2 hours instead of hosting Stirling PDF.
-Costs the audience this vote, alien +40.
-Own story: I needed a few PDF operations. Hosting and securing Stirling PDF vs. asking an agent for exactly the three features I need: 2 hours, done.
-Sleep year is a placeholder (TBD in the source).
-
-Own story: Stirling PDF vs a small tool built by an agent in 2 hours.
-Build vs buy flipped for small tools. Not for your ERP.
+A dozen small tools, each a monthly fee for one feature. Together: €328 a month.
+[click] An agent builds each one in an afternoon. One by one they go into cryo, the total drains to €0.
+Own story: needed merge, split and compress. Hosting Stirling PDF vs. 2 hours with an agent.
+[click] Build vs buy flipped for small tools. Not for your ERP.
 -->
 
 ---
