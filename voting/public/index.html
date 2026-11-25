@@ -9,19 +9,24 @@
 <link rel="stylesheet" href="/app.css">
 </head>
 <body>
-<main>
-  <div class="kicker">Out of Hypersleep · cryo chamber</div>
-  <h1>Which pod do we open?</h1>
-  <p class="lead">Nobody knows who's inside. Vote for every pod you want woken, tap again to undo.</p>
-  <div id="pods"></div>
+<svg width="0" height="0" style="position: absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="gShell" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ece6d6" /><stop offset=".55" stop-color="#c9c2b0" /><stop offset="1" stop-color="#8f8979" /></linearGradient>
+    <linearGradient id="gGlass" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="rgba(160,230,240,.35)" /><stop offset="1" stop-color="rgba(20,60,70,.55)" /></linearGradient>
+  </defs>
+</svg>
+<main class="map">
+  <div class="kicker">cryo chamber · vote for every pod you want woken</div>
+  <h2>Which pod do we open?</h2>
+  <div class="map-grid" id="pods"></div>
   <p class="foot" id="foot">One vote per pod per device.</p>
 </main>
 <script>
 const DECKS = [
-  ['plan', 'Deck 1 · Plan'],
-  ['build', 'Deck 2 · Build'],
-  ['check', 'Deck 3 · Check'],
-  ['ship', 'Deck 4 · Ship'],
+  ['plan', 1, 'Plan'],
+  ['build', 2, 'Build'],
+  ['check', 3, 'Check'],
+  ['ship', 4, 'Ship'],
 ]
 const store = {
   get(k, d) { try { return JSON.parse(localStorage.getItem(k)) ?? d } catch { return d } },
@@ -34,20 +39,41 @@ let pods = [], votes = {}
 
 const el = document.getElementById('pods')
 const foot = document.getElementById('foot')
-const bars = n => Array.from({ length: 5 }, (_, i) => `<i class="${i < n ? 'on' : ''}"></i>`).join('')
-const signed = n => (n > 0 ? '+' : n < 0 ? '−' : '') + Math.abs(n)
+const rel = n => `<span class="rel">${[1, 2, 3, 4, 5].map(i => `<i class="${i <= n ? 'on' : ''}"></i>`).join('')}</span>`
+const cryo = `<svg class="cryo closed" viewBox="0 0 440 180" aria-hidden="true">
+  <rect class="shell" x="10" y="30" width="420" height="120" rx="60"/>
+  ${[90, 130, 310, 350].map(x => `<line class="rib" x1="${x}" y1="32" x2="${x}" y2="46"/><line class="rib" x1="${x}" y1="134" x2="${x}" y2="148"/>`).join('')}
+  <rect class="vent" x="28" y="76" width="14" height="28" rx="4"/><rect class="vent" x="398" y="76" width="14" height="28" rx="4"/>
+  <rect class="interior" x="62" y="48" width="316" height="84" rx="42"/>
+  <g class="sleeper"><circle cx="112" cy="90" r="17"/><rect x="134" y="73" width="196" height="34" rx="17"/></g>
+  <g class="lid"><rect class="glass" x="62" y="48" width="316" height="84" rx="42"/>
+    <path class="frost" d="M86 72 q20 -10 34 2 t40 -2 t36 6 M92 106 q26 -8 44 4 t52 -2 t40 4 M210 70 q24 -8 40 2 t40 0 M240 112 q22 -6 36 2 t44 -2"/></g>
+  <g class="strip">${Array.from({ length: 7 }, (_, i) => `<rect x="${(440 - 7 * 22) / 2 + i * 22 - 40}" y="152" width="16" height="8" rx="2"/>`).join('')}</g>
+</svg>`
+const BOLT = '<svg viewBox="0 0 12 18" aria-hidden="true"><path d="M7 0 0 10h5l-1 8 7-10H6z"/></svg>'
+const leader = () => {
+  const [id, n] = Object.entries(votes).sort((a, b) => b[1] - a[1])[0] || []
+  return n > 0 ? id : null
+}
 const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c])
 
 function render() {
-  el.innerHTML = DECKS.map(([type, label]) => {
+  const lead = leader()
+  el.innerHTML = DECKS.map(([type, n, label]) => {
     const list = pods.filter(p => p.deck === type)
     if (!list.length) return ''
-    return `<div class="deck t-${type}"><b>${label}</b></div><div class="pods">${list.map(p => `
-      <button class="pod ${voted.has(p.id) ? 'voted' : ''}" data-id="${p.id}" aria-pressed="${voted.has(p.id)}">
-        <span class="info"><span class="name">❄ ${esc(p.frozen)}</span><br><span class="power">${bars(p.power)}</span> <span class="pts"><span class="pos">${signed(p.power * 10)}</span> / <span class="neg">${signed(-p.power * 10)}</span></span></span>
-        <span class="count">${votes[p.id] || 0}</span>
-        <span class="mark">${voted.has(p.id) ? '✓ voted' : 'vote'}</span>
-      </button>`).join('')}</div>`
+    return `<div class="deck-lbl t-${type}"><b>Deck ${n}</b>${label}</div><div class="deck-row">${list.map(p => {
+      const on = voted.has(p.id)
+      return `<div class="pod ${on ? 'voted' : ''} ${lead === p.id ? 'lead' : ''}" data-id="${p.id}">
+        <div class="pod-art">${cryo}</div>
+        <div class="votes">
+          <button class="up" data-act="up" ${on ? 'disabled' : ''} aria-label="Vote">+</button>
+          <span class="vn">${votes[p.id] || 0}</span>
+          <button class="down" data-act="down" ${on ? '' : 'disabled'} aria-label="Undo vote">−</button>
+        </div>
+        <div class="pod-info"><span class="yr">❄ ${esc(p.frozen)}</span><span class="pwr">${BOLT}${rel(p.power)}</span></div>
+      </div>`
+    }).join('')}</div>`
   }).join('')
 }
 
@@ -64,10 +90,10 @@ async function poll() {
 }
 
 el.addEventListener('click', async e => {
-  const b = e.target.closest('.pod')
+  const b = e.target.closest('button[data-act]')
   if (!b) return
-  const id = b.dataset.id
-  const on = !voted.has(id)
+  const id = b.closest('.pod').dataset.id
+  const on = b.dataset.act === 'up'
   b.disabled = true
   try {
     const r = await fetch(`/api/votes/${id}?voter=${encodeURIComponent(voter)}`, { method: on ? 'PUT' : 'DELETE' })

@@ -4,6 +4,7 @@ COPY voting/package.json voting/package-lock.json ./
 RUN npm ci --omit=dev
 COPY voting/ ./
 COPY presentation/pod-*.md /app/presentation/
+COPY presentation/public/plates/map-table.webp /app/presentation/public/plates/
 ENV PORT=3000 DATA_DIR=/data NODE_ENV=production
 VOLUME /data
 EXPOSE 3000

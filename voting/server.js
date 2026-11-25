@@ -43,10 +43,12 @@ const send = (res, status, body, type = 'application/json') => {
   res.end(type === 'application/json' ? JSON.stringify(body) : body)
 }
 
+const pub = path.join(here, 'public')
 const statics = {
-  '/': ['index.html', 'text/html; charset=utf-8'],
-  '/app.css': ['app.css', 'text/css; charset=utf-8'],
-  '/favicon.svg': ['favicon.svg', 'image/svg+xml'],
+  '/': [pub, 'index.html', 'text/html; charset=utf-8'],
+  '/app.css': [pub, 'app.css', 'text/css; charset=utf-8'],
+  '/favicon.svg': [pub, 'favicon.svg', 'image/svg+xml'],
+  '/map-table.webp': [path.join(PODS_DIR, 'public', 'plates'), 'map-table.webp', 'image/webp'],
 }
 
 const VOTER = /^[a-zA-Z0-9-]{8,64}$/
@@ -56,8 +58,8 @@ http.createServer((req, res) => {
   const p = url.pathname
   if (req.method === 'OPTIONS') return send(res, 204, '', 'text/plain')
   if (req.method === 'GET' && statics[p]) {
-    const [file, type] = statics[p]
-    return send(res, 200, fs.readFileSync(path.join(here, 'public', file)), type)
+    const [dir, file, type] = statics[p]
+    return send(res, 200, fs.readFileSync(path.join(dir, file)), type)
   }
   if (req.method === 'GET' && p === '/health') return send(res, 200, { ok: true })
   if (req.method === 'GET' && p === '/api/pods') return send(res, 200, { pods, votes: counts() })
