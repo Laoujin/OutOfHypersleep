@@ -1226,3 +1226,4 @@ svg .lbl.spec-w { font-size: 20px; }
 .woken-log .card.iced { position: relative; border-color: rgba(220, 242, 255, .7); background: #1b2c3a; box-shadow: 0 0 24px rgba(159, 216, 240, .45); }
 .woken-log .card.iced .img { filter: blur(3px) saturate(.5); }
 .woken-log .card.iced .sg-glaze { opacity: 1; top: 30px; border-radius: 0 0 14px 14px; }
+.woken-log .card.iced .tk { display: none; }
