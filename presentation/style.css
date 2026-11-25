@@ -1299,4 +1299,3 @@ svg .lbl.spec-w { font-size: 20px; }
 .dg-fast { margin-top: 14px; font: 600 22px var(--mono); color: var(--cryo); }
 .dg-math { margin-top: 70px; display: flex; align-items: baseline; gap: 30px; font: 700 64px var(--head); text-transform: uppercase; }
 .dg-math em { font-style: normal; color: var(--cryo); } .dg-math b { color: var(--amber); }
-.dg-src { position: absolute; left: 72px; bottom: 28px; font: 14px var(--mono); color: var(--faint); }
