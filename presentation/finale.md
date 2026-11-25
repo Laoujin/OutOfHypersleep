@@ -30,6 +30,17 @@ The pods we opened tonight, one card each. No scores here: the scoreboard comes 
 
 ---
 layout: hs
+routeAlias: iced
+---
+
+<Hs id="iced" />
+
+<!--
+The crew we didn't wake. Iced over: what's inside stays hidden. Their slides are online.
+-->
+
+---
+layout: hs
 routeAlias: final
 clicks: 2
 ---

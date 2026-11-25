@@ -1133,18 +1133,29 @@ Subject: Re: SCO: "thread creation is about a thousand times faster
   }
 
   // ───────────────────────── FINAL ─────────────────────────
+  const podCardBig = (p, cls) => `<div class="card ${cls}">
+      <div class="bar"><span class="nm">${p.name}</span><span class="yr">❄ ${p.frozen}</span></div>
+      <div class="img" style="--card-img: url('${BASE}woken/${p.id}.webp')"><div class="tk">${p.takeaway}</div></div>
+      ${cls === 'iced' ? '<div class="sg-glaze"></div>' : ''}</div>`;
+
   add({
     id: 'woken', seq: 'final', cls: 'woken-log',
     html: c => {
       const woken = c.state.woken.map(HS.podById).filter(Boolean);
       const good = p => (p.dead ? p.score.dead : p.score.alive) > 0;
-      const card = p => `<div class="card${good(p) ? '' : ' bad'}">
-          <div class="bar"><span class="nm">${p.name}</span><span class="yr">❄ ${p.frozen}</span></div>
-          <div class="img" style="--card-img: url('${BASE}woken/${p.id}.webp')"><div class="tk">${p.takeaway}</div></div></div>`;
-      const group = g => woken.filter(p => good(p) === g).map(card).join('');
+      const group = g => woken.filter(p => good(p) === g).map(p => podCardBig(p, g ? '' : 'bad')).join('');
       return `${head('', 'Roll Call', `<div class="count"><b>${woken.length}</b> / ${HS.pods.length}</div>`)}
         <div class="cards">${group(true)}</div>
         <div class="cards">${group(false)}</div>`;
+    },
+  });
+
+  add({
+    id: 'iced', seq: 'final', cls: 'woken-log',
+    html: c => {
+      const frozen = HS.pods.filter(p => !c.state.woken.includes(p.id));
+      return `${head('', 'Still on Ice', `<div class="count"><b>${frozen.length}</b> / ${HS.pods.length}</div>`)}
+        <div class="cards">${frozen.map(p => podCardBig(p, 'iced')).join('')}</div>`;
     },
   });
 
