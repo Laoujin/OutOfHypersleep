@@ -1,4 +1,4 @@
-# Out of Hypersleep: the dev tools AI agents woke up
+# Out of Hypersleep: Dev Tooling in the AI Age
 
 > The tools for running 10 agents were already on board. They were frozen.
 
