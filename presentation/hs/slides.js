@@ -170,7 +170,7 @@ import soCsv from '../data/stackoverflow-questions.csv?raw';
         <div class="map-grid">
           ${Object.keys(HS.TYPES).map(t => `<div class="deck-lbl t-${t}"><b>Deck ${HS.TYPES[t].n}</b>${HS.TYPES[t].label}</div><div class="deck-row">${row(t)}</div>`).join('')}
         </div>
-        <button class="map-reset" title="Reset the game"><span class="idle">↺</span><span class="sure">reset? click again</span></button>
+        <button class="map-reset" title="Reset the game">↺</button>
         <button class="bow-hatch${bowOpen ? ' open' : ''}" data-act="bow"><span class="capt-pod">${A.cryo(bowOpen ? 'awake' : 'closed', '')}</span><span class="t">Wake the Captain</span></button>
 `;
     },
