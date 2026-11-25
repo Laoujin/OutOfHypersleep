@@ -768,7 +768,7 @@ React is a JavaScript library for building user interfaces.
       };
       const settle = (el, dead) => {
         el._run = (el._run || 0) + 1;
-        el.querySelectorAll('.sg-sub').forEach(c => c.classList.toggle('dead', dead));
+        el.querySelectorAll('.sg-sub').forEach(c => { c.classList.toggle('built', dead); c.classList.toggle('dead', dead); });
         total(el, dead ? 0 : FULL);
       };
       const freeze = el => {
@@ -779,7 +779,8 @@ React is a JavaScript library for building user interfaces.
         const at = n => { const r = n.getBoundingClientRect(), s = stage.getBoundingClientRect(), k = s.width / 1600; return [(r.left - s.left) / k, (r.top - s.top) / k]; };
         cards.forEach((card, i) => setTimeout(() => {
           if (el._run !== run) return;
-          card.classList.add('dead');
+          card.classList.add('built');
+          setTimeout(() => { if (el._run === run) card.classList.add('dead'); }, 750);
           const pr = card.querySelector('.sg-pr'), [x0, y0] = at(pr), [x1, y1] = at(tot);
           const coin = stage.appendChild(Object.assign(document.createElement('div'), { className: 'sg-coin', textContent: '−' + pr.textContent }));
           Object.assign(coin.style, { left: x0 + 'px', top: y0 + 'px' });
@@ -795,7 +796,7 @@ React is a JavaScript library for building user interfaces.
       return [{
         slug: 'graveyard', title: 'One subscription per feature', full: true, steps: 3, cls: 'sg',
         body: () => `<div class="sg-stage">
-          <div class="sg-subs">${SUBS.map(([n, d, p, t]) => `<div class="sg-sub"><h5>${n}</h5><p>${d}</p><span class="sg-pr">€${p}</span><span class="sg-lamp"></span><div class="sg-ice">❄ ${t} to replace</div></div>`).join('')}</div>
+          <div class="sg-subs">${SUBS.map(([n, d, p, t]) => `<div class="sg-sub"><h5>${n}</h5><p>${d}</p><span class="sg-pr">€${p}</span><span class="sg-lamp"></span><div class="sg-stamp">built ${t}</div><div class="sg-glaze"></div></div>`).join('')}</div>
           <div class="sg-total"><b class="sg-sum">€${FULL}</b>per month</div>
           <div class="sg-erp" data-s="2"><h5>Your ERP</h5><p>accounting · payroll · compliance<br>20 years of edge cases<br>someone to call at 3am</p>
             <div class="sg-erp-pr">€4,800<small> /mo</small></div><div class="sg-keep">Keep paying.</div><div class="sg-now">… for now …</div></div>
