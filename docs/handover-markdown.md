@@ -35,7 +35,7 @@ Slides: thaw → froze → `markdown-announce` → `markdown-web` → `markdown-
 - Wouter hasn't reviewed the slides visually yet; expect many small tweaks (do each, build, commit, one-line report).
 - Frame lines are drafts; Wouter may rewrite them.
 - ADRs and Markdown vs docx (token cost, conversion, real `#` headers vs bold-as-header in docx) are only in the speaker notes of `markdown-readme`. Offered to make them a slide; no answer yet.
-- To verify: the 60k+ count, Nygard ADRs 2011, llms.txt 2024, CDN `Accept: text/markdown` conversion (all in speaker notes).
+- To verify: the 60k+ count, Nygard ADRs 2011, llms.txt 2024 (in speaker notes). Cloudflare Markdown for Agents (Feb 2026) confirmed by Wouter.
 - README rows (Crew size, Rigged?) need rechecking against the new decks and scores.
 
 ## Key files

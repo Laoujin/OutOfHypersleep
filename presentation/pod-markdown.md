@@ -80,7 +80,7 @@ clicks: 2
 Gruber wrote Markdown for web writers. Now the web is republished in Markdown for agents.
 A docs page as raw HTML: nav, cookie banner, scripts, Tailwind classes. The agent pays for every token. Token counts are chars / 4.
 [click] The same page as Markdown: the content, nothing else.
-[click] llms.txt: a Markdown map of a site at its root (Jeremy Howard, Answer.AI, 2024, to verify). Docs sites now ship a "Copy page as Markdown" button. CDNs convert HTML to Markdown when the agent asks with Accept: text/markdown (Cloudflare, to verify).
+[click] llms.txt: a Markdown map of a site at its root (Jeremy Howard, Answer.AI, 2024, to verify). Docs sites now ship a "Copy page as Markdown" button. Accept: text/markdown is Cloudflare's "Markdown for Agents" (February 2026): when a request asks for text/markdown, Cloudflare fetches the HTML from the origin and converts it to Markdown before serving it. Only on Cloudflare, and only for sites that turned it on.
 -->
 
 ---
