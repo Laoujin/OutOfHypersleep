@@ -1234,7 +1234,7 @@ Subject: Re: SCO: "thread creation is about a thousand times faster
 
   add({
     id: 'verdict', seq: 'final', steps: 2, cls: 'vd',
-    html: () => `${head('', 'The Verdict')}
+    html: () => `${head('', 'The Final Verdict')}
       <div class="vd-side crew">${A.crew()}<div class="nm">Crew</div><div class="n" data-n="crew">0</div></div>
       <div class="vd-side alien">${A.alien()}<div class="nm">Alien AI</div><div class="n" data-n="alien">0</div></div>
       <div class="vd-stamp"></div>`,
