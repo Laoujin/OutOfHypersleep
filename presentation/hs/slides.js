@@ -73,8 +73,9 @@ import soCsv from '../data/stackoverflow-questions.csv?raw';
 
   // ───────────────────────── MAP ─────────────────────────
   const peek = on => document.body.classList.toggle('peek', on);
-  window.addEventListener('keydown', e => { if (e.key === 'Control') peek(true); });
-  window.addEventListener('keyup', e => { if (e.key === 'Control') peek(false); });
+  const peekKeys = e => { if (e.key === 'Control' || e.key === 'Shift') peek(e.ctrlKey && !e.shiftKey); };
+  window.addEventListener('keydown', peekKeys);
+  window.addEventListener('keyup', peekKeys);
   window.addEventListener('blur', () => peek(false));
   const podCard = (p, st) => {
     const woken = st.woken.includes(p.id);
