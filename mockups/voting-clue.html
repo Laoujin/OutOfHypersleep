@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Voting Clue Layout</title>
+<meta name="description" content="Out of Hypersleep: vote which cryo pod to open.">
+<style>
+:root {
+  --bg: #0b0d10; --panel: #15191f; --panel2: #1e232b; --line: #2e3540; --ink: #d9dee6; --muted: #8a93a1; --faint: #565e6b;
+  --cryo: #9fd8f0; --frost: #cfefff; --phos: #7dffb0; --alien: #ff3b5c; --amber: #ffb547;
+  --build: #6fb6e8; --ship: #b39ae0; --check: #45e6a0; --plan: #e8c46f;
+  --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --sans: "IBM Plex Sans", "Segoe UI", system-ui, -apple-system, Roboto, sans-serif;
+  --head: "Chakra Petch", "Eurostile", "Arial Narrow", sans-serif;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; color: var(--ink); font-family: var(--sans); }
+body {
+  min-height: 100vh; padding: 20px 14px 48px;
+  background: linear-gradient(180deg, rgba(5,7,10,.9) 0%, rgba(5,7,10,.7) 22%, rgba(5,7,10,.72) 100%), url('/map-table.webp') center / cover fixed, var(--bg);
+}
+main { max-width: 1100px; margin: 0 auto; }
+.kicker { font: 600 12px var(--mono); letter-spacing: .2em; text-transform: uppercase; color: var(--amber); opacity: .9; }
+h2 { margin: 6px 0 0; font: 700 30px/1.05 var(--head); letter-spacing: .01em; text-transform: uppercase; }
+
+.map-grid {
+  display: grid; gap: 12px; margin-top: 22px; padding: 18px 14px;
+  background: rgba(5,7,10,.35); border: 2px dashed #3a424e; border-radius: 24px 60px 60px 24px;
+}
+.deck-lbl { display: flex; flex-direction: column; justify-content: center; font-size: 15px; color: var(--muted); border-left: 4px solid; padding-left: 12px; }
+.deck-lbl b { color: var(--ink); font-size: 18px; }
+.deck-lbl.t-build { border-color: var(--build); } .deck-lbl.t-ship { border-color: var(--ship); } .deck-lbl.t-check { border-color: var(--check); } .deck-lbl.t-plan { border-color: var(--plan); }
+.deck-row { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px; margin-bottom: 8px; }
+@media (min-width: 760px) {
+  .map-grid { grid-template-columns: 130px 1fr; gap: 14px 18px; }
+  .deck-row { margin-bottom: 0; }
+}
+
+.pod {
+  position: relative; height: 172px; padding: 10px 12px; border: 1px solid var(--line); border-radius: 14px;
+  background: linear-gradient(180deg, #0d141a, #080c10); transition: border-color .2s;
+}
+.pod.voted { border-color: rgba(125, 255, 176, .55); }
+.pod .pod-art { width: 196px; max-width: calc(100% - 90px); }
+.pod .pod-info { position: absolute; left: 14px; right: 100px; bottom: 10px; display: flex; flex-wrap: wrap; align-items: center; gap: 4px 12px; }
+.pod .yr { font: 700 20px var(--mono); color: var(--cryo); white-space: nowrap; }
+.pod .clue { order: -1; flex-basis: 100%; font: 500 15px var(--mono); color: var(--cryo); opacity: .75; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.pod .pwr { margin-left: auto; display: flex; align-items: center; gap: 6px; }
+.pod .pwr svg { width: 12px; height: 18px; fill: var(--phos); }
+.rel { display: inline-flex; gap: 3px; vertical-align: middle; }
+.rel i { width: 9px; height: 16px; border-radius: 2px; background: #2e3540; }
+.rel i.on { background: var(--phos); box-shadow: 0 0 6px rgba(125, 255, 176, .45); }
+
+.pod .votes { position: absolute; right: 10px; top: 8px; bottom: 8px; display: flex; flex-direction: column; align-items: center; justify-content: space-between; min-width: 78px; }
+.pod .votes .vn { font: 800 40px/1 var(--mono); color: var(--amber); }
+.pod .votes .vn.inf { font-size: 56px; line-height: 40px; }
+.pod .votes button {
+  width: 44px; height: 34px; padding: 0; font: 700 24px/1 var(--mono); color: var(--ink);
+  background: var(--panel2); border: 1px solid var(--line); border-radius: 10px; cursor: pointer;
+}
+.pod .votes button.up:not(:disabled) { color: #04140d; background: var(--phos); border-color: var(--phos); }
+.pod .votes button.down:not(:disabled) { border-color: var(--alien); color: var(--alien); }
+.pod .votes button:disabled { opacity: .3; cursor: default; }
+
+.cryo { display: block; width: 100%; overflow: visible; }
+.cryo .shell { fill: url(#gShell); stroke: #6e6a5e; stroke-width: 2; }
+.cryo .rib { stroke: #8c8676; stroke-width: 2; }
+.cryo .vent { fill: #2a2e2b; }
+.cryo .glass { fill: url(#gGlass); stroke: #3c4a48; stroke-width: 2; }
+.cryo .frost { fill: none; stroke: rgba(225, 245, 255, .6); stroke-width: 2.5; stroke-linecap: round; }
+.cryo .sleeper { fill: #4b6b78; }
+.cryo .interior { fill: #0a1416; }
+.cryo .strip rect { fill: var(--cryo); animation: cryo-breathe 3.2s ease-in-out infinite; }
+.cryo .strip rect:nth-child(2n) { animation-delay: .4s; }
+@keyframes cryo-breathe { 50% { opacity: .35; } }
+
+.foot { margin-top: 24px; color: var(--faint); font-size: 13px; text-align: center; }
+.err { color: var(--amber); }
+</style>
+<style id="new">
+.pod { height: 150px; }
+.pod .pod-info { flex-wrap: nowrap; gap: 8px; right: 92px; }
+.pod .pwr { flex: none; }
+.pod .yr { display: flex; align-items: center; gap: 6px; font: inherit; color: var(--cryo); min-width: 0; flex: 1 1 auto; }
+.pod .yr .ice { font-size: 34px; line-height: 1; }
+.pod .yr .txt { display: flex; flex-direction: column; line-height: 1.1; min-width: 0; }
+.pod .yr .y { font: 700 20px var(--mono); }
+.pod .yr .c { font: 500 12px var(--mono); opacity: .75; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.variant { font: 600 13px var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--amber); margin: 28px 0 10px; }
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position: absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="gShell" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ece6d6" /><stop offset=".55" stop-color="#c9c2b0" /><stop offset="1" stop-color="#8f8979" /></linearGradient>
+    <linearGradient id="gGlass" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="rgba(160,230,240,.35)" /><stop offset="1" stop-color="rgba(20,60,70,.55)" /></linearGradient>
+  </defs>
+</svg>
+<main class="map">
+  <div class="kicker">cryo chamber · vote for every pod you want woken</div>
+  <h2>Which pod do we open?</h2>
+  <div class="map-grid" id="pods"></div>
+  <p class="foot" id="foot"></p>
+</main>
+<script>
+const DECKS = [
+  ['plan', 1, 'Plan'],
+  ['build', 2, 'Build'],
+  ['check', 3, 'Check'],
+  ['ship', 4, 'Ship'],
+]
+const store = {
+  get(k, d) { try { return JSON.parse(localStorage.getItem(k)) ?? d } catch { return d } },
+  set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)) } catch {} },
+}
+let voter = store.get('hs-voter', null)
+if (!voter) { voter = crypto.randomUUID ? crypto.randomUUID() : Date.now().toString(36) + Math.random().toString(36).slice(2); store.set('hs-voter', voter) }
+const voted = new Set(store.get('hs-voted', []))
+let pods = [], votes = {}
+
+const el = document.getElementById('pods')
+const foot = document.getElementById('foot')
+const rel = n => `<span class="rel">${[1, 2, 3, 4, 5].map(i => `<i class="${i <= n ? 'on' : ''}"></i>`).join('')}</span>`
+const cryo = `<svg class="cryo closed" viewBox="0 0 440 180" aria-hidden="true">
+  <rect class="shell" x="10" y="30" width="420" height="120" rx="60"/>
+  ${[90, 130, 310, 350].map(x => `<line class="rib" x1="${x}" y1="32" x2="${x}" y2="46"/><line class="rib" x1="${x}" y1="134" x2="${x}" y2="148"/>`).join('')}
+  <rect class="vent" x="28" y="76" width="14" height="28" rx="4"/><rect class="vent" x="398" y="76" width="14" height="28" rx="4"/>
+  <rect class="interior" x="62" y="48" width="316" height="84" rx="42"/>
+  <g class="sleeper"><circle cx="112" cy="90" r="17"/><rect x="134" y="73" width="196" height="34" rx="17"/></g>
+  <g class="lid"><rect class="glass" x="62" y="48" width="316" height="84" rx="42"/>
+    <path class="frost" d="M86 72 q20 -10 34 2 t40 -2 t36 6 M92 106 q26 -8 44 4 t52 -2 t40 4 M210 70 q24 -8 40 2 t40 0 M240 112 q22 -6 36 2 t44 -2"/></g>
+  <g class="strip">${Array.from({ length: 7 }, (_, i) => `<rect x="${(440 - 7 * 22) / 2 + i * 22 - 40}" y="152" width="16" height="8" rx="2"/>`).join('')}</g>
+</svg>`
+const voteSpan = n => (n > 999 ? `<span class="vn inf" title="${n}">∞</span>` : `<span class="vn">${n}</span>`)
+const BOLT = '<svg viewBox="0 0 12 18" aria-hidden="true"><path d="M7 0 0 10h5l-1 8 7-10H6z"/></svg>'
+const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c])
+
+function render() {
+  el.innerHTML = DECKS.map(([type, n, label]) => {
+    const list = pods.filter(p => p.deck === type)
+    if (!list.length) return ''
+    return `<div class="deck-lbl t-${type}"><b>Deck ${n}</b>${label}</div><div class="deck-row">${list.map(p => {
+      const on = voted.has(p.id)
+      return `<div class="pod ${on ? 'voted' : ''}" data-id="${p.id}">
+        <div class="pod-art">${cryo}</div>
+        <div class="votes">
+          <button class="up" data-act="up" ${on ? 'disabled' : ''} aria-label="Vote">+</button>
+          ${voteSpan(votes[p.id] || 0)}
+          <button class="down" data-act="down" ${on ? '' : 'disabled'} aria-label="Undo vote">−</button>
+        </div>
+        <div class="pod-info"><span class="yr"><span class="ice">❄</span><span class="txt"><span class="y">${esc(p.frozen)}</span>${p.clue ? `<span class="c">${esc(p.clue)}</span>` : ''}</span></span><span class="pwr">${BOLT}${rel(p.power)}</span></div>
+      </div>`
+    }).join('')}</div>`
+  }).join('')
+}
+
+function load() { pods = [{"id": "spec", "deck": "plan", "frozen": 1970, "power": 4, "clue": "Royce"}, {"id": "markdown", "deck": "plan", "frozen": 2004, "power": 5, "clue": "Gruber"}, {"id": "stackoverflow", "deck": "plan", "frozen": 2008, "power": 5, "clue": "Spolsky"}, {"id": "worktrees", "deck": "build", "frozen": 2015, "power": 5, "clue": "Duy"}, {"id": "ide", "deck": "build", "frozen": 1983, "power": 5, "clue": "Hejlsberg"}, {"id": "saas", "deck": "build", "frozen": 2010, "power": 2, "clue": "Benioff"}, {"id": "mutation", "deck": "check", "frozen": 1978, "power": 4, "clue": "DeMillo"}, {"id": "hooks", "deck": "check", "frozen": 2005, "power": 4, "clue": "Torvalds"}, {"id": "codereview", "deck": "check", "frozen": 1976, "power": 4, "clue": "Fagan"}, {"id": "mergequeue", "deck": "ship", "frozen": 2013, "power": 3, "clue": "Hoare"}, {"id": "trailers", "deck": "ship", "frozen": 2014, "power": 1, "clue": "Couder"}]; votes = { spec: 3, markdown: 12, worktrees: 7, hooks: 1 }; render() }
+
+
+load()
+</script>
+</body>
+</html>

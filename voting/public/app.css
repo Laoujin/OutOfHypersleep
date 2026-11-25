@@ -31,15 +31,18 @@ h2 { margin: 6px 0 0; font: 700 30px/1.05 var(--head); letter-spacing: .01em; te
 }
 
 .pod {
-  position: relative; height: 172px; padding: 10px 12px; border: 1px solid var(--line); border-radius: 14px;
+  position: relative; height: 150px; padding: 10px 12px; border: 1px solid var(--line); border-radius: 14px;
   background: linear-gradient(180deg, #0d141a, #080c10); transition: border-color .2s;
 }
 .pod.voted { border-color: rgba(125, 255, 176, .55); }
 .pod .pod-art { width: 196px; max-width: calc(100% - 90px); }
-.pod .pod-info { position: absolute; left: 14px; right: 100px; bottom: 10px; display: flex; flex-wrap: wrap; align-items: center; gap: 4px 12px; }
-.pod .yr { font: 700 20px var(--mono); color: var(--cryo); white-space: nowrap; }
-.pod .clue { order: -1; flex-basis: 100%; font: 500 15px var(--mono); color: var(--cryo); opacity: .75; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.pod .pwr { margin-left: auto; display: flex; align-items: center; gap: 6px; }
+.pod .pod-info { position: absolute; left: 14px; right: 92px; bottom: 10px; display: flex; align-items: center; gap: 8px; }
+.pod .yr { flex: 1 1 auto; min-width: 0; display: flex; align-items: center; gap: 6px; color: var(--cryo); }
+.pod .yr .ice { font-size: 34px; line-height: 1; }
+.pod .yr .txt { display: flex; flex-direction: column; min-width: 0; line-height: 1.1; }
+.pod .yr .y { font: 700 20px var(--mono); }
+.pod .yr .c { font: 500 12px var(--mono); opacity: .75; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.pod .pwr { flex: none; margin-left: auto; display: flex; align-items: center; gap: 6px; }
 .pod .pwr svg { width: 12px; height: 18px; fill: var(--phos); }
 .rel { display: inline-flex; gap: 3px; vertical-align: middle; }
 .rel i { width: 9px; height: 16px; border-radius: 2px; background: #2e3540; }
