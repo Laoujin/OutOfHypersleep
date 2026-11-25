@@ -13,7 +13,7 @@ body {
   min-height: 100vh; padding: 20px 14px 48px;
   background: linear-gradient(180deg, rgba(5,7,10,.9) 0%, rgba(5,7,10,.7) 22%, rgba(5,7,10,.72) 100%), url('/map-table.webp') center / cover fixed, var(--bg);
 }
-main { max-width: 1000px; margin: 0 auto; }
+main { max-width: 1100px; margin: 0 auto; }
 .kicker { font: 600 12px var(--mono); letter-spacing: .2em; text-transform: uppercase; color: var(--amber); opacity: .9; }
 h2 { margin: 6px 0 0; font: 700 30px/1.05 var(--head); letter-spacing: .01em; text-transform: uppercase; }
 
