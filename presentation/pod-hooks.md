@@ -26,9 +26,6 @@ pod:
   order: 2
   frozen: 2005
   born: 2005
-  clue:
-    name: Torvalds
-    full: Linus Torvalds
   power: 4
   fate: alive
   score: 40

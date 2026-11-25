@@ -27,9 +27,6 @@ pod:
   frozen: 1983
   born: 1983
   died: 2026
-  clue:
-    name: Hejlsberg
-    full: Anders Hejlsberg (Turbo Pascal)
   power: 5
   fate: dead
   score: -30

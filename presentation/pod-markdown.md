@@ -25,9 +25,6 @@ pod:
   order: 2
   frozen: 2004
   born: 2004
-  clue:
-    name: Gruber
-    full: John Gruber
   power: 5
   fate: alive
   score: 50

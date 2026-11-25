@@ -11,12 +11,18 @@ const ADMIN_TOKEN = process.env.ADMIN_TOKEN || ''
 const VOTES_FILE = path.join(DATA_DIR, 'votes.json')
 
 const DECKS = ['plan', 'build', 'check', 'ship']
+const CLUES = {
+  spec: 'Royce', markdown: 'Gruber', stackoverflow: 'Spolsky',
+  worktrees: 'Duy', ide: 'Hejlsberg',
+  mutation: 'DeMillo', hooks: 'Torvalds', codereview: 'Fagan',
+  mergequeue: 'Hoare', trailers: 'Couder',
+}
 const frontmatter = src => parse(src.split(/^---\s*$/m)[1] || '') || {}
 const pods = fs.readdirSync(PODS_DIR)
   .filter(f => /^pod-.+\.md$/.test(f))
   .map(f => frontmatter(fs.readFileSync(path.join(PODS_DIR, f), 'utf8')).pod)
   .filter(Boolean)
-  .map(({ id, deck, order, frozen, power, clue }) => ({ id, deck, order, frozen, power, clue }))
+  .map(({ id, deck, order, frozen, power }) => ({ id, deck, order, frozen, power, clue: CLUES[id] }))
   .sort((a, b) => DECKS.indexOf(a.deck) - DECKS.indexOf(b.deck) || (a.order ?? 99) - (b.order ?? 99))
 const podIds = new Set(pods.map(p => p.id))
 

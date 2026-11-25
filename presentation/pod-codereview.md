@@ -27,9 +27,6 @@ pod:
   frozen: 1976
   born: 1976
   died: 2027
-  clue:
-    name: Fagan
-    full: Michael Fagan
   power: 4
   fate: dead
   score: -40

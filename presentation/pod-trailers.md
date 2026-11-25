@@ -25,9 +25,6 @@ pod:
   order: 2
   frozen: 2014
   born: 2014
-  clue:
-    name: Couder
-    full: Christian Couder
   power: 1
   fate: alive
   score: -10
