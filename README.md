@@ -38,9 +38,10 @@ The talk is split into **separate Slidev decks**:
 2. Click a pod, or → for the vote leader: the pod opens **fullscreen** on top of the map.
    → venting · → the lid opens: name and born year · → it lives or dies (died year, score applied).
 3. **Open the slides ↗** (or → once more) opens that pod's deck in a **new tab**, closes the fullscreen pod and the map updates: score counts up, the pod shows revived or dead. At the end of the pod deck, → closes the tab.
-4. E opens the finale.
+4. Click an opened pod to show it fullscreen again, straight on its end screen.
+5. E opens the finale.
 
-Game state (woken pods, score) is in `localStorage`, shared by all decks on the same origin.
+Game state (woken pods, score) is in `localStorage`, shared by all decks on the same origin; it survives a reload. Reset it with X or the faint ↺ button bottom-right on the map (it turns red on the first click; click again within 3 s to reset).
 
 ## Voting app (pods.sangu.be)
 
@@ -77,18 +78,21 @@ Every pod deck uses the same frame: **thaw** (ID card) → **froze** (`frozenBec
 
 Game-wide rules (the alien events at the twist) are in the `game:` block of `presentation/slides.md`. Add a pod by adding a `pod-<id>.md` with a `pod:` header and its slides.
 
-| Key | Action |
-|---|---|
-| → / Space / PageDown / clicker | next click, then the next slide *in the hub order* |
-| ← / PageUp | back |
-| ↑ / ↓ | previous / next slide (skip clicks) |
-| M | ship map |
-| E | final pod (Schrödinger's developer) |
-| S | scoreboard |
-| A | about slide |
-| R | replay the current slide's animation |
-| F | fullscreen |
-| X | reset the game (do this before the talk) |
+| Key                            | Action                                                       |
+|--------------------------------|--------------------------------------------------------------|
+| → / Space / PageDown / clicker | next click, then the next slide *in the hub order*           |
+| ← / PageUp                     | back                                                         |
+| ↑ / ↓                          | previous / next slide (skip clicks)                          |
+| M                              | ship map                                                     |
+| E                              | final pod (Schrödinger's developer)                          |
+| S                              | scoreboard                                                   |
+| A                              | about slide                                                  |
+| R                              | replay the current slide's animation                         |
+| F                              | fullscreen                                                   |
+| X                              | reset the game (do this before the talk)                     |
+| hold Ctrl (map)                | show the names of the closed pods                            |
+| Ctrl+click a pod (map)         | open it straight on its end screen (score applied)           |
+| Ctrl+Shift+click a pod (map)   | same, without showing the names                              |
 
 ## Structure
 
