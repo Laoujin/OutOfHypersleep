@@ -80,7 +80,7 @@ clicks: 3
 Coding was never the job: IDC 2024, developers spend 16% of their time building the application.
 [click] AI makes that slice 5× faster. The day barely shrinks.
 [click] Amdahl's law: 5× faster coding is a 15% productivity gain.
-[click] The other 84% is the job: communication, building the right thing, debugging and verification.
+[click] The rest of the day: communication, building the right thing, debugging and verification light up. Scrum ceremonies and context switching stay grey: AI can't save you there.
 -->
 
 ---

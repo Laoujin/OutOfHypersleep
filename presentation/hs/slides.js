@@ -1221,7 +1221,7 @@ Subject: Re: SCO: "thread creation is about a thousand times faster
     id: 'diagnosis', seq: 'final', steps: 4, cls: 'dg',
     html: () => `${head('', 'Schrödinger\'s Developer')}<div class="dg-sub">Coding was never the job.</div>
       <div class="dg-day"><div class="dg-cap">a developer's working time</div>
-        <div class="dg-bar"><div class="code">coding 16%</div><div class="rest"><span>communication</span><span>building the right thing</span><span>debugging &amp; verification</span></div></div></div>
+        <div class="dg-bar"><div class="code">coding 16%</div><div class="rest"><span class="job">communication</span><span class="meh">scrum ceremonies</span><span class="job">building the right thing</span><span class="meh">context switching</span><span class="job">debugging &amp; verification</span></div></div></div>
       <div class="dg-math" data-s="2"><span>5× faster coding</span><span class="arr">⇒</span><b class="dg-badge">+15% productivity</b></div>`,
   });
 
