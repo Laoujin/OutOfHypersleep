@@ -10,11 +10,11 @@ A live pod for **Markdown**: born 2004 (John Gruber, Daring Fireball, with Aaron
 
 | Item      | Decision                                                                                             |
 |-----------|------------------------------------------------------------------------------------------------------|
-| Deck row  | `verification`, `order: 4` (after spec). Context column stays parked for the Memento talk.            |
-| Numbers   | born/frozen 2004, power 5, score alive 50 / dead −40, fate alive                                       |
+| Deck row  | Was `verification`, `order: 4`. Another session regrouped the decks (`b158bb8`): now `deck: plan`, `order: 2`. |
+| Numbers   | born/frozen 2004, power 5, fate alive, `score: 50` (collapsed to one value in `0a63874`)              |
 | Frame     | frozenBecause / frozenSub / wokenBecause / logTitle / takeaway as in the `pod:` header (drafts, Wouter said "build it, then finetune") |
 | WIP badge | removed                                                                                              |
-| README    | Crew size (7 live), Rigged? (4 live + 2 dead: crew ≈ 150–190 vs alien ≈ 120–140), Context column rows updated |
+| README    | Crew size, Rigged? and Context column rows updated in `9d899d9`; may be stale after the deck regroup and score retune |
 
 ## Done (commits)
 
@@ -36,7 +36,7 @@ Slides: thaw → froze → `markdown-announce` → `markdown-readme` → log. No
 - Frame lines are drafts; Wouter may rewrite them.
 - ADRs and Markdown vs docx (token cost, conversion, real `#` headers vs bold-as-header in docx) are only in the speaker notes of `markdown-readme`. Offered to make them a slide; no answer yet.
 - To verify: the 60k+ count, Nygard ADRs 2011.
-- `presentation/pod-saas.md` has uncommitted changes from another session: not ours, don't stage.
+- README rows (Crew size, Rigged?) need rechecking against the new decks and scores.
 
 ## Key files
 
