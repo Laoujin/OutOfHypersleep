@@ -121,7 +121,7 @@ Everything below is a default; change pods in the `pod:` header of `presentation
 | Voting | Only in the deployed voting app; the map shows the live counts. |
 | Crew manifest photo | Slide removed from the intro. The final pod shows a placeholder crowd for now. |
 | Surprising moment | Kept the source's main pick: the average age of the woken tooling, revealed on the scoreboard. |
-| Title / abstract | Drafted in `notes/talks/out-of-hypersleep.md`. |
+| Title / abstract | [ElevatorPitch.md](ElevatorPitch.md) |
 
 ## Still to check before giving it
 
