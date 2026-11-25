@@ -797,7 +797,7 @@ React is a JavaScript library for building user interfaces.
         'dashboards', 'BI connector', 'forecasting', 'budgets', 'expenses', 'procurement', 'inventory', 'assets', 'fleet', 'HR', 'payroll',
         'recruiting', 'onboarding', 'performance', 'learning', 'surveys', 'portal', 'chat', 'telephony', 'social', 'events',
         'projects', 'gantt', 'resources', 'portfolio', 'risk', 'compliance', 'audit log', 'data export', 'API', 'webhooks', 'marketplace', 'SSO',
-        'roles', 'sandbox', 'tax rules', 'localisation', 'mobile app', 'offline mode', 'AI assistant', 'scripting', 'archive'];
+        'roles', 'sandbox', 'tax rules', 'i18n', 'mobile app', 'offline mode', 'AI assistant', 'scripting', 'archive'];
       const MINE = SUITE.slice(0, 3);
       // a fixed shuffle so the three used modules end up scattered across the wall
       const SUITE_TILES = SUITE.map(f => [f, Math.sin(f.length * 97 + f.charCodeAt(0))]).sort((a, b) => a[1] - b[1]).map(([f]) => f);
@@ -818,7 +818,6 @@ React is a JavaScript library for building user interfaces.
         slug: 'suite', title: 'The big suite', full: true, steps: 3, cls: 'ss',
         body: () => `<div class="ss-app"><div class="ss-bar"><span><b>Enterprise suite</b> · €2,000 /mo</span><span>${SUITE.length} modules</span></div>
             <div class="ss-grid">${SUITE_TILES.map(f => `<div class="ss-t${MINE.includes(f) ? ' mine' : ''}">${f}</div>`).join('')}</div></div>
-          <div class="ss-used" data-s="1">you use <b>5%</b> · ${MINE.length} of ${SUITE.length} modules</div>
           <div class="ss-mine" data-s="2"><h4>The 5%<span>what you actually use</span></h4>${MINE.map(f => `<div class="ss-btn">${f}</div>`).join('')}
             <div class="ss-next">Time to start<br>building it.</div></div>`,
       }];
