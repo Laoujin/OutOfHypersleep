@@ -51,20 +51,15 @@ const cryo = `<svg class="cryo closed" viewBox="0 0 440 180" aria-hidden="true">
   <g class="strip">${Array.from({ length: 7 }, (_, i) => `<rect x="${(440 - 7 * 22) / 2 + i * 22 - 40}" y="152" width="16" height="8" rx="2"/>`).join('')}</g>
 </svg>`
 const BOLT = '<svg viewBox="0 0 12 18" aria-hidden="true"><path d="M7 0 0 10h5l-1 8 7-10H6z"/></svg>'
-const leader = () => {
-  const [id, n] = Object.entries(votes).sort((a, b) => b[1] - a[1])[0] || []
-  return n > 0 ? id : null
-}
 const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c])
 
 function render() {
-  const lead = leader()
   el.innerHTML = DECKS.map(([type, n, label]) => {
     const list = pods.filter(p => p.deck === type)
     if (!list.length) return ''
     return `<div class="deck-lbl t-${type}"><b>Deck ${n}</b>${label}</div><div class="deck-row">${list.map(p => {
       const on = voted.has(p.id)
-      return `<div class="pod ${on ? 'voted' : ''} ${lead === p.id ? 'lead' : ''}" data-id="${p.id}">
+      return `<div class="pod ${on ? 'voted' : ''}" data-id="${p.id}">
         <div class="pod-art">${cryo}</div>
         <div class="votes">
           <button class="up" data-act="up" ${on ? 'disabled' : ''} aria-label="Vote">+</button>

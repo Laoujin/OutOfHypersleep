@@ -45,7 +45,7 @@ Game state (woken pods, score) is in `localStorage`, shared by all decks on the 
 
 ## Voting app (pods.sangu.be)
 
-`voting/` is a small Node app, deployed by Coolify from `voting/Dockerfile` (build context = repo root). It reads the `pod:` headers of `presentation/pod-*.md` and shows the pods anonymously, styled like the ship map (deck, freeze year, power, vote count, leader glow). One vote per pod per browser (localStorage): + votes, − undoes. Votes persist in `/data/votes.json`.
+`voting/` is a small Node app, deployed by Coolify from `voting/Dockerfile` (build context = repo root). It reads the `pod:` headers of `presentation/pod-*.md` and shows the pods anonymously, styled like the ship map (deck, freeze year, power, vote count). One vote per pod per browser (localStorage): + votes, − undoes. Votes persist in `/data/votes.json`.
 
 The `ask` slide ends with "→ to the cryo chamber" (the map). Reset the live votes before the talk: `POST /api/reset` with `Authorization: Bearer <ADMIN_TOKEN>` (the token is in the Home repo's Coolify config, not here).
 

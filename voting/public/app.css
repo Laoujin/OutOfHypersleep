@@ -32,10 +32,9 @@ h2 { margin: 6px 0 0; font: 700 30px/1.05 var(--head); letter-spacing: .01em; te
 
 .pod {
   position: relative; height: 150px; padding: 10px 12px; border: 1px solid var(--line); border-radius: 14px;
-  background: linear-gradient(180deg, #0d141a, #080c10); transition: border-color .2s, box-shadow .3s;
+  background: linear-gradient(180deg, #0d141a, #080c10); transition: border-color .2s;
 }
 .pod.voted { border-color: rgba(125, 255, 176, .55); }
-.pod.lead { box-shadow: 0 0 0 3px var(--amber), 0 0 30px rgba(255, 181, 71, .35); }
 .pod .pod-art { width: 196px; max-width: calc(100% - 90px); }
 .pod .pod-info { position: absolute; left: 14px; right: 100px; bottom: 10px; display: flex; align-items: center; gap: 12px; }
 .pod .yr { font: 700 20px var(--mono); color: var(--cryo); }
