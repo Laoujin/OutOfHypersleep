@@ -1198,7 +1198,6 @@ Subject: Re: SCO: "thread creation is about a thousand times faster
     html: () => `<div class="thaw-pod">${A.pod('dying big')}</div>
       <div class="thaw-info">
         <h1>Waking the Captain</h1>
-        <div class="meta"><span>half alive · half dead</span></div>
         <div class="manifest-reveal" data-s="1"><div class="placeholder">${Array.from({ length: 18 }, () => '<i></i>').join('')}</div><video autoplay playsinline muted></video><div class="cap-line">IT'S YOU · SCHRÖDINGER'S DEVELOPER</div></div>
       </div>`,
     init: async el => { if (await HS.camera.attach(el.querySelector('.manifest-reveal video'))) el.classList.add('live'); },

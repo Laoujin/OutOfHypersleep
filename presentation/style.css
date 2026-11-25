@@ -337,7 +337,7 @@ pre.code { margin: 0; font: 21px/1.6 var(--mono); color: var(--ink); white-space
 .final .manifest-reveal video { position: absolute; left: 12px; top: 12px; width: calc(100% - 24px); height: 304px; object-fit: cover; opacity: 0; transition: opacity .6s; }
 .final.live .manifest-reveal video { opacity: 1; }
 .final .thaw-info h1 { font-size: 72px; }
-.final .meta { margin: 14px 0; }
+.final .manifest-reveal .cap-line { left: 0; right: 0; bottom: 8px; text-align: center; font: 700 26px var(--mono); }
 .vit { display: flex; flex-direction: column; gap: 14px; flex: 1; justify-content: center; }
 .vrow { display: grid; grid-template-columns: 360px 420px 1fr; gap: 26px; align-items: center; background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 12px 22px; }
 .vn { font-size: 26px; font-weight: 700; }
