@@ -1285,19 +1285,23 @@ svg .lbl.spec-w { font-size: 20px; }
 /* finale: Schrödinger's developer, Amdahl bar */
 .dg h2 { font-size: 72px; }
 .dg-sub { font: 400 34px var(--sans); color: var(--cryo); margin-top: -14px; }
-.dg-day { margin-top: 80px; }
+.dg-day { position: relative; margin-top: 80px; }
 .dg-cap { font: 600 18px var(--mono); color: var(--muted); letter-spacing: .15em; text-transform: uppercase; margin-bottom: 12px; }
 .dg-bar { display: flex; height: 130px; width: 100%; transition: width 1.4s cubic-bezier(.5, 0, .2, 1); }
 .dg-bar > div { display: grid; place-items: center; font: 700 26px var(--head); text-transform: uppercase; overflow: hidden; white-space: nowrap; transition: flex-basis 1.4s cubic-bezier(.5, 0, .2, 1), background .6s, font-size .4s; }
 .dg-bar .code { flex: 0 0 16%; background: linear-gradient(180deg, #2f6f8a, #1d4658); color: var(--frost); border-radius: 12px 0 0 12px; }
 .dg-bar .rest { flex: 1 1 auto; display: flex; align-items: stretch; gap: 3px; padding-left: 3px; font-size: 32px; line-height: 1.05; }
-.dg-bar .rest span { flex: 1 1 auto; display: grid; place-items: center; padding: 0 10px; text-align: center; background: var(--panel2); color: var(--muted); transition: color .6s, background .6s; }
+.dg-bar .rest span { flex: 1 1 auto; display: grid; place-items: center; padding: 0 10px; text-align: center; background: var(--panel2); color: var(--muted); }
 .dg-bar .rest span:last-child { border-radius: 0 12px 12px 0; }
-.dg.s1 .dg-bar { width: 87.2%; }
 .dg.s1 .dg-bar .code { flex-basis: 3.2%; font-size: 0; }
-.dg.s3 .dg-bar .rest .job { background: linear-gradient(180deg, #164a36, #0d2c20); color: var(--awake); }
-.dg.s3 .dg-bar .rest .meh { color: var(--faint); }
-.dg-math { margin-top: 70px; display: flex; align-items: center; gap: 30px; font: 700 64px var(--head); text-transform: uppercase; }
+.dg-bar .new { flex: 0 0 0%; border-radius: 0 12px 12px 0; }
+.dg.s1 .dg-bar .new { flex-basis: 12.8%; margin-left: 3px; border: 3px dashed var(--amber); background: rgba(255, 181, 71, .12); }
+.dg.s1 .dg-bar .rest span:last-child { border-radius: 0; }
+.dg-learn { position: absolute; left: 0; right: 0; top: 100%; height: 150px; transition-delay: 1.2s; }
+.dg-learn i { position: absolute; right: 6.4%; top: 10px; width: 3px; height: 70px; background: var(--amber); transform: translateX(50%); }
+.dg-learn i::before { content: ""; position: absolute; left: 50%; top: -4px; transform: translateX(-50%); border: 12px solid transparent; border-top: 0; border-bottom: 16px solid var(--amber); }
+.dg-learn span { position: absolute; right: 0; top: 88px; font: 700 34px var(--head); text-transform: uppercase; color: var(--amber); white-space: nowrap; }
+.dg-math { margin-top: 180px; display: flex; align-items: center; gap: 30px; font: 700 64px var(--head); text-transform: uppercase; }
 .dg-math .arr { color: var(--amber); }
 .dg-badge { padding: 10px 34px; border-radius: 999px; font: 800 56px var(--mono); color: #1a1204; background: var(--amber); box-shadow: 0 0 40px rgba(255, 181, 71, .4); text-transform: none; }
 

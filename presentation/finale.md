@@ -71,16 +71,15 @@ Architecture: stable. Meridian, five failed attempts at a dead-simple design unt
 ---
 layout: hs
 routeAlias: diagnosis
-clicks: 3
+clicks: 2
 ---
 
 <Hs id="diagnosis" />
 
 <!--
 Coding was never the job: IDC 2024, developers spend 16% of their time building the application.
-[click] AI makes that slice 5× faster. The day barely shrinks.
+[click] AI makes that slice 5× faster. The time it frees goes straight into a new box: learning to work effectively with AI agents.
 [click] Amdahl's law: 5× faster coding is a 15% productivity gain.
-[click] The rest of the day: communication, building the right thing, debugging and verification light up. Scrum ceremonies and context switching stay grey: AI can't save you there.
 -->
 
 ---
