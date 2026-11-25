@@ -25,7 +25,7 @@ routeAlias: woken
 <Hs id="woken" />
 
 <!--
-The pods we opened tonight, one card each. No scores here: the scoreboard comes at the end.
+The pods we opened tonight, one card each. No scores here: The Verdict comes after Still on Ice.
 -->
 
 ---
@@ -90,32 +90,5 @@ clicks: 1
 <Hs id="diagnosis" />
 
 <!--
-Diagnosis line, then straight to the scoreboard. Do not linger.
--->
-
----
-layout: hs
-routeAlias: scoreboard
-clicks: 2
----
-
-<Hs id="scoreboard" />
-
-<!--
-Click 1: the reveal: average age of the tooling woken tonight. Click 2: the verdict.
-If the crew wins: "the tools were on board all along".
-If the alien wins: "then you know what to wake on Monday". The closing line works either way.
--->
-
----
-layout: hs
-routeAlias: closing
-clicks: 1
----
-
-<Hs id="closing" />
-
-<!--
-Close on the headline. Then: which pod do you wake on Monday?
-Questions.
+Diagnosis line. Then questions.
 -->

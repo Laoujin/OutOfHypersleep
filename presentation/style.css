@@ -145,7 +145,6 @@ button:hover, .btn:hover { border-color: var(--cryo); }
 .statement { margin: auto 0; }
 .statement .big { font-size: 80px; font-family: var(--head); font-weight: 700; line-height: 1.06; text-transform: uppercase; }
 .statement .big em { font-style: normal; color: var(--amber); }
-.statement .big.cold { color: var(--cryo); margin-top: 18px; }
 .statement .small { font-size: 32px; color: var(--muted); margin-top: 40px; max-width: 1300px; line-height: 1.4; }
 .statement .small b { color: var(--ink); }
 .statement .quote { font-style: italic; color: var(--frost); }
@@ -348,22 +347,6 @@ pre.code { margin: 0; font: 21px/1.6 var(--mono); color: var(--ink); white-space
 .vrow.ok .ecg path { stroke: var(--awake); } .vrow.warn .ecg path { stroke: var(--amber); } .vrow.bad .ecg path { stroke: var(--alien); }
 .vrow.bad .vr { color: var(--alien); } .vrow.ok .vr { color: #bfeedd; }
 @keyframes trace { to { stroke-dashoffset: 0; } }
-
-/* scoreboard */
-.bars { display: flex; flex-direction: column; gap: 30px; margin-top: 20px; }
-.brow { display: grid; grid-template-columns: 200px 1fr 160px; align-items: center; gap: 24px; }
-.brow label { font-size: 34px; font-weight: 700; }
-.brow .b { height: 54px; background: var(--panel); border-radius: 12px; overflow: hidden; }
-.brow .b i { display: block; height: 100%; }
-.brow.crew .b i { background: linear-gradient(90deg, #1b6e52, var(--awake)); }
-.brow.alien .b i { background: linear-gradient(90deg, #7a1527, var(--alien)); }
-.brow b { font: 800 56px var(--mono); }
-.brow.crew b { color: var(--awake); } .brow.alien b { color: var(--alien); }
-.reveal { font-size: 40px; margin-top: 40px; line-height: 1.3; }
-.reveal b { color: var(--cryo); font-size: 1.2em; }
-.reveal small { display: block; font: 18px var(--mono); color: var(--faint); margin-top: 10px; }
-.verdict { font-size: 72px; font-family: var(--head); font-weight: 700; text-transform: uppercase; margin-top: 40px; }
-.verdict.ok { color: var(--awake); } .verdict.bad { color: var(--alien); }
 
 .alarm-bar { z-index: 3; }
 .alarm-bar.bottom { top: auto; bottom: 0; }

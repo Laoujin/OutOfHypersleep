@@ -1227,32 +1227,5 @@ Subject: Re: SCO: "thread creation is about a thousand times faster
       <div class="small quote" data-s="1">"The coder is dying. The developer was never just a coder."</div></div>`,
   });
 
-  // ───────────────────────── OUTRO ─────────────────────────
-  add({
-    id: 'scoreboard', seq: 'outro', steps: 3, cls: 'scoreboard',
-    html: c => {
-      const sc = c.score;
-      const max = Math.max(sc.crew, sc.alien, 1);
-      const win = sc.crew >= sc.alien;
-      return `${head('final score', 'Crew vs alien AI')}
-        <div class="bars">
-          <div class="brow crew"><label>Crew</label><div class="b"><i style="width:${(sc.crew / max) * 100}%"></i></div><b>${sc.crew}</b></div>
-          <div class="brow alien"><label>Alien AI</label><div class="b"><i style="width:${(sc.alien / max) * 100}%"></i></div><b>${sc.alien}</b></div>
-        </div>
-        <div class="reveal" data-s="1">The "new AI tooling" you woke tonight is on average <b>${sc.avgAge} years old</b>.<small>${sc.wokenLive.map(p => `${p.name} ${p.born}`).join(' · ')}</small></div>
-        <div class="verdict ${win ? 'ok' : 'bad'}" data-s="2">${win ? 'The crew wins. Narrowly.' : 'The alien AI wins. This time.'}</div>`;
-    },
-    step: (el, st, c) => {
-      if (c.active) { c.state.shown = { crew: c.score.crew, alien: c.score.alien }; c.save(); }
-    },
-  });
-
-  add({
-    id: 'closing', seq: 'outro', steps: 2,
-    html: () => `<div class="statement headline"><div class="big">The tools for running 10 agents were already on board.</div>
-      <div class="big cold">They were frozen.</div>
-      <div class="small" data-s="1">Go wake one on Monday. ❄ → 💚</div></div>`,
-  });
-
   HS.slides = S;
 })();

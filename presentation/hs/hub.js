@@ -111,7 +111,6 @@ HS.after = (id) => {
   if (s.idx < seq.length - 1) return HS.go(seq[s.idx + 1])
   if (s.seq === 'intro') return HS.go('map')
   if (s.seq.startsWith('pod:')) { if (window.opener) return window.close(); return HS.go('map') }
-  if (s.seq === 'final') return HS.go(seqs.outro[0])
 }
 
 HS.before = (id) => {
@@ -119,7 +118,6 @@ HS.before = (id) => {
   const seq = seqs[s.seq]
   if (s.idx > 0) return HS.go(seq[s.idx - 1], -1)
   if (s.seq === 'map') return HS.go(seqs.intro[seqs.intro.length - 1], -1)
-  if (s.seq === 'outro') return HS.go(seqs.final[seqs.final.length - 1], -1)
   if (s.seq !== 'intro') return HS.go('map')
 }
 
