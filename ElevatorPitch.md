@@ -6,13 +6,13 @@
 
 Allow me to take you on the first starship humanity has built. On its way to colonize Alpha Centauri, the alarm system activates...
 
-The evil alien AI has infiltrated the ship. Using my amazing vibe-coded app, I need you to wake the right crew out of cryosleep.
+The evil alien AI has infiltrated the ship. Using my amazing vibe-coded mobile app, I need you to wake the right crew out of cryosleep.
 
 Some of our strongest fighters have been on ice for decades. But beware! Deception all around! Some of the crew have been converted by the evil AI and will fight the crew.
 
 At this crucial point in human development, the stakes have never been higher.
 
-Join us as we learn how decades-old engineering practices are only now being picked up due to AI, while others we have been doing for as many decades are suddenly being sunsetted.
+Join me as we learn how decades-old engineering practices are only now being picked up because of coding agents, while others we have been doing for as many decades are suddenly being left to die in cryo.
 
 ## Target audience
 
