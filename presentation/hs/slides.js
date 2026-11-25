@@ -592,15 +592,84 @@ React is a JavaScript library for building user interfaces.
 - **Rust Compiler Port**: Plans in \`compiler/docs/rust-port/\`, implementation in \`compiler/crates/\`
 - Branch: \`rust-research\``;
       const esc = t => t.replace(/&/g, '&amp;').replace(/</g, '&lt;');
-      return [{
+      const heads = t => esc(t).replace(/^(#+ .*)$/gm, '<span class="md-h">$1</span>');
+      const tags = t => esc(t).replace(/(&lt;\/?[\w:!-]+)|( [\w:-]+="[^"]*")/g, (m, tg, at) => tg ? `<span class="md-tag">${tg}</span>` : `<span class="md-attr">${at}</span>`);
+      const tok = t => `≈ ${Math.round(t.length / 4)} tokens`;
+      const PAGE_HTML = `<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><title>Install · Docs</title><link rel="stylesheet" href="/_next/static/css/a81f.css"><script src="/_next/static/chunks/main-9c2e.js" defer></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());</script></head><body class="antialiased"><div id="__next"><header class="sticky top-0 z-40 flex h-14 items-center border-b"><nav aria-label="Main"><ul class="flex gap-6"><li><a href="/docs">Docs</a></li><li><a href="/pricing">Pricing</a></li><li><a href="/blog">Blog</a></li></ul></nav><button class="ml-auto" aria-label="Search">⌘K</button></header><div class="cookie-banner fixed bottom-0">We use cookies. <button>Accept</button></div><main class="prose max-w-3xl mx-auto px-4"><h1 id="install" class="scroll-mt-24">Install</h1><p class="text-lg">Run the installer:</p><div class="code-block relative"><button class="copy absolute right-2">Copy</button><pre class="language-bash"><code><span class="token function">npm</span> <span class="token function">install</span> acme</code></pre></div><p>Then set <code class="inline">ACME_KEY</code>.</p></main><footer class="border-t py-8">© 2026 · <a href="/privacy">Privacy</a> · <a href="/terms">Terms</a></footer></div></body></html>`;
+      const PAGE_MD = '# Install\n\nRun the installer:\n\n```bash\nnpm install acme\n```\n\nThen set `ACME_KEY`.';
+      const DOCX_XML = `<w:body><w:bookmarkStart w:id="24" w:name="checkout-v2" /><w:p><w:pPr><w:pStyle w:val="Heading1" /></w:pPr><w:r><w:t xml:space="preserve">Checkout v2</w:t></w:r></w:p><w:bookmarkStart w:id="20" w:name="goal" /><w:p><w:pPr><w:pStyle w:val="Heading2" /></w:pPr><w:r><w:t xml:space="preserve">Goal</w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="FirstParagraph" /></w:pPr><w:r><w:t xml:space="preserve">Let a returning customer pay in one click.</w:t></w:r></w:p><w:bookmarkEnd w:id="20" /><w:bookmarkStart w:id="21" w:name="requirements" /><w:p><w:pPr><w:pStyle w:val="Heading2" /></w:pPr><w:r><w:t xml:space="preserve">Requirements</w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="Compact" /><w:numPr><w:ilvl w:val="0" /><w:numId w:val="1001" /></w:numPr></w:pPr><w:r><w:t xml:space="preserve">Store the last used payment method per customer</w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="Compact" /><w:numPr><w:ilvl w:val="0" /><w:numId w:val="1001" /></w:numPr></w:pPr><w:r><w:t xml:space="preserve">Show a </w:t></w:r><w:r><w:rPr><w:b /><w:bCs /></w:rPr><w:t xml:space="preserve">Pay now</w:t></w:r> …`;
+      const SPEC_MD = `# Checkout v2
+
+## Goal
+
+Let a returning customer pay in one click.
+
+## Requirements
+
+- Store the last used payment method per customer
+- Show a **Pay now** button on the cart page
+- Fall back to the full checkout when the card is expired`;
+      const TREE = [
+        ['acme-shop/'],
+        ['├─ CLAUDE.md', 'instructions'],
+        ['├─ AGENTS.md', 'instructions, any agent'],
+        ['├─ README.md', 'what it is'],
+        ['├─ .claude/'],
+        ['│  ├─ skills/release/SKILL.md', 'a skill'],
+        ['│  └─ commands/review.md', 'a slash command'],
+        ['├─ docs/'],
+        ['│  ├─ adr/0007-event-sourcing.md', 'why the code is like this'],
+        ['│  └─ specs/checkout-v2.md', 'what to build'],
+        ['├─ plans/checkout-v2.md', 'how to build it'],
+        ['├─ memory/deploy-notes.md', 'what it learned last time'],
+        ['├─ src/'],
+        ['└─ package.json'],
+      ];
+      let lit = 0;
+      const tree = TREE.map(([f, l]) => f.endsWith('.md')
+        ? `<div class="md-f" style="--i: ${lit++}">${f}<span>${l}</span></div>`
+        : `<div>${f}</div>`).join('');
+      const web = {
+        slug: 'web', title: 'Now written for agents', full: true, steps: 3, cls: 'md md-web',
+        body: () => `<div class="card md-html"><div class="card-h">GET /docs/install <b>${tok(PAGE_HTML)}</b></div><pre>${tags(PAGE_HTML)}</pre></div>
+          <div class="md-arrow" data-s="1">→</div>
+          <div class="card md-page" data-s="1"><div class="card-h">GET /docs/install.md <b>${tok(PAGE_MD)}</b></div><pre>${heads(PAGE_MD)}</pre></div>
+          <div class="md-ways">
+            <div class="md-way"><b>/llms.txt</b><span>a Markdown map of the site</span></div>
+            <div class="md-way"><b>Copy page as Markdown</b><span>the button on every docs site</span></div>
+            <div class="md-way"><b>Accept: text/markdown</b><span>the CDN converts on the fly</span></div>
+          </div>`,
+      };
+      const word = {
+        slug: 'word', title: 'The spec in Word', full: true, steps: 3, cls: 'md md-word',
+        body: () => `<div class="card md-xml"><div class="card-h">spec.docx › word/document.xml <span>1 of 11 files</span></div><pre>${tags(DOCX_XML)}</pre></div>
+          <div class="card md-spec"><div class="card-h">spec.md</div><pre>${heads(SPEC_MD)}</pre></div>
+          <div class="md-bars" data-s="1" data-o="2">
+            <div class="md-bar ok"><span>spec.md</span><i style="--w: 1%"></i><em>397 B</em></div>
+            <div class="md-bar mid"><span>document.xml</span><i style="--w: 6.7%"></i><em>3,307 B</em></div>
+            <div class="md-bar bad"><span>spec.docx, unzipped</span><i style="--w: 100%"></i><em>49 KB</em></div>
+          </div>
+          <div class="md-heads" data-s="2">
+            <div class="card"><div class="card-h">"Heading" in Word <b class="bad">✗ just bold</b></div><pre>${tags('<w:r><w:rPr><w:b/><w:sz w:val="28"/></w:rPr>\n  <w:t>')}Requirements${tags('</w:t></w:r>')}</pre></div>
+            <div class="card"><div class="card-h">Heading in Markdown <b class="ok">✓ structure</b></div><pre>${heads('## Requirements')}</pre></div>
+          </div>`,
+      };
+      const files = {
+        slug: 'tree', title: 'What the agent reads first', full: true, steps: 3, cls: 'md md-tree',
+        body: () => `<div class="md-files">${tree}</div>
+          <div class="md-count" data-s="2"><b>9 / 11</b><small>files the agent cares about:<br>Markdown</small></div>`,
+      };
+      const announce = {
         slug: 'announce', title: 'Introducing Markdown', full: true, steps: 2, cls: 'md md-announce',
         body: () => `<div class="md-quote"><p>Markdown allows <span class="md-who"><s>web writers</s><em>agents</em></span> to compose text using a simple, readable, plain text formatting syntax</p></div>`,
         step: (el, st) => el.classList.toggle('md-s1', st >= 1),
-      }, {
+      };
+      const readme = {
         slug: 'readme', title: 'A README for agents', full: true, steps: 2, cls: 'md md-readme',
         body: () => `<div class="card md-file"><div class="card-h">CLAUDE.md</div><pre>${esc(CLAUDE_MD)}</pre></div>
           <div class="md-count" data-s="1"><b>60k+</b><small>AGENTS.md on GitHub</small></div>`,
-      }];
+      };
+      return [announce, web, word, readme, files];
     })(),
     hooks: (() => {
       const CX = 520, CY = 520, R = [118, 190, 265];
@@ -1063,7 +1132,7 @@ Subject: Re: SCO: "thread creation is about a thousand times faster
     mutation: { woke: [] },
     spec: { woke: [] },
     hooks: { woke: [] },
-    markdown: { woke: [] },
+    markdown: { woke: [], logExtra: `<div class="md-meta" data-s="1"><div class="card"><div class="card-h">OutOfHypersleep/presentation</div><pre>slides.md\npod-markdown.md\npod-worktrees.md\n… 10 more\nfinale.md</pre></div><p>This talk: <b>13 Markdown files</b>.<br>Written with an agent.</p></div>` },
     stackoverflow: {
       froze: [{
         slug: 'empire', title: 'The empire', cls: 'beat',
@@ -1094,7 +1163,8 @@ Subject: Re: SCO: "thread creation is about a thousand times faster
   const frame = (p, slug, html) => ({
     id: `${p.id}-${slug}`, seq: 'pod:' + p.id,
     cls: `frame f-${slug} t-${p.deck} ${p.dead ? 'is-deadpod' : 'is-alivepod'}`,
-    html: () => html(p),
+    steps: slug === 'log' && podFrame[p.id]?.logExtra ? 2 : 1,
+    html: () => html(p) + (slug === 'log' ? podFrame[p.id]?.logExtra || '' : ''),
   });
   const statement = (p, title, text, art, sub) => `${head(deckOf(p) + ' · ' + p.name, title, sub ? `<div class="sub">${sub}</div>` : '')}
     <div class="stmt"><p>${todo(text)}</p>${art ? `<div class="stmt-art">${art}</div>` : ''}</div>`;

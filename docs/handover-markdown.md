@@ -25,7 +25,7 @@ A live pod for **Markdown**: born 2004 (John Gruber, Daring Fireball, with Aaron
 | `d94e772` | Plate `public/plates/pod-markdown.webp`                   |
 | `4957ce6` | Speaker notes on ADRs and Markdown vs docx                |
 
-Slides: thaw → froze → `markdown-announce` → `markdown-readme` → log. No *woke* slide (`podFrame.markdown = { woke: [] }`, like the other live pods).
+Slides: thaw → froze → `markdown-announce` → `markdown-web` → `markdown-word` → `markdown-readme` → `markdown-tree` → log (+1 click: `podFrame.markdown.logExtra`, "This talk: 13 Markdown files"). Mockups: `mockups/markdown.html`. No *woke* slide (`podFrame.markdown = { woke: [] }`, like the other live pods).
 
 - `markdown-announce`: Gruber's verbatim line from "Introducing Markdown" (15 March 2004). Click: "web writers" struck in red, "agents" fades in above.
 - `markdown-readme`: first 12 lines of `facebook/react` `CLAUDE.md`, verbatim (fetched 2026-11-24). Click: "60k+ AGENTS.md on GitHub" (agents.md: "used by over 60k open-source projects").
@@ -35,7 +35,7 @@ Slides: thaw → froze → `markdown-announce` → `markdown-readme` → log. No
 - Wouter hasn't reviewed the slides visually yet; expect many small tweaks (do each, build, commit, one-line report).
 - Frame lines are drafts; Wouter may rewrite them.
 - ADRs and Markdown vs docx (token cost, conversion, real `#` headers vs bold-as-header in docx) are only in the speaker notes of `markdown-readme`. Offered to make them a slide; no answer yet.
-- To verify: the 60k+ count, Nygard ADRs 2011.
+- To verify: the 60k+ count, Nygard ADRs 2011, llms.txt 2024, CDN `Accept: text/markdown` conversion (all in speaker notes).
 - README rows (Crew size, Rigged?) need rechecking against the new decks and scores.
 
 ## Key files
