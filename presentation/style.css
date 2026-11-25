@@ -1249,12 +1249,10 @@ svg .lbl.spec-w { font-size: 20px; }
 .md-web .card-h, .md-word .card-h { padding: 14px 20px; margin: 0; border-bottom: 1px solid var(--line); }
 .md-html { left: 72px; top: 210px; width: 700px; height: 520px; transition: opacity .6s, filter .6s; }
 .md .md-html pre { font-size: 15px; line-height: 1.45; }
-.md-html .card-h b { color: var(--alien); }
 .s1 .md-html { opacity: .25; filter: grayscale(1); }
 .md-arrow { position: absolute; left: 776px; top: 340px; font: 700 48px var(--head); color: var(--awake); }
 .md-page { left: 828px; top: 210px; width: 700px; height: 310px; border-color: rgba(69, 230, 160, .5); }
 .md .md-page pre { font-size: 18px; line-height: 1.4; }
-.md-page .card-h b { color: var(--awake); }
 .md-ways { position: absolute; left: 828px; top: 545px; width: 700px; display: grid; gap: 18px; }
 .md-way { margin: 0; display: flex; gap: 18px; align-items: baseline; padding: 6px 20px 16px; border: 1px solid var(--line); border-radius: 12px; background: rgba(21, 25, 31, .8); opacity: 0; transform: translateX(20px); transition: opacity .5s, transform .5s; }
 .md-way legend { padding: 0 8px; font: 600 15px var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
@@ -1273,3 +1271,10 @@ svg .lbl.spec-w { font-size: 20px; }
 .md-tile b { display: block; font: 700 28px var(--head); color: #fff; text-transform: uppercase; letter-spacing: .03em; }
 .md-tile code { display: block; margin-top: 8px; font: 500 18px var(--mono); color: var(--awake); background: none; padding: 0; }
 .md-tile span { display: block; margin-top: 6px; font: 400 18px var(--sans); color: var(--muted); }
+.md-tok { position: absolute; z-index: 6; padding: 10px 22px; border: 6px solid var(--c); color: var(--c); border-radius: 14px; background: rgba(8, 9, 11, .82); text-align: center; text-transform: uppercase; box-shadow: 0 0 30px color-mix(in srgb, var(--c) 30%, transparent); opacity: 0; }
+.md-tok b { display: block; font: 800 54px/1 var(--mono); }
+.md-tok small { display: block; font: 700 18px var(--mono); letter-spacing: .2em; margin-top: 6px; }
+.md-tok.red { --c: var(--alien); --r: 10deg; left: 560px; top: 160px; animation: md-slam .45s cubic-bezier(.3, 1.6, .5, 1) .4s forwards; }
+.md-tok.green { --c: var(--awake); --r: -10deg; left: 1340px; top: 150px; }
+.s1 .md-tok.green { animation: md-slam .45s cubic-bezier(.3, 1.6, .5, 1) .3s forwards; }
+@keyframes md-slam { from { opacity: 0; transform: rotate(var(--r)) scale(1.8); } to { opacity: 1; transform: rotate(var(--r)) scale(1); } }

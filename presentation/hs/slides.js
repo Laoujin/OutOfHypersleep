@@ -581,7 +581,7 @@ import soCsv from '../data/stackoverflow-questions.csv?raw';
       const esc = t => t.replace(/&/g, '&amp;').replace(/</g, '&lt;');
       const heads = t => esc(t).replace(/^(#+ .*)$/gm, '<span class="md-h">$1</span>');
       const tags = t => esc(t).replace(/(&lt;\/?[\w:!-]+)|( [\w:-]+="[^"]*")/g, (m, tg, at) => tg ? `<span class="md-tag">${tg}</span>` : `<span class="md-attr">${at}</span>`);
-      const tok = t => `≈ ${Math.round(t.length / 4)} tokens`;
+      const tok = t => `<b>${Math.round(t.length / 4)}</b><small>tokens</small>`;
       const PAGE_HTML = `<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><title>Install · Docs</title><link rel="stylesheet" href="/_next/static/css/a81f.css"><script src="/_next/static/chunks/main-9c2e.js" defer></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());</script></head><body class="antialiased"><div id="__next"><header class="sticky top-0 z-40 flex h-14 items-center border-b"><nav aria-label="Main"><ul class="flex gap-6"><li><a href="/docs">Docs</a></li><li><a href="/pricing">Pricing</a></li><li><a href="/blog">Blog</a></li></ul></nav><button class="ml-auto" aria-label="Search">⌘K</button></header><div class="cookie-banner fixed bottom-0">We use cookies. <button>Accept</button></div><main class="prose max-w-3xl mx-auto px-4"><h1 id="install" class="scroll-mt-24">Install</h1><p class="text-lg">Run the installer:</p><div class="code-block relative"><button class="copy absolute right-2">Copy</button><pre class="language-bash"><code><span class="token function">npm</span> <span class="token function">install</span> acme</code></pre></div><p>Then set <code class="inline">ACME_KEY</code>.</p></main><footer class="border-t py-8">© 2026 · <a href="/privacy">Privacy</a> · <a href="/terms">Terms</a></footer></div></body></html>`;
       const PAGE_MD = '# Install\n\nRun the installer:\n\n```bash\nnpm install acme\n```\n\nThen set `ACME_KEY`.';
       const DOCX_XML = `<w:body><w:bookmarkStart w:id="24" w:name="checkout-v2" /><w:p><w:pPr><w:pStyle w:val="Heading1" /></w:pPr><w:r><w:t xml:space="preserve">Checkout v2</w:t></w:r></w:p><w:bookmarkStart w:id="20" w:name="goal" /><w:p><w:pPr><w:pStyle w:val="Heading2" /></w:pPr><w:r><w:t xml:space="preserve">Goal</w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="FirstParagraph" /></w:pPr><w:r><w:t xml:space="preserve">Let a returning customer pay in one click.</w:t></w:r></w:p><w:bookmarkEnd w:id="20" /><w:bookmarkStart w:id="21" w:name="requirements" /><w:p><w:pPr><w:pStyle w:val="Heading2" /></w:pPr><w:r><w:t xml:space="preserve">Requirements</w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="Compact" /><w:numPr><w:ilvl w:val="0" /><w:numId w:val="1001" /></w:numPr></w:pPr><w:r><w:t xml:space="preserve">Store the last used payment method per customer</w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="Compact" /><w:numPr><w:ilvl w:val="0" /><w:numId w:val="1001" /></w:numPr></w:pPr><w:r><w:t xml:space="preserve">Show a </w:t></w:r><w:r><w:rPr><w:b /><w:bCs /></w:rPr><w:t xml:space="preserve">Pay now</w:t></w:r> …`;
@@ -612,9 +612,11 @@ Let a returning customer pay in one click.
       ];
       const web = {
         slug: 'web', title: 'The web, for agents', full: true, steps: 3, cls: 'md md-web',
-        body: () => `<div class="card md-html"><div class="card-h">GET /docs/install.html <b>${tok(PAGE_HTML)}</b></div><pre>${tags(PAGE_HTML)}</pre></div>
+        body: () => `<div class="card md-html"><div class="card-h">GET /docs/install.html</div><pre>${tags(PAGE_HTML)}</pre></div>
           <div class="md-arrow" data-s="1">→</div>
-          <div class="card md-page" data-s="1"><div class="card-h">GET /docs/install.md <b>${tok(PAGE_MD)}</b></div><pre>${heads(PAGE_MD)}</pre></div>
+          <div class="card md-page" data-s="1"><div class="card-h">GET /docs/install.md</div><pre>${heads(PAGE_MD)}</pre></div>
+          <div class="md-tok red">${tok(PAGE_HTML)}</div>
+          <div class="md-tok green">${tok(PAGE_MD)}</div>
           <div class="md-ways">
             <fieldset class="md-way"><legend>Barely adopted</legend><b>/llms.txt</b></fieldset>
             <fieldset class="md-way"><legend>Cloudflare</legend><b>Accept: text/markdown</b></fieldset>
