@@ -73,15 +73,14 @@ A docs page as raw HTML: nav, cookie banner, scripts, Tailwind classes. The agen
 ---
 layout: hs
 routeAlias: markdown-word
-clicks: 2
 ---
 
 <Hs id="markdown-word" />
 
 <!--
 The same 20-line spec, once as .docx, once as .md. A .docx is a zip of 11 XML files; this is only the body.
-[click] Real sizes (pandoc output, Word's own is heavier): spec.md 397 B, document.xml 3,307 B, the unzipped .docx 49 KB. The agent has to convert it first, or burn the tokens.
-[click] And in a lot of Word docs a "heading" is just bold, bigger text. The structure is gone. In Markdown a heading is a heading.
+Real sizes (pandoc output, Word's own is heavier): spec.md 397 B, document.xml 3,307 B, the unzipped .docx 49 KB. The agent has to convert it first, or burn the tokens.
+And in a lot of Word docs a "heading" is just bold, bigger text. The structure is gone. In Markdown a heading is a heading.
 -->
 
 ---

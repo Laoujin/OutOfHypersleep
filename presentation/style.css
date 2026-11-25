@@ -1268,22 +1268,12 @@ svg .lbl.spec-w { font-size: 20px; }
 .md-way span { font: 500 20px var(--sans); color: var(--muted); }
 .s2 .md-way { opacity: 1; transform: none; }
 .s2 .md-way:nth-child(2) { transition-delay: .25s; }
-.md-xml { left: 72px; top: 200px; width: 860px; height: 420px; }
-.md .md-xml pre { font-size: 15px; line-height: 1.45; }
+.md-xml { left: 72px; top: 200px; width: 860px; height: 600px; }
+.md .md-xml pre { font-size: 17px; line-height: 1.5; }
 .md-xml .card-h span { color: var(--faint); }
-.md-spec { left: 980px; top: 200px; width: 548px; height: 420px; border-color: rgba(69, 230, 160, .5); }
-.md .md-spec pre { font-size: 18px; line-height: 1.45; }
-.md-bars { position: absolute; left: 72px; right: 72px; top: 660px; display: grid; gap: 10px; }
-.md-bar { display: grid; grid-template-columns: 300px 1fr 150px; align-items: center; gap: 18px; font: 600 20px var(--mono); }
-.md-bar i { display: block; height: 26px; border-radius: 6px; width: 0; transition: width 1s cubic-bezier(.2, .8, .2, 1); }
-.s1 .md-bar i { width: var(--w); }
-.md-bar em { font-style: normal; text-align: right; }
-.md-bar.ok i { background: var(--awake); } .md-bar.ok em { color: var(--awake); }
-.md-bar.mid i { background: var(--amber); } .md-bar.mid em { color: var(--amber); }
-.md-bar.bad i { background: var(--alien); } .md-bar.bad em { color: var(--alien); }
-.md-heads { position: absolute; left: 72px; right: 72px; top: 650px; display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
-.md-word .md-heads .card { position: relative; }
-.md-heads .bad { color: var(--alien); } .md-heads .ok { color: var(--awake); }
+.md-spec { left: 980px; top: 200px; width: 548px; height: 600px; border-color: rgba(69, 230, 160, .5); }
+.md-spec .card-h .ok { color: var(--awake); }
+.md .md-spec pre { font-size: 20px; line-height: 1.5; word-break: normal; }
 .md-files { position: absolute; left: 72px; top: 190px; font: 500 25px/1.42 var(--mono); color: var(--faint); }
 .md-files div { white-space: pre; }
 .md-f { transition: color .5s, text-shadow .5s; }

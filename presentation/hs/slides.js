@@ -640,18 +640,9 @@ Let a returning customer pay in one click.
           </div>`,
       };
       const word = {
-        slug: 'word', title: 'The spec in Word', full: true, steps: 3, cls: 'md md-word',
+        slug: 'word', title: 'The spec in Word', sub: 'Only dinosaurs are still doing this', full: true, cls: 'md md-word',
         body: () => `<div class="card md-xml"><div class="card-h">spec.docx › word/document.xml <span>1 of 11 files</span></div><pre>${tags(DOCX_XML)}</pre></div>
-          <div class="card md-spec"><div class="card-h">spec.md</div><pre>${heads(SPEC_MD)}</pre></div>
-          <div class="md-bars" data-s="1" data-o="2">
-            <div class="md-bar ok"><span>spec.md</span><i style="--w: 1%"></i><em>397 B</em></div>
-            <div class="md-bar mid"><span>document.xml</span><i style="--w: 6.7%"></i><em>3,307 B</em></div>
-            <div class="md-bar bad"><span>spec.docx, unzipped</span><i style="--w: 100%"></i><em>49 KB</em></div>
-          </div>
-          <div class="md-heads" data-s="2">
-            <div class="card"><div class="card-h">"Heading" in Word <b class="bad">✗ just bold</b></div><pre>${tags('<w:r><w:rPr><w:b/><w:sz w:val="28"/></w:rPr>\n  <w:t>')}Requirements${tags('</w:t></w:r>')}</pre></div>
-            <div class="card"><div class="card-h">Heading in Markdown <b class="ok">✓ structure</b></div><pre>${heads('## Requirements')}</pre></div>
-          </div>`,
+          <div class="card md-spec"><div class="card-h">spec.md <b class="ok">✓ Guaranteed structured</b></div><pre>${heads(SPEC_MD)}</pre></div>`,
       };
       const files = {
         slug: 'tree', title: 'What the agent reads first', full: true, steps: 3, cls: 'md md-tree',
