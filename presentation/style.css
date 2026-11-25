@@ -348,7 +348,7 @@ pre.code { margin: 0; font: 21px/1.6 var(--mono); color: var(--ink); white-space
 .vrow.ok .vstamp { color: var(--awake); } .vrow.warn .vstamp { color: var(--amber); } .vrow.bad .vstamp { color: var(--alien); }
 .vit-big { position: absolute; inset: 0; z-index: 5; display: grid; place-items: center; text-align: center; pointer-events: none; opacity: 0;
   font: 700 120px/1.05 var(--head); text-transform: uppercase; color: var(--awake); text-shadow: 0 0 60px rgba(69, 230, 160, .5); background: rgba(5, 7, 10, .8); }
-.s3:not(.s4) .vit-big { animation: vit-big 2.8s ease-out; }
+.s4:not(.s5) .vit-big { animation: vit-big 2.8s ease-out; }
 @keyframes vit-big { 0% { opacity: 0; transform: scale(2.4) rotate(-6deg); } 12% { opacity: 1; transform: scale(1) rotate(-6deg); } 75% { opacity: 1; transform: scale(1) rotate(-6deg); } 100% { opacity: 0; transform: scale(1.1) rotate(-6deg); } }
 @keyframes trace { to { stroke-dashoffset: 0; } }
 
