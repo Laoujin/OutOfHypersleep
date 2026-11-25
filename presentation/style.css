@@ -1287,11 +1287,11 @@ svg .lbl.spec-w { font-size: 20px; }
 .dg-sub { font: 400 34px var(--sans); color: var(--cryo); margin-top: -14px; }
 .dg-day { margin-top: 80px; }
 .dg-cap { font: 600 18px var(--mono); color: var(--muted); letter-spacing: .15em; text-transform: uppercase; margin-bottom: 12px; }
-.dg-bar { display: flex; height: 110px; width: 100%; transition: width 1.4s cubic-bezier(.5, 0, .2, 1); }
+.dg-bar { display: flex; height: 130px; width: 100%; transition: width 1.4s cubic-bezier(.5, 0, .2, 1); }
 .dg-bar > div { display: grid; place-items: center; font: 700 26px var(--head); text-transform: uppercase; overflow: hidden; white-space: nowrap; transition: flex-basis 1.4s cubic-bezier(.5, 0, .2, 1), background .6s, font-size .4s; }
 .dg-bar .code { flex: 0 0 16%; background: linear-gradient(180deg, #2f6f8a, #1d4658); color: var(--frost); border-radius: 12px 0 0 12px; }
-.dg-bar .rest { flex: 1 1 auto; display: flex; gap: 3px; padding-left: 3px; font-size: 20px; }
-.dg-bar .rest span { flex: 1 1 auto; display: grid; place-items: center; padding: 0 12px; background: var(--panel2); color: var(--muted); transition: color .6s, background .6s; }
+.dg-bar .rest { flex: 1 1 auto; display: flex; gap: 3px; padding-left: 3px; font-size: 32px; line-height: 1.05; }
+.dg-bar .rest span { flex: 1 1 auto; display: grid; place-items: center; padding: 0 10px; text-align: center; background: var(--panel2); color: var(--muted); transition: color .6s, background .6s; }
 .dg-bar .rest span:last-child { border-radius: 0 12px 12px 0; }
 .dg.s1 .dg-bar { width: 87.2%; }
 .dg.s1 .dg-bar .code { flex-basis: 3.2%; font-size: 0; }
