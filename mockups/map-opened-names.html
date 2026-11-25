@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Ship map · name on opened pods</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@600;700&family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;600;800&display=swap">
+<link rel="stylesheet" href="../presentation/style.css">
+<script src="../presentation/hs/art.js"></script>
+<style>
+body { margin: 0; background: #05070a; color: var(--ink); font-family: var(--sans); }
+main { max-width: 1640px; margin: 0 auto; padding: 32px 24px 80px; }
+h1 { font: 700 32px var(--head); margin: 0 0 24px; }
+h2 { font: 700 24px var(--head); margin: 40px 0 4px; }
+p { color: var(--muted); margin: 0 0 14px; }
+.map.mk { padding: 0; background: none; }
+.map.mk::before, .map.mk::after { display: none; }
+.mk .deck-row { flex-wrap: wrap; }
+
+/* A · top-right corner, where the votes were */
+.va .pod .pod-name { position: absolute; top: 14px; right: 12px; width: 88px; text-align: right; font: 700 18px/1.15 var(--head); }
+.va .pod.is-awake .pod-name { color: var(--awake); } .va .pod.is-dead .pod-name { color: var(--alien); }
+
+/* B · bottom row: the name replaces the freeze year */
+.vb .pod .pod-name { font: 700 20px/1.1 var(--head); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+.vb .pod.is-awake .pod-name { color: var(--awake); } .vb .pod.is-dead .pod-name { color: var(--alien); }
+
+/* C · nameplate across the glass */
+.vc .pod .pod-name { position: absolute; left: 12px; width: 196px; top: 46px; text-align: center; font: 700 17px var(--head); letter-spacing: .04em; text-transform: uppercase; padding: 4px 8px; border-radius: 6px; background: rgba(8, 12, 16, .88); }
+.vc .pod.is-awake .pod-name { color: var(--awake); border: 1px solid var(--awake); } .vc .pod.is-dead .pod-name { color: var(--alien); border: 1px solid var(--alien); }
+
+/* D · the top border grows into a nameplate */
+.vd .pod.is-awake, .vd .pod.is-dead { border-top: 0; padding-top: 40px; height: 150px; }
+.vd .pod .pod-name { position: absolute; left: 0; right: 0; top: 0; height: 30px; padding: 0 12px; display: flex; align-items: center; justify-content: space-between; font: 700 16px var(--head); letter-spacing: .06em; text-transform: uppercase; color: #06100b; border-radius: 13px 13px 0 0; }
+.vd .pod .pod-name small { font: 700 12px var(--mono); }
+.vd .pod.is-awake .pod-name { background: var(--awake); } .vd .pod.is-dead .pod-name { background: var(--alien); color: #1a0508; }
+.vd .pod .pod-art { margin-top: -12px; }
+</style>
+</head>
+<body>
+<main>
+<h1>Ship map · name on opened pods</h1>
+<p>The first card is still closed, for comparison. Each row then shows: alive with a short name, alive with a long name, dead, and dead with a long name.</p>
+<div id="out"></div>
+</main>
+<script>
+const A = HS.art;
+const PODS = [
+  { name: 'Merge queue', frozen: 2013, power: 3, state: 'closed', votes: 7 },
+  { name: 'git worktree', frozen: 2015, power: 5, state: 'awake' },
+  { name: 'Mutation testing', frozen: 1978, power: 5, state: 'awake' },
+  { name: 'Stack Overflow', frozen: 2008, power: 5, state: 'dead', died: 2023 },
+  { name: 'Small SaaS tools', frozen: 2010, power: 3, state: 'dead', died: 2025 },
+];
+const info = (p, yr) => `<div class="pod-info">${yr}<span class="pwr"><svg viewBox="0 0 12 18"><path d="M7 0 0 10h5l-1 8 7-10H6z"/></svg>${A.rel(p.power)}</span></div>`;
+const year = p => `<span class="yr">❄ ${p.frozen}</span>`;
+const card = (p, v) => {
+  const open = p.state !== 'closed';
+  const name = `<div class="pod-name">${p.name}</div>`;
+  const votes = open ? '' : `<div class="votes"><span class="vn">${p.votes}</span><small>votes</small></div>`;
+  let body;
+  if (v === 'b' && open) body = `<div class="pod-art">${A.cryo(p.state, '')}</div>${info(p, name)}`;
+  else if (v === 'd' && open) body = `<div class="pod-name">${p.name}<small>${p.state === 'dead' ? '✝ ' + p.died : 'REVIVED'}</small></div><div class="pod-art">${A.cryo(p.state, '')}</div>${info(p, year(p))}`;
+  else body = `<div class="pod-art">${A.cryo(p.state, '')}</div>${votes}${open ? name : ''}${info(p, year(p))}`;
+  return `<div class="pod is-${p.state}">${body}</div>`;
+};
+const V = [
+  ['a', 'A · Top-right corner, where the votes were', 'Nothing moves. Long names wrap onto two lines.'],
+  ['b', 'B · The name replaces the year in the bottom row', 'One line. The year goes once the pod has been opened.'],
+  ['c', 'C · A nameplate across the glass', 'A label on the pod itself. It covers the sleeper.'],
+  ['d', 'D · The top border grows into a nameplate', 'The green/red border becomes a tag: the name, plus REVIVED or the year it died.'],
+];
+document.getElementById('out').innerHTML = V.map(([v, t, d]) =>
+  `<h2>${t}</h2><p>${d}</p><div class="map mk v${v}"><div class="deck-row">${PODS.map(p => card(p, v)).join('')}</div></div>`).join('');
+</script>
+</body>
+</html>
