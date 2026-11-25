@@ -432,6 +432,7 @@ pre.code { margin: 0; font: 21px/1.6 var(--mono); color: var(--ink); white-space
 .map .pod .votes { top: 6px; bottom: auto; right: 10px; }
 .map .pod .pod-name { display: none; position: absolute; inset: 0; z-index: 3; place-items: center; padding: 12px; text-align: center; font: 700 24px var(--head); color: var(--ink); background: rgba(8, 12, 16, .85); border-radius: inherit; pointer-events: none; }
 .peek .map .pod .pod-name { display: grid; }
+.map .pod .pod-name.pts { font: 800 56px var(--mono); }
 .map-reset { position: absolute; right: 48px; bottom: 28px; z-index: 5; width: 40px; height: 40px; padding: 0; font: 600 20px var(--mono); color: var(--faint); background: none; border: 1px solid var(--line); border-radius: 50%; cursor: pointer; transition: color .2s, border-color .2s; }
 .map-reset:hover { color: var(--muted); border-color: var(--faint); }
 .map-reset.armed { color: var(--alien); border-color: var(--alien); }

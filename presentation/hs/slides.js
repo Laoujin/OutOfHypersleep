@@ -80,14 +80,15 @@ import soCsv from '../data/stackoverflow-questions.csv?raw';
   const podCard = (p, st) => {
     const woken = st.woken.includes(p.id);
     const state = woken ? (p.dead ? 'dead' : 'awake') : 'closed';
-    const tone = woken ? (HS.points(p) < 0 ? 'tone-alien' : 'tone-crew') : '';
+    const pts = HS.points(p);
+    const tone = woken ? (pts < 0 ? 'tone-alien' : 'tone-crew') : '';
     const cls = ['pod', `t-${p.deck}`, `is-${state}`, tone, HS.leader() === p.id ? 'lead' : '', p.wip ? 'wip' : ''].join(' ');
     const votes = HS.votesOf(p.id);
     return `<div class="${cls}" data-pod="${p.id}">
       ${p.wip ? '<div class="wip-tag">WIP</div>' : ''}
       ${woken ? `<div class="pod-plate">${p.name}<small>${p.dead ? `✝ ${p.died}` : 'REVIVED'}</small></div>` : ''}
       <div class="pod-art">${A.cryo(state, '')}</div>
-      ${woken ? '' : `<div class="pod-name">${p.name}</div>`}
+      ${woken ? `<div class="pod-name pts ${pts < 0 ? 'neg' : 'pos'}">${pts < 0 ? '−' : '+'}${Math.abs(pts)}</div>` : `<div class="pod-name">${p.name}</div>`}
       ${woken ? '' : `<div class="votes"><span class="vn">${votes}</span><small>votes</small></div>`}
       <div class="pod-info"><span class="yr">❄ ${p.frozen}</span><span class="pwr"><svg viewBox="0 0 12 18" aria-hidden="true"><path d="M7 0 0 10h5l-1 8 7-10H6z"/></svg>${A.rel(p.power)}</span></div>
     </div>`;
