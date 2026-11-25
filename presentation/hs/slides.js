@@ -1132,7 +1132,7 @@ Subject: Re: SCO: "thread creation is about a thousand times faster
     mutation: { woke: [] },
     spec: { woke: [] },
     hooks: { woke: [] },
-    markdown: { woke: [], logExtra: `<div class="md-meta" data-s="1"><div class="card"><div class="card-h">OutOfHypersleep/presentation</div><pre>slides.md\npod-markdown.md\npod-worktrees.md\n… 10 more\nfinale.md</pre></div><p>This talk: <b>13 Markdown files</b>.<br>Written with an agent.</p></div>` },
+    markdown: { woke: [] },
     stackoverflow: {
       froze: [{
         slug: 'empire', title: 'The empire', cls: 'beat',
@@ -1163,8 +1163,7 @@ Subject: Re: SCO: "thread creation is about a thousand times faster
   const frame = (p, slug, html) => ({
     id: `${p.id}-${slug}`, seq: 'pod:' + p.id,
     cls: `frame f-${slug} t-${p.deck} ${p.dead ? 'is-deadpod' : 'is-alivepod'}`,
-    steps: slug === 'log' && podFrame[p.id]?.logExtra ? 2 : 1,
-    html: () => html(p) + (slug === 'log' ? podFrame[p.id]?.logExtra || '' : ''),
+    html: () => html(p),
   });
   const statement = (p, title, text, art, sub) => `${head(deckOf(p) + ' · ' + p.name, title, sub ? `<div class="sub">${sub}</div>` : '')}
     <div class="stmt"><p>${todo(text)}</p>${art ? `<div class="stmt-art">${art}</div>` : ''}</div>`;
@@ -1184,7 +1183,7 @@ Subject: Re: SCO: "thread creation is about a thousand times faster
     log: p => {
       const pts = p.score, red = pts < 0;
       const score = red ? `alien +${-pts}` : `crew +${pts}`;
-      return `${bg(p)}${p.logTitle ? head(deckOf(p) + ' · ' + p.name, p.logTitle) : ''}<div class="log ${p.logTitle ? 'titled' : ''}">
+      return `${bg(p)}${p.logTitle ? head(deckOf(p) + ' · ' + p.name, p.logTitle, p.logSub ? `<div class="sub">${p.logSub}</div>` : '') : ''}<div class="log ${p.logTitle ? 'titled' : ''}">
         <div class="log-h">Crew log</div>
         <div class="log-line">${todo(p.takeaway)}</div>
         <div class="log-stamp ${red ? 'red' : ''}">${score}</div>

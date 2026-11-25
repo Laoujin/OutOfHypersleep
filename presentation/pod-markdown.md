@@ -32,6 +32,7 @@ pod:
   frozenSub: Nobody read the README anyway.
   wokenBecause: Agents read it, write it and think in it.<br>Every prompt, plan, skill and answer is Markdown.
   logTitle: The agent's native tongue
+  logSub: 'All my presentations: Slidev markdown<br>Written by an agent'
   takeaway: Nobody read the README.<br>Now the crew reads every word.
 layout: hs
 routeAlias: markdown-thaw
@@ -130,11 +131,6 @@ A typical repo today, the files an agent reads before touching the code.
 ---
 layout: hs
 routeAlias: markdown-log
-clicks: 1
 ---
 
 <Hs id="markdown-log" />
-
-<!--
-[click] This talk: 13 Markdown files (Slidev), written with an agent.
--->
