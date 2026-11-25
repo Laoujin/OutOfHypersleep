@@ -49,7 +49,7 @@ clicks: 2
 
 <!--
 Final pod, 60–90 seconds, lighthearted. The future of developers is its own talk.
-[click] The pod opens on the crew: the audience (placeholder crowd for now).
+[click] The pod opens on the crew: live feed of the audience from the crowd camera (test it with C before the talk; placeholder crowd if there is none).
 [click] "It's you."
 -->
 

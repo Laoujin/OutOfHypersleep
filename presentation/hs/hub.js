@@ -1,6 +1,7 @@
 import './data.js'
 import './art.js'
 import './slides.js'
+import './camera.js'
 
 const HS = window.HS
 const KEY = 'hypersleep-state-v1'
@@ -18,8 +19,6 @@ const listeners = new Set()
 HS.state = () => state
 HS.save = () => { try { localStorage.setItem(KEY, JSON.stringify(state)) } catch {} }
 HS.reset = () => { state = fresh(); HS.save() }
-try { HS.photo = sessionStorage.getItem('hypersleep-photo') || null } catch { HS.photo = null }
-HS.setPhoto = (url) => { HS.photo = url; try { sessionStorage.setItem('hypersleep-photo', url) } catch {} }
 
 addEventListener('storage', (e) => {
   if (e.key !== KEY) return

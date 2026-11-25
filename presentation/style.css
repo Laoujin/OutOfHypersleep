@@ -334,7 +334,8 @@ pre.code { margin: 0; font: 21px/1.6 var(--mono); color: var(--ink); white-space
 .final .manifest-reveal { position: relative; overflow: hidden; width: 640px; height: 360px; background: #e9edf3; padding: 12px 12px 44px; border-radius: 6px; transform: rotate(1.5deg); margin-top: 10px; }
 .final .manifest-reveal img, .final .manifest-reveal .placeholder { width: 100%; height: 100%; object-fit: cover; background: #12151a; display: grid; }
 .final .manifest-reveal .placeholder { padding: 20px 24px 0; gap: 10px; grid-template-columns: repeat(9, 1fr); height: 304px; }
-.final .manifest-reveal img { height: 304px; }
+.final .manifest-reveal video { position: absolute; left: 12px; top: 12px; width: calc(100% - 24px); height: 304px; object-fit: cover; opacity: 0; transition: opacity .6s; }
+.final.live .manifest-reveal video { opacity: 1; }
 .final .big-line { font-size: 56px; font-family: var(--head); font-weight: 700; text-transform: uppercase; color: var(--cryo); margin-top: 26px; }
 .final .thaw-info h1 { font-size: 72px; }
 .final .meta { margin: 14px 0; }
@@ -1242,3 +1243,12 @@ svg .lbl.spec-w { font-size: 20px; }
 .thanks-qr .vote-badge { --badge-h: 56px; font-size: 24px; }
 .thanks.lose { --plate-img: url('/plates/thanks-lose.webp'); }
 .thanks.lose .thanks-big { text-shadow: 0 0 60px rgba(255, 59, 92, .4); }
+
+/* crowd camera test screen (C) */
+.cam-test { position: fixed; inset: 0; z-index: 1000; display: grid; place-items: center; background: rgba(0, 0, 0, .75); font-family: var(--sans); color: var(--ink); }
+.cam-panel { width: min(960px, 90vw); display: flex; flex-direction: column; gap: 12px; padding: 20px; background: var(--panel); border: 1px solid var(--line); border-radius: 14px; }
+.cam-head { display: flex; justify-content: space-between; align-items: baseline; }
+.cam-head b { font: 700 22px var(--head); text-transform: uppercase; }
+.cam-head span, .cam-info { font: 14px var(--mono); color: var(--muted); }
+.cam-panel select { font: 16px var(--sans); color: var(--ink); background: var(--panel2); border: 1px solid var(--line); border-radius: 8px; padding: 8px; }
+.cam-panel video { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; background: #000; border-radius: 8px; }

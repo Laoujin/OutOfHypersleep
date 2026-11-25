@@ -34,6 +34,7 @@ routeAlias: title
 <Hs id="title" />
 
 <!--
+Before the session: press C, pick the crowd-facing camera, check the picture.
 Walk on with the lights low. Let the frozen pods sit on screen.
 This talk answers WHY NOW, not HOW. The how is in the Git Worktrees and Guardrails decks.
 -->
@@ -92,5 +93,5 @@ Fullscreen pod plays by itself (~5 s): venting · lid opens: name + born · it l
 Aim for 5–6 pods.
 Click the bow hatch to unseal it, click again to open the finale in a new tab.
 Pods are anonymous until opened: the audience votes on year and power only.
-Keys: M map · X reset game.
+Keys: M map · X reset game · C crowd camera test.
 -->

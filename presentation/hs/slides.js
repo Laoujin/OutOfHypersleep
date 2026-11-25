@@ -1169,9 +1169,10 @@ Subject: Re: SCO: "thread creation is about a thousand times faster
         <div class="kicker">the bow · final pod</div>
         <h1>Schrödinger's developer</h1>
         <div class="meta"><span>half alive · half dead</span></div>
-        <div class="manifest-reveal" data-s="1">${HS.photo ? `<img src="${HS.photo}" alt="crew manifest">` : `<div class="placeholder">${Array.from({ length: 18 }, () => '<i></i>').join('')}</div>`}<div class="cap-line">CREW MANIFEST · ALL HANDS</div></div>
+        <div class="manifest-reveal" data-s="1"><div class="placeholder">${Array.from({ length: 18 }, () => '<i></i>').join('')}</div><video autoplay playsinline muted></video><div class="cap-line">CREW MANIFEST · ALL HANDS</div></div>
         <div class="big-line" data-s="2">It's you.</div>
       </div>`,
+    init: async el => { if (await HS.camera.attach(el.querySelector('.manifest-reveal video'))) el.classList.add('live'); },
     step: (el, st) => { const s = el.querySelector('.podsvg'); s.classList.toggle('open', st >= 1); s.classList.toggle('dying', st < 1); },
   });
 
