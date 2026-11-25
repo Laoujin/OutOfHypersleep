@@ -25,9 +25,6 @@ pod:
   order: 1
   frozen: 2015
   born: 2015
-  clue:
-    name: Duy
-    full: Nguyễn Thái Ngọc Duy
   power: 5
   fate: alive
   score: 50
