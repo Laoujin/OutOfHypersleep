@@ -36,14 +36,16 @@ HS.pods = Object.values(podFiles)
 HS.podById = id => HS.pods.find(p => p.id === id);
 HS.thisYear = new Date().getFullYear();
 
+HS.points = p => (p.dead ? p.score.dead : p.score.alive);
+
 HS.score = st => {
   const woken = st.woken.map(HS.podById).filter(Boolean);
   let crew = 0;
   let alien = 0;
   for (const p of woken) {
-    if (p.dead) alien += Math.abs(p.score.dead);
-    else if (p.score.alive < 0) alien += -p.score.alive;
-    else crew += p.score.alive;
+    const pts = HS.points(p);
+    if (pts < 0) alien -= pts;
+    else crew += pts;
   }
   if (st.events.twist) alien += HS.alienEvents.twist.reduce((a, e) => a + e[1], 0);
   const wl = woken.filter(p => !p.dead);

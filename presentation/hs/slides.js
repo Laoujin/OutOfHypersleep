@@ -1081,8 +1081,8 @@ Subject: Re: SCO: "thread creation is about a thousand times faster
       ? statement(p, 'What killed it', p.diesBecause, A.cryo('dead', 'NO SIGNS'))
       : statement(p, 'What woke it', p.wokenBecause, A.cryo('awake', 'REVIVED')),
     log: p => {
-      const score = p.dead ? `alien +${Math.abs(p.score.dead)}` : p.score.alive < 0 ? `alien +${-p.score.alive}` : `crew +${p.score.alive}`;
-      const red = p.dead || p.score.alive < 0;
+      const pts = HS.points(p), red = pts < 0;
+      const score = red ? `alien +${-pts}` : `crew +${pts}`;
       return `${bg(p)}${p.logTitle ? head(deckOf(p) + ' · ' + p.name, p.logTitle) : ''}<div class="log ${p.logTitle ? 'titled' : ''}">
         <div class="log-h">Crew log</div>
         <div class="log-line">${todo(p.takeaway)}</div>

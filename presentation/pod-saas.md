@@ -27,11 +27,11 @@ pod:
   frozen: 2010
   born: 2010
   died: 2025
-  power: 3
+  power: 2
   fate: dead
   score:
     alive: 30
-    dead: -40
+    dead: 30
   was: A monthly subscription for one button on someone else's website.
   diesBecause: Building beats buying. A PDF tool in 2 hours instead of hosting Stirling PDF.
   logTitle: Build vs buy, flipped
