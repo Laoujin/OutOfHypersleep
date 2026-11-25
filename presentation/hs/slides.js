@@ -247,7 +247,7 @@ import soCsv from '../data/stackoverflow-questions.csv?raw';
           return bow.classList.add('open');
         }
         const pod = e.target.closest('.pod[data-pod]');
-        if (pod) show(pod.dataset.pod, { end: c.state.woken.includes(pod.dataset.pod) });
+        if (pod) show(pod.dataset.pod, { end: e.ctrlKey || c.state.woken.includes(pod.dataset.pod) });
       });
     },
   });
