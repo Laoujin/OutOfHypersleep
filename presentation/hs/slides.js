@@ -170,6 +170,7 @@ import soCsv from '../data/stackoverflow-questions.csv?raw';
         <div class="map-grid">
           ${Object.keys(HS.TYPES).map(t => `<div class="deck-lbl t-${t}"><b>Deck ${HS.TYPES[t].n}</b>${HS.TYPES[t].label}</div><div class="deck-row">${row(t)}</div>`).join('')}
         </div>
+        <button class="map-reset" title="Reset the game"><span class="idle">↺</span><span class="sure">reset? click again</span></button>
         <button class="bow-hatch${bowOpen ? ' open' : ''}" data-act="bow"><span class="capt-pod">${A.cryo(bowOpen ? 'awake' : 'closed', '')}</span><span class="t">Wake the Captain</span></button>
 `;
     },
@@ -223,6 +224,18 @@ import soCsv from '../data/stackoverflow-questions.csv?raw';
         if (e.target.closest('[data-act=close-pod]')) return cancel();
         if (e.target.closest('[data-act=open-slides]')) return openSlides();
         if (st < 3) { step(st + 1); auto(); }
+      });
+      const rst = el.querySelector('.map-reset');
+      let disarm = null;
+      rst.addEventListener('click', () => {
+        if (!rst.classList.contains('armed')) {
+          rst.classList.add('armed');
+          disarm = setTimeout(() => rst.classList.remove('armed'), 3000);
+          return;
+        }
+        clearTimeout(disarm);
+        HS.reset();
+        HS.refreshActive();
       });
       el.addEventListener('click', e => {
         if (e.target.closest('.rv-overlay')) return;
@@ -745,8 +758,8 @@ React is a JavaScript library for building user interfaces.
       const SUBS = [
         ['PDF tools', 'merge · split · compress', 12, '2 h'], ['Link shortener', 'go/ links', 9, '1 h'], ['Forms', 'a signup form', 29, '3 h'],
         ['Scheduling', 'book a call', 15, '4 h'], ['Status page', 'is it up?', 29, '2 h'], ['Screenshot API', 'og:images', 19, '1 h'],
-        ['QR codes', 'one for the poster', 7, '20 min'], ['Feature flags', 'five booleans', 75, '3 h'], ['Changelog widget', 'what\'s new', 49, '2 h'],
-        ['Uptime ping', 'every 5 min', 10, '30 min'], ['Image resize', 'thumbnails', 25, '1 h'], ['Feedback board', 'upvote ideas', 49, '4 h'],
+        ['QR codes', 'one for the poster', 7, '20 min'], ['Feature flags', 'five booleans', 75, '3 h'], ['Changelog', 'what\'s new', 49, '2 h'],
+        ['Analytics', 'page views', 14, '2 h'], ['Image resize', 'thumbnails', 25, '1 h'], ['Feedback board', 'upvote ideas', 49, '4 h'],
       ];
       const FULL = SUBS.reduce((s, x) => s + x[2], 0);
       const total = (el, sum) => {

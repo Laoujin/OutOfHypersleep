@@ -62,7 +62,7 @@ clicks: 2
 <Hs id="saas-graveyard" />
 
 <!--
-A dozen small tools, each a monthly fee for one feature. Together: €328 a month.
+A dozen small tools, each a monthly fee for one feature. Together: €332 a month.
 [click] An agent builds each one in an afternoon. One by one they go into cryo, the total drains to €0.
 Own story: needed merge, split and compress. Hosting Stirling PDF vs. 2 hours with an agent.
 [click] Build vs buy flipped for small tools. Not for your ERP.

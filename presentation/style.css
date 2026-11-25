@@ -438,6 +438,11 @@ pre.code { margin: 0; font: 21px/1.6 var(--mono); color: var(--ink); white-space
 .map .pod .votes { top: 6px; bottom: auto; right: 10px; }
 .map .pod .pod-name { display: none; position: absolute; inset: 0; z-index: 3; place-items: center; padding: 12px; text-align: center; font: 700 24px var(--head); color: var(--ink); background: rgba(8, 12, 16, .85); border-radius: inherit; pointer-events: none; }
 .peek .map .pod .pod-name { display: grid; }
+.map-reset { position: absolute; right: 48px; bottom: 28px; z-index: 5; height: 40px; min-width: 40px; padding: 0; font: 600 20px var(--mono); color: var(--faint); background: none; border: 1px solid var(--line); border-radius: 20px; cursor: pointer; transition: color .2s, border-color .2s; }
+.map-reset:hover { color: var(--muted); border-color: var(--faint); }
+.map-reset.armed { padding: 0 14px; font-size: 14px; letter-spacing: .06em; color: var(--alien); border-color: var(--alien); }
+.map-reset .sure, .map-reset.armed .idle { display: none; }
+.map-reset.armed .sure { display: inline; }
 .map .pod.is-awake, .map .pod.is-dead { padding-top: 40px; }
 .map .pod.is-awake .pod-art, .map .pod.is-dead .pod-art { margin-top: -12px; }
 .map .pod .pod-plate { position: absolute; left: 0; right: 0; top: 0; height: 30px; padding: 0 12px; display: flex; align-items: center; justify-content: space-between; font: 700 16px var(--head); letter-spacing: .06em; text-transform: uppercase; border-radius: 13px 13px 0 0; }
@@ -1174,7 +1179,7 @@ svg .lbl.spec-w { font-size: 20px; }
 .sg-stage { position: absolute; inset: 0; }
 .sg-subs { position: absolute; left: 72px; top: 210px; width: 1000px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
 .sg-sub { position: relative; height: 118px; border-radius: 12px; background: var(--panel); border: 1px solid var(--line); border-left: 4px solid var(--alien); padding: 16px 20px; transition: filter .6s; }
-.sg-sub h5 { margin: 0; font: 700 24px var(--head); color: #fff; text-transform: uppercase; letter-spacing: .03em; }
+.sg-sub h5 { margin: 0; padding-right: 64px; font: 700 24px var(--head); color: #fff; text-transform: uppercase; letter-spacing: .03em; }
 .sg-sub p { margin: 4px 0 0; font: 15px var(--mono); color: var(--muted); }
 .sg-pr { position: absolute; right: 20px; top: 18px; font: 700 22px var(--mono); color: var(--alien); }
 .sg-lamp { position: absolute; left: 20px; bottom: 14px; width: 10px; height: 10px; border-radius: 50%; background: var(--alien); box-shadow: 0 0 10px var(--alien); transition: background .4s, box-shadow .4s; }
