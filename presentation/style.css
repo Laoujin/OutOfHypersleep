@@ -336,7 +336,6 @@ pre.code { margin: 0; font: 21px/1.6 var(--mono); color: var(--ink); white-space
 .final .manifest-reveal .placeholder { padding: 20px 24px 0; gap: 10px; grid-template-columns: repeat(9, 1fr); height: 304px; }
 .final .manifest-reveal video { position: absolute; left: 12px; top: 12px; width: calc(100% - 24px); height: 304px; object-fit: cover; opacity: 0; transition: opacity .6s; }
 .final.live .manifest-reveal video { opacity: 1; }
-.final .big-line { font-size: 56px; font-family: var(--head); font-weight: 700; text-transform: uppercase; color: var(--cryo); margin-top: 26px; }
 .final .thaw-info h1 { font-size: 72px; }
 .final .meta { margin: 14px 0; }
 .vit { display: flex; flex-direction: column; gap: 14px; flex: 1; justify-content: center; }

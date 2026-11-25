@@ -42,15 +42,14 @@ The crew we didn't wake. Iced over: what's inside stays hidden. Their slides are
 ---
 layout: hs
 routeAlias: final
-clicks: 2
+clicks: 1
 ---
 
 <Hs id="final" />
 
 <!--
-Final pod, 60–90 seconds, lighthearted. The future of developers is its own talk.
-[click] The pod opens on the crew: live feed of the audience from the crowd camera (test it with C before the talk; placeholder crowd if there is none).
-[click] "It's you."
+Waking the Captain, 60–90 seconds, lighthearted. The future of developers is its own talk.
+[click] The pod opens on the Captain: live feed of the audience from the crowd camera (test it with C before the talk; placeholder crowd if there is none). It's you: Schrödinger's developer.
 -->
 
 ---
