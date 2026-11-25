@@ -77,7 +77,7 @@ clicks: 2
 <Hs id="saas-suite" />
 
 <!--
-The big suite: 60 modules, €2,000 a month, three consultants to configure it.
+The big suite: 60 modules, €2,000 a month.
 [click] You use three of them. 5%.
 [click] Not dead yet. But the 5% is starting to look buildable.
 -->
