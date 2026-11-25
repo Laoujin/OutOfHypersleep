@@ -198,15 +198,16 @@ import soCsv from '../data/stackoverflow-questions.csv?raw';
       };
       const close = () => { clearTimeout(timer); ov.hidden = true; cur = null; HS.refreshActive(); };
       const openSlides = () => { const id = cur.id; if (st < 3) step(3); window.open(HS.deckUrl('pod-' + id), '_blank'); close(); };
-      const show = id => {
+      const show = (id, { end = false } = {}) => {
         const p = HS.podById(id);
         if (!p) return;
         cur = p;
         snapshot = [...c.state.woken];
         ov.innerHTML = revive.html(p);
+        ov.classList.toggle('rv-instant', end);
         ov.hidden = false;
-        step(0);
-        auto();
+        step(end ? 3 : 0);
+        if (!end) auto();
       };
       HS.overlay = {
         get active() { return !!cur && el.isConnected; },
@@ -233,7 +234,7 @@ import soCsv from '../data/stackoverflow-questions.csv?raw';
           return bow.classList.add('open');
         }
         const pod = e.target.closest('.pod[data-pod]');
-        if (pod && !c.state.woken.includes(pod.dataset.pod)) show(pod.dataset.pod);
+        if (pod) show(pod.dataset.pod, { end: c.state.woken.includes(pod.dataset.pod) });
       });
     },
   });
