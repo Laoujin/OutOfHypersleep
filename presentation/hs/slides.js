@@ -578,29 +578,60 @@ import soCsv from '../data/stackoverflow-questions.csv?raw';
       }];
     })(),
     markdown: (() => {
-      const CLAUDE_MD = `# React
-
-React is a JavaScript library for building user interfaces.
-
-## Monorepo Overview
-
-- **React**: All files outside \`/compiler/\`
-- **React Compiler**: \`/compiler/\` directory (has its own instructions)
-
-## Current Active Work
-
-- **Rust Compiler Port**: Plans in \`compiler/docs/rust-port/\`, implementation in \`compiler/crates/\`
-- Branch: \`rust-research\``;
       const esc = t => t.replace(/&/g, '&amp;').replace(/</g, '&lt;');
-      return [{
-        slug: 'announce', title: 'Introducing Markdown', full: true, steps: 2, cls: 'md md-announce',
-        body: () => `<div class="md-quote"><p>Markdown allows <span class="md-who"><s>web writers</s><em>agents</em></span> to compose text using a simple, readable, plain text formatting syntax</p></div>`,
-        step: (el, st) => el.classList.toggle('md-s1', st >= 1),
-      }, {
-        slug: 'readme', title: 'A README for agents', full: true, steps: 2, cls: 'md md-readme',
-        body: () => `<div class="card md-file"><div class="card-h">CLAUDE.md</div><pre>${esc(CLAUDE_MD)}</pre></div>
-          <div class="md-count" data-s="1"><b>60k+</b><small>AGENTS.md on GitHub</small></div>`,
-      }];
+      const heads = t => esc(t).replace(/^(#+ .*)$/gm, '<span class="md-h">$1</span>');
+      const tags = t => esc(t).replace(/(&lt;\/?[\w:!-]+)|( [\w:-]+="[^"]*")/g, (m, tg, at) => tg ? `<span class="md-tag">${tg}</span>` : `<span class="md-attr">${at}</span>`);
+      const tok = t => `<b>${Math.round(t.length / 4)}</b><small>tokens</small>`;
+      const PAGE_HTML = `<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><title>Install · Docs</title><link rel="stylesheet" href="/_next/static/css/a81f.css"><script src="/_next/static/chunks/main-9c2e.js" defer></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());</script></head><body class="antialiased"><div id="__next"><header class="sticky top-0 z-40 flex h-14 items-center border-b"><nav aria-label="Main"><ul class="flex gap-6"><li><a href="/docs">Docs</a></li><li><a href="/pricing">Pricing</a></li><li><a href="/blog">Blog</a></li></ul></nav><button class="ml-auto" aria-label="Search">⌘K</button></header><div class="cookie-banner fixed bottom-0">We use cookies. <button>Accept</button></div><main class="prose max-w-3xl mx-auto px-4"><h1 id="install" class="scroll-mt-24">Install</h1><p class="text-lg">Run the installer:</p><div class="code-block relative"><button class="copy absolute right-2">Copy</button><pre class="language-bash"><code><span class="token function">npm</span> <span class="token function">install</span> acme</code></pre></div><p>Then set <code class="inline">ACME_KEY</code>.</p></main><footer class="border-t py-8">© 2026 · <a href="/privacy">Privacy</a> · <a href="/terms">Terms</a></footer></div></body></html>`;
+      const PAGE_MD = '# Install\n\nRun the installer:\n\n```bash\nnpm install acme\n```\n\nThen set `ACME_KEY`.';
+      const DOCX_XML = `<w:body><w:bookmarkStart w:id="24" w:name="checkout-v2" /><w:p><w:pPr><w:pStyle w:val="Heading1" /></w:pPr><w:r><w:t xml:space="preserve">Checkout v2</w:t></w:r></w:p><w:bookmarkStart w:id="20" w:name="goal" /><w:p><w:pPr><w:pStyle w:val="Heading2" /></w:pPr><w:r><w:t xml:space="preserve">Goal</w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="FirstParagraph" /></w:pPr><w:r><w:t xml:space="preserve">Let a returning customer pay in one click.</w:t></w:r></w:p><w:bookmarkEnd w:id="20" /><w:bookmarkStart w:id="21" w:name="requirements" /><w:p><w:pPr><w:pStyle w:val="Heading2" /></w:pPr><w:r><w:t xml:space="preserve">Requirements</w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="Compact" /><w:numPr><w:ilvl w:val="0" /><w:numId w:val="1001" /></w:numPr></w:pPr><w:r><w:t xml:space="preserve">Store the last used payment method per customer</w:t></w:r></w:p><w:p><w:pPr><w:pStyle w:val="Compact" /><w:numPr><w:ilvl w:val="0" /><w:numId w:val="1001" /></w:numPr></w:pPr><w:r><w:t xml:space="preserve">Show a </w:t></w:r><w:r><w:rPr><w:b /><w:bCs /></w:rPr><w:t xml:space="preserve">Pay now</w:t></w:r> …`;
+      const SPEC_MD = `# Checkout v2
+
+## Goal
+
+Let a returning customer pay in one click.
+
+## Requirements
+
+- Store the last used payment method per customer
+- Show a **Pay now** button on the cart page
+- Fall back to the full checkout when the card is expired`;
+      const TILES = [
+        ['Instructions', 'AGENTS.md', 'CLAUDE.md, GEMINI.md'],
+        ['Skills', 'SKILL.md', 'know-how, loaded on demand'],
+        ['Subagents', 'agents/*.md', 'a reviewer, a tester'],
+        ['Commands', 'commands/*.md', '/fix-issue, /release'],
+        ['Rules', '.cursor/rules/*.mdc', 'scoped to a folder'],
+        ['Memory', 'memory/*.md', 'what it learned last time'],
+        ['Specs', 'specs/*.md', 'what to build'],
+        ['Plans', 'plans/*.md', 'how to build it'],
+        ['ADRs', 'docs/adr/*.md', 'why the code is like this'],
+        ['Tasks', 'TODO.md', 'the checklist it ticks off'],
+        ['PRs & issues', 'GitHub-flavored', 'what it reads and writes'],
+        ['Every answer', 'text/markdown', 'the chat itself'],
+      ];
+      const web = {
+        slug: 'web', title: 'The web, for agents', full: true, steps: 3, cls: 'md md-web',
+        body: () => `<div class="card md-html"><div class="card-h">GET /docs/install.html</div><pre>${tags(PAGE_HTML)}</pre></div>
+          <div class="md-arrow" data-s="1">→</div>
+          <div class="card md-page" data-s="1"><div class="card-h">GET /docs/install.md</div><pre>${heads(PAGE_MD)}</pre></div>
+          <div class="md-tok red">${tok(PAGE_HTML)}</div>
+          <div class="md-tok green">${tok(PAGE_MD)}</div>
+          <div class="md-ways">
+            <fieldset class="md-way"><legend>Barely adopted</legend><b>/llms.txt</b></fieldset>
+            <fieldset class="md-way"><legend>Cloudflare</legend><b>Accept: text/markdown</b></fieldset>
+          </div>`,
+      };
+      const word = {
+        slug: 'word', title: 'The spec in docx', sub: 'Only dinosaurs are still doing this', full: true, cls: 'md md-word',
+        body: () => `<div class="card md-xml"><div class="card-h">spec.docx › word/document.xml <span>1 of 11 files</span></div><pre>${tags(DOCX_XML)}</pre></div>
+          <div class="card md-spec"><div class="card-h">spec.md <b class="ok">✓ Guaranteed structured</b></div><pre>${heads(SPEC_MD)}</pre></div>`,
+      };
+      const everything = {
+        slug: 'everything', title: 'Everything your agent works with is Markdown', sub: "Markdown, it's pretty much code today", full: true, steps: 2, cls: 'md md-everything',
+        body: () => `<div class="md-tiles">${TILES.map(([b, c, t], i) => `<div class="md-tile" style="--i: ${i}"><b>${b}</b><code>${c}</code><span>${t}</span></div>`).join('')}</div>`,
+      };
+      return [web, word, everything];
     })(),
     hooks: (() => {
       const CX = 520, CY = 520, R = [118, 190, 265];
@@ -1114,7 +1145,7 @@ Subject: Re: SCO: "thread creation is about a thousand times faster
     log: p => {
       const pts = p.score, red = pts < 0;
       const score = red ? `alien +${-pts}` : `crew +${pts}`;
-      return `${bg(p)}${p.logTitle ? head(deckOf(p) + ' · ' + p.name, p.logTitle) : ''}<div class="log ${p.logTitle ? 'titled' : ''}">
+      return `${bg(p)}${p.logTitle ? head(deckOf(p) + ' · ' + p.name, p.logTitle, p.logSub ? `<div class="sub">${p.logSub}</div>` : '') : ''}<div class="log ${p.logTitle ? 'titled' : ''}">
         <div class="log-h">Crew log</div>
         <div class="log-line">${todo(p.takeaway)}</div>
         <div class="log-stamp ${red ? 'red' : ''}">${score}</div>

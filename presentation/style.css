@@ -1116,19 +1116,6 @@ svg .lbl.spec-w { font-size: 20px; }
 .hk-tally b { color: var(--awake); font-size: 30px; margin-right: 8px; }
 .hk-tally span { color: var(--alien); }
 
-.md-quote { position: absolute; left: 180px; right: 180px; top: 50%; translate: 0 -50%; }
-.md-quote p { font: 500 54px/1.35 var(--sans); }
-.md-who { position: relative; white-space: nowrap; }
-.md-who s { text-decoration: none; background: linear-gradient(var(--alien), var(--alien)) left 55% / 0 4px no-repeat; transition: background-size .5s ease, opacity .5s ease .4s; }
-.md-who em { position: absolute; left: 0; top: -.9em; font-style: normal; color: var(--awake); opacity: 0; transform: translateY(10px); transition: opacity .45s ease .6s, transform .45s ease .6s; }
-.md-s1 .md-who s { background-size: 100% 4px; opacity: .45; }
-.md-s1 .md-who em { opacity: 1; transform: none; }
-.md-file { position: absolute; left: 140px; top: 200px; width: 860px; padding: 0; }
-.md-file .card-h { padding: 14px 20px; margin: 0; border-bottom: 1px solid var(--line); }
-.md-file pre { margin: 0; padding: 20px 24px; font: 400 21px/1.5 var(--mono); white-space: pre-wrap; color: var(--ink); }
-.md-count { position: absolute; right: 140px; top: 50%; translate: 0 -50%; text-align: right; }
-.md-count b { display: block; font: 800 150px/1 var(--mono); color: var(--awake); }
-.md-count small { font: 600 26px var(--mono); color: var(--muted); }
 
 /* map: hatch at the bow, sealed → open → launches the finale */
 .map .bow-hatch { position: absolute; right: 170px; top: 270px; z-index: 2; width: 220px; padding: 20px 10px 18px; border-radius: 18px; border: 1px solid var(--line);
@@ -1252,3 +1239,42 @@ svg .lbl.spec-w { font-size: 20px; }
 .cam-head span, .cam-info { font: 14px var(--mono); color: var(--muted); }
 .cam-panel select { font: 16px var(--sans); color: var(--ink); background: var(--panel2); border: 1px solid var(--line); border-radius: 8px; padding: 8px; }
 .cam-panel video { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; background: #000; border-radius: 8px; }
+.md pre .md-h { color: var(--plan); font-weight: 600; }
+.md-tag { color: var(--faint); }
+.md-attr { color: #6b7686; }
+.md .card-h { display: flex; justify-content: space-between; }
+.md .card-h b { font-weight: 700; }
+.md .card pre { margin: 0; padding: 18px 22px; font: 400 19px/1.5 var(--mono); white-space: pre-wrap; word-break: break-all; color: var(--ink); }
+.md-web .card, .md-word .card { position: absolute; padding: 0; overflow: hidden; }
+.md-web .card-h, .md-word .card-h { padding: 14px 20px; margin: 0; border-bottom: 1px solid var(--line); }
+.md-html { left: 72px; top: 210px; width: 700px; height: 520px; transition: opacity .6s, filter .6s; }
+.md .md-html pre { font-size: 15px; line-height: 1.45; }
+.s1 .md-html { opacity: .25; filter: grayscale(1); }
+.md-arrow { position: absolute; left: 776px; top: 340px; font: 700 48px var(--head); color: var(--awake); }
+.md-page { left: 828px; top: 210px; width: 700px; height: 310px; border-color: rgba(69, 230, 160, .5); }
+.md .md-page pre { font-size: 18px; line-height: 1.4; }
+.md-ways { position: absolute; left: 828px; top: 545px; width: 700px; display: grid; gap: 18px; }
+.md-way { margin: 0; display: flex; gap: 18px; align-items: baseline; padding: 6px 20px 16px; border: 1px solid var(--line); border-radius: 12px; background: rgba(21, 25, 31, .8); opacity: 0; transform: translateX(20px); transition: opacity .5s, transform .5s; }
+.md-way legend { padding: 0 8px; font: 600 15px var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+.md-way b { font: 600 24px var(--mono); color: var(--awake); }
+.s2 .md-way { opacity: 1; transform: none; }
+.s2 .md-way:nth-child(2) { transition-delay: .25s; }
+.md-xml { left: 72px; top: 200px; width: 860px; height: 600px; }
+.md .md-xml pre { font-size: 17px; line-height: 1.5; }
+.md-xml .card-h span { color: var(--faint); }
+.md-spec { left: 980px; top: 200px; width: 548px; height: 600px; border-color: rgba(69, 230, 160, .5); }
+.md-spec .card-h .ok { color: var(--awake); }
+.md .md-spec pre { font-size: 20px; line-height: 1.5; word-break: normal; }
+.md-tiles { position: absolute; left: 72px; right: 72px; top: 240px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+.md-tile { padding: 20px 22px; border: 1px solid var(--line); border-radius: 14px; background: rgba(21, 25, 31, .85); opacity: 0; transform: translateY(10px) scale(.97); transition: opacity .45s, transform .45s; }
+.s1 .md-tile { opacity: 1; transform: none; transition-delay: calc(var(--i) * .14s); }
+.md-tile b { display: block; font: 700 28px var(--head); color: #fff; text-transform: uppercase; letter-spacing: .03em; }
+.md-tile code { display: block; margin-top: 8px; font: 500 18px var(--mono); color: var(--awake); background: none; padding: 0; }
+.md-tile span { display: block; margin-top: 6px; font: 400 18px var(--sans); color: var(--muted); }
+.md-tok { position: absolute; z-index: 6; padding: 10px 22px; border: 6px solid var(--c); color: var(--c); border-radius: 14px; background: rgba(8, 9, 11, .82); text-align: center; text-transform: uppercase; box-shadow: 0 0 30px color-mix(in srgb, var(--c) 30%, transparent); opacity: 0; }
+.md-tok b { display: block; font: 800 54px/1 var(--mono); }
+.md-tok small { display: block; font: 700 18px var(--mono); letter-spacing: .2em; margin-top: 6px; }
+.md-tok.red { --c: var(--alien); --r: 10deg; left: 560px; top: 160px; animation: md-slam .45s cubic-bezier(.3, 1.6, .5, 1) .4s forwards; }
+.md-tok.green { --c: var(--awake); --r: -10deg; left: 1340px; top: 150px; }
+.s1 .md-tok.green { animation: md-slam .45s cubic-bezier(.3, 1.6, .5, 1) .3s forwards; }
+@keyframes md-slam { from { opacity: 0; transform: rotate(var(--r)) scale(1.8); } to { opacity: 1; transform: rotate(var(--r)) scale(1); } }
