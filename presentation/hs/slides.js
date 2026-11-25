@@ -659,17 +659,12 @@ Let a returning customer pay in one click.
         body: () => `<div class="md-files">${tree}</div>
           <div class="md-count" data-s="2"><b>9 / 11</b><small>files the agent cares about:<br>Markdown</small></div>`,
       };
-      const announce = {
-        slug: 'announce', title: 'Introducing Markdown', full: true, steps: 2, cls: 'md md-announce',
-        body: () => `<div class="md-quote"><p>Markdown allows <span class="md-who"><s>web writers</s><em>agents</em></span> to compose text using a simple, readable, plain text formatting syntax</p></div>`,
-        step: (el, st) => el.classList.toggle('md-s1', st >= 1),
-      };
       const readme = {
         slug: 'readme', title: 'A README for agents', full: true, steps: 2, cls: 'md md-readme',
         body: () => `<div class="card md-file"><div class="card-h">CLAUDE.md</div><pre>${esc(CLAUDE_MD)}</pre></div>
           <div class="md-count" data-s="1"><b>60k+</b><small>AGENTS.md on GitHub</small></div>`,
       };
-      return [announce, web, word, readme, files];
+      return [web, word, readme, files];
     })(),
     hooks: (() => {
       const CX = 520, CY = 520, R = [118, 190, 265];

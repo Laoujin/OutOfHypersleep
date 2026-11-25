@@ -57,20 +57,6 @@ Born Monday 15 March 2004: John Gruber, "Introducing Markdown" on Daring Firebal
 
 ---
 layout: hs
-routeAlias: markdown-announce
-clicks: 1
----
-
-<Hs id="markdown-announce" />
-
-<!--
-John Gruber, "Introducing Markdown", Daring Fireball, 15 March 2004 (verbatim).
-Design goal from the project page: "publishable as-is, as plain text, without looking like it's been marked up". Biggest inspiration: plain text email.
-[click] Twenty years later, the web writers are agents.
--->
-
----
-layout: hs
 routeAlias: markdown-web
 clicks: 2
 ---
