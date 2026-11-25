@@ -1205,7 +1205,7 @@ Subject: Re: SCO: "thread creation is about a thousand times faster
   });
 
   add({
-    id: 'vitals', seq: 'final', steps: 5, cls: 'vitals',
+    id: 'vitals', seq: 'final', steps: 6, cls: 'vitals',
     html: () => `${head('pod screen · vitals', 'Schrödinger\'s developer')}
       <div class="vit">${[
         ['Typing code', 'flat', 'Flatlined', 'bad'],
@@ -1213,7 +1213,7 @@ Subject: Re: SCO: "thread creation is about a thousand times faster
         ['Analysis', 'strong', 'Strong', 'ok'],
         ['Security', 'pulse', 'Critical', 'ok'],
         ['Architecture', 'pulse', 'Stable', 'ok'],
-      ].map(([n, k, w, c], i) => `<div class="vrow ${c}" data-s="${i}"><div class="vn">${n}</div>${A.ecg(k)}<div class="vstamp">${w}</div></div>`).join('')}</div>
+      ].map(([n, k, w, c], i) => `<div class="vrow ${c}" data-s="${i < 3 ? i : i + 1}"><div class="vn">${n}</div>${A.ecg(k)}<div class="vstamp">${w}</div></div>`).join('')}</div>
       <div class="vit-big">Business has no clue.<br>We're safe!</div>`,
   });
 
