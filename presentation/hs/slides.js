@@ -794,10 +794,10 @@ React is a JavaScript library for building user interfaces.
         }, 20);
       };
       const SUITE = ['tickets', 'time tracking', 'invoices', 'CRM', 'leads', 'pipelines', 'quotes', 'contracts', 'e-signature', 'SLA timers', 'approvals', 'workflows',
-        'dashboards', 'report builder', 'BI connector', 'forecasting', 'budgets', 'expenses', 'procurement', 'inventory', 'assets', 'fleet', 'HR', 'payroll',
-        'recruiting', 'onboarding', 'performance', 'learning', 'surveys', 'knowledge base', 'portal', 'chat', 'telephony', 'email campaigns', 'social', 'events',
+        'dashboards', 'BI connector', 'forecasting', 'budgets', 'expenses', 'procurement', 'inventory', 'assets', 'fleet', 'HR', 'payroll',
+        'recruiting', 'onboarding', 'performance', 'learning', 'surveys', 'portal', 'chat', 'telephony', 'social', 'events',
         'projects', 'gantt', 'resources', 'portfolio', 'risk', 'compliance', 'audit log', 'data export', 'API', 'webhooks', 'marketplace', 'SSO',
-        'roles', 'sandbox', 'multi-currency', 'multi-entity', 'tax rules', 'localisation', 'mobile app', 'offline mode', 'AI assistant', 'custom objects', 'scripting', 'archive'];
+        'roles', 'sandbox', 'tax rules', 'localisation', 'mobile app', 'offline mode', 'AI assistant', 'scripting', 'archive'];
       const MINE = SUITE.slice(0, 3);
       // a fixed shuffle so the three used modules end up scattered across the wall
       const SUITE_TILES = SUITE.map(f => [f, Math.sin(f.length * 97 + f.charCodeAt(0))]).sort((a, b) => a[1] - b[1]).map(([f]) => f);
