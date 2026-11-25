@@ -578,19 +578,6 @@ import soCsv from '../data/stackoverflow-questions.csv?raw';
       }];
     })(),
     markdown: (() => {
-      const CLAUDE_MD = `# React
-
-React is a JavaScript library for building user interfaces.
-
-## Monorepo Overview
-
-- **React**: All files outside \`/compiler/\`
-- **React Compiler**: \`/compiler/\` directory (has its own instructions)
-
-## Current Active Work
-
-- **Rust Compiler Port**: Plans in \`compiler/docs/rust-port/\`, implementation in \`compiler/crates/\`
-- Branch: \`rust-research\``;
       const esc = t => t.replace(/&/g, '&amp;').replace(/</g, '&lt;');
       const heads = t => esc(t).replace(/^(#+ .*)$/gm, '<span class="md-h">$1</span>');
       const tags = t => esc(t).replace(/(&lt;\/?[\w:!-]+)|( [\w:-]+="[^"]*")/g, (m, tg, at) => tg ? `<span class="md-tag">${tg}</span>` : `<span class="md-attr">${at}</span>`);
@@ -649,12 +636,7 @@ Let a returning customer pay in one click.
         body: () => `<div class="md-files">${tree}</div>
           <div class="md-count" data-s="2"><b>9 / 11</b><small>files the agent cares about:<br>Markdown</small></div>`,
       };
-      const readme = {
-        slug: 'readme', title: 'A README for agents', full: true, steps: 2, cls: 'md md-readme',
-        body: () => `<div class="card md-file"><div class="card-h">CLAUDE.md</div><pre>${esc(CLAUDE_MD)}</pre></div>
-          <div class="md-count" data-s="1"><b>60k+</b><small>AGENTS.md on GitHub</small></div>`,
-      };
-      return [web, word, readme, files];
+      return [web, word, files];
     })(),
     hooks: (() => {
       const CX = 520, CY = 520, R = [118, 190, 265];

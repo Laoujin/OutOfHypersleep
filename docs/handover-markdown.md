@@ -25,15 +25,14 @@ A live pod for **Markdown**: born 2004 (John Gruber, Daring Fireball, with Aaron
 | `d94e772` | Plate `public/plates/pod-markdown.webp`                   |
 | `4957ce6` | Speaker notes on ADRs and Markdown vs docx                |
 
-Slides: thaw → froze → `markdown-web` → `markdown-word` → `markdown-readme` → `markdown-tree` → log (log subtitle via `logSub`). Mockups: `mockups/markdown.html`. No *woke* slide (`podFrame.markdown = { woke: [] }`, like the other live pods).
+Slides: thaw → froze → `markdown-web` → `markdown-word` → `markdown-tree` → log (log subtitle via `logSub`). Mockups: `mockups/markdown.html`. No *woke* slide (`podFrame.markdown = { woke: [] }`, like the other live pods).
 
-- `markdown-readme`: first 12 lines of `facebook/react` `CLAUDE.md`, verbatim (fetched 2026-11-24). Click: "60k+ AGENTS.md on GitHub" (agents.md: "used by over 60k open-source projects").
 
 ## Open / next
 
 - Wouter hasn't reviewed the slides visually yet; expect many small tweaks (do each, build, commit, one-line report).
 - Frame lines are drafts; Wouter may rewrite them.
-- ADRs and Markdown vs docx (token cost, conversion, real `#` headers vs bold-as-header in docx) are only in the speaker notes of `markdown-readme`. Offered to make them a slide; no answer yet.
+- `markdown-readme` (React CLAUDE.md + 60k AGENTS.md) and `markdown-announce` were killed by Wouter. ADR note moved to `markdown-tree`, docx notes on `markdown-word`.
 - To verify: the 60k+ count, Nygard ADRs 2011, llms.txt 2024 (in speaker notes). Cloudflare Markdown for Agents (Feb 2026) confirmed by Wouter.
 - README rows (Crew size, Rigged?) need rechecking against the new decks and scores.
 
@@ -46,4 +45,4 @@ Slides: thaw → froze → `markdown-web` → `markdown-word` → `markdown-read
 | `presentation/style.css`               | `.md-*` rules (end of file)              |
 | `docs/theme/index.html`                | plate prompt (`pod-markdown`)            |
 
-Verify: `cd presentation && timeout 300 bun run build` (headless Chromium can't run here). Report URLs like `#/markdown-readme` for Wouter to check visually.
+Verify: `cd presentation && timeout 300 bun run build` (headless Chromium works: `bunx vite preview --outDir dist --base /OutOfHypersleep/ --port 4173` + Playwright). Report URLs like `#/markdown-web` for Wouter to check visually.

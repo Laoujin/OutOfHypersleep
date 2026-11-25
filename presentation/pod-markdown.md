@@ -85,22 +85,6 @@ And in a lot of Word docs a "heading" is just bold, bigger text. The structure i
 
 ---
 layout: hs
-routeAlias: markdown-readme
-clicks: 1
----
-
-<Hs id="markdown-readme" />
-
-<!--
-facebook/react CLAUDE.md, verbatim first 12 lines (fetched 2026-11-24, main branch).
-Nobody renders it. The agent reads the raw text, every session.
-ADRs: architecture decisions as Markdown files in the repo (Michael Nygard, 2011, to verify). Agents read why the code is the way it is, not just what it is.
-Agents handle Markdown natively; docx, PDF and friends not so much: they have to be converted first and cost far more tokens. Markdown has real headers (#, ##); in a docx a "header" is often just bold text, so the structure is lost.
-[click] agents.md: "used by over 60k open-source projects" (to verify the current count).
--->
-
----
-layout: hs
 routeAlias: markdown-tree
 clicks: 2
 ---
@@ -109,6 +93,7 @@ clicks: 2
 
 <!--
 A typical repo today, the files an agent reads before touching the code.
+ADRs: architecture decisions as Markdown files in the repo (Michael Nygard, 2011, to verify). Agents read why the code is the way it is, not just what it is.
 [click] Instructions, skills, slash commands, ADRs, specs, plans, memory: every one of them is Markdown.
 [click] The agent's config, memory and playbook live in the format Gruber made for blog posts.
 -->

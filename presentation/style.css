@@ -1116,9 +1116,6 @@ svg .lbl.spec-w { font-size: 20px; }
 .hk-tally b { color: var(--awake); font-size: 30px; margin-right: 8px; }
 .hk-tally span { color: var(--alien); }
 
-.md-file { position: absolute; left: 140px; top: 200px; width: 860px; padding: 0; }
-.md-file .card-h { padding: 14px 20px; margin: 0; border-bottom: 1px solid var(--line); }
-.md-file pre { margin: 0; padding: 20px 24px; font: 400 21px/1.5 var(--mono); white-space: pre-wrap; color: var(--ink); }
 .md-count { position: absolute; right: 140px; top: 50%; translate: 0 -50%; text-align: right; }
 .md-count b { display: block; font: 800 150px/1 var(--mono); color: var(--awake); }
 .md-count small { font: 600 26px var(--mono); color: var(--muted); }
