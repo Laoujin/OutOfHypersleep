@@ -63,9 +63,9 @@ clicks: 4
 <!--
 Vitals instead of slides: pros and cons in one glance.
 Typing code: flatlined. Memorizing APIs: weak.
-Specs from vague requirements: strong pulse.
-Security: the homelab .lan story: asked for local only, it was public for 60 days.
-Architecture: Meridian, five failed attempts at a dead-simple design until I explained it in detail.
+Analysis: strong. A full-screen stamp flashes: business has no clue, we're safe.
+Security: critical. The homelab .lan story: asked for local only, it was public for 60 days.
+Architecture: stable. Meridian, five failed attempts at a dead-simple design until I explained it in detail.
 -->
 
 ---

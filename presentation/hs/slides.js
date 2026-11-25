@@ -1209,12 +1209,13 @@ Subject: Re: SCO: "thread creation is about a thousand times faster
     id: 'vitals', seq: 'final', steps: 5, cls: 'vitals',
     html: () => `${head('pod screen · vitals', 'Schrödinger\'s developer')}
       <div class="vit">${[
-        ['Typing code', 'flat', 'flatlined', 'bad'],
-        ['Memorizing APIs', 'weak', 'weak', 'warn'],
-        ['Turning vague requirements into a spec', 'strong', 'strong pulse: business can\'t describe what it wants', 'ok'],
-        ['Security', 'pulse', 'pulse: asked for <code>.lan</code> (local only), got 60 days public', 'ok'],
-        ['Architecture', 'pulse', 'pulse: Meridian, 5 failed attempts at a dead-simple design until explained in detail', 'ok'],
-      ].map(([n, k, r, c], i) => `<div class="vrow ${c}" data-s="${i}"><div class="vn">${n}</div>${A.ecg(k)}<div class="vr">${r}</div></div>`).join('')}</div>`,
+        ['Typing code', 'flat', 'Flatlined', 'bad'],
+        ['Memorizing APIs', 'weak', 'Weak', 'warn'],
+        ['Analysis', 'strong', 'Strong', 'ok'],
+        ['Security', 'pulse', 'Critical', 'ok'],
+        ['Architecture', 'pulse', 'Stable', 'ok'],
+      ].map(([n, k, w, c], i) => `<div class="vrow ${c}" data-s="${i}"><div class="vn">${n}</div>${A.ecg(k)}<div class="vstamp">${w}</div></div>`).join('')}</div>
+      <div class="vit-big">Business has no clue.<br>We're safe!</div>`,
   });
 
   add({
