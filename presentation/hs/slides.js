@@ -621,7 +621,7 @@ Let a returning customer pay in one click.
           </div>`,
       };
       const word = {
-        slug: 'word', title: 'The spec in Word', sub: 'Only dinosaurs are still doing this', full: true, cls: 'md md-word',
+        slug: 'word', title: 'The spec in docx', sub: 'Only dinosaurs are still doing this', full: true, cls: 'md md-word',
         body: () => `<div class="card md-xml"><div class="card-h">spec.docx › word/document.xml <span>1 of 11 files</span></div><pre>${tags(DOCX_XML)}</pre></div>
           <div class="card md-spec"><div class="card-h">spec.md <b class="ok">✓ Guaranteed structured</b></div><pre>${heads(SPEC_MD)}</pre></div>`,
       };
