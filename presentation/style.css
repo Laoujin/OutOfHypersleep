@@ -1234,11 +1234,11 @@ svg .lbl.spec-w { font-size: 20px; }
 @keyframes vd-shake { 20% { translate: -8px 4px; } 40% { translate: 7px -5px; } 60% { translate: -5px 3px; } 80% { translate: 3px -2px; } }
 
 /* finale: thank you */
-.thanks { --plate-img: url('/plates/thanks-win.webp'); flex-direction: row; align-items: center; justify-content: space-between; padding: 0 120px;
+.thanks { --plate-img: url('/plates/thanks-win.webp'); justify-content: space-between; padding: 72px 96px;
   --plate-shade: linear-gradient(90deg, rgba(5,7,10,.85) 0%, rgba(5,7,10,.55) 40%, rgba(5,7,10,.2) 65%, rgba(5,7,10,.6) 100%); }
-.thanks-big { font: 700 150px/1 var(--head); text-transform: uppercase; color: #fff; text-shadow: 0 0 60px rgba(255, 181, 71, .35); }
-.thanks-qr { display: flex; flex-direction: column; align-items: center; gap: 28px; }
-.thanks-qr .qr { width: 320px; height: 320px; border-radius: 18px; box-shadow: 0 0 0 10px #fff, 0 0 60px rgba(255, 181, 71, .3); }
+.thanks-big { align-self: flex-start; font: 700 120px/1 var(--head); text-transform: uppercase; color: #fff; text-shadow: 0 0 60px rgba(255, 181, 71, .35); }
+.thanks-qr { align-self: flex-end; display: flex; flex-direction: column; align-items: center; gap: 28px; }
+.thanks-qr .qr { width: 260px; height: 260px; border-radius: 18px; box-shadow: 0 0 0 10px #fff, 0 0 60px rgba(255, 181, 71, .3); }
 .thanks-qr .vote-badge { --badge-h: 56px; font-size: 24px; }
 .thanks.lose { --plate-img: url('/plates/thanks-lose.webp'); }
 .thanks.lose .thanks-big { text-shadow: 0 0 60px rgba(255, 59, 92, .4); }
