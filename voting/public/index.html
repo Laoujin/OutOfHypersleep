@@ -19,7 +19,7 @@
   <div class="kicker">cryo chamber · vote for every pod you want woken</div>
   <h2>Which pod do we open?</h2>
   <div class="map-grid" id="pods"></div>
-  <p class="foot" id="foot">One vote per pod per device.</p>
+  <p class="foot" id="foot"></p>
 </main>
 <script>
 const DECKS = [
@@ -101,7 +101,7 @@ el.addEventListener('click', async e => {
     votes = await r.json()
     on ? voted.add(id) : voted.delete(id)
     store.set('hs-voted', [...voted])
-    foot.textContent = 'One vote per pod per device.'
+    foot.textContent = ''
   } catch { foot.innerHTML = '<span class="err">Vote didn\'t reach the ship. Try again.</span>' }
   render()
 })
